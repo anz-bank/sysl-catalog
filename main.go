@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -20,24 +21,30 @@ func main() {
 	if plantumlService == "" {
 		panic("Error: Set SYSL_PLANTUML env variable")
 	}
-	filename := os.Args[1]
+	var output string
+	flag.StringVar(&output, "o", "./", "Output directory of documentation")
+	flag.Parse()
+	filename := flag.Arg(0)
+	fmt.Println(filename)
 	fs := afero.NewOsFs()
 	m, err := parse.NewParser().Parse(filename, fs)
 	if err != nil {
 		panic(err)
 	}
-	README, err := fs.Create("README.md")
+	README, err := fs.Create(output + "/README.md")
+	fs.MkdirAll(output + "/diagrams", os.ModePerm)
 	if err != nil {
 		panic(err)
 	}
 
-	README.Write([]byte(`| Service | Method |`))
+	README.Write([]byte("| Service | Method |\n| - |:-:|\n"))
 
 	for _, app := range m.Apps {
 		appName := strings.Join(app.Name.GetPart(), "")
 		for _, endpoint := range app.Endpoints {
-			outputFileName := appName + endpoint.Name + ".png"
-			README.Write([]byte(fmt.Sprintf("%s | [%s](%s) ", appName, endpoint.Name, outputFileName)))
+			outputFileName := "/diagrams/" + appName + endpoint.Name + ".png"
+			README.Write([]byte(fmt.Sprintf("%s | [%s](%s) \n", appName, endpoint.Name, outputFileName)))
+			outputFileName = output + outputFileName
 			if err != nil {
 				panic(err)
 			}

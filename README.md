@@ -1,1 +1,5 @@
-| Service | Method |Foo | [thisEndpoint](FoothisEndpoint.png) ThisApp | [DoesntExist](ThisAppDoesntExist.png) Bar | [AnotherEndpoint](BarAnotherEndpoint.png) 
+| Service | Method |
+| - |:-:|
+Bar | [AnotherEndpoint](docs/BarAnotherEndpoint.png) 
+Foo | [thisEndpoint](docs/FoothisEndpoint.png) 
+ThisApp | [DoesntExist](docs/ThisAppDoesntExist.png) 

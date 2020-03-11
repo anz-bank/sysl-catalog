@@ -1,2 +1,5 @@
-# syslcatalog
-Generates an API catalog with sequence diagrams from a sysl file
+| Service | Method |
+| - |:-:|
+|Bar|AnotherEndpoint|
+|Foo|thisEndpoint|
+|ThisApp|DoesntExist|

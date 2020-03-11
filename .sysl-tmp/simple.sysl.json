@@ -1,0 +1,223 @@
+{
+ "apps": {
+  "Bar": {
+   "name": {
+    "part": [
+     "Bar"
+    ]
+   },
+   "endpoints": {
+    "AnotherEndpoint": {
+     "name": "AnotherEndpoint",
+     "param": [
+      {
+       "name": "input",
+       "type": {
+        "typeRef": {
+         "ref": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "stmt": [
+      {
+       "ret": {
+        "payload": "ok \u003c: GrpcTesting.Response"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 2,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 1,
+     "col": 1
+    }
+   }
+  },
+  "Foo": {
+   "name": {
+    "part": [
+     "Foo"
+    ]
+   },
+   "endpoints": {
+    "thisEndpoint": {
+     "name": "thisEndpoint",
+     "param": [
+      {
+       "name": "input",
+       "type": {
+        "typeRef": {
+         "ref": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "stmt": [
+      {
+       "call": {
+        "target": {
+         "part": [
+          "Bar"
+         ]
+        },
+        "endpoint": "AnotherEndpoint"
+       }
+      },
+      {
+       "call": {
+        "target": {
+         "part": [
+          "ThisApp"
+         ]
+        },
+        "endpoint": "DoesntExist"
+       }
+      },
+      {
+       "ret": {
+        "payload": "ok \u003c: GrpcTesting.Response"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 6,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 5,
+     "col": 1
+    }
+   }
+  },
+  "GrpcTesting": {
+   "name": {
+    "part": [
+     "GrpcTesting"
+    ]
+   },
+   "types": {
+    "Request": {
+     "tuple": {
+      "attrDefs": {
+       "query": {
+        "primitive": "STRING",
+        "constraint": [
+        ],
+        "sourceContext": {
+         "start": {
+          "line": 13
+         }
+        }
+       }
+      }
+     },
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 12,
+       "col": 4
+      }
+     }
+    },
+    "Response": {
+     "tuple": {
+      "attrDefs": {
+       "query": {
+        "primitive": "STRING",
+        "constraint": [
+        ],
+        "sourceContext": {
+         "start": {
+          "line": 15
+         }
+        }
+       }
+      }
+     },
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 14,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 11,
+     "col": 1
+    }
+   }
+  },
+  "ThisApp": {
+   "name": {
+    "part": [
+     "ThisApp"
+    ]
+   },
+   "endpoints": {
+    "DoesntExist": {
+     "name": "DoesntExist",
+     "stmt": [
+      {
+       "action": {
+        "action": "..."
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 18,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 17,
+     "col": 1
+    }
+   }
+  }
+ }
+}

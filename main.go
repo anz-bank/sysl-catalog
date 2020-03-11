@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"text/template"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -22,23 +21,23 @@ func main() {
 		panic("Error: Set SYSL_PLANTUML env variable")
 	}
 	filename := os.Args[1]
-
 	fs := afero.NewOsFs()
 	m, err := parse.NewParser().Parse(filename, fs)
 	if err != nil {
 		panic(err)
 	}
-	t, err := template.New("markdown").Parse(Index)
 	README, err := fs.Create("README.md")
 	if err != nil {
 		panic(err)
 	}
-	err = t.Execute(README, m)
+
+	README.Write([]byte(`| Service | Method |`))
 
 	for _, app := range m.Apps {
 		appName := strings.Join(app.Name.GetPart(), "")
 		for _, endpoint := range app.Endpoints {
 			outputFileName := appName + endpoint.Name + ".png"
+			README.Write([]byte(fmt.Sprintf("%s | [%s](%s) ", appName, endpoint.Name, outputFileName)))
 			if err != nil {
 				panic(err)
 			}
@@ -62,8 +61,3 @@ func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	p.Title = call
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
 }
-
-const Index = `| Service | Method |
-| - |:-:|{{range $key, $val := .Apps}}{{range $endpointName, $endpoint := $val.Endpoints}}
-|{{$key}}|{{$endpointName}}|{{end}}{{end}}
-`

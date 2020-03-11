@@ -42,9 +42,8 @@ func main() {
 	for _, app := range m.Apps {
 		appName := strings.Join(app.Name.GetPart(), "")
 		for _, endpoint := range app.Endpoints {
-			outputFileName := "/diagrams/" + appName + endpoint.Name + ".png"
+			outputFileName := output +"/diagrams/" + appName + endpoint.Name + ".png"
 			README.Write([]byte(fmt.Sprintf("%s | [%s](%s) \n", appName, endpoint.Name, outputFileName)))
-			outputFileName = output + outputFileName
 			if err != nil {
 				panic(err)
 			}

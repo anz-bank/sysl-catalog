@@ -41,7 +41,7 @@ func main() {
 		panic(err)
 	}
 
-	README.Write([]byte("| Package | Service |\n| - |:-:|\n"))
+	README.Write([]byte("| Package |\n| - |\n"))
 	packageReadmes := make(map[string]afero.File)
 	var pacakgeREADME afero.File
 	var ok bool
@@ -62,13 +62,14 @@ func main() {
 			pacakgeREADME, err = fs.Create(packageReadmeName)
 			packageReadmes[packageReadmeName] = pacakgeREADME
 			pacakgeREADME.Write([]byte("| Service | Method |\n| - |:-:|\n"))
+			README.Write([]byte(fmt.Sprintf("[%s](%s) |\n", packageName, packageName)))
 			if err != nil {
 				panic(err)
 			}
 		} else {
 			pacakgeREADME = packageReadmes[packageReadmeName]
 		}
-		README.Write([]byte(fmt.Sprintf("[%s](%s) | - \n", packageName, packageName)))
+
 		for _, endpoint := range app.Endpoints {
 			outputFileName := path.Join(output, packageName, appName+endpoint.Name+".svg")
 			pacakgeREADME.Write([]byte(fmt.Sprintf("%s | [%s](/%s) \n", packageName, appName, outputFileName)))

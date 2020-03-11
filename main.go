@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
@@ -32,7 +33,7 @@ func main() {
 		panic(err)
 	}
 	README, err := fs.Create(output + "/README.md")
-	fs.MkdirAll(output + "/diagrams", os.ModePerm)
+
 	if err != nil {
 		panic(err)
 	}
@@ -41,10 +42,11 @@ func main() {
 
 	for _, app := range m.Apps {
 		appName := strings.Join(app.Name.GetPart(), "")
+		fs.MkdirAll(path.Join(output, appName), os.ModePerm)
 		for _, endpoint := range app.Endpoints {
-			outputFileName := "diagrams/" + appName + endpoint.Name + ".png"
+			outputFileName := path.Join(appName, appName + endpoint.Name + ".png")
 			README.Write([]byte(fmt.Sprintf("%s | [%s](%s) \n", appName, endpoint.Name, outputFileName)))
-			outputFileName = output + "/" + outputFileName
+			//outputFileName = output + "/" + outputFileName
 			if err != nil {
 				panic(err)
 			}

@@ -1,5 +1,5 @@
 | Service | Method |
 | - |:-:|
-Foo | [thisEndpoint](diagrams/FoothisEndpoint.png) 
-ThisApp | [DoesntExist](diagrams/ThisAppDoesntExist.png) 
-Bar | [AnotherEndpoint](diagrams/BarAnotherEndpoint.png) 
+Bar | [AnotherEndpoint](Bar/BarAnotherEndpoint.png) 
+Foo | [thisEndpoint](Foo/FoothisEndpoint.png) 
+ThisApp | [DoesntExist](ThisApp/ThisAppDoesntExist.png) 

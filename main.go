@@ -45,8 +45,7 @@ func main() {
 		fs.MkdirAll(path.Join(output, appName), os.ModePerm)
 		for _, endpoint := range app.Endpoints {
 			outputFileName := path.Join(appName, appName + endpoint.Name + ".png")
-			README.Write([]byte(fmt.Sprintf("%s | [%s](%s) \n", appName, endpoint.Name, outputFileName)))
-			//outputFileName = output + "/" + outputFileName
+			README.Write([]byte(fmt.Sprintf("[%s](%s) | [%s](%s) \n", appName, appName, endpoint.Name, outputFileName)))
 			if err != nil {
 				panic(err)
 			}

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/anz-bank/sysl/pkg/syslutil"
@@ -40,8 +41,10 @@ func main() {
 		panic(err)
 	}
 
-	README.Write([]byte("| Service | Method |\n| - |:-:|\n"))
-
+	README.Write([]byte("| Package | Service |\n| - |:-:|\n"))
+	packageReadmes := make(map[string]afero.File)
+	var pacakgeREADME afero.File
+	var ok bool
 	for _, app := range m.Apps {
 		if syslutil.HasPattern(app.Attrs, "ignore") {
 			continue
@@ -54,9 +57,21 @@ func main() {
 			packageName = appName
 		}
 		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
+		packageReadmeName := filepath.Join(output, packageName, "Readme.md")
+		if pacakgeREADME, ok = packageReadmes[packageReadmeName]; !ok {
+			pacakgeREADME, err = fs.Create(packageReadmeName)
+			packageReadmes[packageReadmeName] = pacakgeREADME
+			pacakgeREADME.Write([]byte("| Service | Method |\n| - |:-:|\n"))
+			if err != nil {
+				panic(err)
+			}
+		} else {
+			pacakgeREADME = packageReadmes[packageReadmeName]
+		}
+		README.Write([]byte(fmt.Sprintf("[%s](%s) | - \n", packageName, packageName)))
 		for _, endpoint := range app.Endpoints {
-			outputFileName := path.Join(output, packageName, appName+endpoint.Name+".png")
-			README.Write([]byte(fmt.Sprintf("[%s](%s) | [%s](/%s) \n", packageName, packageName, endpoint.Name, outputFileName)))
+			outputFileName := path.Join(output, packageName, appName+endpoint.Name+".svg")
+			pacakgeREADME.Write([]byte(fmt.Sprintf("%s | [%s](/%s) \n", packageName, appName, outputFileName)))
 			if err != nil {
 				panic(err)
 			}

@@ -7,6 +7,8 @@ import (
 	"path"
 	"strings"
 
+	"github.com/anz-bank/sysl/pkg/syslutil"
+
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/sirupsen/logrus"
@@ -22,7 +24,7 @@ func main() {
 	if plantumlService == "" {
 		panic("Error: Set SYSL_PLANTUML env variable")
 	}
-	var output string
+	var output, packageName string
 	flag.StringVar(&output, "o", "./", "Output directory of documentation")
 	flag.Parse()
 	filename := flag.Arg(0)
@@ -41,11 +43,20 @@ func main() {
 	README.Write([]byte("| Service | Method |\n| - |:-:|\n"))
 
 	for _, app := range m.Apps {
+		if syslutil.HasPattern(app.Attrs, "ignore") {
+			continue
+		}
 		appName := strings.Join(app.Name.GetPart(), "")
-		fs.MkdirAll(path.Join(output, appName), os.ModePerm)
+
+		if attr := app.GetAttrs()["package"]; attr != nil {
+			packageName = attr.GetS()
+		} else {
+			packageName = appName
+		}
+		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
 		for _, endpoint := range app.Endpoints {
-			outputFileName := path.Join(appName, appName + endpoint.Name + ".png")
-			README.Write([]byte(fmt.Sprintf("[%s](%s) | [%s](%s) \n", appName, appName, endpoint.Name, outputFileName)))
+			outputFileName := path.Join(output, packageName, appName+endpoint.Name+".png")
+			README.Write([]byte(fmt.Sprintf("[%s](%s) | [%s](/%s) \n", packageName, packageName, endpoint.Name, outputFileName)))
 			if err != nil {
 				panic(err)
 			}

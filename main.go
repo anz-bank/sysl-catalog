@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"html/template"
 	"os"
 	"path"
 	"path/filepath"
@@ -20,6 +21,28 @@ import (
 	"github.com/spf13/afero"
 )
 
+type IndexMarkdown struct {
+	PackageName string
+	App         []*AppMarkdown
+}
+
+const IndexMarkdownTemplate = `
+| Package |\n| - |
+{{range $Package := .}}{{$Package.PackageName}}|
+{{end}}
+`
+
+type AppMarkdown struct {
+	ServiceName string
+	Method      string
+	Link        string
+}
+
+const AppMarkdownTemplate = `
+| Service | Method |\n| - |:-:|\n
+{{range $App := .}}{{$App.ServiceName}}|({{$App.Method}})[{{$App.Link}}] |{{end}}
+`
+
 func main() {
 	plantumlService := os.Getenv("SYSL_PLANTUML")
 	if plantumlService == "" {
@@ -35,57 +58,88 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	README, err := fs.Create(output + "/README.md")
+	// README, err := fs.Create(output + "/README.md")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	Index := make(map[string]*IndexMarkdown)
 
-	if err != nil {
-		panic(err)
-	}
-
-	README.Write([]byte("| Package |\n| - |\n"))
-	packageReadmes := make(map[string]afero.File)
-	var pacakgeREADME afero.File
-	var ok bool
 	for _, app := range m.Apps {
 		if syslutil.HasPattern(app.Attrs, "ignore") {
 			continue
 		}
 		appName := strings.Join(app.Name.GetPart(), "")
-
 		if attr := app.GetAttrs()["package"]; attr != nil {
 			packageName = attr.GetS()
 		} else {
 			packageName = appName
 		}
+		packageReadmeName := filepath.Join(output, packageName, "README.md")
+		MarkdownApp := AppMarkdown{}
 		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
-		packageReadmeName := filepath.Join(output, packageName, "Readme.md")
-		if pacakgeREADME, ok = packageReadmes[packageReadmeName]; !ok {
-			pacakgeREADME, err = fs.Create(packageReadmeName)
-			packageReadmes[packageReadmeName] = pacakgeREADME
-			pacakgeREADME.Write([]byte("| Service | Method |\n| - |:-:|\n"))
-			README.Write([]byte(fmt.Sprintf("[%s](%s) |\n", packageName, packageName)))
-			if err != nil {
-				panic(err)
-			}
-		} else {
-			pacakgeREADME = packageReadmes[packageReadmeName]
-		}
-
+		// if pacakgeREADME, ok = packageReadmes[packageReadmeName]; !ok {
+		// 	pacakgeREADME, err = fs.Create(packageReadmeName)
+		// 	packageReadmes[packageReadmeName] = pacakgeREADME
+		// pacakgeREADME.Write([]byte("| Service | Method |\n| - |:-:|\n"))
+		// README.Write([]byte(fmt.Sprintf("[%s](%s) |\n", packageName, packageName)))
+		// 	if err != nil {
+		// 		panic(err)
+		// 	}
+		// } else {
+		// 	pacakgeREADME = packageReadmes[packageReadmeName]
+		// }
 		for _, endpoint := range app.Endpoints {
 			outputFileName := path.Join(output, packageName, appName+endpoint.Name+".svg")
-			pacakgeREADME.Write([]byte(fmt.Sprintf("%s | [%s](/%s) \n", packageName, appName, outputFileName)))
-			if err != nil {
-				panic(err)
+			MarkdownApp = AppMarkdown{
+				ServiceName: appName,
+				Method:      endpoint.Name,
+				Link:        outputFileName,
 			}
-			sequenceDiagram, err := CreateSequenceDiagram(m, fmt.Sprintf("%s <- %s", appName, endpoint.Name))
-			if err != nil {
-				panic(err)
-			}
-			diagrams.OutputPlantuml(outputFileName, plantumlService, sequenceDiagram, fs)
+			CreateSequenceDiagramFile(
+				m,
+				fmt.Sprintf("%s <- %s", appName, endpoint.Name),
+				outputFileName,
+				plantumlService,
+				fs)
 		}
+		if _, ok := Index[packageReadmeName]; !ok {
+			Index[packageReadmeName] = &IndexMarkdown{}
+			Index[packageReadmeName].App = make([]*AppMarkdown, 10)
+		}
+		Index[packageReadmeName].App = append(Index[packageReadmeName].App, &MarkdownApp)
 	}
+	README, err := fs.Create(output + "/README.md")
 	if err != nil {
 		panic(err)
 	}
+	IndexTemplate, err := template.New("markdown").Parse(IndexMarkdownTemplate)
+	err = IndexTemplate.Execute(README, Index)
+	if err != nil {
+		panic(err)
+	}
+	AppTemplate, err := template.New("markdown").Parse(AppMarkdownTemplate)
+	if err != nil {
+		panic(err)
+	}
+	for Name, Apps := range Index {
+		README, err := fs.Create(Name)
+		if err != nil {
+			panic(err)
+		}
+		err = AppTemplate.Execute(README, Apps)
+	}
+}
+
+// func GenerateMarkdown(index []IndexMarkdown, outputName string, fs){
+
+// }
+
+func CreateSequenceDiagramFile(m *sysl.Module, call, outputFileName, plantumlService string, fs afero.Fs) error {
+	sequenceDiagram, err := CreateSequenceDiagram(m, call)
+	if err != nil {
+		panic(err)
+	}
+	return diagrams.OutputPlantuml(outputFileName, plantumlService, sequenceDiagram, fs)
 }
 func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	l := &cmdutils.Labeler{}

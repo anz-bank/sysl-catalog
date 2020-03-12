@@ -1,7 +1,7 @@
 
 [Back](../README.md)
-| Service | Method |
+| Service | EndpointName |
 | - |:-:|
-Bar|(AnotherEndpoint)[AnotherEndpoint.svg] |
-Foo|(thisEndpoint)[thisEndpoint.svg] |
+Foo|[thisEndpoint](thisEndpoint.svg.md) |
+Bar|[AnotherEndpoint](AnotherEndpoint.svg.md) |
 

@@ -1,9 +1,9 @@
 
 [Back](../README.md)
-| Service | Method |
+| Service | EndpointName |
 | - |:-:|
-Apple|(AnotherEndpoint)[AnotherEndpoint.svg] |
-Apple|(sodifsdoif)[sodifsdoif.svg] |
-Apple|(skljdfnskjdfnsd)[skljdfnskjdfnsd.svg] |
-Banana|(thisEndpoint)[thisEndpoint.svg] |
+Apple|[skljdfnskjdfnsd](skljdfnskjdfnsd.svg.md) |
+Apple|[AnotherEndpoint](AnotherEndpoint.svg.md) |
+Apple|[sodifsdoif](sodifsdoif.svg.md) |
+Banana|[thisEndpoint](thisEndpoint.svg.md) |
 

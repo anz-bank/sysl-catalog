@@ -24,68 +24,75 @@ import (
 type IndexMarkdown struct {
 	PackageName    string
 	PackageRelLink string
-	App            []*AppMarkdown
+	EndPoints      []*AppMarkdown
 }
 
 const IndexMarkdownTemplate = `
-| Package | Service Name | Method |
-| - | - | - |{{range $PackxageName, $App := .}}{{range $Service := $App.App}}
-[{{$App.PackageName}}]({{$App.PackageRelLink}})|{{$Service.ServiceName}}|[{{$Service.Method}}]({{$Service.RelLink}}) |{{end}}{{end}}
+| Package | Service Name | EndpointName |
+| - | - | - |{{range $PackageName, $App := .}}{{range $Service := $App.EndPoints}}
+[{{$App.PackageName}}]({{$App.PackageRelLink}})|{{$Service.AppName}}|[{{$Service.EndpointName}}]({{$Service.Package}}/{{$Service.EndpointName}}.svg.md) |{{end}}{{end}}
 `
 
 type AppMarkdown struct {
-	ServiceName string
-	Method      string
-	Link        string
-	RelLink     string
+	Package      string
+	AppName      string
+	EndpointName string
 }
 
 const AppMarkdownTemplate = `
 [Back](../README.md)
-| Service | Method |
+| Service | EndpointName |
 | - |:-:|
-{{range $App := .}}{{$App.ServiceName}}|({{$App.Method}})[{{$App.RelLink}}] |
+{{range $EndPoints := .}}{{$EndPoints.AppName}}|[{{$EndPoints.EndpointName}}]({{$EndPoints.EndpointName}}.svg.md) |
 {{end}}
 `
+const embededSvgTemplate = `
+[Back](README.md)
+
+![alt text]({{.EndpointName}}.svg)
+
+`
+const ext = ".svg"
+const generatedReadmeName = "README.md"
 
 func main() {
 	plantumlService := os.Getenv("SYSL_PLANTUML")
 	if plantumlService == "" {
 		panic("Error: Set SYSL_PLANTUML env variable")
 	}
-	var output, packageName string
+	var output string
 	flag.StringVar(&output, "o", "./", "Output directory of documentation")
 	flag.Parse()
 	filename := flag.Arg(0)
-	fmt.Println(filename)
 	fs := afero.NewOsFs()
 	m, err := parse.NewParser().Parse(filename, fs)
 	if err != nil {
 		panic(err)
 	}
+	Index := ConvertToMarkdownObject(m, output, plantumlService, fs)
+	GenerateMarkdown(Index, output, fs)
+}
+func ConvertToMarkdownObject(m *sysl.Module, output, plantumlService string, fs afero.Fs) map[string]*IndexMarkdown {
 	Index := make(map[string]*IndexMarkdown)
-
+	var packageName string
 	for _, app := range m.Apps {
 		if syslutil.HasPattern(app.Attrs, "ignore") {
 			continue
 		}
 		appName := strings.Join(app.Name.GetPart(), "")
+		packageName = appName
 		if attr := app.GetAttrs()["package"]; attr != nil {
 			packageName = attr.GetS()
-		} else {
-			packageName = appName
 		}
-		packageRelLink := filepath.Join(packageName, "README.md")
-		MarkdownApp := []*AppMarkdown{}
+		packageRelLink := filepath.Join(packageName, generatedReadmeName)
+		MarkdownApp := make([]*AppMarkdown, 0, len(app.Endpoints))
 		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
 		for _, endpoint := range app.Endpoints {
-			outputFilePath := path.Join(output, packageName)
-			outputFileName := path.Join(output, packageName, endpoint.Name+".svg")
+			outputFileName := path.Join(output, packageName, endpoint.Name+ext)
 			MarkdownApp = append(MarkdownApp, &AppMarkdown{
-				ServiceName: appName,
-				Method:      endpoint.Name,
-				Link:        outputFilePath,
-				RelLink:     endpoint.Name + ".svg",
+				Package:      packageName,
+				AppName:      appName,
+				EndpointName: endpoint.Name,
 			})
 			CreateSequenceDiagramFile(
 				m,
@@ -96,19 +103,17 @@ func main() {
 		}
 		if _, ok := Index[packageRelLink]; !ok {
 			Index[packageRelLink] = &IndexMarkdown{PackageName: packageName, PackageRelLink: packageRelLink}
-			Index[packageRelLink].App = []*AppMarkdown{}
+			Index[packageRelLink].EndPoints = []*AppMarkdown{}
 		}
-
-		Index[packageRelLink].App = append(Index[packageRelLink].App, MarkdownApp...)
-		fmt.Println(Index[packageRelLink].App)
+		Index[packageRelLink].EndPoints = append(Index[packageRelLink].EndPoints, MarkdownApp...)
+		fmt.Println(Index[packageRelLink].EndPoints)
 	}
+	return Index
 
-	README, err := fs.Create(output + "/README.md")
-	if err != nil {
-		panic(err)
-	}
+}
+
+func GenerateMarkdown(Index map[string]*IndexMarkdown, output string, fs afero.Fs) {
 	IndexTemplate, err := template.New("markdown").Parse(IndexMarkdownTemplate)
-	err = IndexTemplate.Execute(README, Index)
 	if err != nil {
 		panic(err)
 	}
@@ -116,20 +121,38 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	EmbededSvgTemplate, err := template.New("markdown").Parse(embededSvgTemplate)
+	if err != nil {
+		panic(err)
+	}
+	README, err := fs.Create(output + "/README.md")
+	if err != nil {
+		panic(err)
+	}
+	if err := IndexTemplate.Execute(README, Index); err != nil {
+		panic(err)
+	}
 	for _, Apps := range Index {
 		README, err := fs.Create(path.Join(output, Apps.PackageRelLink))
+		fmt.Println(path.Join(output, Apps.PackageRelLink))
 		if err != nil {
 			panic(err)
 		}
 		fmt.Println("Creating", README.Name(), Apps)
-		err = AppTemplate.Execute(README, Apps.App)
+		if err := AppTemplate.Execute(README, Apps.EndPoints); err != nil {
+			panic(err)
+		}
+		for _, Endpoint := range Apps.EndPoints {
+			embededSvg, err := fs.Create(path.Join(output, Endpoint.Package, Endpoint.EndpointName+ext+".md"))
+			if err != nil {
+				panic(err)
+			}
+			if err := EmbededSvgTemplate.Execute(embededSvg, Endpoint); err != nil {
+				panic(err)
+			}
+		}
 	}
-
 }
-
-//func GenerateMarkdown(index []IndexMarkdown, outputName string, fs){
-//
-//}
 
 func CreateSequenceDiagramFile(m *sysl.Module, call, outputFileName, plantumlService string, fs afero.Fs) error {
 	sequenceDiagram, err := CreateSequenceDiagram(m, call)
@@ -138,6 +161,7 @@ func CreateSequenceDiagramFile(m *sysl.Module, call, outputFileName, plantumlSer
 	}
 	return diagrams.OutputPlantuml(outputFileName, plantumlService, sequenceDiagram, fs)
 }
+
 func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	l := &cmdutils.Labeler{}
 	p := &sequencediagram.SequenceDiagParam{}

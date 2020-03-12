@@ -1,6 +1,6 @@
 
 [Back](../README.md)
-| Service | Method |
+| Service | EndpointName |
 | - |:-:|
-GrpcTesting|(qwertyuio)[qwertyuio.svg] |
+GrpcTesting|[qwertyuio](qwertyuio.svg.md) |
 

@@ -22,13 +22,15 @@ import (
 )
 
 type IndexMarkdown struct {
-	PackageName string
-	App         []*AppMarkdown
+	PackageName       string
+	PackagePrettyName string
+	App               []*AppMarkdown
 }
 
 const IndexMarkdownTemplate = `
-| Package |\n| - |
-{{range $Package := .}}{{$Package.PackageName}}|
+| Package |
+| - |
+{{range $PackageName, $App := .}}[{{$App.PackageName}}]({{$App.PackagePrettyName}})|
 {{end}}
 `
 
@@ -39,8 +41,10 @@ type AppMarkdown struct {
 }
 
 const AppMarkdownTemplate = `
-| Service | Method |\n| - |:-:|\n
-{{range $App := .}}{{$App.ServiceName}}|({{$App.Method}})[{{$App.Link}}] |{{end}}
+| Service | Method |
+| - |:-:|
+{{range $App := .}}{{$App.ServiceName}}|({{$App.Method}})[{{$App.Link}}] |
+{{end}}
 `
 
 func main() {
@@ -74,27 +78,16 @@ func main() {
 		} else {
 			packageName = appName
 		}
-		packageReadmeName := filepath.Join(output, packageName, "README.md")
-		MarkdownApp := AppMarkdown{}
+		packageReadmeName := filepath.Join(output, packageName)
+		MarkdownApp := []*AppMarkdown{}
 		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
-		// if pacakgeREADME, ok = packageReadmes[packageReadmeName]; !ok {
-		// 	pacakgeREADME, err = fs.Create(packageReadmeName)
-		// 	packageReadmes[packageReadmeName] = pacakgeREADME
-		// pacakgeREADME.Write([]byte("| Service | Method |\n| - |:-:|\n"))
-		// README.Write([]byte(fmt.Sprintf("[%s](%s) |\n", packageName, packageName)))
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// } else {
-		// 	pacakgeREADME = packageReadmes[packageReadmeName]
-		// }
 		for _, endpoint := range app.Endpoints {
 			outputFileName := path.Join(output, packageName, appName+endpoint.Name+".svg")
-			MarkdownApp = AppMarkdown{
+			MarkdownApp = append(MarkdownApp, &AppMarkdown{
 				ServiceName: appName,
 				Method:      endpoint.Name,
 				Link:        outputFileName,
-			}
+			})
 			CreateSequenceDiagramFile(
 				m,
 				fmt.Sprintf("%s <- %s", appName, endpoint.Name),
@@ -103,10 +96,12 @@ func main() {
 				fs)
 		}
 		if _, ok := Index[packageReadmeName]; !ok {
-			Index[packageReadmeName] = &IndexMarkdown{}
-			Index[packageReadmeName].App = make([]*AppMarkdown, 10)
+			Index[packageReadmeName] = &IndexMarkdown{PackageName: packageName, PackagePrettyName: packageReadmeName}
+			Index[packageReadmeName].App = []*AppMarkdown{}
 		}
-		Index[packageReadmeName].App = append(Index[packageReadmeName].App, &MarkdownApp)
+
+		Index[packageReadmeName].App = append(Index[packageReadmeName].App, MarkdownApp...)
+		fmt.Println(Index[packageReadmeName].App)
 	}
 	README, err := fs.Create(output + "/README.md")
 	if err != nil {
@@ -121,13 +116,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	for Name, Apps := range Index {
-		README, err := fs.Create(Name)
+	for _, Apps := range Index {
+		README, err := fs.Create(Apps.PackagePrettyName + "/README.md")
 		if err != nil {
 			panic(err)
 		}
-		err = AppTemplate.Execute(README, Apps)
+		fmt.Println("Creating", README.Name(), Apps)
+		err = AppTemplate.Execute(README, Apps.App)
 	}
+
 }
 
 // func GenerateMarkdown(index []IndexMarkdown, outputName string, fs){

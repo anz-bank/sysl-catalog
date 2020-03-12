@@ -1,5 +1,6 @@
 
+[Back](../README.md)
 | Service | Method |
 | - |:-:|
-GrpcTesting|(qwertyuio)[docs/GrpcTesting/GrpcTestingqwertyuio.svg] |
+GrpcTesting|(qwertyuio)[qwertyuio.svg] |
 

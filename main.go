@@ -22,28 +22,29 @@ import (
 )
 
 type IndexMarkdown struct {
-	PackageName       string
-	PackagePrettyName string
-	App               []*AppMarkdown
+	PackageName    string
+	PackageRelLink string
+	App            []*AppMarkdown
 }
 
 const IndexMarkdownTemplate = `
-| Package |
-| - |
-{{range $PackageName, $App := .}}[{{$App.PackageName}}]({{$App.PackagePrettyName}})|
-{{end}}
+| Package | Service Name | Method |
+| - | - | - |{{range $PackxageName, $App := .}}{{range $Service := $App.App}}
+[{{$App.PackageName}}]({{$App.PackageRelLink}})|{{$Service.ServiceName}}|[{{$Service.Method}}]({{$Service.RelLink}}) |{{end}}{{end}}
 `
 
 type AppMarkdown struct {
 	ServiceName string
 	Method      string
 	Link        string
+	RelLink     string
 }
 
 const AppMarkdownTemplate = `
+[Back](../README.md)
 | Service | Method |
 | - |:-:|
-{{range $App := .}}{{$App.ServiceName}}|({{$App.Method}})[{{$App.Link}}] |
+{{range $App := .}}{{$App.ServiceName}}|({{$App.Method}})[{{$App.RelLink}}] |
 {{end}}
 `
 
@@ -62,10 +63,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	// README, err := fs.Create(output + "/README.md")
-	// if err != nil {
-	// 	panic(err)
-	// }
 	Index := make(map[string]*IndexMarkdown)
 
 	for _, app := range m.Apps {
@@ -78,15 +75,17 @@ func main() {
 		} else {
 			packageName = appName
 		}
-		packageReadmeName := filepath.Join(output, packageName)
+		packageRelLink := filepath.Join(packageName, "README.md")
 		MarkdownApp := []*AppMarkdown{}
 		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
 		for _, endpoint := range app.Endpoints {
-			outputFileName := path.Join(output, packageName, appName+endpoint.Name+".svg")
+			outputFilePath := path.Join(output, packageName)
+			outputFileName := path.Join(output, packageName, endpoint.Name+".svg")
 			MarkdownApp = append(MarkdownApp, &AppMarkdown{
 				ServiceName: appName,
 				Method:      endpoint.Name,
-				Link:        outputFileName,
+				Link:        outputFilePath,
+				RelLink:     endpoint.Name + ".svg",
 			})
 			CreateSequenceDiagramFile(
 				m,
@@ -95,14 +94,15 @@ func main() {
 				plantumlService,
 				fs)
 		}
-		if _, ok := Index[packageReadmeName]; !ok {
-			Index[packageReadmeName] = &IndexMarkdown{PackageName: packageName, PackagePrettyName: packageReadmeName}
-			Index[packageReadmeName].App = []*AppMarkdown{}
+		if _, ok := Index[packageRelLink]; !ok {
+			Index[packageRelLink] = &IndexMarkdown{PackageName: packageName, PackageRelLink: packageRelLink}
+			Index[packageRelLink].App = []*AppMarkdown{}
 		}
 
-		Index[packageReadmeName].App = append(Index[packageReadmeName].App, MarkdownApp...)
-		fmt.Println(Index[packageReadmeName].App)
+		Index[packageRelLink].App = append(Index[packageRelLink].App, MarkdownApp...)
+		fmt.Println(Index[packageRelLink].App)
 	}
+
 	README, err := fs.Create(output + "/README.md")
 	if err != nil {
 		panic(err)
@@ -117,7 +117,7 @@ func main() {
 		panic(err)
 	}
 	for _, Apps := range Index {
-		README, err := fs.Create(Apps.PackagePrettyName + "/README.md")
+		README, err := fs.Create(path.Join(output, Apps.PackageRelLink))
 		if err != nil {
 			panic(err)
 		}
@@ -127,9 +127,9 @@ func main() {
 
 }
 
-// func GenerateMarkdown(index []IndexMarkdown, outputName string, fs){
-
-// }
+//func GenerateMarkdown(index []IndexMarkdown, outputName string, fs){
+//
+//}
 
 func CreateSequenceDiagramFile(m *sysl.Module, call, outputFileName, plantumlService string, fs afero.Fs) error {
 	sequenceDiagram, err := CreateSequenceDiagram(m, call)

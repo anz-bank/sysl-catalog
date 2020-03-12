@@ -1,10 +1,15 @@
 {
  "apps": {
-  "Bar": {
+  "Apple": {
    "name": {
     "part": [
-     "Bar"
+     "Apple"
     ]
+   },
+   "attrs": {
+    "package": {
+     "s": "Fruits"
+    }
    },
    "endpoints": {
     "AnotherEndpoint": {
@@ -38,7 +43,79 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 2,
+       "line": 14,
+       "col": 4
+      }
+     }
+    },
+    "skljdfnskjdfnsd": {
+     "name": "skljdfnskjdfnsd",
+     "param": [
+      {
+       "name": "input",
+       "type": {
+        "typeRef": {
+         "ref": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "stmt": [
+      {
+       "ret": {
+        "payload": "ok \u003c: GrpcTesting.Response"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 18,
+       "col": 4
+      }
+     }
+    },
+    "sodifsdoif": {
+     "name": "sodifsdoif",
+     "param": [
+      {
+       "name": "input",
+       "type": {
+        "typeRef": {
+         "ref": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "stmt": [
+      {
+       "ret": {
+        "payload": "ok \u003c: GrpcTesting.Response"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 16,
        "col": 4
       }
      }
@@ -47,16 +124,21 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 1,
+     "line": 12,
      "col": 1
     }
    }
   },
-  "Foo": {
+  "Banana": {
    "name": {
     "part": [
-     "Foo"
+     "Banana"
     ]
+   },
+   "attrs": {
+    "package": {
+     "s": "Fruits"
+    }
    },
    "endpoints": {
     "thisEndpoint": {
@@ -110,7 +192,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 6,
+       "line": 23,
        "col": 4
       }
      }
@@ -119,7 +201,141 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 5,
+     "line": 21,
+     "col": 1
+    }
+   }
+  },
+  "Bar": {
+   "name": {
+    "part": [
+     "Bar"
+    ]
+   },
+   "attrs": {
+    "package": {
+     "s": "Standard"
+    }
+   },
+   "endpoints": {
+    "AnotherEndpoint": {
+     "name": "AnotherEndpoint",
+     "param": [
+      {
+       "name": "input",
+       "type": {
+        "typeRef": {
+         "ref": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "stmt": [
+      {
+       "ret": {
+        "payload": "ok \u003c: GrpcTesting.Response"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 3,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 1,
+     "col": 1
+    }
+   }
+  },
+  "Foo": {
+   "name": {
+    "part": [
+     "Foo"
+    ]
+   },
+   "attrs": {
+    "package": {
+     "s": "Standard"
+    }
+   },
+   "endpoints": {
+    "thisEndpoint": {
+     "name": "thisEndpoint",
+     "param": [
+      {
+       "name": "input",
+       "type": {
+        "typeRef": {
+         "ref": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "stmt": [
+      {
+       "call": {
+        "target": {
+         "part": [
+          "Bar"
+         ]
+        },
+        "endpoint": "AnotherEndpoint"
+       }
+      },
+      {
+       "call": {
+        "target": {
+         "part": [
+          "ThisApp"
+         ]
+        },
+        "endpoint": "DoesntExist"
+       }
+      },
+      {
+       "ret": {
+        "payload": "ok \u003c: GrpcTesting.Response"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 8,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 6,
      "col": 1
     }
    }
@@ -129,6 +345,25 @@
     "part": [
      "GrpcTesting"
     ]
+   },
+   "endpoints": {
+    "qwertyuio": {
+     "name": "qwertyuio",
+     "stmt": [
+      {
+       "ret": {
+        "payload": "ok \u003c: Request"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 29,
+       "col": 4
+      }
+     }
+    }
    },
    "types": {
     "Request": {
@@ -140,7 +375,7 @@
         ],
         "sourceContext": {
          "start": {
-          "line": 13
+          "line": 32
          }
         }
        }
@@ -149,7 +384,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 12,
+       "line": 31,
        "col": 4
       }
      }
@@ -163,7 +398,7 @@
         ],
         "sourceContext": {
          "start": {
-          "line": 15
+          "line": 34
          }
         }
        }
@@ -172,7 +407,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 14,
+       "line": 33,
        "col": 4
       }
      }
@@ -181,7 +416,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 11,
+     "line": 28,
      "col": 1
     }
    }
@@ -191,6 +426,17 @@
     "part": [
      "ThisApp"
     ]
+   },
+   "attrs": {
+    "patterns": {
+     "a": {
+      "elt": [
+       {
+        "s": "ignore"
+       }
+      ]
+     }
+    }
    },
    "endpoints": {
     "DoesntExist": {
@@ -205,7 +451,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 18,
+       "line": 37,
        "col": 4
       }
      }
@@ -214,7 +460,37 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 17,
+     "line": 36,
+     "col": 1
+    }
+   }
+  },
+  "_": {
+   "name": {
+    "part": [
+     "_"
+    ]
+   },
+   "attrs": {
+    "patterns": {
+     "a": {
+      "elt": [
+       {
+        "s": "ignore"
+       }
+      ]
+     }
+    }
+   },
+   "endpoints": {
+    "...": {
+     "name": "..."
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 39,
      "col": 1
     }
    }

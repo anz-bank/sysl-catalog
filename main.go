@@ -94,12 +94,16 @@ func ConvertToMarkdownObject(m *sysl.Module, output, plantumlService string, fs 
 				AppName:      appName,
 				EndpointName: endpoint.Name,
 			})
-			CreateSequenceDiagramFile(
+
+			err := CreateSequenceDiagramFile(
 				m,
 				fmt.Sprintf("%s <- %s", appName, endpoint.Name),
 				outputFileName,
 				plantumlService,
 				fs)
+			if err != nil {
+				panic(err)
+			}
 		}
 		if _, ok := Index[packageRelLink]; !ok {
 			Index[packageRelLink] = &IndexMarkdown{PackageName: packageName, PackageRelLink: packageRelLink}

@@ -106,7 +106,6 @@ func ConvertToMarkdownObject(m *sysl.Module, output, plantumlService string, fs 
 			Index[packageRelLink].EndPoints = []*AppMarkdown{}
 		}
 		Index[packageRelLink].EndPoints = append(Index[packageRelLink].EndPoints, MarkdownApp...)
-		fmt.Println(Index[packageRelLink].EndPoints)
 	}
 	return Index
 
@@ -126,6 +125,7 @@ func GenerateMarkdown(Index map[string]*IndexMarkdown, output string, fs afero.F
 		panic(err)
 	}
 	README, err := fs.Create(output + "/README.md")
+	fmt.Println("Creating", README.Name())
 	if err != nil {
 		panic(err)
 	}
@@ -134,11 +134,10 @@ func GenerateMarkdown(Index map[string]*IndexMarkdown, output string, fs afero.F
 	}
 	for _, Apps := range Index {
 		README, err := fs.Create(path.Join(output, Apps.PackageRelLink))
-		fmt.Println(path.Join(output, Apps.PackageRelLink))
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println("Creating", README.Name(), Apps)
+		fmt.Println("Creating", README.Name())
 		if err := AppTemplate.Execute(README, Apps.EndPoints); err != nil {
 			panic(err)
 		}

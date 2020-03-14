@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/anz-bank/sysl/pkg/syslutil"
@@ -75,7 +76,9 @@ func main() {
 func ConvertToMarkdownObject(m *sysl.Module, output, plantumlService string, fs afero.Fs) map[string]*IndexMarkdown {
 	Index := make(map[string]*IndexMarkdown)
 	var packageName string
-	for _, app := range m.Apps {
+
+	for _, key := range alphabeticalApps(m.Apps) {
+		app := m.Apps[key]
 		if syslutil.HasPattern(app.Attrs, "ignore") {
 			continue
 		}
@@ -87,7 +90,8 @@ func ConvertToMarkdownObject(m *sysl.Module, output, plantumlService string, fs 
 		packageRelLink := filepath.Join(packageName, generatedReadmeName)
 		MarkdownApp := make([]*AppMarkdown, 0, len(app.Endpoints))
 		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
-		for _, endpoint := range app.Endpoints {
+		for _, key2 := range alphabeticalEndpoints(app.Endpoints) {
+			endpoint := app.Endpoints[key2]
 			outputFileName := path.Join(output, packageName, endpoint.Name+ext)
 			MarkdownApp = append(MarkdownApp, &AppMarkdown{
 				Package:      packageName,
@@ -136,16 +140,18 @@ func GenerateMarkdown(Index map[string]*IndexMarkdown, output string, fs afero.F
 	if err := IndexTemplate.Execute(README, Index); err != nil {
 		panic(err)
 	}
-	for _, Apps := range Index {
-		README, err := fs.Create(path.Join(output, Apps.PackageRelLink))
+
+	for _, key := range alphabeticalIndex(Index) {
+		row := Index[key]
+		README, err := fs.Create(path.Join(output, row.PackageRelLink))
 		if err != nil {
 			panic(err)
 		}
 		fmt.Println("Creating", README.Name())
-		if err := AppTemplate.Execute(README, Apps.EndPoints); err != nil {
+		if err := AppTemplate.Execute(README, row.EndPoints); err != nil {
 			panic(err)
 		}
-		for _, Endpoint := range Apps.EndPoints {
+		for _, Endpoint := range row.EndPoints {
 			embededSvg, err := fs.Create(path.Join(output, Endpoint.Package, Endpoint.EndpointName+ext+".md"))
 			if err != nil {
 				panic(err)
@@ -173,4 +179,31 @@ func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	p.EndpointLabeler = l
 	p.Title = call
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
+}
+
+func alphabeticalIndex(m map[string]*IndexMarkdown) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+func alphabeticalApps(m map[string]*sysl.Application) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+func alphabeticalEndpoints(m map[string]*sysl.Endpoint) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
 }

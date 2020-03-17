@@ -6,11 +6,7 @@ import (
 	"html/template"
 	"os"
 	"path"
-	"path/filepath"
 	"sort"
-	"strings"
-
-	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -23,16 +19,14 @@ import (
 )
 
 type IndexMarkdown struct {
-	PackageName    string
-	PackageRelLink string
-	EndPoints      []*AppMarkdown
+	PackageName     string
+	PackageRelLink  string
+	EndPoints       []*AppMarkdown
+	Module          *sysl.Module
+	OutputDir       string
+	Fs              afero.Fs
+	PlantumlService string
 }
-
-const IndexMarkdownTemplate = `
-| Package | Service Name | EndpointName |
-| - | - | - |{{range $PackageName, $App := .}}{{range $Service := $App.EndPoints}}
-[{{$App.PackageName}}]({{$App.PackageRelLink}})|{{$Service.AppName}}|[{{$Service.EndpointName}}]({{$Service.Package}}/{{$Service.EndpointName}}.svg.md) |{{end}}{{end}}
-`
 
 type AppMarkdown struct {
 	Package      string
@@ -40,19 +34,6 @@ type AppMarkdown struct {
 	EndpointName string
 }
 
-const AppMarkdownTemplate = `
-[Back](../README.md)
-| Service | EndpointName |
-| - |:-:|
-{{range $EndPoints := .}}{{$EndPoints.AppName}}|[{{$EndPoints.EndpointName}}]({{$EndPoints.EndpointName}}.svg.md) |
-{{end}}
-`
-const embededSvgTemplate = `
-[Back](README.md)
-
-![alt text]({{.EndpointName}}.svg)
-
-`
 const ext = ".svg"
 const generatedReadmeName = "README.md"
 
@@ -73,50 +54,24 @@ func main() {
 	Index := ConvertToMarkdownObject(m, output, plantumlService, fs)
 	GenerateMarkdown(Index, output, fs)
 }
+
 func ConvertToMarkdownObject(m *sysl.Module, output, plantumlService string, fs afero.Fs) map[string]*IndexMarkdown {
-	Index := make(map[string]*IndexMarkdown)
-	var packageName string
+	p := NewProject(m.String(), output, plantumlService, fs, m)
+	GenerateSequenceDiagrams(&p)
+	return nil
+}
 
-	for _, key := range alphabeticalApps(m.Apps) {
-		app := m.Apps[key]
-		if syslutil.HasPattern(app.Attrs, "ignore") {
-			continue
-		}
-		appName := strings.Join(app.Name.GetPart(), "")
-		packageName = appName
-		if attr := app.GetAttrs()["package"]; attr != nil {
-			packageName = attr.GetS()
-		}
-		packageRelLink := filepath.Join(packageName, generatedReadmeName)
-		MarkdownApp := make([]*AppMarkdown, 0, len(app.Endpoints))
-		fs.MkdirAll(path.Join(output, packageName), os.ModePerm)
-		for _, key2 := range alphabeticalEndpoints(app.Endpoints) {
-			endpoint := app.Endpoints[key2]
-			outputFileName := path.Join(output, packageName, endpoint.Name+ext)
-			MarkdownApp = append(MarkdownApp, &AppMarkdown{
-				Package:      packageName,
-				AppName:      appName,
-				EndpointName: endpoint.Name,
-			})
-
-			err := CreateSequenceDiagramFile(
-				m,
-				fmt.Sprintf("%s <- %s", appName, endpoint.Name),
-				outputFileName,
-				plantumlService,
-				fs)
-			if err != nil {
+func GenerateSequenceDiagrams(project *Project) {
+	for _, key := range alphabeticalPackage(project.rows) {
+		row := project.rows[key]
+		for _, sd := range row.SequenceDiagrams {
+			outputFileName := path.Join(sd.OutputDirectory, sd.Name+ext)
+			project.Fs.MkdirAll(sd.OutputDirectory, os.ModePerm)
+			if err := diagrams.OutputPlantuml(outputFileName, project.PlantumlService, sd.Diagram, project.Fs); err != nil {
 				panic(err)
 			}
 		}
-		if _, ok := Index[packageRelLink]; !ok {
-			Index[packageRelLink] = &IndexMarkdown{PackageName: packageName, PackageRelLink: packageRelLink}
-			Index[packageRelLink].EndPoints = []*AppMarkdown{}
-		}
-		Index[packageRelLink].EndPoints = append(Index[packageRelLink].EndPoints, MarkdownApp...)
 	}
-	return Index
-
 }
 
 func GenerateMarkdown(Index map[string]*IndexMarkdown, output string, fs afero.Fs) {
@@ -200,6 +155,15 @@ func alphabeticalApps(m map[string]*sysl.Application) []string {
 }
 
 func alphabeticalEndpoints(m map[string]*sysl.Endpoint) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+func alphabeticalPackage(m map[string]*Package) []string {
 	keys := make([]string, 0, len(m))
 	for k := range m {
 		keys = append(keys, k)

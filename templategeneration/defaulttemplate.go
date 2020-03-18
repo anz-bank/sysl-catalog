@@ -2,13 +2,14 @@ package templategeneration
 
 const ProjectMarkdownTemplate = `
 # {{.Title}}
-Integration diagram:
-
-![alt text]({{.RootLevelIntegrationDiagram.AppName}}.svg)
 
 | Package |
 | - | {{range $Package := .AlphabeticalRows}}
 [{{$Package.PackageName}}]({{$Package.PackageName}}/{{$Package.OutputFile}})|{{end}}
+
+Integration diagram:
+
+![alt text]({{.RootLevelIntegrationDiagram.AppName}}.svg)
 `
 
 const PackageMarkdownTemplate = `

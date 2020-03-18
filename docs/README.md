@@ -1,8 +1,5 @@
 
 # simple
-Integration diagram:
-
-![alt text](simple.svg)
 
 | Package |
 | - | 
@@ -10,3 +7,7 @@ Integration diagram:
 [GrpcTesting](GrpcTesting/README.md)|
 [Standard](Standard/README.md)|
 [simple](simple/README.md)|
+
+Integration diagram:
+
+![alt text](simple.svg)

@@ -3,6 +3,6 @@
 # Package simple
 
 ## Sequence Diagrams
-| AppName | Endpoint OutputFileName__ |
+| AppName | Endpoint |
 | - | - | 
 | simple | [simple_](simple_.md) |

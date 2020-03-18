@@ -17,7 +17,7 @@ const PackageMarkdownTemplate = `
 # Package {{.PackageName}}
 
 ## Sequence Diagrams
-| AppName | Endpoint OutputFileName__ |
+| AppName | Endpoint |
 | - | - | {{range $Diagram := .SequenceDiagrams}}
 | {{$Diagram.AppName}} | [{{$Diagram.OutputFileName__}}]({{$Diagram.OutputFileName__}}.md) |{{end}}
 `

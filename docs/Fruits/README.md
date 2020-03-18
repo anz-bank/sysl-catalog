@@ -3,7 +3,7 @@
 # Package Fruits
 
 ## Sequence Diagrams
-| AppName | Endpoint OutputFileName__ |
+| AppName | Endpoint |
 | - | - | 
 | Apple | [AppleAnotherEndpoint](AppleAnotherEndpoint.md) |
 | Apple | [Appleskljdfnskjdfnsd](Appleskljdfnskjdfnsd.md) |

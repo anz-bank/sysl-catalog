@@ -3,6 +3,6 @@
 # Package GrpcTesting
 
 ## Sequence Diagrams
-| AppName | Endpoint OutputFileName__ |
+| AppName | Endpoint |
 | - | - | 
 | GrpcTesting | [GrpcTestingqwertyuio](GrpcTestingqwertyuio.md) |

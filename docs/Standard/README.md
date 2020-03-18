@@ -3,7 +3,7 @@
 # Package Standard
 
 ## Sequence Diagrams
-| AppName | Endpoint OutputFileName__ |
+| AppName | Endpoint |
 | - | - | 
 | Bar | [BarAnotherEndpoint](BarAnotherEndpoint.md) |
 | Foo | [FoothisEndpoint](FoothisEndpoint.md) |

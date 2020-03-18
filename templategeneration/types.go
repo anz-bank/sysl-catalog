@@ -2,6 +2,7 @@ package templategeneration
 
 import (
 	"path"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -35,9 +36,9 @@ type Project struct {
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
-func NewProject(title, output, plantumlservice string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
+func NewProject(inputSyslFileName, output, plantumlservice string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
 	p := Project{
-		Title:           strings.ReplaceAll(title, ".sysl", ""),
+		Title:           strings.ReplaceAll(filepath.Base(inputSyslFileName), ".sysl", ""),
 		Output:          output,
 		Fs:              fs,
 		Log:             log,

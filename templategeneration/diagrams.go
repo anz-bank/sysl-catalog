@@ -74,8 +74,8 @@ type intsCmd struct {
 func (p *Project) CreateIntegrationDiagrams() error {
 	if _, ok := p.Module.Apps[p.Title]; !ok {
 		return fmt.Errorf(
-			"There must be a app with the same name as the input file:" +
-				"'foo.sysl' must have a project named 'foo'")
+			"There must be a app with the same name as the input file:"+
+				"'%ss.sysl' must have a project named '%s'", p.Title, p.Title)
 	}
 	integration := intsCmd{}
 	integration.Output = path.Join(p.Output, p.Title+ext)

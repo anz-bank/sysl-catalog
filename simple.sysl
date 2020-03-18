@@ -9,6 +9,14 @@ Foo:
         Bar <- AnotherEndpoint
         ThisApp <- DoesntExist
         return ok <: GrpcTesting.Response
+
+simple[appfmt="%(appname)"]:
+    _:
+        Apple
+        Banana
+        Foo
+        Bar
+        GrpcTesting
 Apple:
     @package="Fruits"
     AnotherEndpoint(input <: GrpcTesting.Request):

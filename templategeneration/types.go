@@ -2,6 +2,7 @@ package templategeneration
 
 import (
 	"path"
+	"strings"
 	"text/template"
 
 	"github.com/sirupsen/logrus"
@@ -19,23 +20,24 @@ const (
 
 // Project is the top level in the hierarchy of markdown generation
 type Project struct {
-	Title           string
-	Output          string
-	PlantumlService string
-	OutputFileName  string
-	Log             *logrus.Logger
-	Packages        map[string]*Package //Packages are the rows of the top level markdown
-	Fs              afero.Fs
-	Module          *sysl.Module
-	ProjectTempl    *template.Template // Templ is used to template the Project struct
-	PackageTempl    *template.Template // PackageTempl is passed down to all Packages
-	EmbededTempl    *template.Template // This is passed down to all Diagrams
+	Title                       string
+	Output                      string
+	PlantumlService             string
+	OutputFileName              string
+	RootLevelIntegrationDiagram *Diagram
+	Log                         *logrus.Logger
+	Packages                    map[string]*Package //Packages are the rows of the top level markdown
+	Fs                          afero.Fs
+	Module                      *sysl.Module
+	ProjectTempl                *template.Template // Templ is used to template the Project struct
+	PackageTempl                *template.Template // PackageTempl is passed down to all Packages
+	EmbededTempl                *template.Template // This is passed down to all Diagrams
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
 func NewProject(title, output, plantumlservice string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
 	p := Project{
-		Title:           title,
+		Title:           strings.ReplaceAll(title, ".sysl", ""),
 		Output:          output,
 		Fs:              fs,
 		Log:             log,
@@ -44,7 +46,7 @@ func NewProject(title, output, plantumlservice string, log *logrus.Logger, fs af
 		PlantumlService: plantumlservice,
 		OutputFileName:  pageFilename,
 	}
-	p.initPackage()
+	p.initProject()
 	if err := p.RegisterSequenceDiagrams(); err != nil {
 		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
 	}
@@ -57,17 +59,11 @@ func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString
 	if err != nil {
 		return err
 	}
-	projectTemplate, packageTemplate, embededTemplate := templates[0], templates[1], templates[2]
-	if err != nil {
-		return err
-	}
-	p.ProjectTempl = projectTemplate
-	p.PackageTempl = packageTemplate
-	p.EmbededTempl = embededTemplate
+	p.ProjectTempl, p.PackageTempl, p.EmbededTempl = templates[0], templates[1], templates[2]
 	return nil
 }
 
-func (p *Project) initPackage() {
+func (p *Project) initProject() {
 	for _, key := range alphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
 		if syslutil.HasPattern(app.Attrs, "ignore") {
@@ -94,6 +90,11 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 			p.Log.Errorf("Error registering default templates:\n %v", err)
 		}
 	}
+	if err := p.CreateIntegrationDiagrams(); err != nil {
+		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
+		return
+	}
+
 	if err := GenerateMarkdown(p.Output, p.OutputFileName, p, p.ProjectTempl, p.Fs); err != nil {
 		p.Log.Errorf("Error generating root markdown:\n %v", err)
 		return

@@ -43,7 +43,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 14,
+       "line": 22,
        "col": 4
       }
      }
@@ -79,7 +79,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 18,
+       "line": 26,
        "col": 4
       }
      }
@@ -115,7 +115,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 16,
+       "line": 24,
        "col": 4
       }
      }
@@ -124,7 +124,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 12,
+     "line": 20,
      "col": 1
     }
    }
@@ -192,7 +192,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 23,
+       "line": 31,
        "col": 4
       }
      }
@@ -201,7 +201,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 21,
+     "line": 29,
      "col": 1
     }
    }
@@ -359,7 +359,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 29,
+       "line": 37,
        "col": 4
       }
      }
@@ -375,7 +375,7 @@
         ],
         "sourceContext": {
          "start": {
-          "line": 32
+          "line": 40
          }
         }
        }
@@ -384,7 +384,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 31,
+       "line": 39,
        "col": 4
       }
      }
@@ -398,7 +398,7 @@
         ],
         "sourceContext": {
          "start": {
-          "line": 34
+          "line": 42
          }
         }
        }
@@ -407,7 +407,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 33,
+       "line": 41,
        "col": 4
       }
      }
@@ -416,7 +416,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 28,
+     "line": 36,
      "col": 1
     }
    }
@@ -451,7 +451,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 37,
+       "line": 45,
        "col": 4
       }
      }
@@ -460,7 +460,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 36,
+     "line": 44,
      "col": 1
     }
    }
@@ -490,7 +490,65 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 39,
+     "line": 47,
+     "col": 1
+    }
+   }
+  },
+  "simple": {
+   "name": {
+    "part": [
+     "simple"
+    ]
+   },
+   "attrs": {
+    "appfmt": {
+     "s": "%(appname)"
+    }
+   },
+   "endpoints": {
+    "_": {
+     "name": "_",
+     "stmt": [
+      {
+       "action": {
+        "action": "Apple"
+       }
+      },
+      {
+       "action": {
+        "action": "Banana"
+       }
+      },
+      {
+       "action": {
+        "action": "Foo"
+       }
+      },
+      {
+       "action": {
+        "action": "Bar"
+       }
+      },
+      {
+       "action": {
+        "action": "GrpcTesting"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/simple.sysl",
+      "start": {
+       "line": 14,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 13,
      "col": 1
     }
    }

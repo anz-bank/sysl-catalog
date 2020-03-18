@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path"
 	"strings"
+	"text/template"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
@@ -17,17 +18,32 @@ type Project struct {
 	Module          *sysl.Module
 	rows            map[string]*Package
 	PlantumlService string
+	ProjectTempl    *template.Template
+	PackageTempl    *template.Template
+	EmbededTempl    *template.Template
+	OutputFile      string
 }
 
 type Package struct {
+	OutputDir           string
 	Parent              *Project
 	PackageName         string
 	IntegrationDiagrams []*Diagram
 	SequenceDiagrams    []*Diagram
 	DataModelDiagrams   []*Diagram
+	Templ               *template.Template
+	OutputFile          string
 }
 
-func NewProject(title, output, plantumlservice string, fs afero.Fs, module *sysl.Module) Project {
+func NewProject(title, output, plantumlservice, projectTemplateString, packageTemplateString, embededTemplateString string, fs afero.Fs, module *sysl.Module) Project {
+	templates, err := LoadMarkdownTemplates(projectTemplateString, packageTemplateString, embededTemplateString)
+	if err != nil {
+		panic(err)
+	}
+	projectTemplate, packageTemplate, embededTemplate := templates[0], templates[1], templates[2]
+	if err != nil {
+		panic(err)
+	}
 	p := Project{
 		Title:           title,
 		Output:          output,
@@ -35,6 +51,10 @@ func NewProject(title, output, plantumlservice string, fs afero.Fs, module *sysl
 		Module:          module,
 		rows:            map[string]*Package{},
 		PlantumlService: plantumlservice,
+		ProjectTempl:    projectTemplate,
+		PackageTempl:    packageTemplate,
+		EmbededTempl:    embededTemplate,
+		OutputFile:      "README.md",
 	}
 	p.initPackage()
 	p.InsertSequenceDiagram()
@@ -50,7 +70,13 @@ func (p *Project) initPackage() {
 		packageName, _ := getPackageName(app)
 		newPackage, ok := p.rows[packageName]
 		if !ok {
-			newPackage = &Package{Parent: p, PackageName: packageName}
+			newPackage = &Package{
+				Parent:      p,
+				PackageName: packageName,
+				OutputDir:   path.Join(p.Output, packageName),
+				Templ:       p.PackageTempl,
+				OutputFile:  "README.md",
+			}
 		}
 		p.rows[packageName] = newPackage
 	}
@@ -71,6 +97,13 @@ func (p Package) InsertIntegrationDiagrams(m *sysl.Module) {
 
 func (p Package) InsertDataModelDiagrams(m *sysl.Module) {
 
+}
+func (p Project) AlphabeticalRows() []*Package {
+	packages := make([]*Package, 0, len(p.rows))
+	for _, key := range alphabeticalPackage(p.rows) {
+		packages = append(packages, p.rows[key])
+	}
+	return packages
 }
 
 func (p Project) InsertSequenceDiagram() {
@@ -100,6 +133,8 @@ func (p Package) sequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 		OutputDirectory: path.Join(p.Parent.Output, p.PackageName),
 		Diagram:         seq,
 		Diagramtype:     diagram_sequence,
+		Templ:           p.Parent.EmbededTempl,
+		OutputFile:      "README.md",
 	}
 }
 
@@ -109,6 +144,8 @@ type Diagram struct {
 	Name            string
 	Diagram         string
 	Diagramtype     int
+	Templ           *template.Template
+	OutputFile      string
 }
 
 const (

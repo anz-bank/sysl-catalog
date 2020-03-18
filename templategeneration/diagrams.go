@@ -16,19 +16,21 @@ import (
 type Diagram struct {
 	Parent                 *Package
 	OutputDir              string
-	OutputFileName         string
+	AppName                string
+	EndpointName           string
 	Diagram                string
+	OutputFileName__       string
 	OutputMarkdownFileName string
 	Diagramtype            string
 }
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
 func GenerateDiagramAndMarkdown(sd *Diagram) error {
-	fmt.Println(sd.OutputDir, sd.OutputFileName+md)
-	if err := GenerateMarkdown(sd.OutputDir, sd.OutputFileName+md, sd, sd.Parent.Parent.EmbededTempl, sd.Parent.Parent.Fs); err != nil {
+	fmt.Println(sd.OutputFileName__)
+	if err := GenerateMarkdown(sd.OutputDir, sd.OutputFileName__+md, sd, sd.Parent.Parent.EmbededTempl, sd.Parent.Parent.Fs); err != nil {
 		return err
 	}
-	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName+ext)
+	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
 	return diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.Diagram, sd.Parent.Parent.Fs)
 }
 

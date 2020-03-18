@@ -3,7 +3,6 @@ package templategeneration
 import (
 	"fmt"
 	"path"
-	"strings"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
@@ -74,7 +73,9 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 	}
 	return &Diagram{
 		Parent:                 &p,
-		OutputFileName:         strings.ReplaceAll(call, " ", ""),
+		AppName:                appName,
+		EndpointName:           endpoint.Name,
+		OutputFileName__:       appName + endpoint.Name,
 		OutputDir:              path.Join(p.Parent.Output, p.PackageName),
 		Diagram:                seq,
 		Diagramtype:            diagram_sequence,

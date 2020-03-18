@@ -2,6 +2,6 @@
 # simple.sysl
 | Package |
 | - | 
-Fruits
-GrpcTesting
-Standard
+[Fruits](Fruits/README.md)|
+[GrpcTesting](GrpcTesting/README.md)|
+[Standard](Standard/README.md)|

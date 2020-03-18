@@ -1,5 +1,5 @@
 
 [Back](../README.md)
-| AppName | Endpoint OutputFileName |
+| AppName | Endpoint OutputFileName__ |
 | - | - | 
-GrpcTesting<-qwertyuio | GrpcTesting<-qwertyuio 
+| GrpcTesting | [GrpcTestingqwertyuio](GrpcTestingqwertyuio.md) |

@@ -4,19 +4,19 @@ const IndexMarkdownTemplate = `
 # {{.Title}}
 | Package |
 | - | {{range $Package := .AlphabeticalRows}}
-{{$Package.PackageName}}{{end}}
+[{{$Package.PackageName}}]({{$Package.PackageName}}/{{$Package.OutputFile}})|{{end}}
 `
 
 const AppMarkdownTemplate = `
 [Back](../README.md)
-| AppName | Endpoint OutputFileName |
+| AppName | Endpoint OutputFileName__ |
 | - | - | {{range $Diagram := .SequenceDiagrams}}
-{{$Diagram.OutputFileName}} | {{$Diagram.OutputFileName}} {{end}}
+| {{$Diagram.AppName}} | [{{$Diagram.OutputFileName__}}]({{$Diagram.OutputFileName__}}.md) |{{end}}
 `
 
 const EmbededSvgTemplate = `
 [Back](README.md)
 
-![alt text]({{.OutputFileName}}.svg)
+![alt text]({{.OutputFileName__}}.svg)
 
 `

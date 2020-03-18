@@ -90,7 +90,7 @@ func (p *Project) initPackage() {
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
 func (p *Project) ExecuteTemplateAndDiagrams() {
 	if p.EmbededTempl == nil || p.PackageTempl == nil || p.ProjectTempl == nil {
-		if err := p.RegisterTemplates(IndexMarkdownTemplate, AppMarkdownTemplate, EmbededSvgTemplate); err != nil {
+		if err := p.RegisterTemplates(ProjectMarkdownTemplate, PackageMarkdownTemplate, EmbededSvgTemplate); err != nil {
 			p.Log.Errorf("Error registering default templates:\n %v", err)
 		}
 	}

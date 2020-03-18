@@ -1,5 +1,8 @@
 
 [Back](../README.md)
+# Package Fruits
+
+## Sequence Diagrams
 | AppName | Endpoint OutputFileName__ |
 | - | - | 
 | Apple | [AppleAnotherEndpoint](AppleAnotherEndpoint.md) |

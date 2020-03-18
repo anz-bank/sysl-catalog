@@ -1,4 +1,4 @@
-package main
+package templategeneration
 
 const IndexMarkdownTemplate = `
 # {{.Title}}
@@ -14,7 +14,7 @@ const AppMarkdownTemplate = `
 {{$Diagram.OutputFileName}} | {{$Diagram.OutputFileName}} {{end}}
 `
 
-const embededSvgTemplate = `
+const EmbededSvgTemplate = `
 [Back](README.md)
 
 ![alt text]({{.OutputFileName}}.svg)

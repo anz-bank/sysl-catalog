@@ -26,5 +26,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	templategeneration.NewProject(filename, output, plantumlService, logrus.New(), fs, m).GenerateMarkdownAndDiagrams()
+	templategeneration.NewProject(filename, output, plantumlService, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
 }

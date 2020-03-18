@@ -9,14 +9,14 @@ const IndexMarkdownTemplate = `
 
 const AppMarkdownTemplate = `
 [Back](../README.md)
-| AppName | Endpoint Name |
+| AppName | Endpoint OutputFileName |
 | - | - | {{range $Diagram := .SequenceDiagrams}}
-{{$Diagram.Name}} | {{$Diagram.Name}} {{end}}
+{{$Diagram.OutputFileName}} | {{$Diagram.OutputFileName}} {{end}}
 `
 
 const embededSvgTemplate = `
 [Back](README.md)
 
-![alt text]({{.Name}}.svg)
+![alt text]({{.OutputFileName}}.svg)
 
 `

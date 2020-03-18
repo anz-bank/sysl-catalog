@@ -1,6 +1,6 @@
 
 [Back](../README.md)
-| AppName | Endpoint Name |
+| AppName | Endpoint OutputFileName |
 | - | - | 
 Apple<-AnotherEndpoint | Apple<-AnotherEndpoint 
 Apple<-skljdfnskjdfnsd | Apple<-skljdfnskjdfnsd 

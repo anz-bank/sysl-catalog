@@ -1,6 +1,6 @@
 
 [Back](../README.md)
-| AppName | Endpoint Name |
+| AppName | Endpoint OutputFileName |
 | - | - | 
 Bar<-AnotherEndpoint | Bar<-AnotherEndpoint 
 Foo<-thisEndpoint | Foo<-thisEndpoint 

@@ -504,6 +504,15 @@
    "attrs": {
     "appfmt": {
      "s": "%(appname)"
+    },
+    "patterns": {
+     "a": {
+      "elt": [
+       {
+        "s": "ignore"
+       }
+      ]
+     }
     }
    },
    "endpoints": {

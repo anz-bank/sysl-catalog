@@ -30,9 +30,10 @@ type Project struct {
 	Packages                    map[string]*Package //Packages are the rows of the top level markdown
 	Fs                          afero.Fs
 	Module                      *sysl.Module
-	ProjectTempl                *template.Template // Templ is used to template the Project struct
-	PackageTempl                *template.Template // PackageTempl is passed down to all Packages
-	EmbededTempl                *template.Template // This is passed down to all Diagrams
+	PackageModules              map[string]*sysl.Module // PackageModules maps @package attr to all those applications
+	ProjectTempl                *template.Template      // Templ is used to template the Project struct
+	PackageTempl                *template.Template      // PackageTempl is passed down to all Packages
+	EmbededTempl                *template.Template      // This is passed down to all Diagrams
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
@@ -44,6 +45,7 @@ func NewProject(inputSyslFileName, output, plantumlservice string, log *logrus.L
 		Log:             log,
 		Module:          module,
 		Packages:        map[string]*Package{},
+		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
 		OutputFileName:  pageFilename,
 	}
@@ -81,6 +83,11 @@ func (p *Project) initProject() {
 			}
 		}
 		p.Packages[packageName] = newPackage
+		if _, ok := p.PackageModules[packageName]; !ok {
+			p.PackageModules[packageName] = &sysl.Module{}
+			p.PackageModules[packageName].Apps = map[string]*sysl.Application{}
+		}
+		p.PackageModules[packageName].Apps[strings.Join(app.Name.Part, "")] = app
 	}
 }
 
@@ -118,11 +125,9 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 				return
 			}
 		}
-		for _, dataDiagrams := range pkg.DataModelDiagrams {
-			if err := GenerateDiagramAndMarkdown(dataDiagrams); err != nil {
-				p.Log.Errorf("Error generating Data Model diagram template and diagrams:\n %v", err)
-				return
-			}
-		}
+		// if _, err := p.CreateDataModelDiagram(); err != nil {
+		// 	p.Log.Errorf("Error generating DataModel diagrams:\n %v", err)
+		// 	return
+		// }
 	}
 }

@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"path"
+
+	"github.com/anz-bank/sysl/pkg/datamodeldiagram"
 
 	"github.com/pkg/errors"
 
@@ -50,21 +53,41 @@ func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
 }
 
-//func CreateDataModelDiagram(m *sysl.Module) (string, error) {
-//	dataParam := &datamodeldiagram.DataModelParam{
-//		Mod:   m,
-//		App:   m.Apps["Apple"],
-//		Title: "Apple",
-//	}
-//	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
-//	outmap[outputDir] = v.GenerateDataView(dataParam)
-//
-//	outmap, err := datamodeldiagram.GenerateDataModels(&p.CmdContextParamDatagen, m, logrus.New())
-//	if err != nil {
-//		return err
-//	}
-//	return p.GenerateFromMap(outmap, args.Filesystem)
-//}
+type datamodelCmd struct {
+	diagrams.Plantumlmixin
+	cmdutils.CmdContextParamDatagen
+}
+
+func (p *Project) CreateDataModelDiagram() (string, error) {
+	for name, m := range p.PackageModules {
+		skip := true
+		for _, this := range m.Apps {
+			if len(this.Types) > 0 {
+				skip = false
+
+			}
+		}
+		if skip {
+			continue
+		}
+		pl := &datamodelCmd{}
+		pl.Project = ""
+		pl.Output = path.Join(p.Output, name)
+		p.Fs.MkdirAll(pl.Output, os.ModePerm)
+		pl.Output += "/" + name + "_datamodel.svg"
+		pl.Direct = true
+		pl.ClassFormat = "%(classname)"
+		outmap, err := datamodeldiagram.GenerateDataModels(&pl.CmdContextParamDatagen, m, logrus.New())
+		if err != nil {
+			return "", err
+		}
+		err = pl.GenerateFromMap(outmap, p.Fs)
+		if err != nil {
+			return "", err
+		}
+	}
+	return "", nil
+}
 
 type intsCmd struct {
 	diagrams.Plantumlmixin

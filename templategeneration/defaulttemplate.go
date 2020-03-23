@@ -16,14 +16,10 @@ const PackageMarkdownTemplate = `
 [Back](../README.md)
 # Package {{.PackageName}}
 
-## Data Model Diagrams
-
-![alt text]({{.PackageName}}_datamodel.svg)
-
 ## Sequence Diagrams
 | AppName | Endpoint |
 | - | - | {{range $Diagram := .SequenceDiagrams}}
-| {{$Diagram.AppName}} | [{{$Diagram.OutputFileName__}}]({{$Diagram.OutputFileName__}}.md) |{{end}}
+| {{$Diagram.AppName}} | [{{$Diagram.EndpointName}}]({{$Diagram.OutputFileName__}}.md) |{{end}}
 `
 
 const EmbededSvgTemplate = `

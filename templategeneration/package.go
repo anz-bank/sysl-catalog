@@ -53,6 +53,10 @@ func (p Project) RegisterSequenceDiagrams() error {
 		}
 		for _, key2 := range alphabeticalEndpoints(app.Endpoints) {
 			endpoint := app.Endpoints[key2]
+			if syslutil.HasPattern(endpoint.Attrs, "ignore") {
+				p.Log.Infof("Skipping application %s", app.Name)
+				continue
+			}
 			packageD := p.Packages[packageName]
 			diagram, err := packageD.SequenceDiagramFromEndpoint(appName, endpoint)
 			if err != nil {

@@ -9,7 +9,7 @@
 ## Sequence Diagrams
 | AppName | Endpoint |
 | - | - | 
-| Apple | [AppleAnotherEndpoint](AppleAnotherEndpoint.md) |
-| Apple | [Appleskljdfnskjdfnsd](Appleskljdfnskjdfnsd.md) |
-| Apple | [Applesodifsdoif](Applesodifsdoif.md) |
-| Banana | [BananathisEndpoint](BananathisEndpoint.md) |
+| Apple | [AnotherEndpoint](AppleAnotherEndpoint.md) |
+| Apple | [skljdfnskjdfnsd](Appleskljdfnskjdfnsd.md) |
+| Apple | [sodifsdoif](Applesodifsdoif.md) |
+| Banana | [thisEndpoint](BananathisEndpoint.md) |

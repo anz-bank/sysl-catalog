@@ -9,4 +9,4 @@
 ## Sequence Diagrams
 | AppName | Endpoint |
 | - | - | 
-| GrpcTesting | [GrpcTestingqwertyuio](GrpcTestingqwertyuio.md) |
+| GrpcTesting | [qwertyuio](GrpcTestingqwertyuio.md) |

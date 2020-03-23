@@ -9,5 +9,5 @@
 ## Sequence Diagrams
 | AppName | Endpoint |
 | - | - | 
-| Bar | [BarAnotherEndpoint](BarAnotherEndpoint.md) |
-| Foo | [FoothisEndpoint](FoothisEndpoint.md) |
+| Bar | [AnotherEndpoint](BarAnotherEndpoint.md) |
+| Foo | [thisEndpoint](FoothisEndpoint.md) |

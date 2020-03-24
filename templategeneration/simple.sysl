@@ -38,6 +38,7 @@ GrpcTesting:
         return ok <: GrpcTesting.Request
     !type Request:
         query <: Response
+        that <: string
     !type Response:
         query <: string
 

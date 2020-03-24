@@ -22,7 +22,25 @@ func alphabeticalApps(m map[string]*sysl.Application) []string {
 	return keys
 }
 
+func alphabeticalInts(m map[string]int64) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
 func alphabeticalEndpoints(m map[string]*sysl.Endpoint) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+func alphabeticalTypes(m map[string]*sysl.Type) []string {
 	keys := make([]string, 0, len(m))
 	for k := range m {
 		keys = append(keys, k)

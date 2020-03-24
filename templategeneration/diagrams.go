@@ -64,7 +64,6 @@ func (p *Project) CreateDataModelDiagram() (string, error) {
 		for _, this := range m.Apps {
 			if len(this.Types) > 0 {
 				skip = false
-
 			}
 		}
 		if skip {

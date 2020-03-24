@@ -2,10 +2,6 @@
 [Back](../README.md)
 # Package Fruits
 
-## Data Model Diagrams
-
-![alt text](Fruits_datamodel.svg)
-
 ## Sequence Diagrams
 | AppName | Endpoint |
 | - | - | 

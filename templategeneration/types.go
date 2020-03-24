@@ -125,9 +125,11 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 				return
 			}
 		}
-		// if _, err := p.CreateDataModelDiagram(); err != nil {
-		// 	p.Log.Errorf("Error generating DataModel diagrams:\n %v", err)
-		// 	return
-		// }
+		for _, data := range pkg.DataModelDiagrams {
+			if err := GenerateDiagramAndMarkdown(data); err != nil {
+				p.Log.Errorf("Error generating Data Model diagram template and diagrams:\n %v", err)
+				return
+			}
+		}
 	}
 }

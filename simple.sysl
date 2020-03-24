@@ -35,11 +35,12 @@ Banana:
 
 GrpcTesting:
     qwertyuio:
-        return ok <: Request
+        return ok <: GrpcTesting.Request
     !type Request:
-        query <: string
+        query <: Response
+        that <: string
     !type Response:
-        query <: Request
+        query <: string
 
 ThisApp[~ignore]:
     DoesntExist:

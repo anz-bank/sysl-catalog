@@ -5,6 +5,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/anz-bank/sysl/pkg/syslutil"
+
 	"github.com/anz-bank/sysl/pkg/datamodeldiagram"
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -69,6 +71,15 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 				EntityName:   entityName,
 			}
 			v.DrawPrimitive(viewParam, pe.String(), relationshipMap)
+		} else if syslutil.HasPattern(entityType.Attrs, "empty") {
+			if len(strings.Split(entityName, ".")) == 1 {
+				entityName = appName + entityName
+			}
+			v.StringBuilder.WriteString(fmt.Sprintf("class \"%s\" as %s<< (D,orchid) >> {\n}\n", entityName,
+				v.UniqueVarForAppName("", entityName)))
+		} else if pe := entityType.GetEnum(); pe != nil {
+			v.StringBuilder.WriteString(fmt.Sprintf("class \"%s enum\" as %s<< (D,orchid) >> {\n}\n", entityName,
+				v.UniqueVarForAppName("", entityName)))
 		}
 	}
 	if isRelation {
@@ -96,7 +107,6 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, p Project) map[string]*s
 		typeName = strings.Join(t.GetTypeRef().GetRef().Path, "")
 		appName, typeName, t = TypeFromRef(p.Module, appName, t)
 		ret[appName+"."+typeName] = t
-	default:
 	}
 	tuple := t.GetTuple()
 	if tuple == nil || tuple.AttrDefs == nil || len(tuple.AttrDefs) == 0 {
@@ -109,11 +119,21 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, p Project) map[string]*s
 			continue
 		}
 		ret[appName+"."+typeName] = newType
-		for _, v := range RecurseivelyGetTypes(appName, ret[appName+"."+typeName], p) {
-			typeName := strings.Join(v.GetTypeRef().GetRef().Path, "")
-			appName, typeName, newType = TypeFromRef(p.Module, appName, v)
-			if newType != nil {
-				ret[appName+"."+typeName] = newType
+		for key, v := range RecurseivelyGetTypes(appName, ret[appName+"."+typeName], p) {
+			switch v.Type.(type) {
+			case *sysl.Type_Primitive_:
+				continue
+			case *sysl.Type_TypeRef:
+				typeName = strings.Join(v.GetTypeRef().GetRef().Path, "")
+				appName, typeName, newType = TypeFromRef(p.Module, appName, v)
+				key = appName + "." + typeName
+				if newType != nil {
+					ret[appName+"."+typeName] = newType
+				}
+			case *sysl.Type_Tuple_:
+				ret[key] = v
+			case *sysl.Type_Enum_:
+				ret[key] = v
 			}
 		}
 	}

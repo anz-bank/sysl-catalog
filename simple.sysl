@@ -1,14 +1,14 @@
 Bar:
     @package="Standard"
     AnotherEndpoint(input <: GrpcTesting.Request):
-        return ok <: GrpcTesting.Response
+        return ok <: GrpcTesting2.Response
 
 Foo:
     @package="Standard"
     thisEndpoint(input <: GrpcTesting.Request):
         Bar <- AnotherEndpoint
         ThisApp <- DoesntExist
-        return ok <: GrpcTesting.Response
+        return ok <: GrpcTesting2.Response
 
 simple[appfmt="%(appname)", ~ignore]:
     _:
@@ -20,29 +20,30 @@ simple[appfmt="%(appname)", ~ignore]:
 Apple:
     @package="Fruits"
     AnotherEndpoint(input <: GrpcTesting.Request):
-        return ok <: GrpcTesting.Response
+        return ok <: GrpcTesting2.Response
     sodifsdoif(input <: GrpcTesting.Request):
-        return ok <: GrpcTesting.Response
+        return ok <: GrpcTesting2.Response
     skljdfnskjdfnsd(input <: GrpcTesting.Request):
-        return ok <: GrpcTesting.Response
+        return ok <: GrpcTesting2.Response
 
 Banana:
     @package="Fruits"
     thisEndpoint(input <: GrpcTesting.Request):
         Bar <- AnotherEndpoint
         ThisApp <- DoesntExist
-        return ok <: GrpcTesting.Response
+        return ok <: GrpcTesting2.Response
 
 GrpcTesting:
     qwertyuio:
         return ok <: GrpcTesting.Request
     !type Request:
-        query <: GrpcTesting.Response
+        query <: GrpcTesting2.Response
         that <: string
 
-GrpcTesting:
-     !type Response:
-            query <: string
+GrpcTesting2:
+    @package = "something_else"
+    !type Response:
+        ...
 
 ThisApp[~ignore]:
     DoesntExist:

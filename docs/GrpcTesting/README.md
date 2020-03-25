@@ -5,7 +5,7 @@
 ## Index
 | AppName | Endpoint |
 | - | - | 
-| GrpcTesting | [qwertyuio](#GrpcTesting_qwertyuio) |]
+| GrpcTesting | [qwertyuio](#GrpcTesting%20qwertyuio) |]
 
 
 ## GrpcTesting qwertyuio

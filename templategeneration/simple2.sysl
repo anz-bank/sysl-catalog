@@ -1,11 +1,20 @@
 GrpcTesting:
     qwertyuio(input <: GrpcTesting.Request):
-        return ok <: GrpcTesting.Response
+        return ok <: OtherApp.Money
     !type Request:
-        query <: GrpcTesting.Response
+        query <: OtherApp.Money
         that <: string
-    !type Response:
-        query <: string
+OtherApp:
+    !type Empty[~empty]:
+        ...
+    !type Money:
+        id <: ThirdApp.Whatever
+ThirdApp:
+    !type Whatever:
+        content <: FourthApp.qwert
+FourthApp:
+    !enum qwert:
+        AUD : 1234
 
 simple2:
     _:

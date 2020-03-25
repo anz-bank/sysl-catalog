@@ -2,7 +2,29 @@
 [Back](../README.md)
 # Package GrpcTesting
 
-## Sequence Diagrams
+## Index
 | AppName | Endpoint |
 | - | - | 
-| GrpcTesting | [qwertyuio](GrpcTestingqwertyuio.md) |
+| GrpcTesting | [qwertyuio](#GrpcTesting%20qwertyuio) |]
+
+
+
+---
+
+## GrpcTesting qwertyuio
+
+### Sequence Diagram
+![alt text](GrpcTestingqwertyuio.svg)
+
+### Parameter types
+
+![alt text](GrpcTestingqwertyuiodata-model.svg)
+
+
+### Return types
+
+![alt text](OtherAppqwertyuiodata-model.svg)
+
+---
+
+

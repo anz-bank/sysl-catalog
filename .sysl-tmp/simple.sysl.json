@@ -36,7 +36,7 @@
      "stmt": [
       {
        "ret": {
-        "payload": "ok \u003c: GrpcTesting.Response"
+        "payload": "ok \u003c: GrpcTesting2.Response"
        }
       }
      ],
@@ -72,7 +72,7 @@
      "stmt": [
       {
        "ret": {
-        "payload": "ok \u003c: GrpcTesting.Response"
+        "payload": "ok \u003c: GrpcTesting2.Response"
        }
       }
      ],
@@ -108,7 +108,7 @@
      "stmt": [
       {
        "ret": {
-        "payload": "ok \u003c: GrpcTesting.Response"
+        "payload": "ok \u003c: GrpcTesting2.Response"
        }
       }
      ],
@@ -185,7 +185,7 @@
       },
       {
        "ret": {
-        "payload": "ok \u003c: GrpcTesting.Response"
+        "payload": "ok \u003c: GrpcTesting2.Response"
        }
       }
      ],
@@ -242,7 +242,7 @@
      "stmt": [
       {
        "ret": {
-        "payload": "ok \u003c: GrpcTesting.Response"
+        "payload": "ok \u003c: GrpcTesting2.Response"
        }
       }
      ],
@@ -319,7 +319,7 @@
       },
       {
        "ret": {
-        "payload": "ok \u003c: GrpcTesting.Response"
+        "payload": "ok \u003c: GrpcTesting2.Response"
        }
       }
      ],
@@ -352,7 +352,7 @@
      "stmt": [
       {
        "ret": {
-        "payload": "ok \u003c: Request"
+        "payload": "ok \u003c: GrpcTesting.Request"
        }
       }
      ],
@@ -370,12 +370,37 @@
      "tuple": {
       "attrDefs": {
        "query": {
+        "typeRef": {
+         "context": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         },
+         "ref": {
+          "path": [
+           "GrpcTesting2",
+           "Response"
+          ]
+         }
+        },
+        "sourceContext": {
+         "start": {
+          "line": 40
+         }
+        }
+       },
+       "that": {
         "primitive": "STRING",
         "constraint": [
         ],
         "sourceContext": {
          "start": {
-          "line": 40
+          "line": 41
          }
         }
        }
@@ -388,26 +413,33 @@
        "col": 4
       }
      }
-    },
+    }
+   },
+   "sourceContext": {
+    "file": "/simple.sysl",
+    "start": {
+     "line": 36,
+     "col": 1
+    }
+   }
+  },
+  "GrpcTesting2": {
+   "name": {
+    "part": [
+     "GrpcTesting2"
+    ]
+   },
+   "attrs": {
+    "package": {
+     "s": "something_else"
+    }
+   },
+   "types": {
     "Response": {
-     "tuple": {
-      "attrDefs": {
-       "query": {
-        "primitive": "STRING",
-        "constraint": [
-        ],
-        "sourceContext": {
-         "start": {
-          "line": 42
-         }
-        }
-       }
-      }
-     },
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 41,
+       "line": 45,
        "col": 4
       }
      }
@@ -416,7 +448,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 36,
+     "line": 43,
      "col": 1
     }
    }
@@ -451,7 +483,7 @@
      "sourceContext": {
       "file": "/simple.sysl",
       "start": {
-       "line": 45,
+       "line": 49,
        "col": 4
       }
      }
@@ -460,7 +492,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 44,
+     "line": 48,
      "col": 1
     }
    }
@@ -490,7 +522,7 @@
    "sourceContext": {
     "file": "/simple.sysl",
     "start": {
-     "line": 47,
+     "line": 51,
      "col": 1
     }
    }

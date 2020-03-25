@@ -44,12 +44,13 @@ type SequenceDiagram struct {
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
 func (sd *SequenceDiagram) GenerateDiagramAndMarkdown() error {
 	fmt.Println(sd.OutputFileName__)
-	if err := GenerateMarkdown(sd.OutputDir, sd.OutputFileName__+md, sd, sd.Parent.Parent.EmbededTempl, sd.Parent.Parent.Fs); err != nil {
-		return err
-	}
 	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
 	diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
 	for _, d := range sd.InputDataModel {
+		outputFileName := path.Join(d.OutputDir, d.OutputFileName__+ext)
+		diagrams.OutputPlantuml(outputFileName, d.Parent.Parent.PlantumlService, d.DiagramString, d.Parent.Parent.Fs)
+	}
+	for _, d := range sd.OutputDataModel {
 		outputFileName := path.Join(d.OutputDir, d.OutputFileName__+ext)
 		diagrams.OutputPlantuml(outputFileName, d.Parent.Parent.PlantumlService, d.DiagramString, d.Parent.Parent.Fs)
 	}
@@ -123,12 +124,31 @@ func (p *Project) CreateIntegrationDiagrams() error {
 				"'%ss.sysl' must have a project named '%s'", p.Title, p.Title)
 	}
 	integration := intsCmd{}
-	integration.Output = path.Join(p.Output, p.Title+ext)
+	integration.Output = path.Join(p.Output, p.Title+"_integration_EPA"+ext)
 	integration.Title = p.Title
 	integration.Project = p.Title
 	integration.EPA = true
 	integration.Clustered = true
 	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, p.Log)
+	if err != nil {
+		return err
+	}
+	if err := integration.GenerateFromMap(result, p.Fs); err != nil {
+		return err
+	}
+	p.RootLevelIntegrationDiagramEPA = &Diagram{
+		Parent:                 nil,
+		OutputDir:              p.Output,
+		AppName:                p.Title,
+		EndpointName:           "",
+		DiagramString:          "", // Leave this empty because the diagram is already created
+		OutputFileName__:       p.Title + "_integration_EPA" + ext,
+		OutputMarkdownFileName: "",
+		Diagramtype:            "integration",
+	}
+	integration.EPA = false
+	integration.Output = path.Join(p.Output, p.Title+"_integration"+ext)
+	result, err = integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, p.Log)
 	if err != nil {
 		return err
 	}
@@ -141,7 +161,7 @@ func (p *Project) CreateIntegrationDiagrams() error {
 		AppName:                p.Title,
 		EndpointName:           "",
 		DiagramString:          "", // Leave this empty because the diagram is already created
-		OutputFileName__:       integration.Output,
+		OutputFileName__:       p.Title + "_integration" + ext,
 		OutputMarkdownFileName: "",
 		Diagramtype:            "integration",
 	}
@@ -158,7 +178,7 @@ func (p *Project) CreateIntegrationDiagrams() error {
 	//if err != nil {
 	//	return err
 	//}
-	//p.RootLevelIntegrationDiagram = &DiagramString{
+	//p.RootLevelIntegrationDiagramEPA = &DiagramString{
 	//	Parent:                 nil,
 	//	OutputDir:              p.Output,
 	//	AppName:                p.Title,

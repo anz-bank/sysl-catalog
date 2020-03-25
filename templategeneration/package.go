@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"regexp"
 	"strings"
 
 	"github.com/anz-bank/sysl/pkg/sequencediagram"
@@ -79,18 +80,14 @@ func (p Project) RegisterSequenceDiagrams() error {
 
 func (p Project) GenerateEndpointDataModel(parentAppName string, t *sysl.Type) string {
 	pl := &datamodelCmd{}
-	name := "owiehfwoi"
 	pl.Project = ""
-	pl.Output = path.Join(p.Output, name)
 	p.Fs.MkdirAll(pl.Output, os.ModePerm)
-	pl.Output += "/" + name + "_datamodel.svg"
 	pl.Direct = true
 	pl.ClassFormat = "%(classname)"
 	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)
 	var stringBuilder strings.Builder
 	dataParam := &DataModelParam{}
 	dataParam.Mod = p.Module
-	dataParam.Title = "datagenParams.Title"
 
 	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
 	vNew := &DataModelView{
@@ -102,6 +99,8 @@ func (p Project) GenerateEndpointDataModel(parentAppName string, t *sysl.Type) s
 // SequenceDiagramFromEndpoint generates a sequence diagram from a sysl endpoint
 func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endpoint) (*SequenceDiagram, error) {
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.Name)
+	var re = regexp.MustCompile(`(?m)\w+\.\w+`)
+	var typeName string
 	seq, err := CreateSequenceDiagram(p.Parent.Module, call)
 	if err != nil {
 		return nil, err
@@ -127,6 +126,37 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 			EndpointName:     endpoint.Name,
 		}
 		diagram.InputDataModel = append(diagram.InputDataModel, newDiagram)
+	}
+	for _, stmnt := range endpoint.Stmt {
+		if ret := stmnt.GetRet(); ret != nil {
+			fmt.Println(ret.Payload)
+			t := re.FindString(ret.Payload)
+			if split := strings.Split(t, "."); len(split) > 1 {
+				appName = split[0]
+				typeName = split[1]
+			}
+			//returnType := p.Parent.Module.Apps[appName].Types[typeName]
+			typeref := &sysl.Type{
+				Type: &sysl.Type_TypeRef{
+					TypeRef: &sysl.ScopedRef{
+						Ref: &sysl.Scope{Appname: &sysl.AppName{
+							Part: []string{appName},
+						},
+							Path: []string{appName, typeName},
+						},
+					},
+				},
+			}
+			newDiagram := &Diagram{
+				Parent:           &p,
+				OutputDir:        path.Join(p.Parent.Output, p.PackageName),
+				AppName:          appName,
+				DiagramString:    p.Parent.GenerateEndpointDataModel(appName, typeref),
+				OutputFileName__: appName + endpoint.Name + "data-model",
+				EndpointName:     endpoint.Name,
+			}
+			diagram.OutputDataModel = append(diagram.OutputDataModel, newDiagram)
+		}
 	}
 	return diagram, nil
 }

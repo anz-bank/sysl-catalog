@@ -21,19 +21,20 @@ const (
 
 // Project is the top level in the hierarchy of markdown generation
 type Project struct {
-	Title                       string
-	Output                      string
-	PlantumlService             string
-	OutputFileName              string
-	RootLevelIntegrationDiagram *Diagram
-	Log                         *logrus.Logger
-	Packages                    map[string]*Package // Packages are the rows of the top level markdown
-	Fs                          afero.Fs
-	Module                      *sysl.Module
-	PackageModules              map[string]*sysl.Module // PackageModules maps @package attr to all those applications
-	ProjectTempl                *template.Template      // Templ is used to template the Project struct
-	PackageTempl                *template.Template      // PackageTempl is passed down to all Packages
-	EmbededTempl                *template.Template      // This is passed down to all Diagrams
+	Title                          string
+	Output                         string
+	PlantumlService                string
+	OutputFileName                 string
+	RootLevelIntegrationDiagramEPA *Diagram
+	RootLevelIntegrationDiagram    *Diagram
+	Log                            *logrus.Logger
+	Packages                       map[string]*Package // Packages are the rows of the top level markdown
+	Fs                             afero.Fs
+	Module                         *sysl.Module
+	PackageModules                 map[string]*sysl.Module // PackageModules maps @package attr to all those applications
+	ProjectTempl                   *template.Template      // Templ is used to template the Project struct
+	PackageTempl                   *template.Template      // PackageTempl is passed down to all Packages
+	EmbededTempl                   *template.Template      // This is passed down to all Diagrams
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
@@ -102,7 +103,6 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
 		return
 	}
-
 	if err := GenerateMarkdown(p.Output, p.OutputFileName, p, p.ProjectTempl, p.Fs); err != nil {
 		p.Log.Errorf("Error generating root markdown:\n %v", err)
 		return
@@ -125,11 +125,11 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 				return
 			}
 		}
-		for _, data := range pkg.DataModelDiagrams {
-			if err := GenerateDiagramAndMarkdown(data); err != nil {
-				p.Log.Errorf("Error generating Data Model diagram template and diagrams:\n %v", err)
-				return
-			}
-		}
+		//for _, data := range pkg.DataModelDiagrams {
+		//	if err := GenerateDiagramAndMarkdown(data); err != nil {
+		//		p.Log.Errorf("Error generating Data Model diagram template and diagrams:\n %v", err)
+		//		return
+		//	}
+		//}
 	}
 }

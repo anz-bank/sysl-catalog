@@ -5,10 +5,10 @@
 ## Index
 | AppName | Endpoint |
 | - | - | 
-| Apple | [AnotherEndpoint](#AppleAnotherEndpoint) |
-| Apple | [skljdfnskjdfnsd](#Appleskljdfnskjdfnsd) |
-| Apple | [sodifsdoif](#Applesodifsdoif) |
-| Banana | [thisEndpoint](#BananathisEndpoint) |]
+| Apple | [AnotherEndpoint](#Apple_AnotherEndpoint) |
+| Apple | [skljdfnskjdfnsd](#Apple_skljdfnskjdfnsd) |
+| Apple | [sodifsdoif](#Apple_sodifsdoif) |
+| Banana | [thisEndpoint](#Banana_thisEndpoint) |]
 
 
 ## Apple AnotherEndpoint

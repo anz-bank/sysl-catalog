@@ -19,7 +19,7 @@ const PackageMarkdownTemplate = `
 ## Index
 | AppName | Endpoint |
 | - | - | {{range $Diagram := .SequenceDiagrams}}
-| {{$Diagram.AppName}} | [{{$Diagram.EndpointName}}](#{{$Diagram.AppName}}{{$Diagram.EndpointName}}) |{{end}}]
+| {{$Diagram.AppName}} | [{{$Diagram.EndpointName}}](#{{$Diagram.AppName}}_{{$Diagram.EndpointName}}) |{{end}}]
 
 {{range $Diagram := .SequenceDiagrams}}
 ## {{$Diagram.AppName}} {{$Diagram.EndpointName}}

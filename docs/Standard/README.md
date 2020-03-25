@@ -5,8 +5,8 @@
 ## Index
 | AppName | Endpoint |
 | - | - | 
-| Bar | [AnotherEndpoint](#BarAnotherEndpoint) |
-| Foo | [thisEndpoint](#FoothisEndpoint) |]
+| Bar | [AnotherEndpoint](#Bar_AnotherEndpoint) |
+| Foo | [thisEndpoint](#Foo_thisEndpoint) |]
 
 
 ## Bar AnotherEndpoint

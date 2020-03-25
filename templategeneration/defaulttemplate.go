@@ -16,10 +16,22 @@ const PackageMarkdownTemplate = `
 [Back](../README.md)
 # Package {{.PackageName}}
 
-## Sequence Diagrams
+## Index
 | AppName | Endpoint |
 | - | - | {{range $Diagram := .SequenceDiagrams}}
-| {{$Diagram.AppName}} | [{{$Diagram.EndpointName}}]({{$Diagram.OutputFileName__}}.md) |{{end}}
+| {{$Diagram.AppName}} | [{{$Diagram.EndpointName}}](#{{$Diagram.AppName}}{{$Diagram.EndpointName}}) |{{end}}]
+
+{{range $Diagram := .SequenceDiagrams}}
+## {{$Diagram.AppName}} {{$Diagram.EndpointName}}
+
+### Parameter types
+{{range $DataModelDiagram := $Diagram.InputDataModel}}
+![alt text]({{$DataModelDiagram.OutputFileName__}}.svg)
+{{end}}
+### Sequence Diagram
+![alt text]({{.OutputFileName__}}.svg)
+{{end}}
+
 `
 
 const EmbededSvgTemplate = `

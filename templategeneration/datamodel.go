@@ -21,7 +21,7 @@ type DataModelParam struct {
 	datamodeldiagram.DataModelParam
 }
 
-func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, app *sysl.Application, t *sysl.Type, p Project) string {
+func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName string, t *sysl.Type, p Project) string {
 	var isRelation bool
 	relationshipMap := map[string]map[string]datamodeldiagram.RelationshipParam{}
 	v.StringBuilder.WriteString("@startuml\n")
@@ -35,10 +35,9 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, app *sysl.Ap
 	typeMap := map[string]*sysl.Type{}
 	ignoredTypes := map[string]struct{}{}
 	// typeMap := dataParam.App.GetTypes()
-	// TODO: Actually put The app/project name and the app in a struct so strings.split and join dont need to be used
+	// TODO: Actually put The appName/project name and the appName in a struct so strings.split and join dont need to be used
 	entityNames := []string{}
-
-	typeMap = RecurseivelyGetTypes(strings.Join(app.Name.Part, ""), t, p)
+	typeMap = RecurseivelyGetTypes(appName, t, p)
 	for key := range typeMap {
 		entityNames = append(entityNames, key)
 	}
@@ -94,7 +93,7 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, p Project) map[string]*s
 	case *sysl.Type_Primitive_:
 		return nil
 	case *sysl.Type_TypeRef:
-		typeName := strings.Join(t.GetTypeRef().GetRef().Path, "")
+		typeName = strings.Join(t.GetTypeRef().GetRef().Path, "")
 		appName, typeName, t = TypeFromRef(p.Module, appName, t)
 		ret[appName+"."+typeName] = t
 	default:
@@ -106,9 +105,10 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, p Project) map[string]*s
 	for _, ts := range tuple.AttrDefs {
 		var newType *sysl.Type
 		appName, typeName, newType = TypeFromRef(p.Module, appName, ts)
-		if newType != nil {
-			ret[appName+"."+typeName] = newType
+		if newType == nil {
+			continue
 		}
+		ret[appName+"."+typeName] = newType
 		for _, v := range RecurseivelyGetTypes(appName, ret[appName+"."+typeName], p) {
 			typeName := strings.Join(v.GetTypeRef().GetRef().Path, "")
 			appName, typeName, newType = TypeFromRef(p.Module, appName, v)
@@ -118,7 +118,6 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, p Project) map[string]*s
 		}
 	}
 	return ret
-
 }
 
 func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string, *sysl.Type) {
@@ -136,7 +135,15 @@ func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string
 		if ref.Appname != nil {
 			appName = strings.Join(ref.Appname.Part, "")
 		}
-		typeName = strings.Join(ref.Path, "")
+		typeName = strings.Join(ref.Path, ".")
+		if len(ref.Path) > 1 {
+			appName = ref.Path[0]
+			typeName = ref.Path[1]
+		}
+		fmt.Println(appName, typeName)
+		if appName == "" {
+			return "", "", nil
+		}
 		return appName, typeName, mod.Apps[appName].Types[typeName]
 	}
 	return "", "", nil

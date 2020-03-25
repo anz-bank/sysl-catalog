@@ -1,0 +1,12 @@
+GrpcTesting:
+    qwertyuio(input <: GrpcTesting.Request):
+        return ok <: GrpcTesting.Response
+    !type Request:
+        query <: GrpcTesting.Response
+        that <: string
+    !type Response:
+        query <: string
+
+simple2:
+    _:
+        GrpcTesting

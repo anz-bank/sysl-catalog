@@ -21,16 +21,39 @@ import (
 	"github.com/anz-bank/sysl/pkg/diagrams"
 )
 
-// Diagram represents a plantuml diagram with other contextual info.
+// DiagramString represents a plantuml diagram with other contextual info.
 type Diagram struct {
 	Parent                 *Package
+	Endpoint               *sysl.Endpoint
 	OutputDir              string
 	AppName                string
 	EndpointName           string
-	Diagram                string
+	DiagramString          string
 	OutputFileName__       string
 	OutputMarkdownFileName string
 	Diagramtype            string
+}
+
+type SequenceDiagram struct {
+	Diagram
+	Endpoint        *sysl.Endpoint
+	InputDataModel  []*Diagram
+	OutputDataModel []*Diagram
+}
+
+// GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
+func (sd *SequenceDiagram) GenerateDiagramAndMarkdown() error {
+	fmt.Println(sd.OutputFileName__)
+	if err := GenerateMarkdown(sd.OutputDir, sd.OutputFileName__+md, sd, sd.Parent.Parent.EmbededTempl, sd.Parent.Parent.Fs); err != nil {
+		return err
+	}
+	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
+	diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
+	for _, d := range sd.InputDataModel {
+		outputFileName := path.Join(d.OutputDir, d.OutputFileName__+ext)
+		diagrams.OutputPlantuml(outputFileName, d.Parent.Parent.PlantumlService, d.DiagramString, d.Parent.Parent.Fs)
+	}
+	return nil
 }
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
@@ -40,7 +63,7 @@ func GenerateDiagramAndMarkdown(sd *Diagram) error {
 		return err
 	}
 	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
-	return diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.Diagram, sd.Parent.Parent.Fs)
+	return diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
 }
 
 func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
@@ -117,7 +140,7 @@ func (p *Project) CreateIntegrationDiagrams() error {
 		OutputDir:              p.Output,
 		AppName:                p.Title,
 		EndpointName:           "",
-		Diagram:                "", // Leave this empty because the diagram is already created
+		DiagramString:          "", // Leave this empty because the diagram is already created
 		OutputFileName__:       integration.Output,
 		OutputMarkdownFileName: "",
 		Diagramtype:            "integration",
@@ -135,12 +158,12 @@ func (p *Project) CreateIntegrationDiagrams() error {
 	//if err != nil {
 	//	return err
 	//}
-	//p.RootLevelIntegrationDiagram = &Diagram{
+	//p.RootLevelIntegrationDiagram = &DiagramString{
 	//	Parent:                 nil,
 	//	OutputDir:              p.Output,
 	//	AppName:                p.Title,
 	//	EndpointName:           "",
-	//	Diagram:                string(out),
+	//	DiagramString:                string(out),
 	//	OutputFileName__:       integration.Output,
 	//	OutputMarkdownFileName: "",
 	//	Diagramtype:            "integration",

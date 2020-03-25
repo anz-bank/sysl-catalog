@@ -27,7 +27,7 @@ type Project struct {
 	OutputFileName              string
 	RootLevelIntegrationDiagram *Diagram
 	Log                         *logrus.Logger
-	Packages                    map[string]*Package //Packages are the rows of the top level markdown
+	Packages                    map[string]*Package // Packages are the rows of the top level markdown
 	Fs                          afero.Fs
 	Module                      *sysl.Module
 	PackageModules              map[string]*sysl.Module // PackageModules maps @package attr to all those applications
@@ -114,7 +114,7 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 			return
 		}
 		for _, sd := range pkg.SequenceDiagrams {
-			if err := GenerateDiagramAndMarkdown(sd); err != nil {
+			if err := sd.GenerateDiagramAndMarkdown(); err != nil {
 				p.Log.Errorf("Error generating Sequence diagram template and diagrams:\n %v", err)
 				return
 			}

@@ -37,10 +37,12 @@ GrpcTesting:
     qwertyuio:
         return ok <: GrpcTesting.Request
     !type Request:
-        query <: Response
+        query <: GrpcTesting.Response
         that <: string
-    !type Response:
-        query <: string
+
+GrpcTesting:
+     !type Response:
+            query <: string
 
 ThisApp[~ignore]:
     DoesntExist:

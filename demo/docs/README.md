@@ -5,7 +5,6 @@
 | - | 
 [ApplicationPackage](ApplicationPackage/README.md)|
 [ServerPackage](ServerPackage/README.md)|
-[serverPackage](serverPackage/README.md)|
 
 Integration diagram:
 

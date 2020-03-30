@@ -59,3 +59,7 @@ ThisAppShouldShow[~ignore]:
     NotMySystem[~ignore]:
         ...
 ```
+
+## Screenshots
+![docs/images/package_view.png](docs/images/package_view.png)
+![docs/images/project_view.png](docs/images/project_view.png)

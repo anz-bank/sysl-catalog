@@ -1,0 +1,33 @@
+
+# This project tells our integration diagram what apps to include
+simple2[~ignore]:
+    _:
+        MobileApp
+        Server
+        MegaDatabase
+
+MobileApp:
+    @package = "ApplicationPackage"
+    Login(input <: Server.Request):
+        Server <- Authenticate
+        return ok <: MegaDatabase.Empty
+
+Server:
+    @package = "ServerPackage"
+    !type Response:
+        query <: MegaDatabase.Money
+        balance <: MegaDatabase.Empty
+
+    !type Request:
+        query <: string
+
+    Authenticate(input <: Server.Request):
+        return ok <: Server.Response
+
+# This is an example of apps with types made up of different apps
+MegaDatabase:
+    @package = "serverPackage"
+    !type Empty[~empty]:
+        ...
+    !type Money:
+        amount <: int

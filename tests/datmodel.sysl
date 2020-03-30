@@ -1,0 +1,28 @@
+MobileApp:
+    Login(input <: GrpcTesting.Request):
+        Server <- Authenticate
+        return ok <: OtherApp.Empty
+    !type Request:
+        query <: OtherApp.Money
+        that <: string
+Server:
+    Authenticate:
+        return ok <: OtherApp.Empty
+
+OtherApp:
+    !type Empty[~empty]:
+        ...
+    !type Money:
+        id <: ThirdApp.Whatever
+
+ThirdApp:
+    !type Whatever:
+        content <: FourthApp.qwert
+
+FourthApp:
+    !enum qwert:
+        AUD : 1234
+
+simple2:
+    _:
+        GrpcTesting

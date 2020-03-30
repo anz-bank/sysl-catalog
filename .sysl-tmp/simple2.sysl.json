@@ -1,0 +1,252 @@
+{
+ "apps": {
+  "GrpcTesting": {
+   "name": {
+    "part": [
+     "GrpcTesting"
+    ]
+   },
+   "endpoints": {
+    "qwertyuio": {
+     "name": "qwertyuio",
+     "param": [
+      {
+       "name": "input",
+       "type": {
+        "typeRef": {
+         "ref": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "stmt": [
+      {
+       "ret": {
+        "payload": "ok \u003c: OtherApp.Money"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/templategeneration/simple2.sysl",
+      "start": {
+       "line": 2,
+       "col": 4
+      }
+     }
+    }
+   },
+   "types": {
+    "Request": {
+     "tuple": {
+      "attrDefs": {
+       "query": {
+        "typeRef": {
+         "context": {
+          "appname": {
+           "part": [
+            "GrpcTesting"
+           ]
+          },
+          "path": [
+           "Request"
+          ]
+         },
+         "ref": {
+          "path": [
+           "OtherApp",
+           "Money"
+          ]
+         }
+        },
+        "sourceContext": {
+         "start": {
+          "line": 5
+         }
+        }
+       },
+       "that": {
+        "primitive": "STRING",
+        "constraint": [
+        ],
+        "sourceContext": {
+         "start": {
+          "line": 6
+         }
+        }
+       }
+      }
+     },
+     "sourceContext": {
+      "file": "/templategeneration/simple2.sysl",
+      "start": {
+       "line": 4,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/templategeneration/simple2.sysl",
+    "start": {
+     "line": 1,
+     "col": 1
+    }
+   }
+  },
+  "OtherApp": {
+   "name": {
+    "part": [
+     "OtherApp"
+    ]
+   },
+   "types": {
+    "Empty": {
+     "attrs": {
+      "patterns": {
+       "a": {
+        "elt": [
+         {
+          "s": "empty"
+         }
+        ]
+       }
+      }
+     },
+     "sourceContext": {
+      "file": "/templategeneration/simple2.sysl",
+      "start": {
+       "line": 8,
+       "col": 4
+      }
+     }
+    },
+    "Money": {
+     "tuple": {
+      "attrDefs": {
+       "id": {
+        "typeRef": {
+         "context": {
+          "appname": {
+           "part": [
+            "OtherApp"
+           ]
+          },
+          "path": [
+           "Money"
+          ]
+         },
+         "ref": {
+          "path": [
+           "ThirdApp",
+           "Whatever"
+          ]
+         }
+        },
+        "sourceContext": {
+         "start": {
+          "line": 11
+         }
+        }
+       }
+      }
+     },
+     "sourceContext": {
+      "file": "/templategeneration/simple2.sysl",
+      "start": {
+       "line": 10,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/templategeneration/simple2.sysl",
+    "start": {
+     "line": 7,
+     "col": 1
+    }
+   }
+  },
+  "ThirdApp": {
+   "name": {
+    "part": [
+     "ThirdApp"
+    ]
+   },
+   "types": {
+    "Whatever": {
+     "tuple": {
+      "attrDefs": {
+       "content": {
+        "primitive": "STRING",
+        "constraint": [
+        ],
+        "sourceContext": {
+         "start": {
+          "line": 14
+         }
+        }
+       }
+      }
+     },
+     "sourceContext": {
+      "file": "/templategeneration/simple2.sysl",
+      "start": {
+       "line": 13,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/templategeneration/simple2.sysl",
+    "start": {
+     "line": 12,
+     "col": 1
+    }
+   }
+  },
+  "simple2": {
+   "name": {
+    "part": [
+     "simple2"
+    ]
+   },
+   "endpoints": {
+    "_": {
+     "name": "_",
+     "stmt": [
+      {
+       "action": {
+        "action": "GrpcTesting"
+       }
+      }
+     ],
+     "sourceContext": {
+      "file": "/templategeneration/simple2.sysl",
+      "start": {
+       "line": 17,
+       "col": 4
+      }
+     }
+    }
+   },
+   "sourceContext": {
+    "file": "/templategeneration/simple2.sysl",
+    "start": {
+     "line": 16,
+     "col": 1
+    }
+   }
+  }
+ }
+}

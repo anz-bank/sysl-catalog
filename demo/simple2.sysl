@@ -1,6 +1,6 @@
 
 # This project tells our integration diagram what apps to include
-simple2[~ignore]:
+simple2[appfmt="%(appname)", ~ignore]:
     _:
         MobileApp
         Server

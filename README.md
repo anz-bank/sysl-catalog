@@ -17,8 +17,9 @@ In [demo/README.md](demo/README.md) we have an example with a couple of interest
 
 so as this example is called "simple2.sysl" there needs to be a project "simple2":
 - This these applications to our integration diagram.
+NOTE: This must have `appfmt="%(appname)"` as an attribute to render integration diagrams correctly
 ```
-simple2[~ignore]:
+simple2[appfmt="%(appname)", ~ignore]:
     _:
         MobileApp
         Server
@@ -45,4 +46,16 @@ MobileApp:
 -    Login(input <: Request):
         Server <- Authenticate
         return ok <: MegaDatabase.Empty
+```
+
+4. Add ~ignore to applications/projects that are to be ignored in the markdown creation
+
+ ```diff
+ThisAppShouldntShow[~ignore]:
+    NotMySystem:
+        ...
+# Or ignore only specific endpoints
+ThisAppShouldShow[~ignore]:
+    NotMySystem[~ignore]:
+        ...
 ```

@@ -6,7 +6,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/joshcarp/syslcatalog/pkg/templategeneration"
+	"github.com/anz-bank/sysl-catalog/pkg/templategeneration"
 
 	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/spf13/afero"

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/joshcarp/syslcatalog/pkg/templategeneration"
+	"github.com/anz-bank/sysl-catalog/pkg/templategeneration"
 
 	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/sirupsen/logrus"

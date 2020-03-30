@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/joshcarp/syslcatalog/pkg/catalogdiagrams"
+	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
 
 	"github.com/anz-bank/sysl/pkg/sequencediagram"
 

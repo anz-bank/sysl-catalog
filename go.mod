@@ -1,4 +1,4 @@
-module github.com/joshcarp/syslcatalog
+module github.com/anz-bank/sysl-catalog
 
 go 1.14
 

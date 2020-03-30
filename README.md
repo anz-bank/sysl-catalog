@@ -3,7 +3,9 @@
 A markdown + Diagram generator for sysl specifications
 ## Installation
 
-```go get -uv github.com/anz-bank/sysl-catalog```
+```bash
+go get -u -v github.com/anz-bank/sysl-catalog
+```
 
 ## How to use
 1. Run 
@@ -13,8 +15,9 @@ sysl-catalog -o <outputdir> <input.sysl>
 ```
 
 2. That's it (basically!)
+- This will generate markdown with integration diagrams + sequence diagrams + data model diagrams as seen in [demo/README.md](demo/README.md)
 
-## Prerequisites
+## Requirements
 In [demo/README.md](demo/README.md) we have an example with a couple of interesting parts:
 1. There needs to be a "project" the same name as the filename:
 

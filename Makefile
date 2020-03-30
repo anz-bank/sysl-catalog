@@ -9,4 +9,4 @@ run:
 
 demo:
 	rm -rf demo/docs/*
-	go run ./cmd/syslcatalog/ -o demo/docs demo/simple2.sysl
+	go run ./syslcatalog/ -o demo/docs demo/simple2.sysl

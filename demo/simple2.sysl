@@ -25,7 +25,7 @@ Server:
 
 # This is an example of apps with types made up of different apps
 MegaDatabase:
-    @package = "ServerPackage"
+    @package = "MegaDatabase"
     !type Empty[~empty]:
         ...
     !type Money:

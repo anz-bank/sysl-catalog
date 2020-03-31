@@ -1,6 +1,7 @@
 # syslcatalog
 
 A markdown + Diagram generator for sysl specifications
+
 ## Installation
 
 ```bash
@@ -8,22 +9,26 @@ go get -u -v github.com/anz-bank/sysl-catalog
 ```
 
 ## How to use
-1. Run 
+1. Set up environment
+`export SYSL_PLANTUML=http://www.plantuml.com/plantuml`
+
+2. Run 
 
 ```bash
 sysl-catalog -o <outputdir> <input.sysl>
 ```
 
-2. That's it (basically!)
-- This will generate markdown with integration diagrams + sequence diagrams + data model diagrams as seen in [demo/README.md](demo/README.md)
+3. That's it (basically!)
+
+    This will generate markdown with integration diagrams + sequence diagrams + data model diagrams as seen in [demo/docs/README.md](demo/docs/README.md).
 
 ## Requirements
-In [demo/README.md](demo/README.md) we have an example with a couple of interesting parts:
-1. There needs to be a "project" the same name as the filename:
+In [demo/docs/README.md](demo/docs/README.md) we have an example with a couple of interesting parts:
 
-so as this example is called "simple2.sysl" there needs to be a project "simple2":
-- This these applications to our integration diagram.
-NOTE: This must have `appfmt="%(appname)"` as an attribute to render integration diagrams correctly
+1. There needs to be a sysl `project` the same name as the filename:
+
+so as this example is called "simple2.sysl" there needs to be a `project` "simple2":
+- applications in our integration diagram:
 ```
 simple2[appfmt="%(appname)", ~ignore]:
     _:
@@ -31,11 +36,12 @@ simple2[appfmt="%(appname)", ~ignore]:
         Server
         MegaDatabase
 ```
+NOTE: must have `appfmt="%(appname)"` as an attribute to render integration diagrams correctly.
 
 2. `@package` attribute must be specified:
- - This will create a markdown page for "ApplicationPackage" as seen in [demo/docs/ApplicationPackage/README.md](demo/docs/ApplicationPackage/README.md)
- Currently the package name is not inferred from the application name, so this needs to be added
- ```
+- This will create a markdown page for `ApplicationPackage` as seen in [demo/docs/ApplicationPackage/README.md](demo/docs/ApplicationPackage/README.md).
+ Currently the package name is not inferred from the application name (`MobileApp`), so this needs to be added (`ApplicationPackage`).
+```
 MobileApp:
     @package = "ApplicationPackage"
     Login(input <: Server.Request):
@@ -43,9 +49,8 @@ MobileApp:
         return ok <: MegaDatabase.Empty
 ```
 
-3. Application names need to be prefixed to parameter types:
-- This is just a bug that I found
- ```diff
+3. Application names need to be prefixed to parameter types if the type is defined in another application, since defined parameters are under scope of the application it is defined in:
+```diff
 MobileApp:
     @package = "ApplicationPackage"
 +    Login(input <: Server.Request):
@@ -54,9 +59,8 @@ MobileApp:
         return ok <: MegaDatabase.Empty
 ```
 
-4. Add ~ignore to applications/projects that are to be ignored in the markdown creation
-
- ```diff
+4. Add `~ignore` to applications/projects that are to be ignored in the markdown creation
+```diff
 ThisAppShouldntShow[~ignore]:
     NotMySystem:
         ...
@@ -67,5 +71,8 @@ ThisAppShouldShow[~ignore]:
 ```
 
 ## Screenshots
-![docs/images/package_view.png](docs/images/package_view.png)
 ![docs/images/project_view.png](docs/images/project_view.png)
+*project_view*
+
+![docs/images/package_view.png](docs/images/package_view.png)
+*package_view*

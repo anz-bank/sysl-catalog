@@ -44,7 +44,7 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
-				templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), httpFileSystem, m).ExecuteTemplateAndDiagrams()
+				templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), httpFileSystem, m).SetServerMode().ExecuteTemplateAndDiagrams()
 			},
 			path.Dir(*input))
 		httpFs := afero.NewHttpFs(httpFileSystem)

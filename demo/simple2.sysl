@@ -7,7 +7,7 @@ simple2[appfmt="%(appname)", ~ignore]:
 
 MobileApp:
     @package = "ApplicationPackage"
-    Foobar(input <: Server.Request):
+    Bar(input <: Server.Request):
         Server <- Authenticate
         return ok <: MegaDatabase.Empty
 

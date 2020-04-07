@@ -15,12 +15,14 @@ import (
 
 const (
 	diagram_sequence = "sequence"
+	refreshHeader    = `<head><meta http-equiv="refresh" content="3" /></head>`
 )
 
 // Project is the top level in the hierarchy of markdown generation
 type Project struct {
 	Title                          string
 	PageFileName                   string // Is README.md for markdown and index.html for html
+	Server                         bool   // Determines wether html refresh header is added
 	OutputType                     string
 	Output                         string
 	PlantumlService                string
@@ -34,7 +36,6 @@ type Project struct {
 	PackageModules                 map[string]*sysl.Module // PackageModules maps @package attr to all those applications
 	ProjectTempl                   *template.Template      // Templ is used to template the Project struct
 	PackageTempl                   *template.Template      // PackageTempl is passed down to all Packages
-	EmbededTempl                   *template.Template      // This is passed down to all Diagrams
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
@@ -97,9 +98,17 @@ func (p *Project) initProject() {
 	}
 }
 
+func (p *Project) SetServerMode() *Project {
+	//Add the refresh header is server mode has been enabled
+	if err := p.RegisterTemplates(refreshHeader+ProjectHTMLTemplate, refreshHeader+PackageHTMLTemplate); err != nil {
+		p.Log.Errorf("Error registering default templates:\n %v", err)
+	}
+	return p
+}
+
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
 func (p *Project) ExecuteTemplateAndDiagrams() {
-	if p.EmbededTempl == nil || p.PackageTempl == nil || p.ProjectTempl == nil {
+	if p.PackageTempl == nil || p.ProjectTempl == nil {
 		if p.OutputType == "html" {
 			if err := p.RegisterTemplates(ProjectHTMLTemplate, PackageHTMLTemplate); err != nil {
 				p.Log.Errorf("Error registering default templates:\n %v", err)
@@ -109,7 +118,6 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 				p.Log.Errorf("Error registering default templates:\n %v", err)
 			}
 		}
-
 	}
 	if err := p.CreateIntegrationDiagrams(); err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)

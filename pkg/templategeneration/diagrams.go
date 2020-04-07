@@ -56,9 +56,6 @@ func (sd *SequenceDiagram) GenerateDiagramAndMarkdown() error {
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
 func GenerateDiagramAndMarkdown(sd *Diagram) error {
 	fmt.Println(sd.OutputFileName__)
-	if err := GenerateMarkdown(sd.OutputDir, sd.OutputFileName__+md, sd, sd.Parent.Parent.EmbededTempl, sd.Parent.Parent.Fs); err != nil {
-		return err
-	}
 	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
 	return diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
 }

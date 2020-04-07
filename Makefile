@@ -1,6 +1,7 @@
 all:
-	rm -rf demo/docs/*
-	rm -rf demo/docs/html/*
+	rm -rf demo/html/*
+	rm -rf demo/markdown/*
+	rm -rf docs/*
 	go run . -o demo/markdown demo/simple2.sysl
 	go run . --type=html -o demo/html demo/simple2.sysl
 	cp -r demo/html/* docs/

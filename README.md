@@ -31,10 +31,10 @@ sysl-catalog comes with a `serve` mode which will serve on port `:69` by default
 sysl-catalog -o <output directory> --server <input directory>
 ```
 This will start a server and filewatchers to watch the input file and its directories recursively, the website will refresh on edit
-![example gif](example.gif)
+![example gif](resources/example.gif)
 
 ## Requirements
-In [demo/docs/README.md](demo/docs/README.md) we have an example with a couple of interesting parts:
+In [demo/markdown/README.md](demo/markdown/README.md) we have an example with a couple of interesting parts:
 
 1. There needs to be a sysl `project` the same name as the filename:
 
@@ -50,7 +50,7 @@ simple2[appfmt="%(appname)", ~ignore]:
 NOTE: must have `appfmt="%(appname)"` as an attribute to render integration diagrams correctly.
 
 2. `@package` attribute must be specified:
-- This will create a markdown page for `ApplicationPackage` as seen in [demo/docs/ApplicationPackage/README.md](demo/docs/ApplicationPackage/README.md).
+- This will create a markdown page for `ApplicationPackage` as seen in [demo/markdown/ApplicationPackage/README.md](demo/markdown/ApplicationPackage/README.md).
  Currently the package name is not inferred from the application name (`MobileApp`), so this needs to be added (`ApplicationPackage`).
 ```
 MobileApp:
@@ -82,8 +82,8 @@ ThisAppShouldShow[~ignore]:
 ```
 
 ## Screenshots
-![docs/images/project_view.png](docs/images/project_view.png)
+![resources/project_view.png](resources/project_view.png)
 *project_view*
 
-![docs/images/package_view.png](docs/images/package_view.png)
+![resources/package_view.png](resources/package_view.png)
 *package_view*

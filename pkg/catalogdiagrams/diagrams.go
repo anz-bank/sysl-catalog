@@ -158,7 +158,6 @@ func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string
 			appName = ref.Path[0]
 			typeName = ref.Path[1]
 		}
-		fmt.Println(appName, typeName)
 		if appName == "" {
 			return "", "", nil
 		}

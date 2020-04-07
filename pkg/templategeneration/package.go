@@ -131,7 +131,6 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 	}
 	for _, stmnt := range endpoint.Stmt {
 		if ret := stmnt.GetRet(); ret != nil {
-			fmt.Println(ret.Payload)
 			t := re.FindString(ret.Payload)
 			if split := strings.Split(t, "."); len(split) > 1 {
 				appName = split[0]

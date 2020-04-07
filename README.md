@@ -14,10 +14,10 @@ go get -u -v github.com/anz-bank/sysl-catalog
 
 2. Run 
 
-```bash
+```bashs
 sysl-catalog -o <output directory> <input.sysl>
 ```
-- You can optionally specify the `--type=html` if you want to generate html instead of markdown, which is useful for use with github pages
+- You can optionally specify the `--type=html` if you want to generate html instead of markdown, which is useful for use with github pages, which you can see a demo of with this repo [here](https://anz-bank.github.io/sysl-catalog/)
 
 3. That's it (basically!)
 

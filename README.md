@@ -25,7 +25,7 @@ sysl-catalog -o <output directory> <input.sysl>
 
 
 ## Server Mode
-sysl-catalog comes with a `serve` mode which will serve on port `:69` by default
+sysl-catalog comes with a `serve` mode which will serve on port `:6900` by default
 
 ```bash 
 sysl-catalog -o <output directory> --server <input directory>

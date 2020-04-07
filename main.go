@@ -20,7 +20,7 @@ import (
 var (
 	input      = kingpin.Arg("input", "input sysl file to generate documentation for").Required().String()
 	server     = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
-	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":69").String()
+	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
 	outputType = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
 	outputDir  = kingpin.Flag("output", "Output directory to generate to").Short('o').String()
 )

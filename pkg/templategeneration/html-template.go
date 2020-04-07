@@ -19,12 +19,18 @@ const PackageHTMLTemplate = `
 <p><a href="../index.html">Back</a></p>
 <h1 id="package-packagename-">Package {{.PackageName}}</h1>
 <h2 id="index">Index</h2>
-<p>| Service Name | Method |
-| - | - | {{range $Diagram := .SequenceDiagrams}}
-| {{$Diagram.AppName}} | <a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a> |{{end}}]</p>
+
+<table>
+  <tr>
+    <th>Service Name</th>
+	<th>Method</th>
+  </tr>
+ {{range $Diagram := .SequenceDiagrams}}
+<tr><td>{{$Diagram.AppName}} </td> <td><a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a></td></tr>{{end}}
+</table>
 <hr>
 <p>{{range $Diagram := .SequenceDiagrams}}</p>
-<h2 id="-diagram-appname-diagram-endpointname-">{{$Diagram.AppName}} {{$Diagram.EndpointName}}</h2>
+<h2 id="{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.AppName}} {{$Diagram.EndpointName}}</h2>
 <h3 id="sequence-diagram">Sequence Diagram</h3>
 <p><img src="{{.OutputFileName__}}.svg" alt="alt text"></p>
 <h3 id="request-types">Request types</h3>

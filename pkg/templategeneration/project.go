@@ -4,6 +4,7 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"sync"
 	"text/template"
 
 	"github.com/sirupsen/logrus"
@@ -108,6 +109,7 @@ func (p *Project) SetServerMode() *Project {
 
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
 func (p *Project) ExecuteTemplateAndDiagrams() {
+	var wg sync.WaitGroup
 	if p.PackageTempl == nil || p.ProjectTempl == nil {
 		if p.OutputType == "html" {
 			if err := p.RegisterTemplates(ProjectHTMLTemplate, PackageHTMLTemplate); err != nil {
@@ -119,6 +121,7 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 			}
 		}
 	}
+
 	if err := p.CreateIntegrationDiagrams(); err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
 		return
@@ -127,23 +130,38 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 		p.Log.Errorf("Error generating root markdown:\n %v", err)
 		return
 	}
+
 	for _, key := range AlphabeticalPackage(p.Packages) {
 		pkg := p.Packages[key]
-		if err := GenerateMarkdown(pkg.OutputDir, pkg.OutputFile, pkg, pkg.Parent.PackageTempl, p.Fs); err != nil {
-			p.Log.Errorf("Error generating package markdown:\n %v", err)
-			return
-		}
-		for _, sd := range pkg.SequenceDiagrams {
-			if err := sd.GenerateDiagramAndMarkdown(); err != nil {
-				p.Log.Errorf("Error generating Sequence diagram template and diagrams:\n %v", err)
+		wg.Add(1)
+		go func(pk *Package) {
+			if err := GenerateMarkdown(pk.OutputDir, pk.OutputFile, pk, pk.Parent.PackageTempl, p.Fs); err != nil {
+				p.Log.Errorf("Error generating package markdown:\n %v", err)
 				return
 			}
+			wg.Done()
+		}(pkg)
+		for _, sd := range pkg.SequenceDiagrams {
+			wg.Add(1)
+			go func(s *SequenceDiagram) {
+				if err := s.GenerateDiagramAndMarkdown(); err != nil {
+					p.Log.Errorf("Error generating Sequence diagram template and diagrams:\n %v", err)
+					return
+				}
+				wg.Done()
+			}(sd)
+
 		}
 		for _, intDiagrams := range pkg.IntegrationDiagrams {
-			if err := GenerateDiagramAndMarkdown(intDiagrams); err != nil {
-				p.Log.Errorf("Error generating Integration diagram template and diagrams:\n %v", err)
-				return
-			}
+			wg.Add(1)
+			go func(d *Diagram) {
+				if err := GenerateDiagramAndMarkdown(d); err != nil {
+					p.Log.Errorf("Error generating Integration diagram template and diagrams:\n %v", err)
+					return
+				}
+				wg.Done()
+			}(intDiagrams)
 		}
 	}
+	wg.Wait()
 }

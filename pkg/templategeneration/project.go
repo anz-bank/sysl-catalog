@@ -101,7 +101,7 @@ func (p *Project) initProject() {
 func (p *Project) ExecuteTemplateAndDiagrams() {
 	if p.EmbededTempl == nil || p.PackageTempl == nil || p.ProjectTempl == nil {
 		if p.Server {
-			if err := p.RegisterTemplates(ProjectMarkdownTemplate, PackageMarkdownTemplate); err != nil {
+			if err := p.RegisterTemplates(ProjectHTMLTemplate, PackageHTMLTemplate); err != nil {
 				p.Log.Errorf("Error registering default templates:\n %v", err)
 			}
 		} else {

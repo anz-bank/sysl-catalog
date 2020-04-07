@@ -15,17 +15,23 @@ go get -u -v github.com/anz-bank/sysl-catalog
 2. Run 
 
 ```bash
-sysl-catalog -o <outputdir> <input.sysl>
+sysl-catalog -o <output directory> <input.sysl>
 ```
+- You can optionally specify the `--type=html` if you want to generate html instead of markdown, which is useful for use with github pages
 
-CLI flags are:
-    `--serve` Serves a html page on port 69
-    `--port=:80` Serve on a different port
-    `--type=<type>` either `markdown` or `html`
-    
 3. That's it (basically!)
 
-    This will generate markdown with integration diagrams + sequence diagrams + data model diagrams as seen in [demo/docs/README.md](demo/docs/README.md).
+    This will generate markdown with integration diagrams + sequence diagrams + data model diagrams as seen in [demo/markdown/README.md](demo/markdown/README.md) or see html generation at [demo/html/index.html](demo/html/index.html).
+
+
+## Server Mode
+sysl-catalog comes with a `serve` mode which will serve on port `:69` by default
+
+```bash 
+sysl-catalog -o <output directory> --server <input directory>
+```
+This will start a server and filewatchers to watch the input file and its directories recursively, the website will refresh on edit
+![example gif](example.gif)
 
 ## Requirements
 In [demo/docs/README.md](demo/docs/README.md) we have an example with a couple of interesting parts:

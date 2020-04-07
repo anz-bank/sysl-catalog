@@ -7,7 +7,7 @@ simple2[appfmt="%(appname)", ~ignore]:
 
 MobileApp:
     @package = "ApplicationPackage"
-    Login(input <: Server.Request):
+    Foobar(input <: Server.Request):
         Server <- Authenticate
         return ok <: MegaDatabase.Empty
 
@@ -16,7 +16,6 @@ Server:
     !type Response:
         query <: MegaDatabase.Money
         balance <: MegaDatabase.Empty
-
     !type Request:
         query <: string
 

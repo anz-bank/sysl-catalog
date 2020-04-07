@@ -1,43 +1,24 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 	"os"
+	"path"
+	"time"
 
 	"github.com/anz-bank/sysl-catalog/pkg/templategeneration"
 	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/radovskyb/watcher"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
-//func main() {
-//	plantumlService := os.Getenv("SYSL_PLANTUML")
-//	if plantumlService == "" {
-//		panic("Error: Set SYSL_PLANTUML env variable")
-//	}
-//	var output string
-//	flag.StringVar(&output, "o", "./", "Output directory of documentation")
-//	flag.Parse()
-//	filename := flag.Arg(0)
-//	fs := afero.NewOsFs()
-//	m, err := parse.NewParser().Parse(filename, fs)
-//	fs = afero.NewMemMapFs()
-//	if err != nil {
-//		panic(err)
-//	}
-//	templategeneration.NewProject(filename, "/"+output, plantumlService, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
-//
-//	httpFs := afero.NewHttpFs(fs)
-//	fileserver := http.FileServer(httpFs.Dir("/"))
-//	http.Handle("/", fileserver)
-//	http.ListenAndServe(":80", fileserver)
-//}
-
 var (
-	input = kingpin.Arg("input", "input sysl file to generate documentation for").Required().String()
-
+	input      = kingpin.Arg("input", "input sysl file to generate documentation for").Required().String()
 	server     = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
 	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":69").String()
 	outputType = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
@@ -50,23 +31,64 @@ func main() {
 	if plantumlService == "" {
 		panic("Error: Set SYSL_PLANTUML env variable")
 	}
-	fs := afero.NewOsFs()
-	m, err := parse.NewParser().Parse(*input, fs)
-
+	var fs, httpFileSystem afero.Fs
+	fs = afero.NewOsFs()
+	httpFileSystem = afero.NewMemMapFs()
 	if *server {
-		fs = afero.NewMemMapFs()
 		*outputDir = "/" + *outputDir
 		*outputType = "html"
-	}
-	if err != nil {
-		panic(err)
-	}
-	println(*outputType)
-	templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
-	if *server {
-		httpFs := afero.NewHttpFs(fs)
+		// Watch our input dir for changes and
+		go watchFile(
+			func() {
+				m, err := parse.NewParser().Parse(*input, fs)
+				if err != nil {
+					panic(err)
+				}
+				templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), httpFileSystem, m).ExecuteTemplateAndDiagrams()
+			},
+			path.Dir(*input))
+		httpFs := afero.NewHttpFs(httpFileSystem)
 		fileserver := http.FileServer(httpFs.Dir("/"))
 		http.Handle("/", fileserver)
 		http.ListenAndServe(*port, fileserver)
+	} else {
+		m, err := parse.NewParser().Parse(*input, fs)
+		if err != nil {
+			panic(err)
+		}
+		templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
+	}
+}
+
+func watchFile(action func(), files ...string) {
+	w := watcher.New()
+	// Only notify rename and move events.
+	w.FilterOps(watcher.Rename, watcher.Move, watcher.Write)
+	go func() {
+		for {
+			select {
+			case event := <-w.Event:
+				action()
+				fmt.Println(event) // Print the event's info.
+			case err := <-w.Error:
+				log.Fatalln(err)
+			case <-w.Closed:
+				return
+			}
+		}
+	}()
+	//// Watch test_folder recursively for changes.
+	for _, file := range files {
+		if err := w.AddRecursive(file); err != nil {
+			log.Fatalln(err)
+		}
+	}
+	go func() {
+		w.Wait()
+		w.TriggerEvent(watcher.Write, nil)
+	}()
+	//// Start the watching process - it'll check for changes every 100ms.
+	if err := w.Start(time.Millisecond * 100); err != nil {
+		log.Fatalln(err)
 	}
 }

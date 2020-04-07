@@ -115,7 +115,7 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 	diagram.OutputDir = path.Join(p.Parent.Output, p.PackageName)
 	diagram.DiagramString = seq
 	diagram.Diagramtype = diagram_sequence
-	diagram.OutputMarkdownFileName = pageFilename
+	diagram.OutputMarkdownFileName = p.Parent.OutputFileName
 	diagram.OutputDataModel = []*Diagram{}
 	diagram.InputDataModel = []*Diagram{}
 	for _, param := range endpoint.Param {

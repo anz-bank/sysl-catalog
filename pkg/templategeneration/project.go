@@ -20,6 +20,8 @@ const (
 // Project is the top level in the hierarchy of markdown generation
 type Project struct {
 	Title                          string
+	Server                         bool
+	PageFileName                   string // Is README.md for markdown and index.html for html
 	Output                         string
 	PlantumlService                string
 	OutputFileName                 string
@@ -36,7 +38,11 @@ type Project struct {
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
-func NewProject(inputSyslFileName, output, plantumlservice string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
+func NewProject(inputSyslFileName, output, plantumlservice string, server bool, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
+	fileName := "README.md"
+	if server {
+		fileName = "index.html"
+	}
 	p := Project{
 		Title:           strings.ReplaceAll(filepath.Base(inputSyslFileName), ".sysl", ""),
 		Output:          output,
@@ -46,7 +52,8 @@ func NewProject(inputSyslFileName, output, plantumlservice string, log *logrus.L
 		Packages:        map[string]*Package{},
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
-		OutputFileName:  pageFilename,
+		OutputFileName:  fileName,
+		Server:          server,
 	}
 	p.initProject()
 	if err := p.RegisterSequenceDiagrams(); err != nil {
@@ -56,12 +63,12 @@ func NewProject(inputSyslFileName, output, plantumlservice string, log *logrus.L
 }
 
 // RegisterTemplates registers templates for the project to use
-func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString, embededTemplateString string) error {
-	templates, err := LoadMarkdownTemplates(projectTemplateString, packageTemplateString, embededTemplateString)
+func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString string) error {
+	templates, err := LoadMarkdownTemplates(projectTemplateString, packageTemplateString)
 	if err != nil {
 		return err
 	}
-	p.ProjectTempl, p.PackageTempl, p.EmbededTempl = templates[0], templates[1], templates[2]
+	p.ProjectTempl, p.PackageTempl = templates[0], templates[1]
 	return nil
 }
 
@@ -78,7 +85,7 @@ func (p *Project) initProject() {
 				Parent:      p,
 				PackageName: packageName,
 				OutputDir:   path.Join(p.Output, packageName),
-				OutputFile:  pageFilename,
+				OutputFile:  p.OutputFileName,
 			}
 		}
 		p.Packages[packageName] = newPackage
@@ -93,9 +100,16 @@ func (p *Project) initProject() {
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
 func (p *Project) ExecuteTemplateAndDiagrams() {
 	if p.EmbededTempl == nil || p.PackageTempl == nil || p.ProjectTempl == nil {
-		if err := p.RegisterTemplates(ProjectMarkdownTemplate, PackageMarkdownTemplate, EmbededSvgTemplate); err != nil {
-			p.Log.Errorf("Error registering default templates:\n %v", err)
+		if p.Server {
+			if err := p.RegisterTemplates(ProjectMarkdownTemplate, PackageMarkdownTemplate); err != nil {
+				p.Log.Errorf("Error registering default templates:\n %v", err)
+			}
+		} else {
+			if err := p.RegisterTemplates(ProjectMarkdownTemplate, PackageMarkdownTemplate); err != nil {
+				p.Log.Errorf("Error registering default templates:\n %v", err)
+			}
 		}
+
 	}
 	if err := p.CreateIntegrationDiagrams(); err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)

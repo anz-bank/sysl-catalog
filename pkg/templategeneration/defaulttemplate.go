@@ -47,10 +47,3 @@ const PackageMarkdownTemplate = `
 {{end}}
 
 `
-
-const EmbededSvgTemplate = `
-[Back](README.md)
-
-![alt text]({{.OutputFileName__}}.svg)
-
-`

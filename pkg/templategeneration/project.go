@@ -20,8 +20,8 @@ const (
 // Project is the top level in the hierarchy of markdown generation
 type Project struct {
 	Title                          string
-	Server                         bool
 	PageFileName                   string // Is README.md for markdown and index.html for html
+	OutputType                     string
 	Output                         string
 	PlantumlService                string
 	OutputFileName                 string
@@ -38,9 +38,9 @@ type Project struct {
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
-func NewProject(inputSyslFileName, output, plantumlservice string, server bool, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
+func NewProject(inputSyslFileName, output, plantumlservice string, outputType string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
 	fileName := "README.md"
-	if server {
+	if outputType == "html" {
 		fileName = "index.html"
 	}
 	p := Project{
@@ -53,7 +53,7 @@ func NewProject(inputSyslFileName, output, plantumlservice string, server bool, 
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
 		OutputFileName:  fileName,
-		Server:          server,
+		OutputType:      outputType,
 	}
 	p.initProject()
 	if err := p.RegisterSequenceDiagrams(); err != nil {
@@ -100,7 +100,7 @@ func (p *Project) initProject() {
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
 func (p *Project) ExecuteTemplateAndDiagrams() {
 	if p.EmbededTempl == nil || p.PackageTempl == nil || p.ProjectTempl == nil {
-		if p.Server {
+		if p.OutputType == "html" {
 			if err := p.RegisterTemplates(ProjectHTMLTemplate, PackageHTMLTemplate); err != nil {
 				p.Log.Errorf("Error registering default templates:\n %v", err)
 			}

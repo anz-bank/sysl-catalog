@@ -23,6 +23,6 @@ func TestDataModel(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	NewProject(filename, "../../demo/docs", plantumlService, false, logrus.New(), fs, m).
+	NewProject(filename, "../../demo/docs/html", plantumlService, "html", logrus.New(), fs, m).
 		ExecuteTemplateAndDiagrams()
 }

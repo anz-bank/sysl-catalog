@@ -1,12 +1,8 @@
-all: clean run
-.PHONY: clean run demo
-
-clean:
-	rm -rf docs/*
-
-run:
-	go run . -o docs simple.sysl
+all: demo
+.PHONY: demo
 
 demo:
 	rm -rf demo/docs/*
-	go run . -o demo/docs demo/simple2.sysl
+	rm -rf demo/docs/html/*
+	go run . -o demo/markdown demo/simple2.sysl
+	go run . --type=html -o demo/html demo/simple2.sysl

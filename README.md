@@ -1,6 +1,6 @@
 # syslcatalog
 
-A markdown + Diagram generator for sysl specifications
+A markdown/html + Diagram generator for sysl specifications
 
 ## Installation
 
@@ -18,6 +18,11 @@ go get -u -v github.com/anz-bank/sysl-catalog
 sysl-catalog -o <outputdir> <input.sysl>
 ```
 
+CLI flags are:
+    `--serve` Serves a html page on port 69
+    `--port=:80` Serve on a different port
+    `--type=<type>` either `markdown` or `html`
+    
 3. That's it (basically!)
 
     This will generate markdown with integration diagrams + sequence diagrams + data model diagrams as seen in [demo/docs/README.md](demo/docs/README.md).

@@ -38,10 +38,10 @@ import (
 var (
 	input = kingpin.Arg("input", "input sysl file to generate documentation for").Required().String()
 
-	server = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
-	port   = kingpin.Flag("port", "Port to serve on").Short('p').Default(":69").String()
-
-	outputDir = kingpin.Flag("output", "Output directory to generate to").Short('o').String()
+	server     = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
+	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":69").String()
+	outputType = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
+	outputDir  = kingpin.Flag("output", "Output directory to generate to").Short('o').String()
 )
 
 func main() {
@@ -56,11 +56,13 @@ func main() {
 	if *server {
 		fs = afero.NewMemMapFs()
 		*outputDir = "/" + *outputDir
+		*outputType = "html"
 	}
 	if err != nil {
 		panic(err)
 	}
-	templategeneration.NewProject(*input, *outputDir, plantumlService, *server, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
+	println(*outputType)
+	templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
 	if *server {
 		httpFs := afero.NewHttpFs(fs)
 		fileserver := http.FileServer(httpFs.Dir("/"))

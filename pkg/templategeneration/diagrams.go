@@ -110,10 +110,14 @@ type intsCmd struct {
 }
 
 func (p *Project) CreateIntegrationDiagrams() error {
-	if _, ok := p.Module.Apps[p.Title]; !ok {
+	if projectApp, ok := p.Module.Apps[p.Title]; !ok {
 		return fmt.Errorf(
 			"There must be a app with the same name as the input file:"+
 				"'%s.sysl' must have a project named '%s'", p.Title, p.Title)
+	} else if _, ok := projectApp.Attrs["appfmt"]; !ok {
+		projectApp.Attrs["appfmt"] = &sysl.Attribute{
+			Attribute: &sysl.Attribute_S{S: "%(appname)"},
+		}
 	}
 	integration := intsCmd{}
 	integration.Output = path.Join(p.Output, p.Title+"_integration_EPA"+ext)

@@ -16,7 +16,8 @@ import (
 
 const (
 	diagram_sequence = "sequence"
-	refreshHeader    = `<head><meta http-equiv="refresh" content="3" /></head>`
+	//refreshHeader    = `<head><meta http-equiv="refresh" content="3" /></head>`
+	refreshHeader = ``
 )
 
 // Project is the top level in the hierarchy of markdown generation

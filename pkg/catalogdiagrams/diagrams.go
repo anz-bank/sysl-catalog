@@ -99,7 +99,13 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module) map[stri
 	case *sysl.Type_Primitive_:
 		return nil
 	case *sysl.Type_TypeRef:
-		typeName = strings.Join(t.GetTypeRef().GetRef().Path, "")
+		if path := t.GetTypeRef().GetRef().Path; len(path) > 1 {
+			typeName = path[1]
+			appName = path[0]
+		} else {
+			typeName = path[0]
+		}
+
 		appName, typeName, t = TypeFromRef(m, appName, t)
 		if t != nil {
 			ret[appName+"."+typeName] = t

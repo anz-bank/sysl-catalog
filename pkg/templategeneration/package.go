@@ -5,6 +5,7 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
@@ -104,7 +105,7 @@ func sanitiseOutputName(s string) string {
 // SequenceDiagramFromEndpoint generates a sequence diagram from a sysl endpoint
 func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endpoint) (*SequenceDiagram, error) {
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.Name)
-	var re = regexp.MustCompile(`(?m)\w+\.\w+`)
+	var re = regexp.MustCompile(`(?m)(?:<:)(?:\s*\S+)`)
 	var typeName string
 	seq, err := CreateSequenceDiagram(p.Parent.Module, call)
 	if err != nil {
@@ -121,7 +122,7 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 	diagram.OutputMarkdownFileName = p.Parent.OutputFileName
 	diagram.OutputDataModel = []*Diagram{}
 	diagram.InputDataModel = []*Diagram{}
-	for _, param := range endpoint.Param {
+	for i, param := range endpoint.Param {
 		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 1 {
 			appName = paramNameParts[0]
 			typeName = paramNameParts[1]
@@ -144,17 +145,19 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 			OutputDir:        path.Join(p.Parent.Output, p.PackageName),
 			AppName:          appName,
 			DiagramString:    p.Parent.GenerateEndpointDataModel(appName, typeref),
-			OutputFileName__: sanitiseOutputName(appName + endpoint.Name + "data-model"),
+			OutputFileName__: sanitiseOutputName(appName + endpoint.Name + "data-model-parameter" + strconv.Itoa(i)),
 			EndpointName:     endpoint.Name,
 		}
 		diagram.InputDataModel = append(diagram.InputDataModel, newDiagram)
 	}
-	for _, stmnt := range endpoint.Stmt {
+	for i, stmnt := range endpoint.Stmt {
 		if ret := stmnt.GetRet(); ret != nil {
-			t := re.FindString(ret.Payload)
+			t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
 			if split := strings.Split(t, "."); len(split) > 1 {
 				appName = split[0]
 				typeName = split[1]
+			} else {
+				typeName = split[0]
 			}
 			typeref := &sysl.Type{
 				Type: &sysl.Type_TypeRef{
@@ -172,7 +175,7 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 				OutputDir:        path.Join(p.Parent.Output, p.PackageName),
 				AppName:          appName,
 				DiagramString:    p.Parent.GenerateEndpointDataModel(appName, typeref),
-				OutputFileName__: sanitiseOutputName(appName + endpoint.Name + "data-model"),
+				OutputFileName__: sanitiseOutputName(appName + endpoint.Name + "data-model-response" + strconv.Itoa(i)),
 				EndpointName:     endpoint.Name,
 			}
 			diagram.OutputDataModel = append(diagram.OutputDataModel, newDiagram)

@@ -41,13 +41,12 @@ In [demo/markdown/README.md](demo/markdown/README.md) we have an example with a 
 so as this example is called "simple2.sysl" there needs to be a `project` "simple2":
 - applications in our integration diagram:
 ```
-simple2[appfmt="%(appname)", ~ignore]:
+simple2[ ~ignore]:
     _:
         MobileApp
         Server
         MegaDatabase
 ```
-NOTE: must have `appfmt="%(appname)"` as an attribute to render integration diagrams correctly.
 
 2. `@package` attribute must be specified:
 - This will create a markdown page for `ApplicationPackage` as seen in [demo/markdown/ApplicationPackage/README.md](demo/markdown/ApplicationPackage/README.md).

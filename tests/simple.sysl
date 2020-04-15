@@ -4,8 +4,10 @@ Bar:
         return ok <: GrpcTesting.Response
 
 Foo:
+    @description = "this is a description of foo"
     @package="Standard"
     thisEndpoint(input <: GrpcTesting.Request):
+        @description = "this is a description of this endpoint"
         Bar <- AnotherEndpoint
         ThisApp <- DoesntExist
         return ok <: GrpcTesting.Response

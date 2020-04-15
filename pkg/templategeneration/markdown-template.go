@@ -29,7 +29,13 @@ const PackageMarkdownTemplate = `
 
 ---
 {{range $Diagram := .SequenceDiagrams}}
+## {{$Diagram.AppName}}
+
+- {{$Diagram.AppComment}}
+
 ## {{$Diagram.AppName}} {{$Diagram.EndpointName}}
+
+- {{$Diagram.EndpointComment}}
 
 ### Sequence Diagram
 ![alt text]({{.OutputFileName__}}.svg)

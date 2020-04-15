@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"sync"
 
 	"github.com/anz-bank/sysl/pkg/datamodeldiagram"
 
@@ -19,8 +20,10 @@ import (
 
 // DiagramString represents a plantuml diagram with other contextual info.
 type Diagram struct {
-	Parent                 *Package
-	Endpoint               *sysl.Endpoint
+	Parent *Package
+	*sysl.Endpoint
+	AppComment             string
+	EndpointComment        string
 	OutputDir              string
 	AppName                string
 	EndpointName           string
@@ -32,24 +35,38 @@ type Diagram struct {
 
 type SequenceDiagram struct {
 	Diagram
-	Endpoint        *sysl.Endpoint
 	InputDataModel  []*Diagram
 	OutputDataModel []*Diagram
 }
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
 func (sd *SequenceDiagram) GenerateDiagramAndMarkdown() error {
+	var wg sync.WaitGroup
 	fmt.Println(sd.OutputFileName__)
 	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
-	diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
+	wg.Add(1)
+	go func() {
+		diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
+		wg.Done()
+	}()
 	for _, d := range sd.InputDataModel {
-		outputFileName := path.Join(d.OutputDir, d.OutputFileName__+ext)
-		diagrams.OutputPlantuml(outputFileName, d.Parent.Parent.PlantumlService, d.DiagramString, d.Parent.Parent.Fs)
+		wg.Add(1)
+		go func(s *Diagram) {
+			outputFileName := path.Join(s.OutputDir, s.OutputFileName__+ext)
+			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.DiagramString, s.Parent.Parent.Fs)
+			wg.Done()
+		}(d)
+
 	}
 	for _, d := range sd.OutputDataModel {
-		outputFileName := path.Join(d.OutputDir, d.OutputFileName__+ext)
-		diagrams.OutputPlantuml(outputFileName, d.Parent.Parent.PlantumlService, d.DiagramString, d.Parent.Parent.Fs)
+		wg.Add(1)
+		go func(s *Diagram) {
+			outputFileName := path.Join(s.OutputDir, s.OutputFileName__+ext)
+			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.DiagramString, s.Parent.Parent.Fs)
+			wg.Done()
+		}(d)
 	}
+	wg.Wait()
 	return nil
 }
 

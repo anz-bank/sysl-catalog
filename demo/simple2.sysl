@@ -7,20 +7,25 @@ simple2[appfmt="%(appname)", ~ignore]:
 
 MobileApp:
     @package = "ApplicationPackage"
+    @description = "this is a comment for MobileApp"
     Login(input <: Server.Request):
         Server <- Authenticate
         return ok <: MegaDatabase.Empty
+    Another:
+        return ok <: string
 
 Server:
     @package = "ServerPackage"
+    @description = "this is a comment for Server"
     !type Response:
         query <: MegaDatabase.Money
         balance <: MegaDatabase.Empty
     !type Request:
         query <: string
 
-    Authenticate(input <: Server.Request):
-        return ok <: Server.Response
+    Authenticate(input <: Request):
+        @description = "this is a description of Authenticate"
+        return ok <: Response
 
 # This is an example of apps with types made up of different apps
 MegaDatabase:

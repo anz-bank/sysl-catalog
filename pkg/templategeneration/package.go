@@ -72,6 +72,9 @@ func (p Project) RegisterSequenceDiagrams() error {
 			if err != nil {
 				return err
 			}
+			if description := app.GetAttrs()["description"]; description != nil {
+				diagram.AppComment = description.GetS()
+			}
 			p.Packages[packageName].SequenceDiagrams = append(packageD.SequenceDiagrams, diagram)
 			if p.Packages[packageName].DataModelDiagrams == nil {
 				p.Packages[packageName].DataModelDiagrams = []*Diagram{}
@@ -122,10 +125,17 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 	diagram.OutputMarkdownFileName = p.Parent.OutputFileName
 	diagram.OutputDataModel = []*Diagram{}
 	diagram.InputDataModel = []*Diagram{}
+	if description := endpoint.GetAttrs()["description"]; description != nil {
+		diagram.EndpointComment = description.GetS()
+	}
 	for i, param := range endpoint.Param {
-		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 1 {
-			appName = paramNameParts[0]
-			typeName = paramNameParts[1]
+		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
+			if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+				appName = paramNameParts[0]
+				typeName = path[0]
+			} else {
+				typeName = paramNameParts[0]
+			}
 		} else {
 			typeName = paramNameParts[0]
 		}

@@ -3,7 +3,9 @@ module github.com/anz-bank/sysl-catalog
 go 1.14
 
 require (
-	github.com/anz-bank/sysl v0.16.0
+	github.com/anz-bank/sysl v0.57.0
+	github.com/envoyproxy/protoc-gen-validate v0.3.0 // indirect
+	github.com/golang/protobuf v1.4.0 // indirect
 	github.com/radovskyb/watcher v1.0.7
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/afero v1.2.2

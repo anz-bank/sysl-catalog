@@ -25,11 +25,18 @@ const PackageHTMLTemplate = `
     <th>Service Name</th>
 	<th>Method</th>
   </tr>
- {{range $Diagram := .SequenceDiagrams}}
-<tr><td>{{$Diagram.AppName}} </td> <td><a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a></td></tr>{{end}}
+ {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
+<tr><td>{{$Diagram.AppName}} </td> <td><a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a></td></tr>{{end}}{{end}}
 </table>
 <hr>
-<p>{{range $Diagram := .SequenceDiagrams}}</p>
+{{range $appName, $Diagrams := .SequenceDiagrams}}
+{{$first := true}}
+{{range $Diagram := $Diagrams}}
+{{if $first}}
+<h2> {{$Diagram.AppName}} </h2>
+ {{$Diagram.AppComment}}
+{{end}}
+{{$first = false}}
 <h2 id="{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.AppName}} {{$Diagram.EndpointName}}</h2>
 <h3 id="sequence-diagram">Sequence Diagram</h3>
 <p><img src="{{.OutputFileName__}}.svg" alt="alt text"></p>
@@ -41,7 +48,7 @@ const PackageHTMLTemplate = `
 <p>{{range $DataModelDiagram := $Diagram.OutputDataModel}}
 <img src="{{$DataModelDiagram.OutputFileName__}}.svg" alt="alt text"></p>
 <h2 id="-end-">{{end}}</h2>
-<p>{{end}}</p>
+{{end}}{{end}}
 
 
 `

@@ -8,12 +8,16 @@
 | Server | [Authenticate](#Server-Authenticate) |]
 
 
-
 ---
 
-## Server
 
-- this is a comment for Server
+
+
+## Server
+this is a comment for Server
+
+
+
 
 ## Server Authenticate
 
@@ -30,6 +34,7 @@
 ### Response types
 
 ![alt text](ServerAuthenticatedata-model-response0.svg)
+
 
 ---
 

@@ -19,29 +19,18 @@ import (
 )
 
 const (
-	md           = ".md"
-	ext          = ".svg"
-	pageFilename = "README.md"
+	ext = ".svg"
 )
 
 var re = regexp.MustCompile(`(?m)(?:<:)(?:\s*\S+)`)
 
 // Package is the second level where apps and endpoints are specified.
 type Package struct {
-	Parent              *Project
-	OutputDir           string
-	PackageName         string
-	OutputFile          string
-	IntegrationDiagrams []*Diagram
-	SequenceDiagrams    []*SequenceDiagram // map[appName + endpointName]
-}
-
-func (p Package) RegisterIntegrationDiagrams(m *sysl.Module) {
-
-}
-
-func (p Package) RegisterDataModelDiagrams(m *sysl.Module) {
-
+	Parent           *Project
+	OutputDir        string
+	PackageName      string
+	OutputFile       string
+	SequenceDiagrams map[string][]*Diagram // map[appName][]*Diagram
 }
 
 // AlphabeticalRows returns an alphabetically sorted list of packages of any project.
@@ -57,11 +46,19 @@ func (p Project) AlphabeticalRows() []*Package {
 func (p Project) RegisterSequenceDiagrams() error {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
+		if len(app.Endpoints) == 0 {
+			continue
+		}
 		packageName, appName := GetAppPackageName(app)
 		if syslutil.HasPattern(app.Attrs, "ignore") {
 			p.Log.Infof("Skipping application %s", app.Name)
 			continue
 		}
+		if _, ok := p.Packages[packageName]; !ok {
+			p.Packages[packageName] = &Package{Parent: &p}
+		}
+		p.Packages[packageName].SequenceDiagrams = make(map[string][]*Diagram)
+		p.Packages[packageName].SequenceDiagrams[appName] = make([]*Diagram, 0, 0)
 		for _, key2 := range AlphabeticalEndpoints(app.Endpoints) {
 			endpoint := app.Endpoints[key2]
 			if syslutil.HasPattern(endpoint.Attrs, "ignore") {
@@ -74,7 +71,7 @@ func (p Project) RegisterSequenceDiagrams() error {
 				return err
 			}
 
-			p.Packages[packageName].SequenceDiagrams = append(packageD.SequenceDiagrams, diagram)
+			p.Packages[packageName].SequenceDiagrams[appName] = append(packageD.SequenceDiagrams[appName], diagram)
 		}
 	}
 	return nil
@@ -101,7 +98,7 @@ func sanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
 }
 
-func (s SequenceDiagram) InputDataModel() []*Diagram {
+func (s Diagram) InputDataModel() []*Diagram {
 	appName := s.AppName()
 	typeName := ""
 	var diagram []*Diagram
@@ -139,7 +136,7 @@ func (s SequenceDiagram) InputDataModel() []*Diagram {
 	return diagram
 }
 
-func (s SequenceDiagram) OutputDataModel() []*Diagram {
+func (s Diagram) OutputDataModel() []*Diagram {
 	appName := s.AppName()
 	typeName := ""
 	var diagram []*Diagram
@@ -177,20 +174,21 @@ func (s SequenceDiagram) OutputDataModel() []*Diagram {
 }
 
 // SequenceDiagramFromEndpoint generates a sequence diagram from a sysl endpoint
-func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endpoint) (*SequenceDiagram, error) {
+func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endpoint) (*Diagram, error) {
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.Name)
 	seq, err := CreateSequenceDiagram(p.Parent.Module, call)
 	if err != nil {
 		return nil, err
 	}
-	diagram := &SequenceDiagram{}
-	diagram.Parent = &p
-	diagram.App = p.Parent.Module.Apps[appName]
-	diagram.Endpoint = endpoint
-	diagram.OutputFileName__ = sanitiseOutputName(appName + endpoint.Name)
-	diagram.OutputDir = path.Join(p.Parent.Output, p.PackageName)
-	diagram.DiagramString = seq
-	diagram.Diagramtype = diagram_sequence
-	diagram.OutputMarkdownFileName = p.Parent.OutputFileName
+	diagram := &Diagram{
+		Parent:                 &p,
+		Endpoint:               endpoint,
+		App:                    p.Parent.Module.Apps[appName],
+		OutputDir:              path.Join(p.Parent.Output, p.PackageName),
+		DiagramString:          seq,
+		OutputFileName__:       sanitiseOutputName(appName + endpoint.Name),
+		OutputMarkdownFileName: p.Parent.OutputFileName,
+		Diagramtype:            diagram_sequence,
+	}
 	return diagram, nil
 }

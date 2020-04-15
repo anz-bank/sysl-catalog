@@ -1,5 +1,6 @@
 package templategeneration
 
+const ProjectMarkdownTemplate2 = ``
 const ProjectMarkdownTemplate = `
 # {{.Title}}
 
@@ -15,23 +16,27 @@ Integration diagram with end point analysis:
 
 ![alt text]({{.RootLevelIntegrationDiagramEPA.OutputFileName__}})
 `
-
+const PackageMarkdownTemplate2 = ``
 const PackageMarkdownTemplate = `
 [Back](../README.md)
 # Package {{.PackageName}}
 
 ## Index
 | Service Name | Method |
-| - | - | {{range $Diagram := .SequenceDiagrams}}
-| {{$Diagram.AppName}} | [{{$Diagram.EndpointName}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}) |{{end}}]
-
-
+| - | - | {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
+| {{$appName}} | [{{$Diagram.EndpointName}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}) |{{end}}]
+{{end}}
 
 ---
-{{range $Diagram := .SequenceDiagrams}}
+{{range $appName, $Diagrams := .SequenceDiagrams}}
+{{$first := true}}
+{{range $Diagram := $Diagrams}}
+{{if $first}}
 ## {{$Diagram.AppName}}
+{{$Diagram.AppComment}}
+{{end}}
+{{$first = false}}
 
-- {{$Diagram.AppComment}}
 
 ## {{$Diagram.AppName}} {{$Diagram.EndpointName}}
 
@@ -48,6 +53,7 @@ const PackageMarkdownTemplate = `
 ### Response types
 {{range $DataModelDiagram := $Diagram.OutputDataModel}}
 ![alt text]({{$DataModelDiagram.OutputFileName__}}.svg)
+{{end}}
 {{end}}
 ---
 {{end}}

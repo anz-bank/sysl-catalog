@@ -1,8 +1,10 @@
-package templategeneration
+package main
 
 import (
 	"os"
 	"testing"
+
+	"github.com/anz-bank/sysl-catalog/pkg/templategeneration"
 
 	"github.com/anz-bank/sysl/pkg/parse"
 
@@ -14,7 +16,7 @@ import (
 func TestDataModel(t *testing.T) {
 	t.Parallel()
 	fs := afero.NewOsFs()
-	filename := "../../demo/simple2.sysl"
+	filename := "demo/simple2.sysl"
 	plantumlService := os.Getenv("SYSL_PLANTUML")
 	if plantumlService == "" {
 		panic("Error: Set SYSL_PLANTUML env variable")
@@ -23,6 +25,6 @@ func TestDataModel(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	NewProject(filename, "../../demo/docs/html", plantumlService, "html", logrus.New(), fs, m).
+	templategeneration.NewProject(filename, "demo/html", plantumlService, "html", logrus.New(), fs, m).
 		ExecuteTemplateAndDiagrams()
 }

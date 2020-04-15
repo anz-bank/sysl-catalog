@@ -29,10 +29,6 @@ type Diagram struct {
 	Diagramtype            string
 }
 
-type SequenceDiagram struct {
-	Diagram
-}
-
 func (d Diagram) AppComment() string {
 	if d.App == nil {
 		return ""
@@ -69,7 +65,7 @@ func (d Diagram) EndpointName() string {
 }
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
-func (sd *SequenceDiagram) GenerateDiagramAndMarkdown() error {
+func (sd *Diagram) GenerateDiagramAndMarkdown() error {
 	var wg sync.WaitGroup
 	fmt.Println(sd.OutputFileName__)
 	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)

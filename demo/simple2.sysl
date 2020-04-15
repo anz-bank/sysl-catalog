@@ -9,10 +9,12 @@ MobileApp:
     @package = "ApplicationPackage"
     @description = "this is a comment for MobileApp"
     Login(input <: Server.Request):
+        @description = "hello, gamers"
         Server <- Authenticate
         return ok <: MegaDatabase.Empty
     Another:
-        return ok <: string
+        @description = "hello, world"
+        return ok <: Server.Response
 
 Server:
     @package = "ServerPackage"

@@ -122,7 +122,6 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 			}
 		}
 	}
-
 	if err := p.CreateIntegrationDiagrams(); err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
 		return
@@ -131,7 +130,6 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 		p.Log.Errorf("Error generating root markdown:\n %v", err)
 		return
 	}
-
 	for _, key := range AlphabeticalPackage(p.Packages) {
 		pkg := p.Packages[key]
 		wg.Add(1)
@@ -142,26 +140,17 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 			}
 			wg.Done()
 		}(pkg)
-		for _, sd := range pkg.SequenceDiagrams {
-			wg.Add(1)
-			go func(s *SequenceDiagram) {
-				if err := s.GenerateDiagramAndMarkdown(); err != nil {
-					p.Log.Errorf("Error generating Sequence diagram template and diagrams:\n %v", err)
-					return
-				}
-				wg.Done()
-			}(sd)
-
-		}
-		for _, intDiagrams := range pkg.IntegrationDiagrams {
-			wg.Add(1)
-			go func(d *Diagram) {
-				if err := GenerateDiagramAndMarkdown(d); err != nil {
-					p.Log.Errorf("Error generating Integration diagram template and diagrams:\n %v", err)
-					return
-				}
-				wg.Done()
-			}(intDiagrams)
+		for _, apps := range pkg.SequenceDiagrams {
+			for _, sd := range apps {
+				wg.Add(1)
+				go func(s *Diagram) {
+					if err := s.GenerateDiagramAndMarkdown(); err != nil {
+						p.Log.Errorf("Error generating Sequence diagram template and diagrams:\n %v", err)
+						return
+					}
+					wg.Done()
+				}(sd)
+			}
 		}
 	}
 	wg.Wait()

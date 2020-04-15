@@ -24,6 +24,8 @@ const (
 	pageFilename = "README.md"
 )
 
+var re = regexp.MustCompile(`(?m)(?:<:)(?:\s*\S+)`)
+
 // Package is the second level where apps and endpoints are specified.
 type Package struct {
 	Parent              *Project
@@ -32,7 +34,6 @@ type Package struct {
 	OutputFile          string
 	IntegrationDiagrams []*Diagram
 	SequenceDiagrams    []*SequenceDiagram // map[appName + endpointName]
-	DataModelDiagrams   []*Diagram
 }
 
 func (p Package) RegisterIntegrationDiagrams(m *sysl.Module) {
@@ -72,13 +73,8 @@ func (p Project) RegisterSequenceDiagrams() error {
 			if err != nil {
 				return err
 			}
-			if description := app.GetAttrs()["description"]; description != nil {
-				diagram.AppComment = description.GetS()
-			}
+
 			p.Packages[packageName].SequenceDiagrams = append(packageD.SequenceDiagrams, diagram)
-			if p.Packages[packageName].DataModelDiagrams == nil {
-				p.Packages[packageName].DataModelDiagrams = []*Diagram{}
-			}
 		}
 	}
 	return nil
@@ -105,30 +101,11 @@ func sanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
 }
 
-// SequenceDiagramFromEndpoint generates a sequence diagram from a sysl endpoint
-func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endpoint) (*SequenceDiagram, error) {
-	call := fmt.Sprintf("%s <- %s", appName, endpoint.Name)
-	var re = regexp.MustCompile(`(?m)(?:<:)(?:\s*\S+)`)
-	var typeName string
-	seq, err := CreateSequenceDiagram(p.Parent.Module, call)
-	if err != nil {
-		return nil, err
-	}
-	diagram := &SequenceDiagram{}
-	diagram.Parent = &p
-	diagram.AppName = appName
-	diagram.EndpointName = endpoint.Name
-	diagram.OutputFileName__ = sanitiseOutputName(appName + endpoint.Name)
-	diagram.OutputDir = path.Join(p.Parent.Output, p.PackageName)
-	diagram.DiagramString = seq
-	diagram.Diagramtype = diagram_sequence
-	diagram.OutputMarkdownFileName = p.Parent.OutputFileName
-	diagram.OutputDataModel = []*Diagram{}
-	diagram.InputDataModel = []*Diagram{}
-	if description := endpoint.GetAttrs()["description"]; description != nil {
-		diagram.EndpointComment = description.GetS()
-	}
-	for i, param := range endpoint.Param {
+func (s SequenceDiagram) InputDataModel() []*Diagram {
+	appName := s.AppName()
+	typeName := ""
+	var diagram []*Diagram
+	for i, param := range s.Endpoint.Param {
 		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
 			if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
 				appName = paramNameParts[0]
@@ -151,16 +128,22 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 			},
 		}
 		newDiagram := &Diagram{
-			Parent:           &p,
-			OutputDir:        path.Join(p.Parent.Output, p.PackageName),
-			AppName:          appName,
-			DiagramString:    p.Parent.GenerateEndpointDataModel(appName, typeref),
-			OutputFileName__: sanitiseOutputName(appName + endpoint.Name + "data-model-parameter" + strconv.Itoa(i)),
-			EndpointName:     endpoint.Name,
+			Parent:           s.Parent,
+			OutputDir:        path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+			App:              s.Parent.Parent.Module.Apps[appName],
+			DiagramString:    s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+			OutputFileName__: sanitiseOutputName(appName + s.Endpoint.Name + "data-model-parameter" + strconv.Itoa(i)),
 		}
-		diagram.InputDataModel = append(diagram.InputDataModel, newDiagram)
+		diagram = append(diagram, newDiagram)
 	}
-	for i, stmnt := range endpoint.Stmt {
+	return diagram
+}
+
+func (s SequenceDiagram) OutputDataModel() []*Diagram {
+	appName := s.AppName()
+	typeName := ""
+	var diagram []*Diagram
+	for i, stmnt := range s.Endpoint.Stmt {
 		if ret := stmnt.GetRet(); ret != nil {
 			t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
 			if split := strings.Split(t, "."); len(split) > 1 {
@@ -181,15 +164,33 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 				},
 			}
 			newDiagram := &Diagram{
-				Parent:           &p,
-				OutputDir:        path.Join(p.Parent.Output, p.PackageName),
-				AppName:          appName,
-				DiagramString:    p.Parent.GenerateEndpointDataModel(appName, typeref),
-				OutputFileName__: sanitiseOutputName(appName + endpoint.Name + "data-model-response" + strconv.Itoa(i)),
-				EndpointName:     endpoint.Name,
+				Parent:           s.Parent,
+				OutputDir:        path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+				App:              s.Parent.Parent.Module.Apps[appName],
+				DiagramString:    s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+				OutputFileName__: sanitiseOutputName(appName + s.Endpoint.Name + "data-model-response" + strconv.Itoa(i)),
 			}
-			diagram.OutputDataModel = append(diagram.OutputDataModel, newDiagram)
+			diagram = append(diagram, newDiagram)
 		}
 	}
+	return diagram
+}
+
+// SequenceDiagramFromEndpoint generates a sequence diagram from a sysl endpoint
+func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endpoint) (*SequenceDiagram, error) {
+	call := fmt.Sprintf("%s <- %s", appName, endpoint.Name)
+	seq, err := CreateSequenceDiagram(p.Parent.Module, call)
+	if err != nil {
+		return nil, err
+	}
+	diagram := &SequenceDiagram{}
+	diagram.Parent = &p
+	diagram.App = p.Parent.Module.Apps[appName]
+	diagram.Endpoint = endpoint
+	diagram.OutputFileName__ = sanitiseOutputName(appName + endpoint.Name)
+	diagram.OutputDir = path.Join(p.Parent.Output, p.PackageName)
+	diagram.DiagramString = seq
+	diagram.Diagramtype = diagram_sequence
+	diagram.OutputMarkdownFileName = p.Parent.OutputFileName
 	return diagram, nil
 }

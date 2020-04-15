@@ -2,11 +2,9 @@ package templategeneration
 
 import (
 	"fmt"
-	"os"
 	"path"
+	"strings"
 	"sync"
-
-	"github.com/anz-bank/sysl/pkg/datamodeldiagram"
 
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
 
@@ -20,13 +18,11 @@ import (
 
 // DiagramString represents a plantuml diagram with other contextual info.
 type Diagram struct {
-	Parent *Package
-	*sysl.Endpoint
-	AppComment             string
-	EndpointComment        string
+	Parent                 *Package
+	Endpoint               *sysl.Endpoint
+	App                    *sysl.Application
+	Type                   *sysl.Type
 	OutputDir              string
-	AppName                string
-	EndpointName           string
 	DiagramString          string
 	OutputFileName__       string
 	OutputMarkdownFileName string
@@ -35,8 +31,41 @@ type Diagram struct {
 
 type SequenceDiagram struct {
 	Diagram
-	InputDataModel  []*Diagram
-	OutputDataModel []*Diagram
+}
+
+func (d Diagram) AppComment() string {
+	if d.App == nil {
+		return ""
+	}
+	if description := d.App.GetAttrs()["description"]; description != nil {
+		return description.GetS()
+	}
+	return ""
+}
+
+func (d Diagram) EndpointComment() string {
+	if d.Endpoint == nil {
+		return ""
+	}
+	if description := d.Endpoint.GetAttrs()["description"]; description != nil {
+		return description.GetS()
+	}
+	return ""
+}
+
+func (d Diagram) AppName() string {
+	if d.App == nil {
+		return ""
+	}
+	return strings.Join(d.App.GetName().GetPart(), ".")
+}
+
+func (d Diagram) EndpointName() string {
+	if d.Endpoint == nil {
+		return ""
+	}
+	return d.Endpoint.Name
+
 }
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
@@ -49,7 +78,7 @@ func (sd *SequenceDiagram) GenerateDiagramAndMarkdown() error {
 		diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
 		wg.Done()
 	}()
-	for _, d := range sd.InputDataModel {
+	for _, d := range sd.InputDataModel() {
 		wg.Add(1)
 		go func(s *Diagram) {
 			outputFileName := path.Join(s.OutputDir, s.OutputFileName__+ext)
@@ -58,7 +87,7 @@ func (sd *SequenceDiagram) GenerateDiagramAndMarkdown() error {
 		}(d)
 
 	}
-	for _, d := range sd.OutputDataModel {
+	for _, d := range sd.OutputDataModel() {
 		wg.Add(1)
 		go func(s *Diagram) {
 			outputFileName := path.Join(s.OutputDir, s.OutputFileName__+ext)
@@ -91,43 +120,14 @@ type datamodelCmd struct {
 	cmdutils.CmdContextParamDatagen
 }
 
-func (p *Project) CreateDataModelDiagram() (string, error) {
-	for name, m := range p.PackageModules {
-		skip := true
-		for _, this := range m.Apps {
-			if len(this.Types) > 0 {
-				skip = false
-			}
-		}
-		if skip {
-			continue
-		}
-		pl := &datamodelCmd{}
-		pl.Project = ""
-		pl.Output = path.Join(p.Output, name)
-		p.Fs.MkdirAll(pl.Output, os.ModePerm)
-		pl.Output += "/" + name + "_datamodel.svg"
-		pl.Direct = true
-		pl.ClassFormat = "%(classname)"
-		outmap, err := datamodeldiagram.GenerateDataModels(&pl.CmdContextParamDatagen, m, logrus.New())
-		if err != nil {
-			return "", err
-		}
-		err = pl.GenerateFromMap(outmap, p.Fs)
-		if err != nil {
-			return "", err
-		}
-	}
-	return "", nil
-}
-
 type intsCmd struct {
 	diagrams.Plantumlmixin
 	cmdutils.CmdContextParamIntgen
 }
 
 func (p *Project) CreateIntegrationDiagrams() error {
-	if projectApp, ok := p.Module.Apps[p.Title]; !ok {
+	projectApp, ok := p.Module.Apps[p.Title]
+	if !ok {
 		return fmt.Errorf(
 			"There must be a app with the same name as the input file:"+
 				"'%s.sysl' must have a project named '%s'", p.Title, p.Title)
@@ -152,8 +152,7 @@ func (p *Project) CreateIntegrationDiagrams() error {
 	p.RootLevelIntegrationDiagramEPA = &Diagram{
 		Parent:                 nil,
 		OutputDir:              p.Output,
-		AppName:                p.Title,
-		EndpointName:           "",
+		App:                    projectApp,
 		DiagramString:          "", // Leave this empty because the diagram is already created
 		OutputFileName__:       p.Title + "_integration_EPA" + ext,
 		OutputMarkdownFileName: "",
@@ -171,8 +170,7 @@ func (p *Project) CreateIntegrationDiagrams() error {
 	p.RootLevelIntegrationDiagram = &Diagram{
 		Parent:                 nil,
 		OutputDir:              p.Output,
-		AppName:                p.Title,
-		EndpointName:           "",
+		App:                    projectApp,
 		DiagramString:          "", // Leave this empty because the diagram is already created
 		OutputFileName__:       p.Title + "_integration" + ext,
 		OutputMarkdownFileName: "",

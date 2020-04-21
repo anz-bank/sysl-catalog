@@ -24,8 +24,7 @@ const PackageMarkdownTemplate = `
 ## Index
 | Service Name | Method |
 | - | - | {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
-| {{$appName}} | [{{$Diagram.EndpointName}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}) |{{end}}]
-{{end}}
+| {{$appName}} | [{{$Diagram.EndpointNameWithoutSpaces}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointNameWithoutSpaces}}) |{{end}}]{{end}}
 
 ---
 {{range $appName, $Diagrams := .SequenceDiagrams}}
@@ -40,7 +39,7 @@ const PackageMarkdownTemplate = `
 
 ## {{$Diagram.AppName}} {{$Diagram.EndpointName}}
 
-- {{$Diagram.EndpointComment}}
+{{$Diagram.EndpointComment}}
 
 ### Sequence Diagram
 ![alt text]({{.OutputFileName__}}.svg)

@@ -34,7 +34,7 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 	ignoredTypes := map[string]struct{}{}
 	// TODO: Actually put The appName/project name and the appName in a struct so strings.split and join dont need to be used
 	entityNames := []string{}
-	typeMap = RecurseivelyGetTypes(appName, t, m)
+	RecurseivelyGetTypes(appName, t, m, typeMap)
 	for key := range typeMap {
 		entityNames = append(entityNames, key)
 	}
@@ -66,6 +66,8 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 				EntityName:   entityName,
 			}
 			v.DrawPrimitive(viewParam, pe.String(), relationshipMap)
+		} else if seq := entityType.GetSequence(); seq != nil {
+
 		} else if syslutil.HasPattern(entityType.Attrs, "empty") {
 			if len(strings.Split(entityName, ".")) == 1 {
 				entityName = appName + entityName
@@ -87,7 +89,7 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 }
 
 // RecurseivelyGetTypes gets returns a type map of a type and all of its fields recursively.
-func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module) map[string]*sysl.Type {
+func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module, cummulative map[string]*sysl.Type) map[string]*sysl.Type {
 	var typeName string
 	if t == nil {
 		return nil
@@ -98,6 +100,18 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module) map[stri
 		return nil
 	case *sysl.Type_Primitive_:
 		return nil
+	case *sysl.Type_Sequence:
+		if path := t.GetSequence().GetTypeRef().GetRef().Path; len(path) > 1 {
+			typeName = path[1]
+			appName = path[0]
+		} else {
+			typeName = path[0]
+		}
+
+		appName, typeName, t = TypeFromRef(m, appName, t)
+		if t != nil {
+			ret[appName+"."+typeName] = t.GetSequence()
+		}
 	case *sysl.Type_TypeRef:
 		if path := t.GetTypeRef().GetRef().Path; len(path) > 1 {
 			typeName = path[1]
@@ -114,6 +128,9 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module) map[stri
 	}
 	tuple := t.GetTuple()
 	if tuple == nil || tuple.AttrDefs == nil || len(tuple.AttrDefs) == 0 {
+		for index, element := range ret {
+			cummulative[index] = element
+		}
 		return ret
 	}
 	for _, ts := range tuple.AttrDefs {
@@ -122,8 +139,15 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module) map[stri
 		if newType == nil {
 			continue
 		}
+		if _, ok := cummulative[appName+"."+typeName]; ok {
+			continue
+		}
 		ret[appName+"."+typeName] = newType
-		for key, v := range RecurseivelyGetTypes(appName, ret[appName+"."+typeName], m) {
+
+		for key, v := range RecurseivelyGetTypes(appName, ret[appName+"."+typeName], m, ret) {
+			if _, ok := cummulative[key]; ok {
+				continue
+			}
 			switch v.Type.(type) {
 			case *sysl.Type_Primitive_:
 				continue
@@ -141,6 +165,9 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module) map[stri
 			}
 		}
 	}
+	for index, element := range ret {
+		cummulative[index] = element
+	}
 	return ret
 }
 
@@ -154,6 +181,25 @@ func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string
 		return "", "", nil
 	case *sysl.Type_Enum_, *sysl.Type_Tuple_:
 		return appName, typeName, t
+	case *sysl.Type_Sequence:
+		ty := t.GetSequence()
+		ref := ty.GetTypeRef().GetRef()
+		if ref == nil {
+			return "", "", nil // It's most likely a primitive type
+		}
+		if ref.Appname != nil {
+			appName = strings.Join(ref.Appname.Part, "")
+		}
+		typeName = strings.Join(ref.Path, ".")
+		if len(ref.Path) > 1 {
+			appName = ref.Path[0]
+			typeName = ref.Path[1]
+		}
+		if appName == "" {
+			return "", "", nil
+		}
+		return appName, typeName, ty
+
 	case *sysl.Type_TypeRef:
 		ref := t.GetTypeRef().GetRef()
 		if ref.Appname != nil {
@@ -169,5 +215,6 @@ func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string
 		}
 		return appName, typeName, mod.Apps[appName].Types[typeName]
 	}
+
 	return "", "", nil
 }

@@ -57,8 +57,11 @@ func (p Project) RegisterSequenceDiagrams() error {
 		if _, ok := p.Packages[packageName]; !ok {
 			p.Packages[packageName] = &Package{Parent: &p}
 		}
-		p.Packages[packageName].SequenceDiagrams = make(map[string][]*Diagram)
-		p.Packages[packageName].SequenceDiagrams[appName] = make([]*Diagram, 0, 0)
+		if p.Packages[packageName].SequenceDiagrams == nil {
+			p.Packages[packageName].SequenceDiagrams = make(map[string][]*Diagram)
+			p.Packages[packageName].SequenceDiagrams[appName] = make([]*Diagram, 0, 0)
+		}
+
 		for _, key2 := range AlphabeticalEndpoints(app.Endpoints) {
 			endpoint := app.Endpoints[key2]
 			if syslutil.HasPattern(endpoint.Attrs, "ignore") {

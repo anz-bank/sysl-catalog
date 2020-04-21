@@ -7,7 +7,6 @@
 | - | - | 
 | Server | [Authenticate](#Server-Authenticate) |]
 
-
 ---
 
 
@@ -21,7 +20,7 @@ this is a comment for Server
 
 ## Server Authenticate
 
-- this is a description of Authenticate
+this is a description of Authenticate
 
 ### Sequence Diagram
 ![alt text](ServerAuthenticate.svg)

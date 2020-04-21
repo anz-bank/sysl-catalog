@@ -15,6 +15,16 @@ MobileApp:
     Another:
         @description = "hello, world"
         return ok <: Server.Response
+MobileApp2:
+    @package = "ApplicationPackage"
+    @description = "this is a comment for MobileApp"
+    SecondEndpoint(input <: Server.Request):
+        @description = "SecondEndpoint, comment"
+        Server <- Authenticate
+        return ok <: MegaDatabase.Empty
+    ThirdEndpoint:
+        @description = "ThirdEndpoint comment"
+        return ok <: Server.Response
 
 Server:
     @package = "ServerPackage"
@@ -23,7 +33,7 @@ Server:
         query <: MegaDatabase.Money
         balance <: MegaDatabase.Empty
     !type Request:
-        query <: string
+        query <: sequence of Response
 
     Authenticate(input <: Request):
         @description = "this is a description of Authenticate"

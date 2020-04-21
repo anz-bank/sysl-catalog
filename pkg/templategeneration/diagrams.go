@@ -61,7 +61,13 @@ func (d Diagram) EndpointName() string {
 		return ""
 	}
 	return d.Endpoint.Name
+}
 
+func (d Diagram) EndpointNameWithoutSpaces() string {
+	if d.Endpoint == nil {
+		return ""
+	}
+	return strings.ReplaceAll(d.Endpoint.Name, " ", "")
 }
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.

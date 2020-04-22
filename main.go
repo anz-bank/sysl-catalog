@@ -6,10 +6,13 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 	"time"
 
+	"github.com/anz-bank/sysl-catalog/pkg/swaggergen"
 	"github.com/anz-bank/sysl-catalog/pkg/templategeneration"
 	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/go-openapi/runtime/middleware"
 	"github.com/radovskyb/watcher"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
@@ -20,6 +23,7 @@ import (
 var (
 	input      = kingpin.Arg("input", "input sysl file to generate documentation for").Required().String()
 	server     = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
+	appname    = kingpin.Flag("appname", "Application name for swagger api generation").String()
 	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
 	outputType = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
 	outputDir  = kingpin.Flag("output", "Output directory to generate to").Short('o').String()
@@ -50,7 +54,26 @@ func main() {
 		httpFs := afero.NewHttpFs(httpFileSystem)
 		fileserver := http.FileServer(httpFs.Dir("/"))
 		http.Handle("/", fileserver)
-		http.ListenAndServe(*port, fileserver)
+
+		if *appname != "" {
+			// Watch input dir to regenerate swagger
+			go watchFile(
+				func() {
+					m, err := parse.NewParser().Parse(*input, fs)
+					if err != nil {
+						panic(err)
+					}
+					// regenerate the swagger for only the first application
+					err = swaggergen.GenerateSwagger(*appname, m, httpFileSystem)
+					if err != nil {
+						log.Printf("failed to generate swagger")
+					}
+				},
+				path.Dir(*input))
+			http.HandleFunc("/redoc/", handleRedoc)
+			http.HandleFunc("/swagger/", redirectToSwagger)
+		}
+		http.ListenAndServe(*port, nil)
 	} else {
 		m, err := parse.NewParser().Parse(*input, fs)
 		if err != nil {
@@ -58,6 +81,18 @@ func main() {
 		}
 		templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
 	}
+}
+
+func handleRedoc(w http.ResponseWriter, r *http.Request) {
+	handler := middleware.Redoc(middleware.RedocOpts{Path: "/redoc"}, nil)
+	r.URL.Path = strings.TrimRight(r.URL.Path, "/")
+	handler.ServeHTTP(w, r)
+}
+
+func redirectToSwagger(w http.ResponseWriter, r *http.Request) {
+	// Assuming you want to serve a photo at 'images/foo.png'
+	fp := "/swagger.json"
+	http.Redirect(w, r, fp, http.StatusSeeOther)
 }
 
 func watchFile(action func(), files ...string) {

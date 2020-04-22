@@ -3,6 +3,7 @@ simple2[appfmt="%(appname)", ~ignore]:
     _:
         MobileApp
         Server
+        ServerApi
         MegaDatabase
 
 MobileApp:
@@ -28,6 +29,19 @@ Server:
     Authenticate(input <: Request):
         @description = "this is a description of Authenticate"
         return ok <: Response
+
+ServerApi:
+    @package = "ServerPackageApi"
+
+    !type Response:
+        resp <: string
+    !type Request:
+        query <: string
+
+    /authenticate:
+        GET:
+           @description = "this is a endpoint of Authenticate"
+           return ok <: Response
 
 # This is an example of apps with types made up of different apps
 MegaDatabase:

@@ -1,11 +1,16 @@
 package templategeneration
 
 import (
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
 	"sync"
 	"text/template"
+
+	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
+	"github.com/anz-bank/sysl/pkg/datamodeldiagram"
+	"github.com/anz-bank/sysl/pkg/sequencediagram"
 
 	"github.com/sirupsen/logrus"
 
@@ -16,8 +21,7 @@ import (
 
 const (
 	diagram_sequence = "sequence"
-	//refreshHeader    = `<head><meta http-equiv="refresh" content="3" /></head>`
-	refreshHeader = ``
+	refreshHeader    = ``
 )
 
 // Project is the top level in the hierarchy of markdown generation
@@ -59,7 +63,7 @@ func NewProject(inputSyslFileName, output, plantumlservice string, outputType st
 		OutputType:      outputType,
 	}
 	p.initProject()
-	if err := p.RegisterSequenceDiagrams(); err != nil {
+	if err := p.RegisterDiagrams(); err != nil {
 		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
 	}
 	return &p
@@ -75,6 +79,7 @@ func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString
 	return nil
 }
 
+// initProject reshuffles apps into "packages"; sort of like "sub modules"
 func (p *Project) initProject() {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
@@ -100,6 +105,7 @@ func (p *Project) initProject() {
 	}
 }
 
+// SetServerMode can be used to add html headers to the html templates for server mode
 func (p *Project) SetServerMode() *Project {
 	//Add the refresh header is server mode has been enabled
 	if err := p.RegisterTemplates(refreshHeader+ProjectHTMLTemplate, refreshHeader+PackageHTMLTemplate); err != nil {
@@ -164,4 +170,104 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 		}
 	}
 	wg.Wait()
+}
+
+// AlphabeticalRows returns an alphabetically sorted list of packages of any project.
+func (p Project) AlphabeticalRows() []*Package {
+	packages := make([]*Package, 0, len(p.Packages))
+	for _, key := range AlphabeticalPackage(p.Packages) {
+		packages = append(packages, p.Packages[key])
+	}
+	return packages
+}
+
+// RegisterDiagrams creates sequence Diagrams from the sysl Module in Project.
+func (p Project) RegisterDiagrams() error {
+	for _, key := range AlphabeticalApps(p.Module.Apps) {
+		app := p.Module.Apps[key]
+
+		packageName, appName := GetAppPackageName(app)
+		if syslutil.HasPattern(app.Attrs, "ignore") {
+			p.Log.Infof("Skipping application %s", app.Name)
+			continue
+		}
+		if _, ok := p.Packages[packageName]; !ok {
+			p.Packages[packageName] = &Package{Parent: &p}
+		}
+		if p.Packages[packageName].SequenceDiagrams == nil {
+			p.Packages[packageName].SequenceDiagrams = make(map[string][]*Diagram)
+			p.Packages[packageName].SequenceDiagrams[appName] = make([]*Diagram, 0, 0)
+		}
+		if syslutil.HasPattern(app.Attrs, "db") {
+			if p.Packages[packageName].DatabaseModel == nil {
+				p.Packages[packageName].DatabaseModel = make(map[string]*Diagram)
+			}
+			p.Packages[packageName].DatabaseModel[appName] = &Diagram{
+				Parent:           p.Packages[packageName],
+				App:              app,
+				DiagramString:    p.GenerateDBDataModel(appName),
+				OutputDir:        path.Join(p.Output, packageName),
+				OutputFileName__: sanitiseOutputName(appName + "db"),
+			}
+		}
+		if len(app.Endpoints) == 0 {
+			continue
+		}
+		for _, key2 := range AlphabeticalEndpoints(app.Endpoints) {
+			endpoint := app.Endpoints[key2]
+			if syslutil.HasPattern(endpoint.Attrs, "ignore") {
+				p.Log.Infof("Skipping application %s", app.Name)
+				continue
+			}
+			packageD := p.Packages[packageName]
+			diagram, err := packageD.SequenceDiagramFromEndpoint(appName, endpoint)
+			if err != nil {
+				return err
+			}
+
+			p.Packages[packageName].SequenceDiagrams[appName] = append(packageD.SequenceDiagrams[appName], diagram)
+		}
+
+	}
+	return nil
+}
+
+// GenerateDBDataModel takes all the types in parentAppName and generates data model diagrams for it
+func (p Project) GenerateDBDataModel(parentAppName string) string {
+	pl := &datamodelCmd{}
+	pl.Project = ""
+	p.Fs.MkdirAll(pl.Output, os.ModePerm)
+	pl.Direct = true
+	pl.ClassFormat = "%(classname)"
+	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)
+	var stringBuilder strings.Builder
+	dataParam := &catalogdiagrams.DataModelParam{}
+	dataParam.Mod = p.Module
+
+	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
+	vNew := &catalogdiagrams.DataModelView{
+		DataModelView: *v,
+		TypeMap:       p.Module.Apps[parentAppName].Types,
+	}
+	return vNew.GenerateDataView(dataParam, parentAppName, nil, p.Module)
+}
+
+// GenerateEndpointDataModel generates data model diagrams for a specific type
+func (p Project) GenerateEndpointDataModel(parentAppName string, t *sysl.Type) string {
+	pl := &datamodelCmd{}
+	pl.Project = ""
+	p.Fs.MkdirAll(pl.Output, os.ModePerm)
+	pl.Direct = true
+	pl.ClassFormat = "%(classname)"
+	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)
+	var stringBuilder strings.Builder
+	dataParam := &catalogdiagrams.DataModelParam{}
+	dataParam.Mod = p.Module
+
+	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
+	vNew := &catalogdiagrams.DataModelView{
+		DataModelView: *v,
+		TypeMap:       map[string]*sysl.Type{},
+	}
+	return vNew.GenerateDataView(dataParam, parentAppName, t, p.Module)
 }

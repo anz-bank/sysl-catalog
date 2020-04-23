@@ -13,6 +13,11 @@ import (
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
+func sanitiseOutputName(s string) string {
+	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
+}
+
+// AlphabeticalEndpoints sorts a map of Applications alphabetically
 func AlphabeticalApps(m map[string]*sysl.Application) []string {
 	keys := make([]string, 0, len(m))
 	for k := range m {
@@ -22,6 +27,7 @@ func AlphabeticalApps(m map[string]*sysl.Application) []string {
 	return keys
 }
 
+// AlphabeticalEndpoints sorts a map of endpoints alphabetically
 func AlphabeticalEndpoints(m map[string]*sysl.Endpoint) []string {
 	keys := make([]string, 0, len(m))
 	for k := range m {
@@ -31,6 +37,7 @@ func AlphabeticalEndpoints(m map[string]*sysl.Endpoint) []string {
 	return keys
 }
 
+// AlphabeticalEndpoints sorts a map of Package alphabetically
 func AlphabeticalPackage(m map[string]*Package) []string {
 	keys := make([]string, 0, len(m))
 	for k := range m {

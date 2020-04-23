@@ -3,6 +3,7 @@ package templategeneration
 import (
 	"fmt"
 	"path"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -68,6 +69,89 @@ func (d Diagram) EndpointNameWithoutSpaces() string {
 		return ""
 	}
 	return strings.ReplaceAll(d.Endpoint.Name, " ", "")
+}
+
+// InputDataModel Generates request diagrams for the endpoint that's registered in s
+func (s Diagram) InputDataModel() []*Diagram {
+	appName := s.AppName()
+	typeName := ""
+	var diagram []*Diagram
+	if s.Endpoint == nil {
+		return nil
+	}
+	for i, param := range s.Endpoint.Param {
+		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
+			if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+				appName = paramNameParts[0]
+				typeName = path[0]
+			} else {
+				typeName = paramNameParts[0]
+			}
+		} else {
+			typeName = paramNameParts[0]
+		}
+		typeref := &sysl.Type{
+			Type: &sysl.Type_TypeRef{
+				TypeRef: &sysl.ScopedRef{
+					Ref: &sysl.Scope{Appname: &sysl.AppName{
+						Part: []string{appName},
+					},
+						Path: []string{appName, typeName},
+					},
+				},
+			},
+		}
+		newDiagram := &Diagram{
+			Parent:           s.Parent,
+			OutputDir:        path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+			App:              s.Parent.Parent.Module.Apps[appName],
+			DiagramString:    s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+			OutputFileName__: sanitiseOutputName(appName + s.Endpoint.Name + "data-model-parameter" + strconv.Itoa(i)),
+		}
+		diagram = append(diagram, newDiagram)
+	}
+	return diagram
+}
+
+// OutputDataModel Generates return value diagrams for the endpoint that's registered in s
+func (s Diagram) OutputDataModel() []*Diagram {
+	appName := s.AppName()
+	typeName := ""
+	var diagram []*Diagram
+	if s.Endpoint == nil {
+		return nil
+	}
+	for i, stmnt := range s.Endpoint.Stmt {
+		if ret := stmnt.GetRet(); ret != nil {
+			t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
+			if split := strings.Split(t, "."); len(split) > 1 {
+				appName = split[0]
+				typeName = split[1]
+			} else {
+				typeName = split[0]
+			}
+			typeref := &sysl.Type{
+				Type: &sysl.Type_TypeRef{
+					TypeRef: &sysl.ScopedRef{
+						Ref: &sysl.Scope{Appname: &sysl.AppName{
+							Part: []string{appName},
+						},
+							Path: []string{appName, typeName},
+						},
+					},
+				},
+			}
+			newDiagram := &Diagram{
+				Parent:           s.Parent,
+				OutputDir:        path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+				App:              s.Parent.Parent.Module.Apps[appName],
+				DiagramString:    s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+				OutputFileName__: sanitiseOutputName(appName + s.Endpoint.Name + "data-model-response" + strconv.Itoa(i)),
+			}
+			diagram = append(diagram, newDiagram)
+		}
+	}
+	return diagram
 }
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.

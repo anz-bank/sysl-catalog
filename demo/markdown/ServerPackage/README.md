@@ -4,10 +4,9 @@
 
 ## Index
 | Service Name | Method |
-| - | - | ]
-| Server | [Authenticate](#Server-Authenticate) |]
-
-| RelModel | [Database](#Database-RelModel) |]
+| - | - | 
+| Server | [Authenticate](#Server-Authenticate) |
+| RelModel | [Database](#Database-RelModel) |
 
 ---
 

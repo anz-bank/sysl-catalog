@@ -4,8 +4,14 @@
 
 ## Index
 | Service Name | Method |
-| - | - | 
+| - | - | ]
 | Server | [Authenticate](#Server-Authenticate) |]
+
+| RelModel | [Database](#Database-RelModel) |]
+
+---
+
+
 
 ---
 
@@ -36,5 +42,10 @@ this is a description of Authenticate
 
 
 ---
+
+
+
+## Database RelModel
+![alt text](RelModeldb.svg)
 
 

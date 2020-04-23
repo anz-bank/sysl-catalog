@@ -31,6 +31,7 @@ type Package struct {
 	PackageName      string
 	OutputFile       string
 	SequenceDiagrams map[string][]*Diagram // map[appName][]*Diagram
+	DatabaseModel    map[string]*Diagram
 }
 
 // AlphabeticalRows returns an alphabetically sorted list of packages of any project.
@@ -46,9 +47,7 @@ func (p Project) AlphabeticalRows() []*Package {
 func (p Project) RegisterSequenceDiagrams() error {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
-		if len(app.Endpoints) == 0 {
-			continue
-		}
+
 		packageName, appName := GetAppPackageName(app)
 		if syslutil.HasPattern(app.Attrs, "ignore") {
 			p.Log.Infof("Skipping application %s", app.Name)
@@ -61,7 +60,21 @@ func (p Project) RegisterSequenceDiagrams() error {
 			p.Packages[packageName].SequenceDiagrams = make(map[string][]*Diagram)
 			p.Packages[packageName].SequenceDiagrams[appName] = make([]*Diagram, 0, 0)
 		}
-
+		if syslutil.HasPattern(app.Attrs, "db") {
+			if p.Packages[packageName].DatabaseModel == nil {
+				p.Packages[packageName].DatabaseModel = make(map[string]*Diagram)
+			}
+			p.Packages[packageName].DatabaseModel[appName] = &Diagram{
+				Parent:           p.Packages[packageName],
+				App:              app,
+				DiagramString:    p.GenerateDBDataModel(appName),
+				OutputDir:        path.Join(p.Output, packageName),
+				OutputFileName__: sanitiseOutputName(appName + "db"),
+			}
+		}
+		if len(app.Endpoints) == 0 {
+			continue
+		}
 		for _, key2 := range AlphabeticalEndpoints(app.Endpoints) {
 			endpoint := app.Endpoints[key2]
 			if syslutil.HasPattern(endpoint.Attrs, "ignore") {
@@ -76,8 +89,28 @@ func (p Project) RegisterSequenceDiagrams() error {
 
 			p.Packages[packageName].SequenceDiagrams[appName] = append(packageD.SequenceDiagrams[appName], diagram)
 		}
+
 	}
 	return nil
+}
+
+func (p Project) GenerateDBDataModel(parentAppName string) string {
+	pl := &datamodelCmd{}
+	pl.Project = ""
+	p.Fs.MkdirAll(pl.Output, os.ModePerm)
+	pl.Direct = true
+	pl.ClassFormat = "%(classname)"
+	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)
+	var stringBuilder strings.Builder
+	dataParam := &catalogdiagrams.DataModelParam{}
+	dataParam.Mod = p.Module
+
+	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
+	vNew := &catalogdiagrams.DataModelView{
+		DataModelView: *v,
+		TypeMap:       p.Module.Apps[parentAppName].Types,
+	}
+	return vNew.GenerateDataView(dataParam, parentAppName, nil, p.Module)
 }
 
 func (p Project) GenerateEndpointDataModel(parentAppName string, t *sysl.Type) string {
@@ -94,9 +127,11 @@ func (p Project) GenerateEndpointDataModel(parentAppName string, t *sysl.Type) s
 	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
 	vNew := &catalogdiagrams.DataModelView{
 		DataModelView: *v,
+		TypeMap:       map[string]*sysl.Type{},
 	}
 	return vNew.GenerateDataView(dataParam, parentAppName, t, p.Module)
 }
+
 func sanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
 }
@@ -105,6 +140,9 @@ func (s Diagram) InputDataModel() []*Diagram {
 	appName := s.AppName()
 	typeName := ""
 	var diagram []*Diagram
+	if s.Endpoint == nil {
+		return nil
+	}
 	for i, param := range s.Endpoint.Param {
 		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
 			if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
@@ -143,6 +181,9 @@ func (s Diagram) OutputDataModel() []*Diagram {
 	appName := s.AppName()
 	typeName := ""
 	var diagram []*Diagram
+	if s.Endpoint == nil {
+		return nil
+	}
 	for i, stmnt := range s.Endpoint.Stmt {
 		if ret := stmnt.GetRet(); ret != nil {
 			t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")

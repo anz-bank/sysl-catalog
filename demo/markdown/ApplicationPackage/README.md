@@ -9,6 +9,7 @@
 | MobileApp | [Login](#MobileApp-Login) |]
 | MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) |
 | MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) |]
+]
 
 ---
 
@@ -105,5 +106,7 @@ ThirdEndpoint comment
 
 
 ---
+
+
 
 

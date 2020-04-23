@@ -152,6 +152,16 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 				}(sd)
 			}
 		}
+		for _, data := range pkg.DatabaseModel {
+			wg.Add(1)
+			go func(s *Diagram) {
+				if err := s.GenerateDiagramAndMarkdown(); err != nil {
+					p.Log.Errorf("Error generating Sequence diagram template and diagrams:\n %v", err)
+					return
+				}
+				wg.Done()
+			}(data)
+		}
 	}
 	wg.Wait()
 }

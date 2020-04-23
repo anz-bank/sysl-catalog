@@ -16,6 +16,7 @@ const tupleArrow = `*--`
 
 type DataModelView struct {
 	datamodeldiagram.DataModelView
+	TypeMap map[string]*sysl.Type
 }
 
 type DataModelParam struct {
@@ -30,17 +31,20 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 		fmt.Fprintf(v.StringBuilder, "title %s\n", dataParam.Title)
 	}
 	v.StringBuilder.WriteString(integrationdiagram.PumlHeader)
-	typeMap := map[string]*sysl.Type{}
+	//typeMap := map[string]*sysl.Type{}
+	if v.TypeMap == nil {
+		v.TypeMap = make(map[string]*sysl.Type)
+	}
 	ignoredTypes := map[string]struct{}{}
 	// TODO: Actually put The appName/project name and the appName in a struct so strings.split and join dont need to be used
 	entityNames := []string{}
-	RecurseivelyGetTypes(appName, t, m, typeMap)
-	for key := range typeMap {
+	RecurseivelyGetTypes(appName, t, m, v.TypeMap)
+	for key := range v.TypeMap {
 		entityNames = append(entityNames, key)
 	}
 	sort.Strings(entityNames)
 	for _, entityName := range entityNames {
-		entityType := typeMap[entityName]
+		entityType := v.TypeMap[entityName]
 		if relEntity := entityType.GetRelation(); relEntity != nil {
 			isRelation = true
 			viewParam := datamodeldiagram.EntityViewParam{

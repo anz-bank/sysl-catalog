@@ -43,7 +43,55 @@ GrpcTesting:
         that <: string
     !type Response:
         query <: string
-
+RelModel[~db]:
+    @packge="Fruits"
+    !table exhibition:
+        exhibition_id <: int [~pk]
+        time <: DATETIME
+        capacity <: int
+    !table audio_guide:
+        audio_guide_id <: int [~pk]
+        type <: float
+        activation_date <: date
+        listen_time <: float
+        payment <: payment_details.payment_details_id
+        language <: float
+        ticket_id <: ticket.ticket_id
+        issue_point <: location.location_id
+        return_point <: location.location_id
+    !table ticket:
+        ticket_id <: int [~pk]
+        payment <: payment_details.payment_details_id
+        checkpoints <: checkpoint_lookup.checkpoint_lookup_id
+        arrival_transport <: float
+        exhibition <: exhibition.exhibition_id
+    !table checkpoint_lookup:
+        checkpoint_lookup_id <: int [~pk]
+        location <: location.location_id
+    !table location:
+        location_id <: int [~pk]
+        type <: float
+        time <: DATETIME
+        name <: float
+    !table payment_details:
+        price <: decimal
+        payment_details_id <: int [~pk]
+        type <: float
+        online <: bool
+        payment_cash <: cash_payment.id
+        payment_card <: card_payment.id
+    !table cash_payment:
+        id <: int [~pk]
+        first_name <: string
+        city <: string
+        country <: string
+    !table card_payment:
+        id <: int [~pk]
+        bank_name <: string
+        bank_short_name <: string
+        branch <: string
+        expiry <: string
+        card_number_snippet <: string
 ThisApp[~ignore]:
     DoesntExist:
         ...

@@ -24,7 +24,8 @@ const PackageMarkdownTemplate = `
 ## Index
 | Service Name | Method |
 | - | - | {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
-| {{$appName}} | [{{$Diagram.EndpointNameWithoutSpaces}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointNameWithoutSpaces}}) |{{end}}]{{end}}
+| {{$appName}} | [{{$Diagram.EndpointNameWithoutSpaces}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointNameWithoutSpaces}}) |{{end}}{{end}}
+{{range $appName, $Diagrams := .DatabaseModel}}| {{$appName}} | [Database](#Database-{{$appName}}) |{{end}}
 
 ---
 {{range $appName, $Diagrams := .SequenceDiagrams}}
@@ -55,6 +56,11 @@ const PackageMarkdownTemplate = `
 {{end}}
 {{end}}
 ---
+{{end}}
+
+{{range $appName, $Diagrams := .DatabaseModel}}
+## Database {{$appName}}
+![alt text]({{$Diagrams.OutputFileName__}}.svg)
 {{end}}
 
 `

@@ -51,4 +51,10 @@ const PackageHTMLTemplate = `
 {{end}}{{end}}
 
 
+<h3 id="request-types">Database ERD</h3>
+<p>{{range $appName, $Diagrams := .DatabaseModel}}
+<img src="{{$Diagrams.OutputFileName__}}.svg" alt="alt text"></p>
+<h2 id="-end-">{{end}}</h2>
+
+
 `

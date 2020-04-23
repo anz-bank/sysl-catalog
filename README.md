@@ -1,4 +1,4 @@
-# syslcatalog
+# sysl-catalog
 
 A markdown/html + Diagram generator for sysl specifications
 

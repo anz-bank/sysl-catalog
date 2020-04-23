@@ -40,6 +40,11 @@ func main() {
 		// Watch our input dir for changes and
 		go watchFile(
 			func() {
+				defer func() {
+					if r := recover(); r != nil {
+						fmt.Println("Recovered in f", r)
+					}
+				}()
 				m, err := parse.NewParser().Parse(*input, fs)
 				if err != nil {
 					panic(err)

@@ -30,7 +30,7 @@ sysl-catalog comes with a `serve` mode which will serve on port `:6900` by defau
 ```bash 
 sysl-catalog --serve <input.sysl>
 ```
-This will start a server and filewatchers to watch the input file and its directories recursively, the website will refresh on edit
+This will start a server and filewatchers to watch the input file and its directories recursively, then click refresh to get the updated docs (couldn't figure out how auto reload works)
 ![example gif](resources/example.gif)
 
 ## Requirements

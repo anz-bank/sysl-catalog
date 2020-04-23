@@ -27,6 +27,8 @@ const PackageHTMLTemplate = `
   </tr>
  {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
 <tr><td>{{$Diagram.AppName}} </td> <td><a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a></td></tr>{{end}}{{end}}
+{{range $appName, $Diagrams := .DatabaseModel}}
+<tr><td>{{$appName}} </td> <td><a href="#Database-{{$appName}}">Database</a></td></tr>{{end}}
 </table>
 <hr>
 {{range $appName, $Diagrams := .SequenceDiagrams}}
@@ -51,8 +53,8 @@ const PackageHTMLTemplate = `
 {{end}}{{end}}
 
 
-<h3 id="request-types">Database ERD</h3>
 <p>{{range $appName, $Diagrams := .DatabaseModel}}
+<h3 id="Database-{{$appName}}">Database {{$appName}}</h3>
 <img src="{{$Diagrams.OutputFileName__}}.svg" alt="alt text"></p>
 <h2 id="-end-">{{end}}</h2>
 

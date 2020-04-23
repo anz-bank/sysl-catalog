@@ -1,6 +1,5 @@
 package templategeneration
 
-const ProjectMarkdownTemplate2 = ``
 const ProjectMarkdownTemplate = `
 # {{.Title}}
 
@@ -16,7 +15,7 @@ Integration diagram with end point analysis:
 
 ![alt text]({{.RootLevelIntegrationDiagramEPA.OutputFileName__}})
 `
-const PackageMarkdownTemplate2 = ``
+
 const PackageMarkdownTemplate = `
 [Back](../README.md)
 # Package {{.PackageName}}

@@ -2,6 +2,7 @@ package templategeneration
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"strconv"
 	"strings"
@@ -213,24 +214,19 @@ type intsCmd struct {
 	cmdutils.CmdContextParamIntgen
 }
 
-func createProjectApp(module *sysl.Module) *sysl.Application {
+func createProjectApp(Apps map[string]*sysl.Application) *sysl.Application {
 	app := syslpopulate.NewApplication("")
 	app.Endpoints = make(map[string]*sysl.Endpoint)
 	app.Endpoints["_"] = syslpopulate.NewEndpoint("_")
 	app.Endpoints["_"].Stmt = []*sysl.Statement{}
-	for key, _ := range module.Apps {
+	for key, _ := range Apps {
 		app.Endpoints["_"].Stmt = append(app.Endpoints["_"].Stmt, syslpopulate.NewStringStatement(key))
 	}
 	return app
 }
 
-func (p *Project) CreateIntegrationDiagrams() error {
-	projectApp, ok := p.Module.Apps[p.Title]
-	if !ok {
-		p.Log.Info("Project app Not found, creating\n")
-		projectApp = createProjectApp(p.Module)
-		p.Module.Apps[p.Title] = projectApp
-	}
+func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sysl.Application, EPA bool) (*Diagram, error) {
+	m := *p.Module
 	if projectApp.Attrs == nil {
 		projectApp.Attrs = make(map[string]*sysl.Attribute)
 	}
@@ -239,45 +235,34 @@ func (p *Project) CreateIntegrationDiagrams() error {
 			Attribute: &sysl.Attribute_S{S: "%(appname)"},
 		}
 	}
+	m.Apps[title] = projectApp
+
+	intType := ""
+	if EPA {
+		intType = "EPA"
+	}
 	integration := intsCmd{}
-	integration.Output = path.Join(p.Output, p.Title+"_integration_EPA"+ext)
-	integration.Title = p.Title
-	integration.Project = p.Title
-	integration.EPA = true
+	p.Fs.MkdirAll(output, os.ModePerm)
+	integration.Output = path.Join(output, title+intType+"_integration"+ext)
+	integration.Title = title
+	integration.Project = title
+	integration.EPA = EPA
 	integration.Clustered = true
-	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, p.Log)
+	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, &m, p.Log)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if err := integration.GenerateFromMap(result, p.Fs); err != nil {
-		return err
+		return nil, err
 	}
-	p.RootLevelIntegrationDiagramEPA = &Diagram{
+	//returnq
+	return &Diagram{
 		Parent:                 nil,
-		OutputDir:              p.Output,
+		OutputDir:              output,
 		App:                    projectApp,
 		DiagramString:          "", // Leave this empty because the diagram is already created
-		OutputFileName__:       p.Title + "_integration_EPA" + ext,
+		OutputFileName__:       path.Join(output, title+intType+"_integration"+ext),
 		OutputMarkdownFileName: "",
 		Diagramtype:            "integration",
-	}
-	integration.EPA = false
-	integration.Output = path.Join(p.Output, p.Title+"_integration"+ext)
-	result, err = integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, p.Log)
-	if err != nil {
-		return err
-	}
-	if err := integration.GenerateFromMap(result, p.Fs); err != nil {
-		return err
-	}
-	p.RootLevelIntegrationDiagram = &Diagram{
-		Parent:                 nil,
-		OutputDir:              p.Output,
-		App:                    projectApp,
-		DiagramString:          "", // Leave this empty because the diagram is already created
-		OutputFileName__:       p.Title + "_integration" + ext,
-		OutputMarkdownFileName: "",
-		Diagramtype:            "integration",
-	}
-	return nil
+	}, nil
 }

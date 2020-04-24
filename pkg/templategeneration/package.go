@@ -22,6 +22,8 @@ type Package struct {
 	OutputFile       string
 	SequenceDiagrams map[string][]*Diagram // map[appName][]*Diagram
 	DatabaseModel    map[string]*Diagram
+	Integration      *Diagram
+	EPAIntegration   *Diagram
 }
 
 // SequenceDiagramFromEndpoint generates a sequence diagram from a sysl endpoint

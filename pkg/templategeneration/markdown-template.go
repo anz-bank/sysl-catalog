@@ -26,6 +26,9 @@ const PackageMarkdownTemplate = `
 | {{$appName}} | [{{$Diagram.EndpointNameWithoutSpaces}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointNameWithoutSpaces}}) |{{end}}{{end}}
 {{range $appName, $Diagrams := .DatabaseModel}}| {{$appName}} | [Database](#Database-{{$appName}}) |{{end}}
 
+Integration diagram:
+
+![alt text]({{.Integration.OutputFileName__}})
 ---
 {{range $appName, $Diagrams := .SequenceDiagrams}}
 {{$first := true}}

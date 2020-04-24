@@ -31,6 +31,10 @@ const PackageHTMLTemplate = `
 <tr><td>{{$appName}} </td> <td><a href="#Database-{{$appName}}">Database</a></td></tr>{{end}}
 </table>
 <hr>
+
+<h2>Integration diagram:</h2>
+<p><img src="{{.Integration.OutputFileName__}}" alt="alt text"></p>
+
 {{range $appName, $Diagrams := .SequenceDiagrams}}
 {{$first := true}}
 {{range $Diagram := $Diagrams}}

@@ -104,6 +104,7 @@ func (p *Project) initProject() {
 			p.PackageModules[packageName].Apps = map[string]*sysl.Application{}
 		}
 		p.PackageModules[packageName].Apps[strings.Join(app.Name.Part, "")] = app
+
 	}
 }
 
@@ -130,7 +131,18 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 			}
 		}
 	}
-	if err := p.CreateIntegrationDiagrams(); err != nil {
+	projectApp, ok := p.Module.Apps[p.Title]
+	if !ok {
+		projectApp = createProjectApp(p.Module.Apps)
+	}
+	var err error
+	p.RootLevelIntegrationDiagram, err = p.CreateIntegrationDiagrams(p.Title, p.Output, projectApp, false)
+	if err != nil {
+		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
+		return
+	}
+	p.RootLevelIntegrationDiagramEPA, err = p.CreateIntegrationDiagrams(p.Title, p.Output, projectApp, true)
+	if err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
 		return
 	}
@@ -140,6 +152,10 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 	}
 	for _, key := range AlphabeticalPackage(p.Packages) {
 		pkg := p.Packages[key]
+		pkg.Integration, err = p.CreateIntegrationDiagrams(pkg.PackageName, pkg.OutputDir, createProjectApp(p.PackageModules[pkg.PackageName].Apps), false)
+		if err != nil {
+			p.Log.Errorf("Error generating package int diagram")
+		}
 		wg.Add(1)
 		go func(pk *Package) {
 			if err := GenerateMarkdown(pk.OutputDir, pk.OutputFile, pk, pk.Parent.PackageTempl, p.Fs); err != nil {

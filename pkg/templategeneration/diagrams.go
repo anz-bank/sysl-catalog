@@ -261,7 +261,7 @@ func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sy
 		OutputDir:              output,
 		App:                    projectApp,
 		DiagramString:          "", // Leave this empty because the diagram is already created
-		OutputFileName__:       path.Join(output, title+intType+"_integration"+ext),
+		OutputFileName__:       path.Join(title + intType + "_integration" + ext),
 		OutputMarkdownFileName: "",
 		Diagramtype:            "integration",
 	}, nil

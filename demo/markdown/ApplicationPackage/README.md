@@ -13,7 +13,7 @@
 
 Integration diagram:
 
-![alt text](demo/markdown/ApplicationPackage/ApplicationPackage_integration.svg)
+![alt text](ApplicationPackage_integration.svg)
 ---
 
 

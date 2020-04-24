@@ -10,7 +10,7 @@
 
 Integration diagram:
 
-![alt text](demo/markdown/ServerPackage/ServerPackage_integration.svg)
+![alt text](ServerPackage_integration.svg)
 ---
 
 

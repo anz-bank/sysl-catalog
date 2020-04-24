@@ -10,7 +10,13 @@ Bar:
     /address:
         GET:
             App <- GET /address
-            return ok <: sequence of App.foo
+            return ok <: foo
+    /address:
+        GET:
+            return ok <: sequence of foo
     !type foo:
+        this <: string
+        that <: Bar.tar
+    !type tar:
         this <: string
         that <: int

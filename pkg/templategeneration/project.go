@@ -152,7 +152,6 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 	}
 	for _, key := range AlphabeticalPackage(p.Packages) {
 		pkg := p.Packages[key]
-		//pkg.Integration = &Diagram{}
 		pkg.Integration, err = p.CreateIntegrationDiagrams(pkg.PackageName, pkg.OutputDir, createProjectApp(p.PackageModules[pkg.PackageName].Apps), false)
 		if err != nil {
 			p.Log.Errorf("Error generating package int diagram")

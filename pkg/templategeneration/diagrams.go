@@ -125,25 +125,58 @@ func (s Diagram) OutputDataModel() []*Diagram {
 		return nil
 	}
 	for i, stmnt := range s.Endpoint.Stmt {
+		var sequence bool
+		var typeref *sysl.Type
 		if ret := stmnt.GetRet(); ret != nil {
 			t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
+			if strings.Contains(t, "sequence of") {
+				t = strings.ReplaceAll(t, "sequence of ", "")
+				sequence = true
+			}
 			if split := strings.Split(t, "."); len(split) > 1 {
 				appName = split[0]
 				typeName = split[1]
 			} else {
 				typeName = split[0]
 			}
-			typeref := &sysl.Type{
-				Type: &sysl.Type_TypeRef{
-					TypeRef: &sysl.ScopedRef{
-						Ref: &sysl.Scope{Appname: &sysl.AppName{
-							Part: []string{appName},
-						},
-							Path: []string{appName, typeName},
+			if sequence {
+				s.App.Types[s.Endpoint.Name+"ReturnVal"] = &sysl.Type{
+
+					Type: &sysl.Type_Tuple_{
+						Tuple: &sysl.Type_Tuple{
+							AttrDefs: map[string]*sysl.Type{"sequence": &sysl.Type{Type: &sysl.Type_Sequence{
+								Sequence: syslpopulate.NewType(typeName, appName)},
+							},
+							},
 						},
 					},
-				},
+				}
+
+				typeref = &sysl.Type{
+					Type: &sysl.Type_TypeRef{
+						TypeRef: &sysl.ScopedRef{
+							Ref: &sysl.Scope{Appname: &sysl.AppName{
+								Part: []string{appName},
+							},
+								Path: []string{appName, s.Endpoint.Name + "ReturnVal"},
+							},
+						},
+					},
+				}
+			} else {
+				typeref = &sysl.Type{
+					Type: &sysl.Type_TypeRef{
+						TypeRef: &sysl.ScopedRef{
+							Ref: &sysl.Scope{Appname: &sysl.AppName{
+								Part: []string{appName},
+							},
+								Path: []string{appName, typeName},
+							},
+						},
+					},
+				}
 			}
+
 			newDiagram := &Diagram{
 				Parent:           s.Parent,
 				OutputDir:        path.Join(s.Parent.Parent.Output, s.Parent.PackageName),

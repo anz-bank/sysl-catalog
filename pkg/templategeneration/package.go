@@ -12,7 +12,7 @@ const (
 	ext = ".svg"
 )
 
-var re = regexp.MustCompile(`(?m)(?:<:)(?:\s*\S+)`)
+var re = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
 
 // Package is the second level where apps and endpoints are specified.
 type Package struct {

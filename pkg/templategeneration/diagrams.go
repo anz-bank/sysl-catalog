@@ -235,6 +235,11 @@ func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sy
 			Attribute: &sysl.Attribute_S{S: "%(appname)"},
 		}
 	}
+	newMap := make(map[string]*sysl.Application)
+	for k, v := range m.Apps {
+		newMap[k] = v
+	}
+	m.Apps = newMap
 	m.Apps[title] = projectApp
 
 	intType := ""

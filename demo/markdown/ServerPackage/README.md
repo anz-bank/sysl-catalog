@@ -8,6 +8,9 @@
 | Server | [Authenticate](#Server-Authenticate) |
 | RelModel | [Database](#Database-RelModel) |
 
+Integration diagram:
+
+![alt text](demo/markdown/ServerPackage/ServerPackage_integration.svg)
 ---
 
 

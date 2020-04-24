@@ -11,6 +11,9 @@
 | MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) |
 
 
+Integration diagram:
+
+![alt text](demo/markdown/ApplicationPackage/ApplicationPackage_integration.svg)
 ---
 
 

@@ -1,0 +1,16 @@
+App:
+    @package = "App"
+    /address:
+        GET:
+            return ok <: sequence of App.foo
+    !type foo:
+        this <: string
+        that <: int
+Bar:
+    /address:
+        GET:
+            App <- GET /address
+            return ok <: sequence of App.foo
+    !type foo:
+        this <: string
+        that <: int

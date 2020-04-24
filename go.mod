@@ -3,6 +3,7 @@ module github.com/anz-bank/sysl-catalog
 go 1.14
 
 require (
+	github.com/anz-bank/protoc-gen-sysl v0.0.0-20200421063430-ac292bed0e56
 	github.com/anz-bank/sysl v0.62.0
 	github.com/golang/protobuf v1.4.0 // indirect
 	github.com/radovskyb/watcher v1.0.7

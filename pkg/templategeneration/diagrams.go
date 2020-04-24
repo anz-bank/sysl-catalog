@@ -7,6 +7,8 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
+
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
 
 	"github.com/anz-bank/sysl/pkg/cmdutils"
@@ -211,13 +213,28 @@ type intsCmd struct {
 	cmdutils.CmdContextParamIntgen
 }
 
+func createProjectApp(module *sysl.Module) *sysl.Application {
+	app := syslpopulate.NewApplication("")
+	app.Endpoints = make(map[string]*sysl.Endpoint)
+	app.Endpoints["_"] = syslpopulate.NewEndpoint("_")
+	app.Endpoints["_"].Stmt = []*sysl.Statement{}
+	for key, _ := range module.Apps {
+		app.Endpoints["_"].Stmt = append(app.Endpoints["_"].Stmt, syslpopulate.NewStringStatement(key))
+	}
+	return app
+}
+
 func (p *Project) CreateIntegrationDiagrams() error {
 	projectApp, ok := p.Module.Apps[p.Title]
 	if !ok {
-		return fmt.Errorf(
-			"There must be a app with the same name as the input file:"+
-				"'%s.sysl' must have a project named '%s'", p.Title, p.Title)
-	} else if _, ok := projectApp.Attrs["appfmt"]; !ok {
+		p.Log.Info("Project app Not found, creating\n")
+		projectApp = createProjectApp(p.Module)
+		p.Module.Apps[p.Title] = projectApp
+	}
+	if projectApp.Attrs == nil {
+		projectApp.Attrs = make(map[string]*sysl.Attribute)
+	}
+	if _, ok := projectApp.Attrs["appfmt"]; !ok {
 		projectApp.Attrs["appfmt"] = &sysl.Attribute{
 			Attribute: &sysl.Attribute_S{S: "%(appname)"},
 		}

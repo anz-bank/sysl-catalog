@@ -16,7 +16,7 @@ import (
 func TestDataModel(t *testing.T) {
 	t.Parallel()
 	fs := afero.NewOsFs()
-	filename := "tests/simple.sysl"
+	filename := "tests/rest.sysl"
 	plantumlService := os.Getenv("SYSL_PLANTUML")
 	if plantumlService == "" {
 		panic("Error: Set SYSL_PLANTUML env variable")

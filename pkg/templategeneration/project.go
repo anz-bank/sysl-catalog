@@ -1,6 +1,7 @@
 package templategeneration
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"path/filepath"
@@ -83,7 +84,8 @@ func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString
 func (p *Project) initProject() {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
-		if syslutil.HasPattern(app.Attrs, "ignore") {
+		fmt.Println(p.Title, key)
+		if syslutil.HasPattern(app.Attrs, "ignore") || key == p.Title {
 			continue
 		}
 		packageName, _ := GetAppPackageName(app)
@@ -187,7 +189,7 @@ func (p Project) RegisterDiagrams() error {
 		app := p.Module.Apps[key]
 
 		packageName, appName := GetAppPackageName(app)
-		if syslutil.HasPattern(app.Attrs, "ignore") {
+		if syslutil.HasPattern(app.Attrs, "ignore") || key == p.Title {
 			p.Log.Infof("Skipping application %s", app.Name)
 			continue
 		}
@@ -215,7 +217,7 @@ func (p Project) RegisterDiagrams() error {
 		}
 		for _, key2 := range AlphabeticalEndpoints(app.Endpoints) {
 			endpoint := app.Endpoints[key2]
-			if syslutil.HasPattern(endpoint.Attrs, "ignore") {
+			if syslutil.HasPattern(endpoint.Attrs, "ignore") || key == p.Title {
 				p.Log.Infof("Skipping application %s", app.Name)
 				continue
 			}

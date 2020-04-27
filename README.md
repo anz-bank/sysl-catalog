@@ -36,19 +36,8 @@ This will start a server and filewatchers to watch the input file and its direct
 ## Requirements
 In [demo/markdown/README.md](demo/markdown/README.md) we have an example with a couple of interesting parts:
 
-1. There needs to be a sysl `project` the same name as the filename:
 
-so as this example is called "simple2.sysl" there needs to be a `project` "simple2":
-- applications in our integration diagram:
-```
-simple2[ ~ignore]:
-    _:
-        MobileApp
-        Server
-        MegaDatabase
-```
-
-2. `@package` attribute must be specified:
+1. `@package` attribute must be specified:
 - This will create a markdown page for `ApplicationPackage` as seen in [demo/markdown/ApplicationPackage/README.md](demo/markdown/ApplicationPackage/README.md).
  Currently the package name is not inferred from the application name (`MobileApp`), so this needs to be added (`ApplicationPackage`).
 ```
@@ -59,7 +48,7 @@ MobileApp:
         return ok <: MegaDatabase.Empty
 ```
 
-3. Application names need to be prefixed to parameter types if the type is defined in another application, since defined parameters are under scope of the application it is defined in:
+2. Application names might need to be prefixed to parameter types if the type is defined in another application, since defined parameters are under scope of the application it is defined in:
 ```diff
 MobileApp:
     @package = "ApplicationPackage"
@@ -69,7 +58,7 @@ MobileApp:
         return ok <: MegaDatabase.Empty
 ```
 
-4. Add `~ignore` to applications/projects that are to be ignored in the markdown creation
+3. Add `~ignore` to applications/projects that are to be ignored in the markdown creation
 ```diff
 ThisAppShouldntShow[~ignore]:
     NotMySystem:

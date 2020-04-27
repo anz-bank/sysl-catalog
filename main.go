@@ -2,18 +2,19 @@ package main
 
 import (
 	"fmt"
+	"github.com/anz-bank/sysl-catalog/pkg/catalog"
+	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/afero"
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
+	"runtime"
 	"time"
 
-	"github.com/anz-bank/sysl-catalog/pkg/catalog"
-	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/radovskyb/watcher"
-	"github.com/sirupsen/logrus"
-	"github.com/spf13/afero"
-
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -29,26 +30,24 @@ func main() {
 	kingpin.Parse()
 	plantumlService := os.Getenv("SYSL_PLANTUML")
 	if plantumlService == "" {
-		panic("Error: Set SYSL_PLANTUML env variable")
+		log.Fatal("Error: Set SYSL_PLANTUML env variable")
 	}
-	var fs afero.Fs
-	fs = afero.NewOsFs()
+	fs := afero.NewOsFs()
 	m, err := parse.NewParser().Parse(*input, fs)
-	if *server {
-		watchFile(func(){
-			*outputDir = "/" + *outputDir
-			*outputType = "html"
-			handler := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m).HTTPHandler()
-			go http.ListenAndServe(*port, handler)
-		}, path.Dir(*input))
-
-	} else {
-		if err != nil {
-			panic(err)
-		}
-		project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m)
-		project.SetOutputFs(fs).ExecuteTemplateAndDiagrams()
+	if err != nil{
+		log.Fatal(err)
 	}
+	if *server {
+		go watchFile(func(){
+			handler := catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", logrus.New(), m).HTTPHandler()
+			http.ListenAndServe(*port, handler)
+		}, path.Dir(*input))
+		time.Sleep(2 * time.Second)
+		openBrowser("http://localhost" + *port)
+		select{}
+	}
+	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m)
+	project.SetOutputFs(fs).ExecuteTemplateAndDiagrams()
 }
 
 func watchFile(action func(), files ...string) {
@@ -59,7 +58,7 @@ func watchFile(action func(), files ...string) {
 		for {
 			select {
 			case event := <-w.Event:
-				action()
+				go action()
 				fmt.Println(event) // Print the event's info.
 			case err := <-w.Error:
 				log.Fatalln(err)
@@ -81,5 +80,23 @@ func watchFile(action func(), files ...string) {
 	//// Start the watching process - it'll check for changes every 100ms.
 	if err := w.Start(time.Millisecond * 100); err != nil {
 		log.Fatalln(err)
+	}
+}
+
+func openBrowser(url string) {
+	var err error
+
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+	if err != nil {
+		log.Fatal(err)
 	}
 }

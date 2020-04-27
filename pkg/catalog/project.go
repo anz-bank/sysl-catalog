@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"path"
 	"path/filepath"
@@ -39,14 +40,27 @@ type Project struct {
 	PackageTempl                   *template.Template      // PackageTempl is passed down to all Packages
 }
 
+// SetOutputFs sets the output filesystem
+func (p *Project)SetOutputFs(fs afero.Fs)*Project{
+	p.Fs = fs
+	return p
+}
+
+// HTTPHandler returns a http handler for the project
+func (p *Project)HTTPHandler()http.Handler{
+	httpFileSystem := afero.NewMemMapFs()
+	p.SetOutputFs(httpFileSystem)
+	p.ExecuteTemplateAndDiagrams()
+	httpFs := afero.NewHttpFs(httpFileSystem)
+	return  http.FileServer(httpFs.Dir("/"))
+}
 
 // NewProject generates a Project Markdwon object for all a sysl module
-func NewProject(title, outputDir, plantumlservice string, outputType string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
+func NewProject(title, outputDir, plantumlservice string, outputType string, log *logrus.Logger, module *sysl.Module) *Project {
 	var ProjectTemplate, PackageTemplate string
 	p := Project{
 		Title:           strings.ReplaceAll(filepath.Base(title), ".sysl", ""),
 		Output:          outputDir,
-		Fs:              fs,
 		Log:             log,
 		Module:          module,
 		Packages:        map[string]*Package{},
@@ -236,7 +250,7 @@ func (p Project) RegisterDiagrams() error {
 func (p Project) GenerateDBDataModel(parentAppName string) string {
 	pl := &datamodelCmd{}
 	pl.Project = ""
-	p.Fs.MkdirAll(pl.Output, os.ModePerm)
+	//p.Fs.MkdirAll(pl.Output, os.ModePerm)
 	pl.Direct = true
 	pl.ClassFormat = "%(classname)"
 	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)

@@ -31,37 +31,23 @@ func main() {
 	if plantumlService == "" {
 		panic("Error: Set SYSL_PLANTUML env variable")
 	}
-	var fs, httpFileSystem afero.Fs
+	var fs afero.Fs
 	fs = afero.NewOsFs()
-	httpFileSystem = afero.NewMemMapFs()
+	m, err := parse.NewParser().Parse(*input, fs)
 	if *server {
-		*outputDir = "/" + *outputDir
-		*outputType = "html"
-		// Watch our input dir for changes and
-		go watchFile(
-			func() {
-				defer func() {
-					if r := recover(); r != nil {
-						fmt.Println("Recovered in f", r)
-					}
-				}()
-				m, err := parse.NewParser().Parse(*input, fs)
-				if err != nil {
-					panic(err)
-				}
-				catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), httpFileSystem, m).ExecuteTemplateAndDiagrams()
-			},
-			path.Dir(*input))
-		httpFs := afero.NewHttpFs(httpFileSystem)
-		fileserver := http.FileServer(httpFs.Dir("/"))
-		http.Handle("/", fileserver)
-		http.ListenAndServe(*port, fileserver)
+		watchFile(func(){
+			*outputDir = "/" + *outputDir
+			*outputType = "html"
+			handler := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m).HTTPHandler()
+			go http.ListenAndServe(*port, handler)
+		}, path.Dir(*input))
+
 	} else {
-		m, err := parse.NewParser().Parse(*input, fs)
 		if err != nil {
 			panic(err)
 		}
-		catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
+		project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m)
+		project.SetOutputFs(fs).ExecuteTemplateAndDiagrams()
 	}
 }
 

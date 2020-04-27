@@ -25,6 +25,6 @@ func TestDataModel(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	catalog.NewProject(filename, "demo/html", plantumlService, "html", logrus.New(), fs, m).
+	catalog.NewProject(filename, "demo/html", plantumlService, "html", logrus.New(), m).SetOutputFs(fs).
 		ExecuteTemplateAndDiagrams()
 }

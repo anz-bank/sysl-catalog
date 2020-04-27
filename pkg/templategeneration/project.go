@@ -20,17 +20,11 @@ import (
 	"github.com/spf13/afero"
 )
 
-const (
-	diagram_sequence = "sequence"
-	refreshHeader    = ``
-)
-
 // Project is the top level in the hierarchy of markdown generation
 type Project struct {
 	Title                          string
 	PageFileName                   string // Is README.md for markdown and index.html for html
 	Server                         bool   // Determines wether html refresh header is added
-	OutputType                     string
 	Output                         string
 	PlantumlService                string
 	OutputFileName                 string
@@ -45,24 +39,34 @@ type Project struct {
 	PackageTempl                   *template.Template      // PackageTempl is passed down to all Packages
 }
 
+
 // NewProject generates a Project Markdwon object for all a sysl module
-func NewProject(title, output, plantumlservice, outputType string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
-	fileName := "README.md"
-	if outputType == "html" {
-		fileName = "index.html"
-	}
+func NewProject(title, outputDir, plantumlservice string, outputType string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
+	var ProjectTemplate, PackageTemplate string
 	p := Project{
 		Title:           strings.ReplaceAll(filepath.Base(title), ".sysl", ""),
-		Output:          output,
+		Output:          outputDir,
 		Fs:              fs,
 		Log:             log,
 		Module:          module,
 		Packages:        map[string]*Package{},
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
-		OutputFileName:  fileName,
-		OutputType:      outputType,
 	}
+
+	switch outputType{
+	case "html":
+		p.OutputFileName = "index.html"
+		ProjectTemplate, PackageTemplate = ProjectHTMLTemplate, PackageHTMLTemplate
+	case "markdown", "md":
+		p.OutputFileName = "README.md"
+		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate
+	}
+
+	if err := p.RegisterTemplates(ProjectTemplate, PackageTemplate); err != nil {
+		p.Log.Errorf("Error registering default templates:\n %v", err)
+	}
+
 	p.initProject()
 	if err := p.RegisterDiagrams(); err != nil {
 		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
@@ -85,7 +89,7 @@ func (p *Project) initProject() {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
 		fmt.Println(p.Title, key)
-		if syslutil.HasPattern(app.Attrs, "ignore") || key == p.Title {
+		if syslutil.HasPattern(app.Attrs, "ignore") {
 			continue
 		}
 		packageName, _ := GetAppPackageName(app)
@@ -110,23 +114,10 @@ func (p *Project) initProject() {
 
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
 func (p *Project) ExecuteTemplateAndDiagrams() {
-	var wg sync.WaitGroup
-	if p.PackageTempl == nil || p.ProjectTempl == nil {
-		if p.OutputType == "html" {
-			if err := p.RegisterTemplates(ProjectHTMLTemplate, PackageHTMLTemplate); err != nil {
-				p.Log.Errorf("Error registering default templates:\n %v", err)
-			}
-		} else {
-			if err := p.RegisterTemplates(ProjectMarkdownTemplate, PackageMarkdownTemplate); err != nil {
-				p.Log.Errorf("Error registering default templates:\n %v", err)
-			}
-		}
-	}
-	projectApp, ok := p.Module.Apps[p.Title]
-	if !ok {
-		projectApp = createProjectApp(p.Module.Apps)
-	}
+	var wg sync.WaitGroup // Make diagram generation concurrent
 	var err error
+	projectApp := createProjectApp(p.Module.Apps)
+
 	p.RootLevelIntegrationDiagram, err = p.CreateIntegrationDiagrams(p.Title, p.Output, projectApp, false)
 	if err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
@@ -196,7 +187,7 @@ func (p Project) RegisterDiagrams() error {
 		app := p.Module.Apps[key]
 
 		packageName, appName := GetAppPackageName(app)
-		if syslutil.HasPattern(app.Attrs, "ignore") || key == p.Title {
+		if syslutil.HasPattern(app.Attrs, "ignore") {
 			p.Log.Infof("Skipping application %s", app.Name)
 			continue
 		}
@@ -224,7 +215,7 @@ func (p Project) RegisterDiagrams() error {
 		}
 		for _, key2 := range AlphabeticalEndpoints(app.Endpoints) {
 			endpoint := app.Endpoints[key2]
-			if syslutil.HasPattern(endpoint.Attrs, "ignore") || key == p.Title {
+			if syslutil.HasPattern(endpoint.Attrs, "ignore") {
 				p.Log.Infof("Skipping application %s", app.Name)
 				continue
 			}

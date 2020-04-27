@@ -40,8 +40,6 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 		OutputDir:              path.Join(p.Parent.Output, p.PackageName),
 		DiagramString:          seq,
 		OutputFileName__:       sanitiseOutputName(appName + endpoint.Name),
-		OutputMarkdownFileName: p.Parent.OutputFileName,
-		Diagramtype:            diagram_sequence,
 	}
 	return diagram, nil
 }

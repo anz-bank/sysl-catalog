@@ -25,11 +25,9 @@ type Diagram struct {
 	Parent                 *Package
 	Endpoint               *sysl.Endpoint
 	App                    *sysl.Application
-	Type                   *sysl.Type
 	OutputDir              string
 	DiagramString          string
 	OutputFileName__       string
-	OutputMarkdownFileName string
 	Diagramtype            string
 }
 
@@ -293,14 +291,11 @@ func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sy
 	if err := integration.GenerateFromMap(result, p.Fs); err != nil {
 		return nil, err
 	}
-	//returnq
 	return &Diagram{
 		Parent:                 nil,
 		OutputDir:              output,
 		App:                    projectApp,
 		DiagramString:          "", // Leave this empty because the diagram is already created
 		OutputFileName__:       path.Join(title + intType + "_integration" + ext),
-		OutputMarkdownFileName: "",
-		Diagramtype:            "integration",
 	}, nil
 }

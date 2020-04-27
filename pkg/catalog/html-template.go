@@ -1,4 +1,4 @@
-package templategeneration
+package catalog
 
 const ProjectHTMLTemplate = `
 <h1 id="-title-">{{.Title}}</h1>

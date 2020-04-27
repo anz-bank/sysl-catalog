@@ -8,7 +8,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/anz-bank/sysl-catalog/pkg/templategeneration"
+	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/radovskyb/watcher"
 	"github.com/sirupsen/logrus"
@@ -49,7 +49,7 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
-				templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), httpFileSystem, m).ExecuteTemplateAndDiagrams()
+				catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), httpFileSystem, m).ExecuteTemplateAndDiagrams()
 			},
 			path.Dir(*input))
 		httpFs := afero.NewHttpFs(httpFileSystem)
@@ -61,7 +61,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		templategeneration.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
+		catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), fs, m).ExecuteTemplateAndDiagrams()
 	}
 }
 

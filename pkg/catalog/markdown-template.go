@@ -1,4 +1,4 @@
-package templategeneration
+package catalog
 
 const ProjectMarkdownTemplate = `
 # {{.Title}}

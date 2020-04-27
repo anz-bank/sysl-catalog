@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/anz-bank/sysl-catalog/pkg/templategeneration"
+	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 
 	"github.com/anz-bank/sysl/pkg/parse"
 
@@ -25,6 +25,6 @@ func TestDataModel(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	templategeneration.NewProject(filename, "demo/html", plantumlService, "html", logrus.New(), fs, m).
+	catalog.NewProject(filename, "demo/html", plantumlService, "html", logrus.New(), fs, m).
 		ExecuteTemplateAndDiagrams()
 }

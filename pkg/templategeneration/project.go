@@ -46,13 +46,13 @@ type Project struct {
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
-func NewProject(inputSyslFileName, output, plantumlservice string, outputType string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
+func NewProject(title, output, plantumlservice, outputType string, log *logrus.Logger, fs afero.Fs, module *sysl.Module) *Project {
 	fileName := "README.md"
 	if outputType == "html" {
 		fileName = "index.html"
 	}
 	p := Project{
-		Title:           strings.ReplaceAll(filepath.Base(inputSyslFileName), ".sysl", ""),
+		Title:           strings.ReplaceAll(filepath.Base(title), ".sysl", ""),
 		Output:          output,
 		Fs:              fs,
 		Log:             log,
@@ -106,15 +106,6 @@ func (p *Project) initProject() {
 		p.PackageModules[packageName].Apps[strings.Join(app.Name.Part, "")] = app
 
 	}
-}
-
-// SetServerMode can be used to add html headers to the html templates for server mode
-func (p *Project) SetServerMode() *Project {
-	//Add the refresh header is server mode has been enabled
-	if err := p.RegisterTemplates(refreshHeader+ProjectHTMLTemplate, refreshHeader+PackageHTMLTemplate); err != nil {
-		p.Log.Errorf("Error registering default templates:\n %v", err)
-	}
-	return p
 }
 
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown

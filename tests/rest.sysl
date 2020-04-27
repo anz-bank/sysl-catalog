@@ -1,7 +1,7 @@
 App:
     @package = "App"
     /address:
-        GET:
+        GET(ok <: foo):
             return ok <: sequence of App.foo
     !type foo:
         this <: string

@@ -1,7 +1,6 @@
 package catalog
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"strconv"
@@ -191,7 +190,6 @@ func (s Diagram) OutputDataModel() []*Diagram {
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
 func (sd *Diagram) GenerateDiagramAndMarkdown() error {
 	var wg sync.WaitGroup
-	fmt.Println(sd.OutputFileName__)
 	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
 	wg.Add(1)
 	go func() {

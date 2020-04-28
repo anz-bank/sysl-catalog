@@ -1,7 +1,6 @@
 package catalog
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"path"
@@ -119,7 +118,7 @@ func (p *Project) Update(m *sysl.Module)*Project {
 func (p *Project) initProject() {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
-		fmt.Println(p.Title, key)
+		p.Log.Info(p.Title, key)
 		if syslutil.HasPattern(app.Attrs, "ignore") {
 			continue
 		}

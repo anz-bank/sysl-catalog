@@ -22,6 +22,7 @@ var (
 	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
 	outputType = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
 	outputDir  = kingpin.Flag("output", "Output directory to generate to").Short('o').String()
+	verbose     = kingpin.Flag("verbose", "Verbose logs").Short('v').Bool()
 )
 
 func main() {
@@ -31,6 +32,12 @@ func main() {
 		log.Fatal("Error: Set SYSL_PLANTUML env variable")
 	}
 	fs := afero.NewOsFs()
+	log := logrus.New()
+	if *verbose{
+		log.SetLevel(logrus.InfoLevel)
+	}else{
+		log.SetLevel(logrus.ErrorLevel)
+	}
 	m, err := parse.NewParser().Parse(*input, fs)
 	if err != nil{
 		log.Fatal(err)
@@ -49,13 +56,14 @@ func main() {
 			if err != nil{
 				log.Fatal(err)
 			}
-			catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", logrus.New(), m).SetOutputFs(httpfilesystem).ExecuteTemplateAndDiagrams()
+			catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", log, m).SetOutputFs(httpfilesystem).ExecuteTemplateAndDiagrams()
+			fmt.Println("Done Regenerating")
 		}, path.Dir(*input))
 		fmt.Println("Serving on http://localhost"+*port)
 		log.Fatal(http.ListenAndServe(*port, fileserver))
 		select{}
 	}
-	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m)
+	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, log, m)
 	project.SetOutputFs(fs).ExecuteTemplateAndDiagrams()
 }
 
@@ -67,8 +75,8 @@ func watchFile(action func(), files ...string) {
 		for {
 			select {
 			case event := <-w.Event:
-				go action()
-				fmt.Println(event) // Print the event's info.
+				fmt.Println(event)
+				action()
 			case err := <-w.Error:
 				log.Fatalln(err)
 			case <-w.Closed:

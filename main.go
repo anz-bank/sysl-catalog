@@ -56,7 +56,15 @@ func main() {
 			if err != nil{
 				log.Fatal(err)
 			}
-			catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", log, m).SetOutputFs(httpfilesystem).ExecuteTemplateAndDiagrams()
+			catalog.NewProject(*input,
+				"/" + *outputDir,
+				plantumlService,
+				"html",
+				log,
+				m).
+				SetOutputFs(httpfilesystem).
+				SetServerMode().
+				ExecuteTemplateAndDiagrams()
 			fmt.Println("Done Regenerating")
 		}, path.Dir(*input))
 		fmt.Println("Serving on http://localhost"+*port)

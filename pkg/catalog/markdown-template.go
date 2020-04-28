@@ -45,16 +45,16 @@ Integration diagram:
 {{$Diagram.EndpointComment}}
 
 ### Sequence Diagram
-![alt text]({{.OutputFileName__}}.svg)
+![alt text]({{.OutputFileName__}})
 
 ### Request types
 {{range $DataModelDiagram := $Diagram.InputDataModel}}
-![alt text]({{$DataModelDiagram.OutputFileName__}}.svg)
+![alt text]({{$DataModelDiagram.OutputFileName__}})
 {{end}}
 
 ### Response types
 {{range $DataModelDiagram := $Diagram.OutputDataModel}}
-![alt text]({{$DataModelDiagram.OutputFileName__}}.svg)
+![alt text]({{$DataModelDiagram.OutputFileName__}})
 {{end}}
 {{end}}
 ---
@@ -62,7 +62,7 @@ Integration diagram:
 
 {{range $appName, $Diagrams := .DatabaseModel}}
 ## Database {{$appName}}
-![alt text]({{$Diagrams.OutputFileName__}}.svg)
+![alt text]({{$Diagrams.OutputFileName__}})
 {{end}}
 
 `

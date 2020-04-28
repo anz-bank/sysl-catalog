@@ -8,9 +8,6 @@ import (
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
-const (
-	ext = ".svg"
-)
 
 var re = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
 
@@ -34,12 +31,12 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 		return nil, err
 	}
 	diagram := &Diagram{
-		Parent:                 &p,
-		Endpoint:               endpoint,
-		App:                    p.Parent.Module.Apps[appName],
-		OutputDir:              path.Join(p.Parent.Output, p.PackageName),
-		DiagramString:          seq,
-		OutputFileName__:       sanitiseOutputName(appName + endpoint.Name),
+		Parent:                &p,
+		Endpoint:              endpoint,
+		App:                   p.Parent.Module.Apps[appName],
+		OutputDir:             path.Join(p.Parent.Output, p.PackageName),
+		PlantUMLDiagramString: seq,
+		OutputFileName__:      sanitiseOutputName(appName + endpoint.Name)+p.Parent.DiagramExt,
 	}
 	return diagram, nil
 }

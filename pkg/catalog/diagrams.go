@@ -1,6 +1,8 @@
 package catalog
 
 import (
+	"fmt"
+	"github.com/spf13/afero"
 	"os"
 	"path"
 	"strconv"
@@ -19,15 +21,37 @@ import (
 	"github.com/anz-bank/sysl/pkg/diagrams"
 )
 
-// DiagramString represents a plantuml diagram with other contextual info.
+// PlantUMLDiagramString represents a plantuml diagram with other contextual info.
 type Diagram struct {
-	Parent                 *Package
-	Endpoint               *sysl.Endpoint
-	App                    *sysl.Application
-	OutputDir              string
-	DiagramString          string
-	OutputFileName__       string
-	Diagramtype            string
+	Parent                *Package
+	Project               *Project
+	Endpoint              *sysl.Endpoint
+	App                   *sysl.Application
+	OutputDir             string
+	PlantUMLDiagramString string
+	OutputFileName__      string
+	Diagramtype           string
+}
+
+func (d Diagram)Img()string{
+	var fs afero.Fs
+	var fastLoad bool
+	if (d.Parent != nil && d.Parent.Parent.Server){
+		fs = d.Parent.Parent.Fs
+		fastLoad = true
+	}else if d.Project != nil && d.Project.Server{
+		fs = d.Project.Fs
+		fastLoad = true
+	}
+	if fastLoad{
+		file, err := afero.ReadFile(fs,path.Join(d.OutputDir, d.OutputFileName__))
+		if err != nil{
+			panic(err)
+		}
+		return string(file)
+	}
+
+	return fmt.Sprintf(`<img src="%s.svg" alt="image">`, d.OutputFileName__)
 }
 
 func (d Diagram) AppComment() string {
@@ -102,11 +126,11 @@ func (s Diagram) InputDataModel() []*Diagram {
 			},
 		}
 		newDiagram := &Diagram{
-			Parent:           s.Parent,
-			OutputDir:        path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
-			App:              s.Parent.Parent.Module.Apps[appName],
-			DiagramString:    s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
-			OutputFileName__: sanitiseOutputName(appName + s.Endpoint.Name + "data-model-parameter" + strconv.Itoa(i)),
+			Parent:                s.Parent,
+			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+			App:                   s.Parent.Parent.Module.Apps[appName],
+			PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+			OutputFileName__:      sanitiseOutputName(appName + s.Endpoint.Name + "data-model-parameter" + strconv.Itoa(i))+s.Parent.Parent.DiagramExt,
 		}
 		diagram = append(diagram, newDiagram)
 	}
@@ -175,11 +199,11 @@ func (s Diagram) OutputDataModel() []*Diagram {
 			}
 
 			newDiagram := &Diagram{
-				Parent:           s.Parent,
-				OutputDir:        path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
-				App:              s.Parent.Parent.Module.Apps[appName],
-				DiagramString:    s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
-				OutputFileName__: sanitiseOutputName(appName + s.Endpoint.Name + "data-model-response" + strconv.Itoa(i)),
+				Parent:                s.Parent,
+				OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+				App:                   s.Parent.Parent.Module.Apps[appName],
+				PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+				OutputFileName__:      sanitiseOutputName(appName + s.Endpoint.Name + "data-model-response" + strconv.Itoa(i))+s.Parent.Parent.DiagramExt,
 			}
 			diagram = append(diagram, newDiagram)
 		}
@@ -190,17 +214,17 @@ func (s Diagram) OutputDataModel() []*Diagram {
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
 func (sd *Diagram) GenerateDiagramAndMarkdown() error {
 	var wg sync.WaitGroup
-	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
+	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__)
 	wg.Add(1)
 	go func() {
-		diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
+		diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.PlantUMLDiagramString, sd.Parent.Parent.Fs)
 		wg.Done()
 	}()
 	for _, d := range sd.InputDataModel() {
 		wg.Add(1)
 		go func(s *Diagram) {
-			outputFileName := path.Join(s.OutputDir, s.OutputFileName__+ext)
-			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.DiagramString, s.Parent.Parent.Fs)
+			outputFileName := path.Join(s.OutputDir, s.OutputFileName__)
+			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.PlantUMLDiagramString, s.Parent.Parent.Fs)
 			wg.Done()
 		}(d)
 
@@ -208,8 +232,8 @@ func (sd *Diagram) GenerateDiagramAndMarkdown() error {
 	for _, d := range sd.OutputDataModel() {
 		wg.Add(1)
 		go func(s *Diagram) {
-			outputFileName := path.Join(s.OutputDir, s.OutputFileName__+ext)
-			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.DiagramString, s.Parent.Parent.Fs)
+			outputFileName := path.Join(s.OutputDir, s.OutputFileName__)
+			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.PlantUMLDiagramString, s.Parent.Parent.Fs)
 			wg.Done()
 		}(d)
 	}
@@ -219,8 +243,8 @@ func (sd *Diagram) GenerateDiagramAndMarkdown() error {
 
 // GenerateDiagramAndMarkdown generates diagrams and markdown for sysl diagrams.
 func GenerateDiagramAndMarkdown(sd *Diagram) error {
-	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__+ext)
-	return diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.DiagramString, sd.Parent.Parent.Fs)
+	outputFileName := path.Join(sd.OutputDir, sd.OutputFileName__)
+	return diagrams.OutputPlantuml(outputFileName, sd.Parent.Parent.PlantumlService, sd.PlantUMLDiagramString, sd.Parent.Parent.Fs)
 }
 
 func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
@@ -277,7 +301,7 @@ func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sy
 	}
 	integration := intsCmd{}
 	p.Fs.MkdirAll(output, os.ModePerm)
-	integration.Output = path.Join(output, title+intType+"_integration"+ext)
+	integration.Output = path.Join(output, title+intType+"_integration") + p.DiagramExt
 	integration.Title = title
 	integration.Project = title
 	integration.EPA = EPA
@@ -289,11 +313,18 @@ func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sy
 	if err := integration.GenerateFromMap(result, p.Fs); err != nil {
 		return nil, err
 	}
+
+	bytes, err := afero.ReadFile(p.Fs, integration.Output)
+	if err != nil{
+		return nil, err
+	}
+
 	return &Diagram{
-		Parent:                 nil,
-		OutputDir:              output,
-		App:                    projectApp,
-		DiagramString:          "", // Leave this empty because the diagram is already created
-		OutputFileName__:       path.Join(title + intType + "_integration" + ext),
+		Parent:                nil,
+		Project:               p,
+		OutputDir:             output,
+		App:                   projectApp,
+		PlantUMLDiagramString: string(bytes),
+		OutputFileName__:      path.Join(title + intType + "_integration")+ p.DiagramExt,
 	}, nil
 }

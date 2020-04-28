@@ -26,9 +26,9 @@ const ProjectHTMLTemplatePackageTemplateWithoutCSS = `
 <a href="{{$Package.PackageName}}/{{$Package.OutputFile}}">{{$Package.PackageName}}</a></td></tr>{{end}}</p>
 </table>
 <h2>Integration diagram:</h2>
-<p><img src="{{.RootLevelIntegrationDiagram.OutputFileName__}}" alt="alt text"></p>
+<p>{{.RootLevelIntegrationDiagram.Img}}</p>
 <h2>Integration diagram with end point analysis:</h2>
-<p><img src="{{.RootLevelIntegrationDiagramEPA.OutputFileName__}}" alt="alt text"></p>
+<p>{{.RootLevelIntegrationDiagramEPA.Img}}</p>
 </div>
 
 `
@@ -50,7 +50,7 @@ const PackageHTMLTemplateWithoutCSS = `
 </table>
 <hr>
 <h2>Integration diagram:</h2>
-<p><img src="{{.Integration.OutputFileName__}}" alt="alt text"></p>
+{{.Integration.Img}}</p>
 {{range $appName, $Diagrams := .SequenceDiagrams}}
 {{$first := true}}
 {{range $Diagram := $Diagrams}}
@@ -61,19 +61,19 @@ const PackageHTMLTemplateWithoutCSS = `
 {{$first = false}}
 <h2 id="{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.AppName}} {{$Diagram.EndpointName}}</h2>
 <h3 id="sequence-diagram">Sequence Diagram</h3>
-<p><img src="{{.OutputFileName__}}.svg" alt="alt text"></p>
+<p>{{.Img}}</p>
 <h3 id="request-types">Request types</h3>
 <p>{{range $DataModelDiagram := $Diagram.InputDataModel}}
-<img src="{{$DataModelDiagram.OutputFileName__}}.svg" alt="alt text">
+{{$DataModelDiagram.Img}}
 {{end}}</p>
 <h3 id="response-types">Response types</h3>
 <p>{{range $DataModelDiagram := $Diagram.OutputDataModel}}
-<img src="{{$DataModelDiagram.OutputFileName__}}.svg" alt="alt text"></p>
+{{$DataModelDiagram.Img}}</p>
 <h2 id="-end-">{{end}}</h2>
 {{end}}{{end}}
 <p>{{range $appName, $Diagrams := .DatabaseModel}}
 <h3 id="Database-{{$appName}}">Database {{$appName}}</h3>
-<img src="{{$Diagrams.OutputFileName__}}.svg" alt="alt text"></p>
+{{$Diagrams.Img}}</p>
 <h2 id="-end-">{{end}}</h2>
 </div>
 `

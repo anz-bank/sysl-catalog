@@ -34,6 +34,7 @@ type Project struct {
 	Packages                       map[string]*Package // Packages are the rows of the top level markdown
 	Fs                             afero.Fs
 	Module                         *sysl.Module
+	DiagramExt                     string                  //.svg or .html if we're in server mode (we don't send requests
 	PackageModules                 map[string]*sysl.Module // PackageModules maps @package attr to all those applications
 	ProjectTempl                   *template.Template      // Templ is used to template the Project struct
 	PackageTempl                   *template.Template      // PackageTempl is passed down to all Packages
@@ -44,7 +45,11 @@ func (p *Project)SetOutputFs(fs afero.Fs)*Project{
 	p.Fs = fs
 	return p
 }
-
+func (p *Project)SetServerMode()*Project{
+	p.Server = true
+	p.DiagramExt = ".html"
+	return p
+}
 func (p *Project)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if p.Fs == nil{
 		p.SetOutputFs(afero.NewMemMapFs())
@@ -69,6 +74,7 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 		Output:          outputDir,
 		Log:             log,
 		Module:          module,
+		DiagramExt: ".svg",
 		Packages:        map[string]*Package{},
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
@@ -82,14 +88,8 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 		p.OutputFileName = "README.md"
 		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate
 	}
-
 	if err := p.RegisterTemplates(ProjectTemplate, PackageTemplate); err != nil {
 		p.Log.Errorf("Error registering default templates:\n %v", err)
-	}
-
-	p.initProject()
-	if err := p.RegisterDiagrams(); err != nil {
-		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
 	}
 	return &p
 }
@@ -146,7 +146,12 @@ func (p *Project) initProject() {
 func (p *Project) ExecuteTemplateAndDiagrams()*Project {
 	var wg sync.WaitGroup // Make diagram generation concurrent
 	var err error
+	p.initProject()
+	if err := p.RegisterDiagrams(); err != nil {
+		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
+	}
 	projectApp := createProjectApp(p.Module.Apps)
+
 	p.RootLevelIntegrationDiagram, err = p.CreateIntegrationDiagrams(p.Title, p.Output, projectApp, false)
 	if err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
@@ -167,14 +172,6 @@ func (p *Project) ExecuteTemplateAndDiagrams()*Project {
 		if err != nil {
 			p.Log.Errorf("Error generating package int diagram")
 		}
-		wg.Add(1)
-		go func(pk *Package) {
-			if err := GenerateMarkdown(pk.OutputDir, pk.OutputFile, pk, pk.Parent.PackageTempl, p.Fs); err != nil {
-				p.Log.Errorf("Error generating package markdown:\n %v", err)
-				return
-			}
-			wg.Done()
-		}(pkg)
 		for _, apps := range pkg.SequenceDiagrams {
 			for _, sd := range apps {
 				wg.Add(1)
@@ -197,6 +194,12 @@ func (p *Project) ExecuteTemplateAndDiagrams()*Project {
 				wg.Done()
 			}(data)
 		}
+		defer func(){
+			if err := GenerateMarkdown(pkg.OutputDir, pkg.OutputFile, pkg, pkg.Parent.PackageTempl, p.Fs); err != nil {
+				p.Log.Errorf("Error generating package markdown:\n %v", err)
+			}
+		}()
+
 	}
 	wg.Wait()
 	return p
@@ -233,11 +236,11 @@ func (p Project) RegisterDiagrams() error {
 				p.Packages[packageName].DatabaseModel = make(map[string]*Diagram)
 			}
 			p.Packages[packageName].DatabaseModel[appName] = &Diagram{
-				Parent:           p.Packages[packageName],
-				App:              app,
-				DiagramString:    p.GenerateDBDataModel(appName),
-				OutputDir:        path.Join(p.Output, packageName),
-				OutputFileName__: sanitiseOutputName(appName + "db"),
+				Parent:                p.Packages[packageName],
+				App:                   app,
+				PlantUMLDiagramString: p.GenerateDBDataModel(appName),
+				OutputDir:             path.Join(p.Output, packageName),
+				OutputFileName__:      sanitiseOutputName(appName + "db")+p.DiagramExt,
 			}
 		}
 		if len(app.Endpoints) == 0 {

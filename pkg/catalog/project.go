@@ -60,7 +60,6 @@ func (p *Project)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
 	}
 	bytes, _ := afero.ReadFile(p.Fs, request)
-
 	w.Write(bytes)
 }
 
@@ -140,7 +139,6 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 	var wg sync.WaitGroup // Make diagram generation concurrent
 	var err error
 	projectApp := createProjectApp(p.Module.Apps)
-
 	p.RootLevelIntegrationDiagram, err = p.CreateIntegrationDiagrams(p.Title, p.Output, projectApp, false)
 	if err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)

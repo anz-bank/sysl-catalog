@@ -33,25 +33,25 @@ type Diagram struct {
 	Diagramtype           string
 }
 
-func (d Diagram)Img()string{
+func (d Diagram) Img() string {
 	var fs afero.Fs
 	var fastLoad bool
-	if (d.Parent != nil && d.Parent.Parent.Server){
+	if d.Parent != nil && d.Parent.Parent.Server {
 		fs = d.Parent.Parent.Fs
 		fastLoad = true
-	}else if d.Project != nil && d.Project.Server{
+	} else if d.Project != nil && d.Project.Server {
 		fs = d.Project.Fs
 		fastLoad = true
 	}
-	if fastLoad{
-		file, err := afero.ReadFile(fs,path.Join(d.OutputDir, d.OutputFileName__))
-		if err != nil{
+	if fastLoad {
+		file, err := afero.ReadFile(fs, path.Join(d.OutputDir, d.OutputFileName__))
+		if err != nil {
 			panic(err)
 		}
 		return string(file)
 	}
 
-	return fmt.Sprintf(`<img src="%s.svg" alt="image">`, d.OutputFileName__)
+	return fmt.Sprintf(`<img src="%s" alt="image">`, d.OutputFileName__)
 }
 
 func (d Diagram) AppComment() string {
@@ -130,7 +130,7 @@ func (s Diagram) InputDataModel() []*Diagram {
 			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 			App:                   s.Parent.Parent.Module.Apps[appName],
 			PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
-			OutputFileName__:      sanitiseOutputName(appName + s.Endpoint.Name + "data-model-parameter" + strconv.Itoa(i))+s.Parent.Parent.DiagramExt,
+			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 		}
 		diagram = append(diagram, newDiagram)
 	}
@@ -203,7 +203,7 @@ func (s Diagram) OutputDataModel() []*Diagram {
 				OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 				App:                   s.Parent.Parent.Module.Apps[appName],
 				PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
-				OutputFileName__:      sanitiseOutputName(appName + s.Endpoint.Name + "data-model-response" + strconv.Itoa(i))+s.Parent.Parent.DiagramExt,
+				OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-response"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 			}
 			diagram = append(diagram, newDiagram)
 		}
@@ -315,7 +315,7 @@ func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sy
 	}
 
 	bytes, err := afero.ReadFile(p.Fs, integration.Output)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -325,6 +325,6 @@ func (p *Project) CreateIntegrationDiagrams(title, output string, projectApp *sy
 		OutputDir:             output,
 		App:                   projectApp,
 		PlantUMLDiagramString: string(bytes),
-		OutputFileName__:      path.Join(title + intType + "_integration")+ p.DiagramExt,
+		OutputFileName__:      path.Join(title+intType+"_integration") + p.DiagramExt,
 	}, nil
 }

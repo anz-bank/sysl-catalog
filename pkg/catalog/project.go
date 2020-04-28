@@ -47,19 +47,34 @@ func (p *Project)SetOutputFs(fs afero.Fs)*Project{
 }
 
 // HTTPHandler returns a http handler for the project
-func (p *Project)HTTPHandler()http.Handler{
+func (p *Project)HTTPHandler() *Project{
 	httpFileSystem := afero.NewMemMapFs()
 	p.SetOutputFs(httpFileSystem)
 	p.ExecuteTemplateAndDiagrams()
-	httpFs := afero.NewHttpFs(httpFileSystem)
-	return  http.FileServer(httpFs.Dir("/"))
+	p.Fs = httpFileSystem
+	return p
+}
+
+func (p *Project)ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.RequestURI)
+	request := r.RequestURI
+	switch path.Base(request) {
+	case "/":
+		request += "index.html"
+	}
+	bytes, _ := afero.ReadFile(p.Fs, request)
+	w.Write(bytes)
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
 func NewProject(title, outputDir, plantumlservice string, outputType string, log *logrus.Logger, module *sysl.Module) *Project {
 	var ProjectTemplate, PackageTemplate string
 	p := Project{
-		Title:           strings.ReplaceAll(filepath.Base(title), ".sysl", :        map[string]*Package{},
+		Title:           strings.ReplaceAll(filepath.Base(title), ".sysl", ""),
+		Output:          outputDir,
+		Log:             log,
+		Module:          module,
+		Packages:        map[string]*Package{},
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
 	}
@@ -68,9 +83,7 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 	case "html":
 		p.OutputFileName = "index.html"
 		ProjectTemplate, PackageTemplate = ProjectHTMLTemplate, PackageHTMLTemplate
-	case "markdown", "md":	w.Write([]byte(`<!DOCTYPE html>`))
-		w.Write([]byte(`<html>`))
-		w.Write([]byte(`<head></head>`))
+	case "markdown", "md":
 		p.OutputFileName = "README.md"
 		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate
 	}

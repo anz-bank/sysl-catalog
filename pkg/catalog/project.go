@@ -51,7 +51,6 @@ func (p *Project)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		p.SetOutputFs(afero.NewMemMapFs())
 		p.ExecuteTemplateAndDiagrams()
 	}
-	fmt.Println(r.RequestURI)
 	request := r.RequestURI
 	switch path.Ext((request)) {
 	case "":

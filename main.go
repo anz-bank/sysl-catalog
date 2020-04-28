@@ -9,9 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
 	"path"
-	"runtime"
 	"time"
 
 	"github.com/radovskyb/watcher"
@@ -41,8 +39,7 @@ func main() {
 		go watchFile(func(){
 			http.ListenAndServe(*port, catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", logrus.New(), m))
 		}, path.Dir(*input))
-		time.Sleep(2 * time.Second)
-		openBrowser("http://localhost" + *port)
+		fmt.Println("Serving on http://localhost"+*port)
 		select{}
 	}
 	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m)
@@ -79,23 +76,5 @@ func watchFile(action func(), files ...string) {
 	//// Start the watching process - it'll check for changes every 100ms.
 	if err := w.Start(time.Millisecond * 100); err != nil {
 		log.Fatalln(err)
-	}
-}
-
-func openBrowser(url string) {
-	var err error
-
-	switch runtime.GOOS {
-	case "linux":
-		err = exec.Command("xdg-open", url).Start()
-	case "windows":
-		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
-	case "darwin":
-		err = exec.Command("open", url).Start()
-	default:
-		err = fmt.Errorf("unsupported platform")
-	}
-	if err != nil {
-		log.Fatal(err)
 	}
 }

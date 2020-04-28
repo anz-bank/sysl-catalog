@@ -25,6 +25,7 @@ type Project struct {
 	Title                          string
 	PageFileName                   string // Is README.md for markdown and index.html for html
 	Server                         bool   // Determines wether html refresh header is added
+	LiveReload                     bool
 	Output                         string
 	PlantumlService                string
 	OutputFileName                 string
@@ -41,17 +42,24 @@ type Project struct {
 }
 
 // SetOutputFs sets the output filesystem
-func (p *Project)SetOutputFs(fs afero.Fs)*Project{
+func (p *Project) SetOutputFs(fs afero.Fs) *Project {
 	p.Fs = fs
 	return p
 }
-func (p *Project)SetServerMode()*Project{
+
+func (p *Project) SetServerMode() *Project {
 	p.Server = true
 	p.DiagramExt = ".html"
 	return p
 }
-func (p *Project)ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if p.Fs == nil{
+
+func (p *Project) EnableLiveReload() *Project {
+	p.LiveReload = true
+	return p
+}
+
+func (p *Project) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if p.Fs == nil {
 		p.SetOutputFs(afero.NewMemMapFs())
 		p.ExecuteTemplateAndDiagrams()
 	}
@@ -63,7 +71,11 @@ func (p *Project)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
 	}
 	bytes, _ := afero.ReadFile(p.Fs, request)
-	w.Write(bytes)
+	file := string(bytes)
+	if p.LiveReload {
+		file = strings.ReplaceAll(string(bytes), "<body>", `<body><script src="/livereload.js?port=6900&mindelay=10&v=2" data-no-instant defer></script>`)
+	}
+	w.Write([]byte(file))
 }
 
 // NewProject generates a Project Markdwon object for all a sysl module
@@ -74,13 +86,13 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 		Output:          outputDir,
 		Log:             log,
 		Module:          module,
-		DiagramExt: ".svg",
+		DiagramExt:      ".svg",
 		Packages:        map[string]*Package{},
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
 	}
 
-	switch outputType{
+	switch outputType {
 	case "html":
 		p.OutputFileName = "index.html"
 		ProjectTemplate, PackageTemplate = ProjectHTMLTemplate, PackageHTMLTemplate
@@ -94,8 +106,6 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 	return &p
 }
 
-
-
 // RegisterTemplates registers templates for the project to use
 func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString string) error {
 	templates, err := LoadMarkdownTemplates(projectTemplateString, packageTemplateString)
@@ -106,14 +116,19 @@ func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString
 	return nil
 }
 
-func (p *Project) Update(m *sysl.Module)*Project {
+func (p *Project) Update(m *sysl.Module) *Project {
+	p.Fs = afero.NewMemMapFs()
+	p.Packages = make(map[string]*Package)
+	p.PackageModules = make(map[string]*sysl.Module)
 	p.Module = m
 	p.initProject()
 	if err := p.RegisterDiagrams(); err != nil {
 		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
 	}
+	p.ExecuteTemplateAndDiagrams()
 	return p
 }
+
 // initProject reshuffles apps into "packages"; sort of like "sub modules"
 func (p *Project) initProject() {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
@@ -143,7 +158,7 @@ func (p *Project) initProject() {
 }
 
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
-func (p *Project) ExecuteTemplateAndDiagrams()*Project {
+func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 	var wg sync.WaitGroup // Make diagram generation concurrent
 	var err error
 	p.initProject()
@@ -194,7 +209,7 @@ func (p *Project) ExecuteTemplateAndDiagrams()*Project {
 				wg.Done()
 			}(data)
 		}
-		defer func(){
+		defer func() {
 			if err := GenerateMarkdown(pkg.OutputDir, pkg.OutputFile, pkg, pkg.Parent.PackageTempl, p.Fs); err != nil {
 				p.Log.Errorf("Error generating package markdown:\n %v", err)
 			}
@@ -240,7 +255,7 @@ func (p Project) RegisterDiagrams() error {
 				App:                   app,
 				PlantUMLDiagramString: p.GenerateDBDataModel(appName),
 				OutputDir:             path.Join(p.Output, packageName),
-				OutputFileName__:      sanitiseOutputName(appName + "db")+p.DiagramExt,
+				OutputFileName__:      sanitiseOutputName(appName+"db") + p.DiagramExt,
 			}
 		}
 		if len(app.Endpoints) == 0 {

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/gohugoio/hugo/livereload"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 	"log"
@@ -22,7 +23,7 @@ var (
 	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
 	outputType = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
 	outputDir  = kingpin.Flag("output", "Output directory to generate to").Short('o').String()
-	verbose     = kingpin.Flag("verbose", "Verbose logs").Short('v').Bool()
+	verbose    = kingpin.Flag("verbose", "Verbose logs").Short('v').Bool()
 )
 
 func main() {
@@ -33,43 +34,42 @@ func main() {
 	}
 	fs := afero.NewOsFs()
 	log := logrus.New()
-	if *verbose{
+	if *verbose {
 		log.SetLevel(logrus.InfoLevel)
-	}else{
+	} else {
 		log.SetLevel(logrus.ErrorLevel)
 	}
 	m, err := parse.NewParser().Parse(*input, fs)
-	if err != nil{
+	if err != nil {
 		log.Fatal(err)
 	}
 	if *server {
-		httpfilesystem := afero.NewMemMapFs()
-		httpFs := afero.NewHttpFs(httpfilesystem)
-		fileserver := http.FileServer(httpFs.Dir("/"))
-		go watchFile(func(){
+		handler := catalog.NewProject(*input, "/"+*outputDir, plantumlService, "html", log, m).
+			SetServerMode().
+			EnableLiveReload()
+
+		go watchFile(func() {
 			defer func() {
 				if r := recover(); r != nil {
 					fmt.Println("Error:", r)
 				}
 			}()
 			m, err := parse.NewParser().Parse(*input, fs)
-			if err != nil{
+			if err != nil {
 				log.Fatal(err)
 			}
-			catalog.NewProject(*input,
-				"/" + *outputDir,
-				plantumlService,
-				"html",
-				log,
-				m).
-				SetOutputFs(httpfilesystem).
-				SetServerMode().
-				ExecuteTemplateAndDiagrams()
+			handler.Update(m)
+			livereload.ForceRefresh()
 			fmt.Println("Done Regenerating")
 		}, path.Dir(*input))
-		fmt.Println("Serving on http://localhost"+*port)
-		log.Fatal(http.ListenAndServe(*port, fileserver))
-		select{}
+		fmt.Println("Serving on http://localhost" + *port)
+
+		livereload.Initialize()
+		http.HandleFunc("/livereload.js", livereload.ServeJS)
+		http.HandleFunc("/livereload", livereload.Handler)
+		http.Handle("/", handler)
+		log.Fatal(http.ListenAndServe(*port, nil))
+		select {}
 	}
 	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, log, m)
 	project.SetOutputFs(fs).ExecuteTemplateAndDiagrams()

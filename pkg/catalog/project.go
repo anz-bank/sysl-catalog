@@ -46,23 +46,21 @@ func (p *Project)SetOutputFs(fs afero.Fs)*Project{
 	return p
 }
 
-// HTTPHandler returns a http handler for the project
-func (p *Project)HTTPHandler() *Project{
-	httpFileSystem := afero.NewMemMapFs()
-	p.SetOutputFs(httpFileSystem)
-	p.ExecuteTemplateAndDiagrams()
-	p.Fs = httpFileSystem
-	return p
-}
-
 func (p *Project)ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if p.Fs == nil{
+		p.SetOutputFs(afero.NewMemMapFs())
+		p.ExecuteTemplateAndDiagrams()
+	}
 	fmt.Println(r.RequestURI)
 	request := r.RequestURI
-	switch path.Base(request) {
-	case "/":
+	switch path.Ext((request)) {
+	case "":
 		request += "index.html"
+	case ".svg":
+		w.Header().Set("Content-Type", "image/svg+xml")
 	}
 	bytes, _ := afero.ReadFile(p.Fs, request)
+
 	w.Write(bytes)
 }
 

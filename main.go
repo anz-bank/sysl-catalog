@@ -39,7 +39,7 @@ func main() {
 	}
 	if *server {
 		go watchFile(func(){
-			http.ListenAndServe(*port, catalog.NewProject(*input, "/" + *outputDir, plantumlService, "markdown", logrus.New(), m))
+			http.ListenAndServe(*port, catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", logrus.New(), m))
 		}, path.Dir(*input))
 		time.Sleep(2 * time.Second)
 		openBrowser("http://localhost" + *port)

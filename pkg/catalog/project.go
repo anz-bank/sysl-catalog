@@ -59,11 +59,7 @@ func (p *Project)HTTPHandler()http.Handler{
 func NewProject(title, outputDir, plantumlservice string, outputType string, log *logrus.Logger, module *sysl.Module) *Project {
 	var ProjectTemplate, PackageTemplate string
 	p := Project{
-		Title:           strings.ReplaceAll(filepath.Base(title), ".sysl", ""),
-		Output:          outputDir,
-		Log:             log,
-		Module:          module,
-		Packages:        map[string]*Package{},
+		Title:           strings.ReplaceAll(filepath.Base(title), ".sysl", :        map[string]*Package{},
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
 	}
@@ -72,7 +68,9 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 	case "html":
 		p.OutputFileName = "index.html"
 		ProjectTemplate, PackageTemplate = ProjectHTMLTemplate, PackageHTMLTemplate
-	case "markdown", "md":
+	case "markdown", "md":	w.Write([]byte(`<!DOCTYPE html>`))
+		w.Write([]byte(`<html>`))
+		w.Write([]byte(`<head></head>`))
 		p.OutputFileName = "README.md"
 		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate
 	}

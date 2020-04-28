@@ -7,7 +7,7 @@ App:
         this <: string
         that <: int
 Bar:
-    /address:
+    /bar:
         GET:
             App <- GET /address
             return ok <: foo

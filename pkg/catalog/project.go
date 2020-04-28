@@ -95,6 +95,8 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 	return &p
 }
 
+
+
 // RegisterTemplates registers templates for the project to use
 func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString string) error {
 	templates, err := LoadMarkdownTemplates(projectTemplateString, packageTemplateString)
@@ -105,6 +107,14 @@ func (p *Project) RegisterTemplates(projectTemplateString, packageTemplateString
 	return nil
 }
 
+func (p *Project) Update(m *sysl.Module)*Project {
+	p.Module = m
+	p.initProject()
+	if err := p.RegisterDiagrams(); err != nil {
+		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
+	}
+	return p
+}
 // initProject reshuffles apps into "packages"; sort of like "sub modules"
 func (p *Project) initProject() {
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
@@ -134,23 +144,23 @@ func (p *Project) initProject() {
 }
 
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
-func (p *Project) ExecuteTemplateAndDiagrams() {
+func (p *Project) ExecuteTemplateAndDiagrams()*Project {
 	var wg sync.WaitGroup // Make diagram generation concurrent
 	var err error
 	projectApp := createProjectApp(p.Module.Apps)
 	p.RootLevelIntegrationDiagram, err = p.CreateIntegrationDiagrams(p.Title, p.Output, projectApp, false)
 	if err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
-		return
+		return p
 	}
 	p.RootLevelIntegrationDiagramEPA, err = p.CreateIntegrationDiagrams(p.Title, p.Output, projectApp, true)
 	if err != nil {
 		p.Log.Errorf("Error generating integration diagrams:\n %v", err)
-		return
+		return p
 	}
 	if err := GenerateMarkdown(p.Output, p.OutputFileName, p, p.ProjectTempl, p.Fs); err != nil {
 		p.Log.Errorf("Error generating root markdown:\n %v", err)
-		return
+		return p
 	}
 	for _, key := range AlphabeticalPackage(p.Packages) {
 		pkg := p.Packages[key]
@@ -190,6 +200,7 @@ func (p *Project) ExecuteTemplateAndDiagrams() {
 		}
 	}
 	wg.Wait()
+	return p
 }
 
 // AlphabeticalRows returns an alphabetically sorted list of packages of any project.

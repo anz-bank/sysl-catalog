@@ -36,10 +36,23 @@ func main() {
 		log.Fatal(err)
 	}
 	if *server {
+		httpfilesystem := afero.NewMemMapFs()
+		httpFs := afero.NewHttpFs(httpfilesystem)
+		fileserver := http.FileServer(httpFs.Dir("/"))
 		go watchFile(func(){
-			http.ListenAndServe(*port, catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", logrus.New(), m))
+			defer func() {
+				if r := recover(); r != nil {
+					fmt.Println("Error:", r)
+				}
+			}()
+			m, err := parse.NewParser().Parse(*input, fs)
+			if err != nil{
+				log.Fatal(err)
+			}
+			catalog.NewProject(*input, "/" + *outputDir, plantumlService, "html", logrus.New(), m).SetOutputFs(httpfilesystem).ExecuteTemplateAndDiagrams()
 		}, path.Dir(*input))
 		fmt.Println("Serving on http://localhost"+*port)
+		log.Fatal(http.ListenAndServe(*port, fileserver))
 		select{}
 	}
 	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, logrus.New(), m)

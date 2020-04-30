@@ -2,18 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/anz-bank/sysl-catalog/pkg/catalog"
-	"github.com/anz-bank/sysl/pkg/parse"
-	"github.com/gohugoio/hugo/livereload"
-	"github.com/sirupsen/logrus"
-	"github.com/spf13/afero"
 	"log"
 	"net/http"
 	"os"
 	"path"
-	"time"
 
-	"github.com/radovskyb/watcher"
+	"github.com/anz-bank/sysl-catalog/pkg/catalog"
+	"github.com/anz-bank/sysl-catalog/pkg/watcher"
+	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/gohugoio/hugo/livereload"
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/afero"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -48,7 +47,7 @@ func main() {
 			SetServerMode().
 			EnableLiveReload()
 
-		go watchFile(func() {
+		go watcher.WatchFile(func() {
 			defer func() {
 				if r := recover(); r != nil {
 					fmt.Println("Error:", r)
@@ -73,37 +72,4 @@ func main() {
 	}
 	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, log, m)
 	project.SetOutputFs(fs).ExecuteTemplateAndDiagrams()
-}
-
-func watchFile(action func(), files ...string) {
-	w := watcher.New()
-	// Only notify rename and move events.
-	w.FilterOps(watcher.Rename, watcher.Move, watcher.Write)
-	go func() {
-		for {
-			select {
-			case event := <-w.Event:
-				fmt.Println(event)
-				action()
-			case err := <-w.Error:
-				log.Fatalln(err)
-			case <-w.Closed:
-				return
-			}
-		}
-	}()
-	//// Watch test_folder recursively for changes.
-	for _, file := range files {
-		if err := w.AddRecursive(file); err != nil {
-			log.Fatalln(err)
-		}
-	}
-	go func() {
-		w.Wait()
-		w.TriggerEvent(watcher.Write, nil)
-	}()
-	//// Start the watching process - it'll check for changes every 100ms.
-	if err := w.Start(time.Millisecond * 100); err != nil {
-		log.Fatalln(err)
-	}
 }

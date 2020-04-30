@@ -41,6 +41,7 @@ GrpcTesting:
     qwertyuio:
         return ok <: GrpcTesting.Request
     !type Request:
+        @description = "kajsnd"
         query <: Response
         that <: string
     !type Response:

@@ -1,88 +1,39 @@
-package catalog
 
-// CSS from https://github.com/KrauseFx/markdown-to-html-github-style/blob/master/style.css (MIT License)
-
-const ProjectHTMLTemplate = header + ProjectHTMLTemplatePackageTemplateWithoutCSS + style + endTags
-const PackageHTMLTemplate = header + PackageHTMLTemplateWithoutCSS + style + endTags
-
-const header = `
 <!doctype html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="style.css" >
 </head>
 <body>
-`
-const endTags = `</body>
-</html>`
 
-const ProjectHTMLTemplatePackageTemplateWithoutCSS = `
-<div id='content'>
-<h1 id="-title-">{{.Title}}</h1>
-<table>
-  <tr>
-    <th> Packages </th>
-  </tr>
-{{range $Package := .AlphabeticalRows}}<tr><td>
-<a href="{{$Package.PackageName}}/{{$Package.OutputFile}}">{{$Package.PackageName}}</a></td></tr>{{end}}</p>
-</table>
-<h2>Integration diagram:</h2>
-<p>{{.RootLevelIntegrationDiagram.Img}}</p>
-<h2>Integration diagram with end point analysis:</h2>
-<p>{{.RootLevelIntegrationDiagramEPA.Img}}</p>
-</div>
-
-`
-
-const PackageHTMLTemplateWithoutCSS = `
 <div id='content'>
 <p><a href="../index.html">Back</a></p>
-<h1 id="package-packagename-">Package {{.PackageName}}</h1>
+<h1 id="package-packagename-">Package RelModel</h1>
 <h2 id="index">Index</h2>
 <table>
   <tr>
     <th>Service Name</th>
 	<th>Method</th>
   </tr>
- {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
-<tr><td>{{$Diagram.AppName}} </td> <td><a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a></td></tr>{{end}}{{end}}
-{{range $appName, $Diagrams := .DatabaseModel}}
-<tr><td>{{$appName}} </td> <td><a href="#Database-{{$appName}}">Database</a></td></tr>{{end}}
+ 
+
+<tr><td>RelModel </td> <td><a href="#Database-RelModel">Database</a></td></tr>
 </table>
 <hr>
 <h2>Integration diagram:</h2>
-{{.Integration.Img}}</p>
-{{range $appName, $Diagrams := .SequenceDiagrams}}
-{{$first := true}}
-{{range $Diagram := $Diagrams}}
-{{if $first}}
-<h2> {{$Diagram.AppName}} </h2>
- {{$Diagram.AppComment}}
-{{end}}
-{{$first = false}}
-<h2 id="{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.AppName}} {{$Diagram.EndpointName}}</h2>
-{{$Diagram.EndpointComment}}
-<h3 id="sequence-diagram">Sequence Diagram</h3>
-<p>{{.Img}}</p>
-<h3 id="request-types">Request types</h3>
-<p>{{range $DataModelDiagram := $Diagram.InputDataModel}}
-<p>{{$DataModelDiagram.TypeComment}}</p>
-{{$DataModelDiagram.Img}}
-{{end}}</p>
-<h3 id="response-types">Response types</h3>
-<p>{{range $DataModelDiagram := $Diagram.OutputDataModel}}
-<p>{{$DataModelDiagram.TypeComment}}</p>
-{{$DataModelDiagram.Img}}</p>
-<h2 id="-end-">{{end}}</h2>
-{{end}}{{end}}
-<p>{{range $appName, $Diagrams := .DatabaseModel}}
-<h3 id="Database-{{$appName}}">Database {{$appName}}</h3>
-{{$Diagrams.AppComment}}
-{{$Diagrams.Img}}</p>
-<h2 id="-end-">{{end}}</h2>
+<img src="http://localhost:6969/svg/UDgCZZ5Bn40GHllv5PzLgYj44SlB9L4ilC0HiLwomsN9x4wOtQ0Y_dUHawlpodcFuQisGrM5JVodzTlGFtV7xbGFNOkcRpliTcXx7Fi1NViot5pJpLytRwLzBixA6eLAAC8uiRogPw4fU4OkRApbQs7AenD6T9-uVRXxlCV4uJmLodD8YpCNCMfSD74g-2RWuCRvRBectwYeuKdKdBnFeV2VLVDi5tCGDyu4r6RwSJar5cBMH3-qv-JNABy1003__t1sN640" alt="plantuml">
+</p>
+
+
+
+<p>
+<h3 id="Database-RelModel">Database RelModel</h3>
+
+<img src="http://localhost:6969/svg/UDgSLTzhsp0GVlTVSSjBDtSn_Lq88RGisHY31aRsB1HPZOyeaf7aqZ3wlmzRjYMxziZcb-YaqttVtNsdF1XBjIqE8Zex-OlEpk2ahtPz_BLPVrizhNu-RbPB-B9Uhc0wXUKQdjORM2s_RpwqhYT7FPbhn0Gr1YQqI56HNO4fdm0rG2vWFeUFoyzAimpJJx1OmE_e72Yp-48jAabIQZdCeFmf3tm0WYdC0AMDpW6DAJZ95KeBCuXZeLXrEsaM1DCuXldywu_58Ze7GUMkeBioyBDGj0mXq5WkYSL3k9lJuu7NGUirIRcbA4pIitiGcjj2ot_WP97jkNLPnR6padQputdCFSUtfhQCwfJKd5nnRuQBkwLoJoIjyZHMezmrcoPJshu_qbIoBDofe6Hns79DZCGyvpOyvgyvwcEuqxOgO6koBjlROROCRISKKuMqtUZFgCrxsWEO6MVxgY54ABKlSWTyDmBSzmu5r_JmXCwsyFmrmosMvmxtVWINvhHEsc7vUo63MgZbN9HB3zEGS22Nmo01qpPYNS16-ds0CTtrni31NWt3AYbGbZ6sIWa_NgGKL5NAKCH9L_NUrsIrhvVGYAyVpJRBN2Ehyk8C3rICfkKcpsLpFV9AQOqlL12hgJIvqZQedbUFSMJxQag6z1NcuDjU1V1cqX74GDh_yLg5Zu-R6N81RzCfJ602vF8lrbN7kex8bRTkEjPjHAuxzmBhhcFTH-Gkn7lWCYt_7Vy4003__rLN7zu0" alt="plantuml">
+</p>
+<h2 id="-end-"></h2>
 </div>
-`
-const style = `
+
 <style type="text/css">
 body {
   font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -269,4 +220,5 @@ h1, h2, h3 {
   border-bottom: 1px solid #eaecef;
   color: #111;
   /* Darker */ }
-</style>`
+</style></body>
+</html>

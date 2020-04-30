@@ -27,6 +27,7 @@ type Diagram struct {
 	Project               *Project
 	Endpoint              *sysl.Endpoint
 	App                   *sysl.Application
+	Type                  *sysl.Type
 	OutputDir             string
 	PlantUMLDiagramString string
 	OutputFileName__      string
@@ -69,6 +70,16 @@ func (d Diagram) EndpointComment() string {
 		return ""
 	}
 	if description := d.Endpoint.GetAttrs()["description"]; description != nil {
+		return description.GetS()
+	}
+	return ""
+}
+
+func (d Diagram) TypeComment() string {
+	if d.Type == nil {
+		return ""
+	}
+	if description := d.Type.GetAttrs()["description"]; description != nil {
 		return description.GetS()
 	}
 	return ""
@@ -125,8 +136,10 @@ func (s Diagram) InputDataModel() []*Diagram {
 				},
 			},
 		}
+
 		newDiagram := &Diagram{
 			Parent:                s.Parent,
+			Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 			App:                   s.Parent.Parent.Module.Apps[appName],
 			PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
@@ -200,6 +213,7 @@ func (s Diagram) OutputDataModel() []*Diagram {
 
 			newDiagram := &Diagram{
 				Parent:                s.Parent,
+				Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 				OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 				App:                   s.Parent.Parent.Module.Apps[appName],
 				PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),

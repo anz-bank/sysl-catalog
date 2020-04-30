@@ -56,7 +56,7 @@ func main() {
 			}()
 			m, err := parse.NewParser().Parse(*input, fs)
 			if err != nil {
-				log.Fatal(err)
+				panic(err)
 			}
 			handler.Update(m)
 			livereload.ForceRefresh()

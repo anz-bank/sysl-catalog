@@ -20,13 +20,18 @@ const PackageMarkdownTemplate = `
 [Back](../README.md)
 # Package {{.PackageName}}
 
-## Index
+## Service Index
 | Service Name | Method |
 | - | - | {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
 | {{$appName}} | [{{$Diagram.EndpointNameWithoutSpaces}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointNameWithoutSpaces}}) |{{end}}{{end}}
-{{range $appName, $Diagrams := .DatabaseModel}}| {{$appName}} | [Database](#Database-{{$appName}}) |{{end}}
 
-Integration diagram:
+
+## Database Index
+| Database Name |
+| - |
+{{range $appName, $Diagrams := .DatabaseModel}}| [{{$appName}}](#Database-{{$appName}}) |{{end}}
+
+## Integration diagram
 
 ![alt text]({{.Integration.OutputFileName__}})
 ---
@@ -49,11 +54,13 @@ Integration diagram:
 
 ### Request types
 {{range $DataModelDiagram := $Diagram.InputDataModel}}
+{{$DataModelDiagram.TypeComment}}
 ![alt text]({{$DataModelDiagram.OutputFileName__}})
 {{end}}
 
 ### Response types
 {{range $DataModelDiagram := $Diagram.OutputDataModel}}
+{{$DataModelDiagram.TypeComment}}
 ![alt text]({{$DataModelDiagram.OutputFileName__}})
 {{end}}
 {{end}}
@@ -62,6 +69,7 @@ Integration diagram:
 
 {{range $appName, $Diagrams := .DatabaseModel}}
 ## Database {{$appName}}
+{{$Diagrams.AppComment}}
 ![alt text]({{$Diagrams.OutputFileName__}})
 {{end}}
 

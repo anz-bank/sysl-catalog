@@ -1,88 +1,53 @@
-package catalog
 
-// CSS from https://github.com/KrauseFx/markdown-to-html-github-style/blob/master/style.css (MIT License)
-
-const ProjectHTMLTemplate = header + ProjectHTMLTemplatePackageTemplateWithoutCSS + style + endTags
-const PackageHTMLTemplate = header + PackageHTMLTemplateWithoutCSS + style + endTags
-
-const header = `
 <!doctype html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="style.css" >
 </head>
 <body>
-`
-const endTags = `</body>
-</html>`
 
-const ProjectHTMLTemplatePackageTemplateWithoutCSS = `
-<div id='content'>
-<h1 id="-title-">{{.Title}}</h1>
-<table>
-  <tr>
-    <th> Packages </th>
-  </tr>
-{{range $Package := .AlphabeticalRows}}<tr><td>
-<a href="{{$Package.PackageName}}/{{$Package.OutputFile}}">{{$Package.PackageName}}</a></td></tr>{{end}}</p>
-</table>
-<h2>Integration diagram:</h2>
-<p>{{.RootLevelIntegrationDiagram.Img}}</p>
-<h2>Integration diagram with end point analysis:</h2>
-<p>{{.RootLevelIntegrationDiagramEPA.Img}}</p>
-</div>
-
-`
-
-const PackageHTMLTemplateWithoutCSS = `
 <div id='content'>
 <p><a href="../index.html">Back</a></p>
-<h1 id="package-packagename-">Package {{.PackageName}}</h1>
+<h1 id="package-packagename-">Package GrpcTesting</h1>
 <h2 id="index">Index</h2>
 <table>
   <tr>
     <th>Service Name</th>
 	<th>Method</th>
   </tr>
- {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
-<tr><td>{{$Diagram.AppName}} </td> <td><a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a></td></tr>{{end}}{{end}}
-{{range $appName, $Diagrams := .DatabaseModel}}
-<tr><td>{{$appName}} </td> <td><a href="#Database-{{$appName}}">Database</a></td></tr>{{end}}
+ 
+<tr><td>GrpcTesting </td> <td><a href="#GrpcTesting-qwertyuio">qwertyuio</a></td></tr>
+
 </table>
 <hr>
 <h2>Integration diagram:</h2>
-{{.Integration.Img}}</p>
-{{range $appName, $Diagrams := .SequenceDiagrams}}
-{{$first := true}}
-{{range $Diagram := $Diagrams}}
-{{if $first}}
-<h2> {{$Diagram.AppName}} </h2>
- {{$Diagram.AppComment}}
-{{end}}
-{{$first = false}}
-<h2 id="{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.AppName}} {{$Diagram.EndpointName}}</h2>
-{{$Diagram.EndpointComment}}
+<img src="http://localhost:6969/svg/UDgCZZ5Bn40GHllv5PzLgYj44SlB9V6mkO14h9VDa2pPtGcp4rJ4_ovoOfrNpdiCNxKRgYhiuY-jNuV-t5swbtheMZHzs-5mGDlZqW_eskVXvZ_T_NNtLZeMSsfRYcJ18kEign-uMCWJpM5a56DbiS-LgNWN6SbzuFRXxl4UCuTfDYfBoAjJb-0bhP8v6xu8E3c_J2fR7Xk9edYAeYw-pS7urugEh5TpYiul1DIgyduzDHfIaKpVTEGyRYd-1000__-n9bst" alt="plantuml">
+</p>
+
+
+
+
+<h2> GrpcTesting </h2>
+ 
+
+
+<h2 id="GrpcTesting-qwertyuio">GrpcTesting qwertyuio</h2>
+
 <h3 id="sequence-diagram">Sequence Diagram</h3>
-<p>{{.Img}}</p>
+<p><img src="http://localhost:6969/svg/UDgCZprhyp0KXNVzYlDcyVAgDOKknNOIQX4wD8PKdJ84rRaOKLbAfEj-_VgIa1Ol1P_rEUUHRZOv8iimAPVgybatAxLMcwLMDUwRMa5Ar0tMZOQg7_I_t-faw-I_YaLY4tdedMY3vnWSPgjuQ3KbjhwRmIJiSf5UhJ-OQ7hqvkEHKZ8TFTalmirjBjYo8unMA2IExnJvSx11bEMV36KfjhBQvRWR3KpBziqmdHxU5bAUST465o9Ut43LI7UreUD0YOlhCwzGN8fT9FBL_3_cFwWIUngh5-Jtfxk_0m00__zy-7dO" alt="plantuml">
+</p>
 <h3 id="request-types">Request types</h3>
-<p>{{range $DataModelDiagram := $Diagram.InputDataModel}}
-<p>{{$DataModelDiagram.TypeComment}}</p>
-{{$DataModelDiagram.Img}}
-{{end}}</p>
+<p></p>
 <h3 id="response-types">Response types</h3>
-<p>{{range $DataModelDiagram := $Diagram.OutputDataModel}}
-<p>{{$DataModelDiagram.TypeComment}}</p>
-{{$DataModelDiagram.Img}}</p>
-<h2 id="-end-">{{end}}</h2>
-{{end}}{{end}}
-<p>{{range $appName, $Diagrams := .DatabaseModel}}
-<h3 id="Database-{{$appName}}">Database {{$appName}}</h3>
-{{$Diagrams.AppComment}}
-{{$Diagrams.Img}}</p>
-<h2 id="-end-">{{end}}</h2>
+<p>
+kajsnd
+<img src="http://localhost:6969/svg/UDgCqR5gmp0KXU5TJt6gnQrIcMWD8IHK8dI9mAYp4Ov83AbYwyf3ANttKbmybQ8p_tnSk7lAFkNf_SQguh6gGj5-qyERiqTpCit16OqNgmsaXBOuMGUZNzt3aXQhnRUoxkQ9m8zfw5oWtCTBtOHn2fGvFA5TOxl5etw-f-xQdv-ms-6JhJ1E8NrW0o6QGCCzKX22hP2lFcC3ogcF5_RrjpxtCw_-vnUeNKD82QxgMe6ZLMmVulddCTy1003__-f4O0y0" alt="plantuml">
+</p>
+<h2 id="-end-"></h2>
+
+<p></h2>
 </div>
-`
-const style = `
+
 <style type="text/css">
 body {
   font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -269,4 +234,5 @@ h1, h2, h3 {
   border-bottom: 1px solid #eaecef;
   color: #111;
   /* Darker */ }
-</style>`
+</style></body>
+</html>

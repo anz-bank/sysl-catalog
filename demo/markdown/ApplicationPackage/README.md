@@ -2,7 +2,7 @@
 [Back](../README.md)
 # Package ApplicationPackage
 
-## Index
+## Service Index
 | Service Name | Method |
 | - | - | 
 | MobileApp | [Another](#MobileApp-Another) |
@@ -11,7 +11,12 @@
 | MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) |
 
 
-Integration diagram:
+## Database Index
+| Database Name |
+| - |
+
+
+## Integration diagram
 
 ![alt text](ApplicationPackage_integration.svg)
 ---
@@ -37,6 +42,7 @@ hello, world
 
 ### Response types
 
+
 ![alt text](ServerAnotherdata-model-response0.svg)
 
 
@@ -53,10 +59,12 @@ hello, gamers
 
 ### Request types
 
+
 ![alt text](ServerLogindata-model-parameter0.svg)
 
 
 ### Response types
+
 
 ![alt text](MegaDatabaseLogindata-model-response1.svg)
 
@@ -81,10 +89,12 @@ SecondEndpoint, comment
 
 ### Request types
 
+
 ![alt text](ServerSecondEndpointdata-model-parameter0.svg)
 
 
 ### Response types
+
 
 ![alt text](MegaDatabaseSecondEndpointdata-model-response1.svg)
 
@@ -104,6 +114,7 @@ ThirdEndpoint comment
 
 
 ### Response types
+
 
 ![alt text](ServerThirdEndpointdata-model-response0.svg)
 

@@ -2,13 +2,18 @@
 [Back](../README.md)
 # Package ServerPackage
 
-## Index
+## Service Index
 | Service Name | Method |
 | - | - | 
 | Server | [Authenticate](#Server-Authenticate) |
-| RelModel | [Database](#Database-RelModel) |
 
-Integration diagram:
+
+## Database Index
+| Database Name |
+| - |
+| [RelModel](#Database-RelModel) |
+
+## Integration diagram
 
 ![alt text](ServerPackage_integration.svg)
 ---
@@ -35,10 +40,12 @@ this is a description of Authenticate
 
 ### Request types
 
+
 ![alt text](ServerAuthenticatedata-model-parameter0.svg)
 
 
 ### Response types
+
 
 ![alt text](ServerAuthenticatedata-model-response0.svg)
 
@@ -48,6 +55,7 @@ this is a description of Authenticate
 
 
 ## Database RelModel
+
 ![alt text](RelModeldb.svg)
 
 

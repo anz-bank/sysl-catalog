@@ -1,0 +1,11 @@
+foo:
+    !type footype:
+        content <: string
+    fooendpoint[~hidden]:
+        return ok <: foo.footype
+bar:
+    !type bartype:
+        content <: string
+    barendpoint:
+        foo <- fooendpoint
+        return ok <: bar.bartype

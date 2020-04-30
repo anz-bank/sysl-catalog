@@ -121,10 +121,6 @@ func (p *Project) Update(m *sysl.Module) *Project {
 	p.Packages = make(map[string]*Package)
 	p.PackageModules = make(map[string]*sysl.Module)
 	p.Module = m
-	p.initProject()
-	if err := p.RegisterDiagrams(); err != nil {
-		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
-	}
 	p.ExecuteTemplateAndDiagrams()
 	return p
 }

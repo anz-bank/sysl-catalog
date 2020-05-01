@@ -71,14 +71,14 @@ this is a description of Authenticate
 <tr>
 <td>MegaDatabase.Empty </td>
 <td> ![](Emptydata-model-simple0.svg)</td>
-<td> Comment </td></tr>
+<td>   </td></tr>
 <td>MegaDatabase.Money </td>
 <td> ![](Moneydata-model-simple1.svg)</td>
-<td> Comment </td></tr>
+<td>   </td></tr>
 <td>Server.Request </td>
 <td> ![](Requestdata-model-simple0.svg)</td>
-<td> Comment </td></tr>
+<td>   </td></tr>
 <td>Server.Response </td>
 <td> ![](Responsedata-model-simple1.svg)</td>
-<td> Comment </td></tr>
+<td>   </td></tr>
 </table>

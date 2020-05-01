@@ -85,7 +85,7 @@ const PackageMarkdownTemplate = `
 <tr>{{range $typeName, $Diagrams := .Types}}
 <td>{{$Diagrams.AppName}}.{{$typeName}} </td>
 <td> {{$Diagrams.Img}}</td>
-<td> Comment {{$Diagrams.TypeComment}}</td></tr>{{end}}
+<td>  {{if ne $Diagrams.TypeComment ""}}<details closed><summary>Comment</summary><br>{{$Diagrams.TypeComment}}</details>{{end}} </td></tr>{{end}}
 </table>
 `
 

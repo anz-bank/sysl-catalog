@@ -61,6 +61,32 @@ func (d Diagram) Img() string {
 	}
 	return d.OutputFileName__
 }
+
+func (d Diagram) Link() string {
+	var fs afero.Fs
+	var fastLoad bool
+	if d.Parent != nil && d.Parent.Parent.Server {
+		fs = d.Parent.Parent.Fs
+		fastLoad = true
+	} else if d.Project != nil && d.Project.Server {
+		fs = d.Project.Fs
+		fastLoad = true
+	}
+	if fastLoad {
+		file, err := afero.ReadFile(fs, path.Join(d.OutputDir, d.OutputFileName__))
+		if err != nil {
+			panic(err)
+		}
+		return fmt.Sprintf(`<a href= "%s">Link</a>`, string(file)) // Return for when in server mode
+	}
+	switch d.GetProject().Format {
+	case "html":
+		return fmt.Sprintf(`<a href="%s">Link</a>`, d.OutputFileName__)
+	case "md", "markdown":
+		return fmt.Sprintf(`[Link](%s)`, d.OutputFileName__)
+	}
+	return d.OutputFileName__
+}
 func (d Diagram) GetProject() *Project {
 	if d.Parent != nil {
 		return d.Parent.Parent

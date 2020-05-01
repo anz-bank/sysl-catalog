@@ -81,12 +81,13 @@ const PackageMarkdownTemplate = `
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
+<th>Full Link</th>
 </tr>
 <tr>{{range $typeName, $Diagrams := .Types}}
-<td>{{$Diagrams.AppName}}.{{$typeName}} </td>
-<td> {{$Diagrams.Img}}</td>
-<td>  {{if ne $Diagrams.TypeComment ""}}<details closed><summary>Comment</summary><br>{{$Diagrams.TypeComment}}</details>{{end}} </td></tr>{{end}}
+<td>{{$Diagrams.Simple.AppName}}.{{$typeName}} </td>
+<td> {{$Diagrams.Simple.Img}}</td>
+<td>  {{if ne $Diagrams.Simple.TypeComment ""}}<details closed><summary>Comment</summary><br>{{$Diagrams.Simple.TypeComment}}</details>{{end}} </td>
+<td> {{$Diagrams.Full.Link}} </td>
+</tr>{{end}}
 </table>
 `
-
-//{{$Diagrams.AppName}}.{{$typeName}} |<br> {{$Diagrams.Img}} <br>| Comment {{$Diagrams.TypeComment}}{{end}}

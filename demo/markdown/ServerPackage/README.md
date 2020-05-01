@@ -67,18 +67,27 @@ this is a description of Authenticate
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
+<th>Full Link</th>
 </tr>
 <tr>
 <td>MegaDatabase.Empty </td>
-<td> ![](Emptydata-model-simple0.svg)</td>
-<td>   </td></tr>
+<td> ![](Emptydata-model-Simple0.svg)</td>
+<td>   </td>
+<td> [Link](Full-Emptydata-model-Simple0.svg) </td>
+</tr>
 <td>MegaDatabase.Money </td>
-<td> ![](Moneydata-model-simple1.svg)</td>
-<td>   </td></tr>
+<td> ![](Moneydata-model-Simple1.svg)</td>
+<td>   </td>
+<td> [Link](Full-Moneydata-model-Simple1.svg) </td>
+</tr>
 <td>Server.Request </td>
-<td> ![](Requestdata-model-simple0.svg)</td>
-<td>   </td></tr>
+<td> ![](Requestdata-model-Simple0.svg)</td>
+<td>   </td>
+<td> [Link](Full-Requestdata-model-Simple0.svg) </td>
+</tr>
 <td>Server.Response </td>
-<td> ![](Responsedata-model-simple1.svg)</td>
-<td>   </td></tr>
+<td> ![](Responsedata-model-Simple1.svg)</td>
+<td>   </td>
+<td> [Link](Full-Responsedata-model-Simple1.svg) </td>
+</tr>
 </table>

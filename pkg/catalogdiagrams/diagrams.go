@@ -63,6 +63,7 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 				EntityHeader: `D`,
 				EntityName:   entityName,
 				IgnoredTypes: ignoredTypes,
+				Types:        tMap,
 			}
 			v.DrawTuple(viewParam, tupEntity, relationshipMap)
 		} else if pe := entityType.GetPrimitive(); pe != sysl.Type_NO_Primitive && len(strings.TrimSpace(pe.String())) > 0 {
@@ -71,6 +72,8 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 				EntityColor:  `orchid`,
 				EntityHeader: `D`,
 				EntityName:   entityName,
+				IgnoredTypes: ignoredTypes,
+				Types:        tMap,
 			}
 			v.DrawPrimitive(viewParam, pe.String(), relationshipMap)
 		} else if seq := entityType.GetSequence(); seq != nil {

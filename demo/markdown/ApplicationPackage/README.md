@@ -10,15 +10,12 @@
 | MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) |
 | MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) |
 
-## Types
-Type Name | Package Name | Diagram | Comment
---- | --- | --- | ---
-
 ## Database Index
 | Database Name |
 | - |
 
 
+[Types](#Types)
 
 ## Integration diagram
 
@@ -127,4 +124,8 @@ ThirdEndpoint comment
 
 
 
+
+## Types
+Type Name | Package Name | Diagram | Comment
+--- | --- | --- | ---
 

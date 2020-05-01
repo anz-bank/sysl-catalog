@@ -84,15 +84,13 @@ const PackageHTMLTemplateWithoutCSS = `
 <table>
   <tr>
     <th>Type Name </th>
-	<th>Package Name</th>
     <th>Diagram </th>
 	<th>Description</th>
   </tr>
 {{range $typeName, $Diagram := .Types}}
-<tr><td> type {{$typeName}} </td>
-<td>{{$Diagram.Parent.PackageName}}</td>
+<tr><td> {{$Diagram.AppName}}.<br>{{$typeName}} </td>
 <td>{{$Diagram.Img}}</td>
-<td>{{$Diagram.TypeComment}}</td>
+<td><details closed>{{$Diagram.TypeComment}}</details></td>
 </tr>{{end}}
 </table>
 </div>

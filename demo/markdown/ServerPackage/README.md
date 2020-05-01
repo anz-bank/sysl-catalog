@@ -7,19 +7,12 @@
 | - | - | 
 | Server | [Authenticate](#Server-Authenticate) |
 
-## Types
-Type Name | Package Name | Diagram | Comment
---- | --- | --- | ---
-type Empty | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Emptydata-model0.svg)</details> | 
-type Money | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Moneydata-model1.svg)</details> | 
-type Request | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Requestdata-model0.svg)</details> | 
-type Response | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Responsedata-model1.svg)</details> | 
-
 ## Database Index
 | Database Name |
 | - |
 | [RelModel](#Database-RelModel) |
 
+[Types](#Types)
 
 ## Integration diagram
 
@@ -66,4 +59,12 @@ this is a description of Authenticate
 
 ![alt text](RelModeldb.svg)
 
+
+## Types
+Type Name | Package Name | Diagram | Comment
+--- | --- | --- | ---
+type Empty | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Emptydata-model-simple0.svg)</details> | <details closed><summary>Comment</summary><br></details>
+type Money | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Moneydata-model-simple1.svg)</details> | <details closed><summary>Comment</summary><br></details>
+type Request | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Requestdata-model-simple0.svg)</details> | <details closed><summary>Comment</summary><br></details>
+type Response | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Responsedata-model-simple1.svg)</details> | <details closed><summary>Comment</summary><br></details>
 

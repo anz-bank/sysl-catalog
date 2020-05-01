@@ -212,7 +212,6 @@ func (s Diagram) OutputDataModel() []*Diagram {
 					},
 				}
 			}
-
 			newDiagram := &Diagram{
 				Parent:                s.Parent,
 				Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],

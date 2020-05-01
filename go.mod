@@ -20,3 +20,4 @@ require (
 	golang.org/x/sys v0.0.0-20200430202703-d923437fa56d // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
+replace github.com/anz-bank/sysl => ../sysl

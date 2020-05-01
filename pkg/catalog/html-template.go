@@ -2,9 +2,6 @@ package catalog
 
 // CSS from https://github.com/KrauseFx/markdown-to-html-github-style/blob/master/style.css (MIT License)
 
-const ProjectHTMLTemplate = header + ProjectHTMLTemplatePackageTemplateWithoutCSS + style + endTags
-const PackageHTMLTemplate = header + PackageHTMLTemplateWithoutCSS + style + endTags
-
 const header = `
 <!doctype html>
 <html lang="en"><head>
@@ -12,93 +9,12 @@ const header = `
 <link rel="stylesheet" type="text/css" href="style.css" >
 </head>
 <body>
+<div id='content'>
 `
-const endTags = `</body>
+const endTags = `</div>
+</body>
 </html>`
 
-const ProjectHTMLTemplatePackageTemplateWithoutCSS = `
-<div id='content'>
-<h1 id="-title-">{{.Title}}</h1>
-<table>
-  <tr>
-    <th> Packages </th>
-  </tr>
-{{range $Package := .AlphabeticalRows}}<tr><td>
-<a href="{{$Package.PackageName}}/{{$Package.OutputFile}}">{{$Package.PackageName}}</a></td></tr>{{end}}</p>
-</table>
-<h2>Integration diagram:</h2>
-<p>{{.RootLevelIntegrationDiagram.Img}}</p>
-<h2>Integration diagram with end point analysis:</h2>
-<p>{{.RootLevelIntegrationDiagramEPA.Img}}</p>
-</div>
-
-`
-
-const PackageHTMLTemplateWithoutCSS = `
-<div id='content'>
-<p><a href="../index.html">Back</a></p>
-<h1 id="package-packagename-">Package {{.PackageName}}</h1>
-<h2 id="index">Index</h2>
-<table>
-  <tr>
-    <th>Service Name</th>
-	<th>Method</th>
-  </tr>
- {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
-<tr><td>{{$Diagram.AppName}} </td> <td><a href="#{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.EndpointName}}</a></td></tr>{{end}}{{end}}
-{{range $appName, $Diagrams := .DatabaseModel}}
-<tr><td>{{$appName}} </td> <td><a href="#Database-{{$appName}}">Database</a></td></tr>{{end}}
-</table>
-<hr>
-<h2>Integration diagram:</h2>
-{{.Integration.Img}}</p>
-{{range $appName, $Diagrams := .SequenceDiagrams}}
-{{$first := true}}
-{{range $Diagram := $Diagrams}}
-{{if $first}}
-<h2> {{$Diagram.AppName}} </h2>
- {{$Diagram.AppComment}}
-{{end}}
-{{$first = false}}
-<h2 id="{{$Diagram.AppName}}-{{$Diagram.EndpointName}}">{{$Diagram.AppName}} {{$Diagram.EndpointName}}</h2>
-{{$Diagram.EndpointComment}}
-<h3 id="sequence-diagram">Sequence Diagram</h3>
-<p>{{.Img}}</p>
-<h3 id="request-types">Request types</h3>
-<p>{{range $DataModelDiagram := $Diagram.InputDataModel}}
-<p>{{$DataModelDiagram.TypeComment}}</p>
-{{$DataModelDiagram.Img}}
-{{end}}</p>
-<h3 id="response-types">Response types</h3>
-<p>{{range $DataModelDiagram := $Diagram.OutputDataModel}}
-<p>{{$DataModelDiagram.TypeComment}}</p>
-{{$DataModelDiagram.Img}}</p>
-<h2 id="-end-">{{end}}</h2>
-{{end}}{{end}}
-<p>{{range $appName, $Diagrams := .DatabaseModel}}
-<h3 id="Database-{{$appName}}">Database {{$appName}}</h3>
-{{$Diagrams.AppComment}}
-{{$Diagrams.Img}}</p>
-<h2 id="-end-">{{end}}</h2>
-
-<table>
-  <tr>
-    <th>Type Name </th>
-    <th>Diagram </th>
-	<th>Description</th>
-  </tr>
-{{range $typeName, $Diagram := .Types}}
-<tr><td> {{$Diagram.AppName}}.<br>{{$typeName}} </td>
-<td>{{$Diagram.Img}}</td>
-<td>
-{{if ne $Diagram.TypeComment ""}}
-<details closed>{{$Diagram.TypeComment}}</details>
-{{end}}
-</td>
-</tr>{{end}}
-</table>
-</div>
-`
 const style = `
 <style type="text/css">
 body {

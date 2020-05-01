@@ -54,7 +54,7 @@ func (d Diagram) Img() string {
 		return string(file)
 	}
 
-	return fmt.Sprintf(`<img src="%s" alt="image">`, d.OutputFileName__)
+	return fmt.Sprintf(`![](%s)`, d.OutputFileName__)
 }
 
 func (d Diagram) AppComment() string {

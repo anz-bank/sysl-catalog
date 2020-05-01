@@ -14,10 +14,13 @@ require (
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	github.com/radovskyb/watcher v1.0.7
+	github.com/russross/blackfriday v2.0.0+incompatible
+	github.com/russross/blackfriday/v2 v2.0.1
 	github.com/sirupsen/logrus v1.5.0
 	github.com/spf13/afero v1.2.2
 	golang.org/x/net v0.0.0-20200425230154-ff2c4b7c35a0 // indirect
 	golang.org/x/sys v0.0.0-20200430202703-d923437fa56d // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
+
 replace github.com/anz-bank/sysl => ../sysl

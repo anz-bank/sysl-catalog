@@ -1,275 +1,71 @@
 
-<!doctype html>
-<html lang="en"><head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="style.css" >
-</head>
-<body>
+[Back](../README.md)
+# Package ServerPackage
 
-<div id='content'>
-<p><a href="../index.html">Back</a></p>
-<h1 id="package-packagename-">Package ServerPackage</h1>
-<h2 id="index">Index</h2>
-<table>
-  <tr>
-    <th>Service Name</th>
-	<th>Method</th>
-  </tr>
- 
-<tr><td>Server </td> <td><a href="#Server-Authenticate">Authenticate</a></td></tr>
+## Service Index
+| Service Name | Method |
+----|----
+Server | [Authenticate](#Server-Authenticate) |
 
-<tr><td>RelModel </td> <td><a href="#Database-RelModel">Database</a></td></tr>
-</table>
-<hr>
-<h2>Integration diagram:</h2>
-<img src="ServerPackage_integration.svg" alt="image"></p>
+## Database Index
+| Database Name |
+----|
+| [RelModel](#Database-RelModel) |
+
+[Types](#Types)
+
+## Integration diagram
+
+![](ServerPackage_integration.svg)
+
+---
 
 
+
+---
 
 
 
 
-<h2> Server </h2>
- this is a comment for Server
+## Server
+this is a comment for Server
 
 
-<h2 id="Server-Authenticate">Server Authenticate</h2>
+
+
+## Server Authenticate
+
 this is a description of Authenticate
-<h3 id="sequence-diagram">Sequence Diagram</h3>
-<p><img src="ServerAuthenticate.svg" alt="image"></p>
-<h3 id="request-types">Request types</h3>
-<p>
-<p></p>
-<img src="ServerAuthenticatedata-model-parameter0.svg" alt="image">
-</p>
-<h3 id="response-types">Response types</h3>
-<p>
-<p></p>
-<img src="ServerAuthenticatedata-model-response0.svg" alt="image"></p>
-<h2 id="-end-"></h2>
 
-<p>
-<h3 id="Database-RelModel">Database RelModel</h3>
+### Sequence Diagram
+![](ServerAuthenticate.svg)
 
-<img src="RelModeldb.svg" alt="image"></p>
-<h2 id="-end-"></h2>
-
-<table>
-  <tr>
-    <th>Type Name </th>
-	<th>Package Name</th>
-    <th>Diagram </th>
-	<th>Description</th>
-  </tr>
-
-<tr><td> type Empty </td>
-<td>ServerPackage</td>
-<td><img src="Emptydata-model-simple0.svg" alt="image"></td>
-<td></td>
-</tr>
-<tr><td> type Money </td>
-<td>ServerPackage</td>
-<td><img src="Moneydata-model-simple1.svg" alt="image"></td>
-<td></td>
-</tr>
-<tr><td> type Request </td>
-<td>ServerPackage</td>
-<td><img src="Requestdata-model-simple0.svg" alt="image"></td>
-<td></td>
-</tr>
-<tr><td> type Response </td>
-<td>ServerPackage</td>
-<td><img src="Responsedata-model-simple1.svg" alt="image"></td>
-<td></td>
-</tr>
-</table>
-</div>
-
-<style type="text/css">
-body {
-  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #111;
-  background-color: #fdfdfd;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-feature-settings: "kern" 1;
-  -moz-font-feature-settings: "kern" 1;
-  -o-font-feature-settings: "kern" 1;
-  font-feature-settings: "kern" 1;
-  font-kerning: normal;
-  padding: 30px;
-}
-
-@media only screen and (max-width: 600px) {
-  body {
-    padding: 5px;
-  }
-
-  body > #content {
-    padding: 0px 20px 20px 20px !important;
-  }
-}
-
-body > #content {
-  margin: 0px;
-  max-width: 900px;
-  border: 1px solid #e1e4e8;
-  padding: 10px 40px;
-  padding-bottom: 20px;
-  border-radius: 2px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-hr {
-  color: #bbb;
-  background-color: #bbb;
-  height: 1px;
-  flex: 0 1 auto;
-  margin: 1em 0;
-  padding: 0;
-  border: none;
-}
-
-/**
- * Links
- */
-a {
-  color: #0366d6;
-  text-decoration: none; }
-  a:visited {
-    color: #0366d6; }
-  a:hover {
-    color: #0366d6;
-    text-decoration: underline; }
-
-pre {
-  background-color: #f6f8fa;
-  border-radius: 3px;
-  font-size: 85%;
-  line-height: 1.45;
-  overflow: auto;
-  padding: 16px;
-}
-
-/**
-  * Code blocks
-  */
-
-code {
-  background-color: rgba(27,31,35,.05);
-  border-radius: 3px;
-  font-size: 85%;
-  margin: 0;
-  word-wrap: break-word;
-  padding: .2em .4em;
-  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
-}
-
-pre > code {
-  background-color: transparent;
-  border: 0;
-  display: inline;
-  line-height: inherit;
-  margin: 0;
-  overflow: visible;
-  padding: 0;
-  word-wrap: normal;
-  font-size: 100%;
-}
+### Request types
 
 
-/**
- * Blockquotes
- */
-blockquote {
-  margin-left: 30px;
-  margin-top: 0px;
-  margin-bottom: 16px;
-  border-left-width: 3px;
-  padding: 0 1em;
-  color: #828282;
-  border-left: 4px solid #e8e8e8;
-  padding-left: 15px;
-  font-size: 18px;
-  letter-spacing: -1px;
-  font-style: italic;
-}
-blockquote * {
-  font-style: normal !important;
-  letter-spacing: 0;
-  color: #6a737d !important;
-}
+![](ServerAuthenticatedata-model-parameter0.svg)
 
-/**
- * Tables
- */
-table {
-  border-spacing: 2px;
-  display: block;
-  font-size: 14px;
-  overflow: auto;
-  width: 100%;
-  margin-bottom: 16px;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
 
-td {
-  padding: 6px 13px;
-  border: 1px solid #dfe2e5;
-}
+### Response types
 
-th {
-  font-weight: 600;
-  padding: 6px 13px;
-  border: 1px solid #dfe2e5;
-}
 
-tr {
-  background-color: #fff;
-  border-top: 1px solid #c6cbd1;
-}
+![](ServerAuthenticatedata-model-response0.svg)
 
-table tr:nth-child(2n) {
-  background-color: #f6f8fa;
-}
 
-/**
- * Others
- */
+---
 
-img {
-  max-width: 100%;
-}
 
-p {
-  line-height: 24px;
-  font-weight: 400;
-  font-size: 16px;
-  color: #24292e; }
 
-ul {
-  margin-top: 0; }
+## Database RelModel
 
-li {
-  color: #24292e;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5; }
+![](RelModeldb.svg)
 
-li + li {
-  margin-top: 0.25em; }
 
-* {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  color: #24292e; }
+## Types
+App Name | Diagram | Comment
+----|----|----
+MegaDatabase<br>Empty | ![](Emptydata-model-simple0.svg) | <details closed><summary>Comment</summary><br></details>
+MegaDatabase<br>Money | ![](Moneydata-model-simple1.svg) | <details closed><summary>Comment</summary><br></details>
+Server<br>Request | ![](Requestdata-model-simple0.svg) | <details closed><summary>Comment</summary><br></details>
+Server<br>Response | ![](Responsedata-model-simple1.svg) | <details closed><summary>Comment</summary><br></details>
 
-a:visited {
-  color: #0366d6; }
-
-h1, h2, h3 {
-  border-bottom: 1px solid #eaecef;
-  color: #111;
-  /* Darker */ }
-</style></body>
-</html>

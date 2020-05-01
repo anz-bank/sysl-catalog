@@ -43,7 +43,7 @@ func main() {
 		log.Fatal(err)
 	}
 	if *server {
-		handler := catalog.NewProject(*input, "/"+*outputDir, plantumlService, "html", log, m).
+		handler := catalog.NewProject(*input, "/"+*outputDir, plantumlService, "markdown", log, m).
 			SetServerMode().
 			EnableLiveReload()
 

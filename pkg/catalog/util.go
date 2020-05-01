@@ -3,10 +3,13 @@ package catalog
 import (
 	"bytes"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
 	"text/template"
+
+	"github.com/russross/blackfriday/v2"
 
 	"github.com/spf13/afero"
 
@@ -63,8 +66,12 @@ func GenerateMarkdown(outputdir, fileName string, object interface{}, t *templat
 	if err := t.Execute(&buf, object); err != nil {
 		return err
 	}
+	result := string(buf.Bytes())
+	if path.Ext(fileName) == "html" {
+		result = header + string(blackfriday.Run(buf.Bytes(), blackfriday.WithExtensions(blackfriday.Tables))) + style + endTags
+	}
 	fs.MkdirAll(outputdir, os.ModePerm)
-	return afero.WriteFile(fs, filepath.Join(outputdir, fileName), buf.Bytes(), os.ModePerm)
+	return afero.WriteFile(fs, filepath.Join(outputdir, fileName), []byte(result), os.ModePerm)
 }
 
 // LoadMarkdownTemplates loads string markdown templates into slices of template objects.

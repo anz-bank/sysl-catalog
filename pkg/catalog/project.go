@@ -1,6 +1,7 @@
 package catalog
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"path"
@@ -9,6 +10,8 @@ import (
 	"strings"
 	"sync"
 	"text/template"
+
+	"github.com/russross/blackfriday"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
 	"github.com/sirupsen/logrus"
@@ -33,7 +36,8 @@ type Project struct {
 	Packages                       map[string]*Package // Packages are the rows of the top level markdown
 	Fs                             afero.Fs
 	Module                         *sysl.Module
-	DiagramExt                     string                  //.svg or .html if we're in server mode (we don't send requests
+	DiagramExt                     string //.svg or .html if we're in server mode (we don't send requests
+	Format                         string
 	PackageModules                 map[string]*sysl.Module // PackageModules maps @package attr to all those applications
 	ProjectTempl                   *template.Template      // Templ is used to template the Project struct
 	PackageTempl                   *template.Template      // PackageTempl is passed down to all Packages
@@ -57,22 +61,32 @@ func (p *Project) EnableLiveReload() *Project {
 }
 
 func (p *Project) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	var bytes []byte
+	var file string
 	if p.Fs == nil {
 		p.SetOutputFs(afero.NewMemMapFs())
 		p.ExecuteTemplateAndDiagrams()
 	}
 	request := r.RequestURI
-	switch path.Ext((request)) {
-	case "":
-		request += "index.html"
+	switch path.Ext(request) {
+	case "", "index.html":
+		request += "README.md"
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
+		bytes, _ = afero.ReadFile(p.Fs, request)
+		w.Write([]byte(file))
+		return
 	}
-	bytes, _ := afero.ReadFile(p.Fs, request)
-	file := string(bytes)
+	bytes, _ = afero.ReadFile(p.Fs, request)
+	file = string(bytes)
+	//if len(file) > 4 && file[0:4] != "<img" {
+	file = string(blackfriday.Run(bytes, blackfriday.WithExtensions(blackfriday.Tables)))
+	file = header + file + style + endTags
 	if p.LiveReload {
-		file = strings.ReplaceAll(string(bytes), "<body>", `<body><script src="/livereload.js?port=6900&mindelay=10&v=2" data-no-instant defer></script>`)
+		file = strings.ReplaceAll(file, "<body>", `<body><script src="/livereload.js?port=6900&mindelay=10&v=2" data-no-instant defer></script>`)
 	}
+	//}
+	fmt.Println(file)
 	w.Write([]byte(file))
 }
 
@@ -89,11 +103,13 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 		PackageModules:  map[string]*sysl.Module{},
 		PlantumlService: plantumlservice,
 	}
-
 	switch outputType {
 	case "html":
 		p.OutputFileName = "index.html"
-		ProjectTemplate, PackageTemplate = ProjectHTMLTemplate, PackageHTMLTemplate
+		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate
+		p.Format = "html"
+		//ProjectTemplate = header + string(blackfriday.Run([]byte(ProjectTemplate), blackfriday.WithExtensions(blackfriday.Tables))) + style + endTags
+		//PackageTemplate = header + string(blackfriday.Run([]byte(PackageTemplate), blackfriday.WithExtensions(blackfriday.Tables))) + style + endTags
 	case "markdown", "md":
 		p.OutputFileName = "README.md"
 		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate

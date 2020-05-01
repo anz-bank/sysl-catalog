@@ -90,7 +90,11 @@ const PackageHTMLTemplateWithoutCSS = `
 {{range $typeName, $Diagram := .Types}}
 <tr><td> {{$Diagram.AppName}}.<br>{{$typeName}} </td>
 <td>{{$Diagram.Img}}</td>
-<td><details closed>{{$Diagram.TypeComment}}</details></td>
+<td>
+{{if ne $Diagram.TypeComment ""}}
+<details closed>{{$Diagram.TypeComment}}</details>
+{{end}}
+</td>
 </tr>{{end}}
 </table>
 </div>

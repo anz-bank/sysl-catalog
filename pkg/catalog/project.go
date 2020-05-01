@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"net/http"
+	"os"
 	"path"
 	"path/filepath"
 	"strconv"
@@ -158,14 +159,22 @@ func (p *Package) GenerateTypes() {
 		app := p.Module.Apps[appName]
 		for i, typeName := range AlphabeticalTypes(p.Module.Apps[appName].Types) {
 			t := app.Types[typeName]
-			p.Types = append(p.Types, &Diagram{
+			newDiagram := &Diagram{
 				Parent:                p,
 				App:                   app,
 				Type:                  t,
 				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: NewTypeRef(appName, typeName)}, p.Parent.Module)),
 				OutputDir:             path.Join(p.Parent.Output, p.PackageName),
 				OutputFileName__:      sanitiseOutputName(typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
-			})
+			}
+			p.Parent.Fs.MkdirAll(newDiagram.OutputDir, os.ModePerm)
+			file, err := p.Parent.Fs.Create(path.Join(newDiagram.OutputDir, newDiagram.OutputFileName__))
+			if err != nil {
+				panic(err)
+			}
+			file.Write([]byte(newDiagram.PlantUMLDiagramString))
+			p.Types = append(p.Types, newDiagram)
+			newDiagram.GenerateDiagramAndMarkdown()
 		}
 	}
 }
@@ -200,6 +209,7 @@ func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 		if err != nil {
 			p.Log.Errorf("Error generating package int diagram")
 		}
+		pkg.GenerateTypes()
 		for _, apps := range pkg.SequenceDiagrams {
 			for _, sd := range apps {
 				wg.Add(1)

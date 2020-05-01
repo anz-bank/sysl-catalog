@@ -73,4 +73,10 @@ const PackageMarkdownTemplate = `
 ![alt text]({{$Diagrams.OutputFileName__}})
 {{end}}
 
+{{range $appName, $Diagrams := .Types}}
+## Database {{$appName}}
+{{$Diagrams.AppComment}}
+![alt text]({{$Diagrams.OutputFileName__}})
+{{end}}
+
 `

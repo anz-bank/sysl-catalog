@@ -27,8 +27,7 @@ const PackageMarkdownTemplate = `
 
 ## Types
 Type Name | Package Name | Diagram | Comment
---- | --- | --- | ---
-{{range $typeName, $Diagrams := .Types}}
+--- | --- | --- | ---{{range $typeName, $Diagrams := .Types}}
 ## type {{$typeName}} | {{$Diagrams.Parent.PackageName}} | <details closed><summary>Diagram</summary><br>![alt text]({{$Diagrams.OutputFileName__}})</details> | {{$Diagrams.TypeComment}}  
 {{end}}
 

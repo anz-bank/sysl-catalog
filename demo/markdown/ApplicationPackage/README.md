@@ -14,7 +14,6 @@
 Type Name | Package Name | Diagram | Comment
 --- | --- | --- | ---
 
-
 ## Database Index
 | Database Name |
 | - |

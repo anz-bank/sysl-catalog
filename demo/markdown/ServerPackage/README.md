@@ -10,7 +10,6 @@
 ## Types
 Type Name | Package Name | Diagram | Comment
 --- | --- | --- | ---
-
 ## type Empty | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Emptydata-model0.svg)</details> |   
 
 ## type Money | ServerPackage | <details closed><summary>Diagram</summary><br>![alt text](Moneydata-model1.svg)</details> |   

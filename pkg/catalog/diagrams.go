@@ -1,6 +1,7 @@
 package catalog
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"strconv"
@@ -50,10 +51,24 @@ func (d Diagram) Img() string {
 		if err != nil {
 			panic(err)
 		}
-		return string(file)
+		return fmt.Sprintf(`<img src= "%s">`, string(file)) // Return for when in server mode
 	}
-
+	switch d.GetProject().Format {
+	case "html":
+		return fmt.Sprintf(`<img src="%s">`, d.OutputFileName__)
+	case "md", "markdown":
+		return fmt.Sprintf(`![](%s)`, d.OutputFileName__)
+	}
 	return d.OutputFileName__
+}
+func (d Diagram) GetProject() *Project {
+	if d.Parent != nil {
+		return d.Parent.Parent
+	}
+	if d.Project != nil {
+		return d.Project
+	}
+	return nil
 }
 
 func (d Diagram) AppComment() string {

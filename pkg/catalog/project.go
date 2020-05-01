@@ -1,7 +1,6 @@
 package catalog
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"path"
@@ -10,8 +9,6 @@ import (
 	"strings"
 	"sync"
 	"text/template"
-
-	"github.com/russross/blackfriday"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
 	"github.com/sirupsen/logrus"
@@ -79,14 +76,9 @@ func (p *Project) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	bytes, _ = afero.ReadFile(p.Fs, request)
 	file = string(bytes)
-	//if len(file) > 4 && file[0:4] != "<img" {
-	file = string(blackfriday.Run(bytes, blackfriday.WithExtensions(blackfriday.Tables)))
-	file = header + file + style + endTags
 	if p.LiveReload {
 		file = strings.ReplaceAll(file, "<body>", `<body><script src="/livereload.js?port=6900&mindelay=10&v=2" data-no-instant defer></script>`)
 	}
-	//}
-	fmt.Println(file)
 	w.Write([]byte(file))
 }
 
@@ -106,13 +98,12 @@ func NewProject(title, outputDir, plantumlservice string, outputType string, log
 	switch outputType {
 	case "html":
 		p.OutputFileName = "index.html"
-		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate
+		ProjectTemplate, PackageTemplate = strings.ReplaceAll(ProjectMarkdownTemplate, "README.md", "index.html"), strings.ReplaceAll(PackageMarkdownTemplate, "README.md", "index.html")
 		p.Format = "html"
-		//ProjectTemplate = header + string(blackfriday.Run([]byte(ProjectTemplate), blackfriday.WithExtensions(blackfriday.Tables))) + style + endTags
-		//PackageTemplate = header + string(blackfriday.Run([]byte(PackageTemplate), blackfriday.WithExtensions(blackfriday.Tables))) + style + endTags
 	case "markdown", "md":
 		p.OutputFileName = "README.md"
 		ProjectTemplate, PackageTemplate = ProjectMarkdownTemplate, PackageMarkdownTemplate
+		p.Format = "md"
 	}
 	if err := p.RegisterTemplates(ProjectTemplate, PackageTemplate); err != nil {
 		p.Log.Errorf("Error registering default templates:\n %v", err)

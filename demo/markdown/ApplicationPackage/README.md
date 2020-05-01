@@ -19,7 +19,7 @@ MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) |
 
 ## Integration diagram
 
-![alt text](ApplicationPackage_integration.svg)
+![](ApplicationPackage_integration.svg)
 
 ---
 
@@ -37,7 +37,7 @@ this is a comment for MobileApp
 hello, world
 
 ### Sequence Diagram
-![alt text](MobileAppAnother.svg)
+![](MobileAppAnother.svg)
 
 ### Request types
 
@@ -45,7 +45,7 @@ hello, world
 ### Response types
 
 
-![alt text](ServerAnotherdata-model-response0.svg)
+![](ServerAnotherdata-model-response0.svg)
 
 
 
@@ -57,18 +57,18 @@ hello, world
 hello, gamers
 
 ### Sequence Diagram
-![alt text](MobileAppLogin.svg)
+![](MobileAppLogin.svg)
 
 ### Request types
 
 
-![alt text](ServerLogindata-model-parameter0.svg)
+![](ServerLogindata-model-parameter0.svg)
 
 
 ### Response types
 
 
-![alt text](MegaDatabaseLogindata-model-response1.svg)
+![](MegaDatabaseLogindata-model-response1.svg)
 
 
 ---
@@ -87,18 +87,18 @@ this is a comment for MobileApp
 SecondEndpoint, comment
 
 ### Sequence Diagram
-![alt text](MobileApp2SecondEndpoint.svg)
+![](MobileApp2SecondEndpoint.svg)
 
 ### Request types
 
 
-![alt text](ServerSecondEndpointdata-model-parameter0.svg)
+![](ServerSecondEndpointdata-model-parameter0.svg)
 
 
 ### Response types
 
 
-![alt text](MegaDatabaseSecondEndpointdata-model-response1.svg)
+![](MegaDatabaseSecondEndpointdata-model-response1.svg)
 
 
 
@@ -110,7 +110,7 @@ SecondEndpoint, comment
 ThirdEndpoint comment
 
 ### Sequence Diagram
-![alt text](MobileApp2ThirdEndpoint.svg)
+![](MobileApp2ThirdEndpoint.svg)
 
 ### Request types
 
@@ -118,7 +118,7 @@ ThirdEndpoint comment
 ### Response types
 
 
-![alt text](ServerThirdEndpointdata-model-response0.svg)
+![](ServerThirdEndpointdata-model-response0.svg)
 
 
 ---
@@ -127,6 +127,11 @@ ThirdEndpoint comment
 
 
 ## Types
-App Name | Diagram | Comment
-------------|----------------|------------
-
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+</tr>
+<tr>
+</table>

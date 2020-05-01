@@ -8,8 +8,8 @@
 
 Integration diagram:
 
-![alt text](simple2_integration.svg)
+![](simple2_integration.svg)
 
 Integration diagram with end point analysis:
 
-![alt text](simple2EPA_integration.svg)
+![](simple2EPA_integration.svg)

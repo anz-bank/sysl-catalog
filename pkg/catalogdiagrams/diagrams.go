@@ -5,6 +5,10 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/anz-bank/sysl/pkg/cmdutils"
+	"github.com/anz-bank/sysl/pkg/diagrams"
+	"github.com/anz-bank/sysl/pkg/sequencediagram"
+
 	"github.com/anz-bank/sysl/pkg/datamodeldiagram"
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -228,4 +232,24 @@ func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string
 	}
 
 	return "", "", nil
+}
+
+// GenerateDataModel takes all the types in parentAppName and generates data model diagrams for it
+func GenerateDataModel(parentAppName string, t map[string]*sysl.Type) string {
+	type datamodelCmd struct {
+		diagrams.Plantumlmixin
+		cmdutils.CmdContextParamDatagen
+	}
+	pl := &datamodelCmd{}
+	pl.Project = ""
+	pl.Direct = true
+	pl.ClassFormat = "%(classname)"
+	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)
+	var stringBuilder strings.Builder
+	dataParam := &DataModelParam{}
+	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
+	vNew := &DataModelView{
+		DataModelView: *v,
+	}
+	return vNew.GenerateDataView(dataParam, parentAppName, t)
 }

@@ -2,7 +2,6 @@ package catalog
 
 import (
 	"net/http"
-	"os"
 	"path"
 	"path/filepath"
 	"strconv"
@@ -11,9 +10,6 @@ import (
 	"text/template"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
-	"github.com/anz-bank/sysl/pkg/datamodeldiagram"
-	"github.com/anz-bank/sysl/pkg/sequencediagram"
-
 	"github.com/sirupsen/logrus"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -166,7 +162,7 @@ func (p *Package) GenerateTypes() {
 				Parent:                p,
 				App:                   app,
 				Type:                  t,
-				PlantUMLDiagramString: p.Parent.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: NewTypeRef(appName, typeName)}, p.Parent.Module)),
+				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: NewTypeRef(appName, typeName)}, p.Parent.Module)),
 				OutputDir:             path.Join(p.Parent.Output, p.PackageName),
 				OutputFileName__:      sanitiseOutputName(typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
 			})
@@ -270,7 +266,7 @@ func (p Project) RegisterDiagrams() error {
 			p.Packages[packageName].DatabaseModel[appName] = &Diagram{
 				Parent:                p.Packages[packageName],
 				App:                   app,
-				PlantUMLDiagramString: p.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, app.Types, p.Module)),
+				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, app.Types, p.Module)),
 				OutputDir:             path.Join(p.Output, packageName),
 				OutputFileName__:      sanitiseOutputName(appName+"db") + p.DiagramExt,
 			}
@@ -295,41 +291,4 @@ func (p Project) RegisterDiagrams() error {
 
 	}
 	return nil
-}
-
-// GenerateDBDataModel takes all the types in parentAppName and generates data model diagrams for it
-func (p Project) GenerateDBDataModel(parentAppName string, t map[string]*sysl.Type) string {
-	pl := &datamodelCmd{}
-	pl.Project = ""
-	//p.Fs.MkdirAll(pl.Output, os.ModePerm)
-	pl.Direct = true
-	pl.ClassFormat = "%(classname)"
-	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)
-	var stringBuilder strings.Builder
-	dataParam := &catalogdiagrams.DataModelParam{}
-	dataParam.Mod = p.Module
-
-	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
-	vNew := &catalogdiagrams.DataModelView{
-		DataModelView: *v,
-	}
-	return vNew.GenerateDataView(dataParam, parentAppName, t)
-}
-
-// GenerateEndpointDataModel generates data model diagrams for a specific type
-func (p Project) GenerateEndpointDataModel(parentAppName string, t map[string]*sysl.Type) string {
-	pl := &datamodelCmd{}
-	pl.Project = ""
-	p.Fs.MkdirAll(pl.Output, os.ModePerm)
-	pl.Direct = true
-	pl.ClassFormat = "%(classname)"
-	spclass := sequencediagram.ConstructFormatParser("", pl.ClassFormat)
-	var stringBuilder strings.Builder
-	dataParam := &catalogdiagrams.DataModelParam{}
-	dataParam.Mod = p.Module
-	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
-	vNew := &catalogdiagrams.DataModelView{
-		DataModelView: *v,
-	}
-	return vNew.GenerateDataView(dataParam, parentAppName, catalogdiagrams.RecurseivelyGetTypes(parentAppName, t, p.Module))
 }

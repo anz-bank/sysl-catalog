@@ -144,7 +144,7 @@ func (s Diagram) InputDataModel() []*Diagram {
 			Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 			App:                   s.Parent.Parent.Module.Apps[appName],
-			PlantUMLDiagramString: s.Parent.Parent.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: typeref}, s.Parent.Parent.Module)),
+			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: typeref}, s.Parent.Parent.Module)),
 			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 		}
 		diagram = append(diagram, newDiagram)
@@ -218,7 +218,7 @@ func (s Diagram) OutputDataModel() []*Diagram {
 				Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 				OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 				App:                   s.Parent.Parent.Module.Apps[appName],
-				PlantUMLDiagramString: s.Parent.Parent.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: typeref}, s.Parent.Parent.Module)),
+				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: typeref}, s.Parent.Parent.Module)),
 				OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-response"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 			}
 			diagram = append(diagram, newDiagram)
@@ -271,11 +271,6 @@ func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	p.EndpointLabeler = l
 	p.Title = call
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
-}
-
-type datamodelCmd struct {
-	diagrams.Plantumlmixin
-	cmdutils.CmdContextParamDatagen
 }
 
 type intsCmd struct {

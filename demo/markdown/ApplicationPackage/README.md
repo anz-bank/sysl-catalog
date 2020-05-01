@@ -134,7 +134,6 @@ ThirdEndpoint comment
 <th>Comment</th>
 <th>Full Link</th>
 </tr>
-<tr>
 
 
 </table>

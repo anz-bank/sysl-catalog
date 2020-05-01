@@ -178,7 +178,7 @@ func (p *Package) GenerateTypes() {
 				Type:                  t,
 				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t}),
 				OutputDir:             path.Join(p.Parent.Output, p.PackageName),
-				OutputFileName__:      sanitiseOutputName(typeName+"data-model-Simple"+strconv.Itoa(i)) + p.Parent.DiagramExt,
+				OutputFileName__:      sanitiseOutputName("Simple"+typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
 			}
 			p.Parent.Fs.MkdirAll(newDiagram.OutputDir, os.ModePerm)
 			file, err := p.Parent.Fs.Create(path.Join(newDiagram.OutputDir, newDiagram.OutputFileName__))
@@ -197,7 +197,7 @@ func (p *Package) GenerateTypes() {
 				Type:                  t,
 				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Parent.Module)),
 				OutputDir:             path.Join(p.Parent.Output, p.PackageName),
-				OutputFileName__:      sanitiseOutputName("Full-"+typeName+"data-model-Simple"+strconv.Itoa(i)) + p.Parent.DiagramExt,
+				OutputFileName__:      sanitiseOutputName("Full-"+typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
 			}
 			p.Parent.Fs.MkdirAll(newDiagram.OutputDir, os.ModePerm)
 			file, err = p.Parent.Fs.Create(path.Join(newDiagram.OutputDir, newDiagram.OutputFileName__))

@@ -83,10 +83,9 @@ const PackageMarkdownTemplate = `
 <th>Comment</th>
 <th>Full Link</th>
 </tr>
-<tr>
 
 {{range $typeName, $Diagrams := .Types}}
-
+<tr>
 <td>
 
 {{$Diagrams.Simple.AppName}}.<br>{{$typeName}}
@@ -94,7 +93,6 @@ const PackageMarkdownTemplate = `
 <td>
 
 {{$Diagrams.Simple.Img}}
-
 </td>
 <td> 
 

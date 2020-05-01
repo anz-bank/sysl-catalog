@@ -69,18 +69,16 @@ this is a description of Authenticate
 <th>Comment</th>
 <th>Full Link</th>
 </tr>
+
+
 <tr>
-
-
-
 <td>
 
 MegaDatabase.<br>Empty
 </td>
 <td>
 
-![](Emptydata-model-Simple0.svg)
-
+![](SimpleEmptydata-model0.svg)
 </td>
 <td> 
 
@@ -88,18 +86,17 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-[Link](Full-Emptydata-model-Simple0.svg)
+[Link](Full-Emptydata-model0.svg)
 </td>
 </tr>
-
+<tr>
 <td>
 
 MegaDatabase.<br>Money
 </td>
 <td>
 
-![](Moneydata-model-Simple1.svg)
-
+![](SimpleMoneydata-model1.svg)
 </td>
 <td> 
 
@@ -107,18 +104,17 @@ MegaDatabase.<br>Money
 </td>
 <td>
 
-[Link](Full-Moneydata-model-Simple1.svg)
+[Link](Full-Moneydata-model1.svg)
 </td>
 </tr>
-
+<tr>
 <td>
 
 Server.<br>Request
 </td>
 <td>
 
-![](Requestdata-model-Simple0.svg)
-
+![](SimpleRequestdata-model0.svg)
 </td>
 <td> 
 
@@ -126,18 +122,17 @@ Server.<br>Request
 </td>
 <td>
 
-[Link](Full-Requestdata-model-Simple0.svg)
+[Link](Full-Requestdata-model0.svg)
 </td>
 </tr>
-
+<tr>
 <td>
 
 Server.<br>Response
 </td>
 <td>
 
-![](Responsedata-model-Simple1.svg)
-
+![](SimpleResponsedata-model1.svg)
 </td>
 <td> 
 
@@ -145,7 +140,7 @@ Server.<br>Response
 </td>
 <td>
 
-[Link](Full-Responsedata-model-Simple1.svg)
+[Link](Full-Responsedata-model1.svg)
 </td>
 </tr>
 </table>

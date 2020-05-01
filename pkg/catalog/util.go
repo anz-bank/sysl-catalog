@@ -67,7 +67,7 @@ func GenerateMarkdown(outputdir, fileName string, object interface{}, t *templat
 		return err
 	}
 	result := string(buf.Bytes())
-	if path.Ext(fileName) == "html" {
+	if path.Ext(fileName) == ".html" {
 		result = header + string(blackfriday.Run(buf.Bytes(), blackfriday.WithExtensions(blackfriday.Tables))) + style + endTags
 	}
 	fs.MkdirAll(outputdir, os.ModePerm)

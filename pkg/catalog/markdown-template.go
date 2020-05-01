@@ -4,7 +4,7 @@ const ProjectMarkdownTemplate = `
 # {{.Title}}
 
 | Package |
-----{{range $Package := .AlphabeticalRows}}
+----|{{range $Package := .AlphabeticalRows}}
 [{{$Package.PackageName}}]({{$Package.PackageName}}/{{$Package.OutputFile}})|{{end}}
 
 Integration diagram:

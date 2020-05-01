@@ -2,7 +2,7 @@
 # simple2
 
 | Package |
-----
+----|
 [ApplicationPackage](ApplicationPackage/README.md)|
 [ServerPackage](ServerPackage/README.md)|
 

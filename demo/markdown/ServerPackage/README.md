@@ -80,14 +80,24 @@ this is a description of Authenticate
 <td>   </td>
 <td> [Link](Full-Moneydata-model-Simple1.svg) </td>
 </tr>
-<td>Server.Request </td>
-<td> ![](Requestdata-model-Simple0.svg)</td>
+<td>Server.Request
+</td>
+<td> ![](Requestdata-model-Simple0.svg)
+</td>
 <td>   </td>
-<td> [Link](Full-Requestdata-model-Simple0.svg) </td>
+<td> 
+
+[Link](Full-Requestdata-model-Simple0.svg)
+</td>
 </tr>
 <td>Server.Response </td>
-<td> ![](Responsedata-model-Simple1.svg)</td>
-<td>   </td>
-<td> [Link](Full-Responsedata-model-Simple1.svg) </td>
+<td>
+  
+![](Responsedata-model-Simple1.svg)</td>
+<td> 
+</td>
+<td> [Link](Full-Responsedata-model-Simple1.svg)
+
+</td>
 </tr>
 </table>

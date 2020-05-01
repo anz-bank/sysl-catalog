@@ -25,11 +25,18 @@ const PackageMarkdownTemplate = `
 | - | - | {{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
 | {{$appName}} | [{{$Diagram.EndpointNameWithoutSpaces}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointNameWithoutSpaces}}) |{{end}}{{end}}
 
+## Types
+Type Name | Package Name | Diagram | Comment
+--- | --- | --- | ---
+{{range $typeName, $Diagrams := .Types}}
+## type {{$typeName}} | {{$Diagrams.Parent.PackageName}} | <details closed><summary>Diagram</summary><br>![alt text]({{$Diagrams.OutputFileName__}})</details> | {{$Diagrams.TypeComment}}  
+{{end}}
 
 ## Database Index
 | Database Name |
 | - |
 {{range $appName, $Diagrams := .DatabaseModel}}| [{{$appName}}](#Database-{{$appName}}) |{{end}}
+
 
 ## Integration diagram
 
@@ -73,11 +80,4 @@ const PackageMarkdownTemplate = `
 ![alt text]({{$Diagrams.OutputFileName__}})
 {{end}}
 
-
-
-Type Name | Package Name | Diagram | Comment
---- | --- | --- | ---
-{{range $typeName, $Diagrams := .Types}}
-## type {{$typeName}} | {{$Diagrams.Parent.PackageName}} | <details closed><summary>Diagram</summary><br>![alt text]({{$Diagrams.OutputFileName__}})</details> | {{$Diagrams.TypeComment}}  
-{{end}}
 `

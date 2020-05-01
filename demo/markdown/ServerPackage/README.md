@@ -16,7 +16,7 @@ Server | [Authenticate](#Server-Authenticate) |
 
 ## Integration diagram
 
-![](ServerPackage_integration.svg)
+![alt text](ServerPackage_integration.svg)
 
 ---
 
@@ -38,18 +38,18 @@ this is a comment for Server
 this is a description of Authenticate
 
 ### Sequence Diagram
-![](ServerAuthenticate.svg)
+![alt text](ServerAuthenticate.svg)
 
 ### Request types
 
 
-![](ServerAuthenticatedata-model-parameter0.svg)
+![alt text](ServerAuthenticatedata-model-parameter0.svg)
 
 
 ### Response types
 
 
-![](ServerAuthenticatedata-model-response0.svg)
+![alt text](ServerAuthenticatedata-model-response0.svg)
 
 
 ---
@@ -58,14 +58,14 @@ this is a description of Authenticate
 
 ## Database RelModel
 
-![](RelModeldb.svg)
+![alt text](RelModeldb.svg)
 
 
 ## Types
 App Name | Diagram | Comment
-----|----|----
-MegaDatabase<br>Empty | ![](Emptydata-model-simple0.svg) | <details closed><summary>Comment</summary><br></details>
-MegaDatabase<br>Money | ![](Moneydata-model-simple1.svg) | <details closed><summary>Comment</summary><br></details>
-Server<br>Request | ![](Requestdata-model-simple0.svg) | <details closed><summary>Comment</summary><br></details>
-Server<br>Response | ![](Responsedata-model-simple1.svg) | <details closed><summary>Comment</summary><br></details>
+------------|----------------|------------
+MegaDatabase.Empty | ![alt text](Emptydata-model-simple0.svg) | Comment |
+MegaDatabase.Money | ![alt text](Moneydata-model-simple1.svg) | Comment |
+Server.Request | ![alt text](Requestdata-model-simple0.svg) | Comment |
+Server.Response | ![alt text](Responsedata-model-simple1.svg) | Comment |
 

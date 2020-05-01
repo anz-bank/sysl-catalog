@@ -1,7 +1,6 @@
 package catalog
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"strconv"
@@ -54,7 +53,7 @@ func (d Diagram) Img() string {
 		return string(file)
 	}
 
-	return fmt.Sprintf(`![](%s)`, d.OutputFileName__)
+	return d.OutputFileName__
 }
 
 func (d Diagram) AppComment() string {

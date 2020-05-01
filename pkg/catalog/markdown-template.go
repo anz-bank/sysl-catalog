@@ -9,11 +9,11 @@ const ProjectMarkdownTemplate = `
 
 Integration diagram:
 
-{{.RootLevelIntegrationDiagram.Img}}
+![alt text]({{.RootLevelIntegrationDiagram.Img}})
 
 Integration diagram with end point analysis:
 
-{{.RootLevelIntegrationDiagramEPA.Img}}
+![alt text]({{.RootLevelIntegrationDiagramEPA.Img}})
 `
 
 const PackageMarkdownTemplate = `
@@ -34,7 +34,7 @@ const PackageMarkdownTemplate = `
 
 ## Integration diagram
 
-{{.Integration.Img}}
+![alt text]({{.Integration.Img}})
 
 ---
 {{range $appName, $Diagrams := .SequenceDiagrams}}
@@ -52,18 +52,18 @@ const PackageMarkdownTemplate = `
 {{$Diagram.EndpointComment}}
 
 ### Sequence Diagram
-{{.Img}}
+![alt text]({{.Img}})
 
 ### Request types
 {{range $DataModelDiagram := $Diagram.InputDataModel}}
 {{$DataModelDiagram.TypeComment}}
-{{$DataModelDiagram.Img}}
+![alt text]({{$DataModelDiagram.Img}})
 {{end}}
 
 ### Response types
 {{range $DataModelDiagram := $Diagram.OutputDataModel}}
 {{$DataModelDiagram.TypeComment}}
-{{$DataModelDiagram.Img}}
+![alt text]({{$DataModelDiagram.Img}})
 {{end}}
 {{end}}
 ---
@@ -72,12 +72,14 @@ const PackageMarkdownTemplate = `
 {{range $appName, $Diagrams := .DatabaseModel}}
 ## Database {{$appName}}
 {{$Diagrams.AppComment}}
-{{$Diagrams.Img}}
+![alt text]({{$Diagrams.Img}})
 {{end}}
 
 ## Types
 App Name | Diagram | Comment
-----|----|----{{range $typeName, $Diagrams := .Types}}
-{{$Diagrams.AppName}}<br>{{$typeName}} | {{$Diagrams.Img}} | <details closed><summary>Comment</summary><br>{{$Diagrams.TypeComment}}</details>{{end}}
+------------|----------------|------------{{range $typeName, $Diagrams := .Types}}
+{{$Diagrams.AppName}}.{{$typeName}} | ![alt text]({{$Diagrams.Img}}) | Comment {{$Diagrams.TypeComment}}|{{end}}
 
 `
+
+//{{$Diagrams.AppName}}.{{$typeName}} | {{$Diagrams.Img}} | Comment {{$Diagrams.TypeComment}}{{end}}

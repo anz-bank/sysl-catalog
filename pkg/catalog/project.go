@@ -51,7 +51,7 @@ func (p *Project) SetOutputFs(fs afero.Fs) *Project {
 
 func (p *Project) SetServerMode() *Project {
 	p.Server = true
-	p.DiagramExt = ".html"
+	p.DiagramExt = ".link"
 	return p
 }
 

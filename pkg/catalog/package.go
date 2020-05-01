@@ -19,7 +19,7 @@ type Package struct {
 	OutputFile       string
 	SequenceDiagrams map[string][]*Diagram // map[appName][]*Diagram
 	DatabaseModel    map[string]*Diagram
-	Types            []*Diagram
+	Types            map[string]*Diagram
 	Integration      *Diagram
 	EPAIntegration   *Diagram
 }

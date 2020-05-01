@@ -80,6 +80,21 @@ const PackageHTMLTemplateWithoutCSS = `
 {{$Diagrams.AppComment}}
 {{$Diagrams.Img}}</p>
 <h2 id="-end-">{{end}}</h2>
+
+<table>
+  <tr>
+    <th>Type Name </th>
+	<th>Package Name</th>
+    <th>Diagram </th>
+	<th>Description</th>
+  </tr>
+{{range $typeName, $Diagram := .Types}}
+<tr><td> type {{$typeName}} </td>
+<td>{{$Diagram.Parent.PackageName}}</td>
+<td>{{$Diagram.Img}}</td>
+<td>{{$Diagram.TypeComment}}</td>
+</tr>{{end}}
+</table>
 </div>
 `
 const style = `

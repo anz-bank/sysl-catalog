@@ -139,7 +139,7 @@ func (p *Project) initProject() {
 				PackageName: packageName,
 				OutputDir:   path.Join(p.Output, packageName),
 				OutputFile:  p.OutputFileName,
-				Types:       []*Diagram{},
+				Types:       make(map[string]*Diagram),
 				Module:      &sysl.Module{Apps: map[string]*sysl.Application{}},
 			}
 		}
@@ -159,11 +159,14 @@ func (p *Package) GenerateTypes() {
 		app := p.Module.Apps[appName]
 		for i, typeName := range AlphabeticalTypes(p.Module.Apps[appName].Types) {
 			t := app.Types[typeName]
+			if t.GetRelation() != nil {
+				continue
+			}
 			newDiagram := &Diagram{
 				Parent:                p,
 				App:                   app,
 				Type:                  t,
-				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: NewTypeRef(appName, typeName)}, p.Parent.Module)),
+				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Parent.Module)),
 				OutputDir:             path.Join(p.Parent.Output, p.PackageName),
 				OutputFileName__:      sanitiseOutputName(typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
 			}
@@ -173,7 +176,7 @@ func (p *Package) GenerateTypes() {
 				panic(err)
 			}
 			file.Write([]byte(newDiagram.PlantUMLDiagramString))
-			p.Types = append(p.Types, newDiagram)
+			p.Types[typeName] = newDiagram
 			newDiagram.GenerateDiagramAndMarkdown()
 		}
 	}
@@ -276,7 +279,7 @@ func (p Project) RegisterDiagrams() error {
 			p.Packages[packageName].DatabaseModel[appName] = &Diagram{
 				Parent:                p.Packages[packageName],
 				App:                   app,
-				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, app.Types, p.Module)),
+				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, app.Types),
 				OutputDir:             path.Join(p.Output, packageName),
 				OutputFileName__:      sanitiseOutputName(appName+"db") + p.DiagramExt,
 			}

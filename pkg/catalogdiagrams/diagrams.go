@@ -16,14 +16,13 @@ const tupleArrow = `*--`
 
 type DataModelView struct {
 	datamodeldiagram.DataModelView
-	TypeMap map[string]*sysl.Type
 }
 
 type DataModelParam struct {
 	datamodeldiagram.DataModelParam
 }
 
-func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName string, t *sysl.Type, m *sysl.Module) string {
+func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName string, tMap map[string]*sysl.Type) string {
 	var isRelation bool
 	relationshipMap := map[string]map[string]datamodeldiagram.RelationshipParam{}
 	v.StringBuilder.WriteString("@startuml\n")
@@ -32,19 +31,19 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 	}
 	v.StringBuilder.WriteString(integrationdiagram.PumlHeader)
 	//typeMap := map[string]*sysl.Type{}
-	if v.TypeMap == nil {
-		v.TypeMap = make(map[string]*sysl.Type)
-	}
+
 	ignoredTypes := map[string]struct{}{}
 	// TODO: Actually put The appName/project name and the appName in a struct so strings.split and join dont need to be used
 	entityNames := []string{}
-	RecurseivelyGetTypes(appName, t, m, v.TypeMap)
-	for key := range v.TypeMap {
+	//for _, t := range tMap {
+	//	RecurseivelyGetTypesHelper(appName, t, m, tMap)
+	//}
+	for key := range tMap {
 		entityNames = append(entityNames, key)
 	}
 	sort.Strings(entityNames)
 	for _, entityName := range entityNames {
-		entityType := v.TypeMap[entityName]
+		entityType := tMap[entityName]
 		if relEntity := entityType.GetRelation(); relEntity != nil {
 			isRelation = true
 			viewParam := datamodeldiagram.EntityViewParam{
@@ -92,8 +91,16 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 	return v.StringBuilder.String()
 }
 
-// RecurseivelyGetTypes gets returns a type map of a type and all of its fields recursively.
-func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module, cummulative map[string]*sysl.Type) map[string]*sysl.Type {
+func RecurseivelyGetTypes(appName string, types map[string]*sysl.Type, m *sysl.Module) map[string]*sysl.Type {
+	cummulative := make(map[string]*sysl.Type)
+	for _, elem := range types {
+		RecurseivelyGetTypesHelper(appName, elem, m, cummulative)
+	}
+	return cummulative
+}
+
+// RecurseivelyGetTypesHelper gets returns a type map of a type and all of its fields recursively.
+func RecurseivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cummulative map[string]*sysl.Type) map[string]*sysl.Type {
 	var typeName string
 	if t == nil {
 		return nil
@@ -148,7 +155,7 @@ func RecurseivelyGetTypes(appName string, t *sysl.Type, m *sysl.Module, cummulat
 		}
 		ret[appName+"."+typeName] = newType
 
-		for key, v := range RecurseivelyGetTypes(appName, ret[appName+"."+typeName], m, ret) {
+		for key, v := range RecurseivelyGetTypesHelper(appName, ret[appName+"."+typeName], m, ret) {
 			if _, ok := cummulative[key]; ok {
 				continue
 			}

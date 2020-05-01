@@ -27,6 +27,16 @@ func AlphabeticalApps(m map[string]*sysl.Application) []string {
 	return keys
 }
 
+// AlphabeticalEndpoints sorts a map of Applications alphabetically
+func AlphabeticalTypes(m map[string]*sysl.Type) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
 // AlphabeticalEndpoints sorts a map of endpoints alphabetically
 func AlphabeticalEndpoints(m map[string]*sysl.Endpoint) []string {
 	keys := make([]string, 0, len(m))
@@ -78,4 +88,17 @@ func GetAppPackageName(app *sysl.Application) (string, string) {
 		packageName = attr.GetS()
 	}
 	return packageName, appName
+}
+func NewTypeRef(appName, typeName string) *sysl.Type {
+	return &sysl.Type{
+		Type: &sysl.Type_TypeRef{
+			TypeRef: &sysl.ScopedRef{
+				Ref: &sysl.Scope{Appname: &sysl.AppName{
+					Part: []string{appName},
+				},
+					Path: []string{appName, typeName},
+				},
+			},
+		},
+	}
 }

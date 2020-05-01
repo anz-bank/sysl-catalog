@@ -5,6 +5,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"text/template"
@@ -141,8 +142,11 @@ func (p *Project) initProject() {
 				PackageName: packageName,
 				OutputDir:   path.Join(p.Output, packageName),
 				OutputFile:  p.OutputFileName,
+				Types:       []*Diagram{},
+				Module:      &sysl.Module{Apps: map[string]*sysl.Application{}},
 			}
 		}
+		newPackage.Module.Apps[key] = app
 		p.Packages[packageName] = newPackage
 		if _, ok := p.PackageModules[packageName]; !ok {
 			p.PackageModules[packageName] = &sysl.Module{}
@@ -150,6 +154,23 @@ func (p *Project) initProject() {
 		}
 		p.PackageModules[packageName].Apps[strings.Join(app.Name.Part, "")] = app
 
+	}
+}
+
+func (p *Package) GenerateTypes() {
+	for _, appName := range AlphabeticalApps(p.Module.Apps) {
+		app := p.Module.Apps[appName]
+		for i, typeName := range AlphabeticalTypes(p.Module.Apps[appName].Types) {
+			t := app.Types[typeName]
+			p.Types = append(p.Types, &Diagram{
+				Parent:                p,
+				App:                   app,
+				Type:                  t,
+				PlantUMLDiagramString: p.Parent.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: NewTypeRef(appName, typeName)}, p.Parent.Module)),
+				OutputDir:             path.Join(p.Parent.Output, p.PackageName),
+				OutputFileName__:      sanitiseOutputName(typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
+			})
+		}
 	}
 }
 
@@ -249,7 +270,7 @@ func (p Project) RegisterDiagrams() error {
 			p.Packages[packageName].DatabaseModel[appName] = &Diagram{
 				Parent:                p.Packages[packageName],
 				App:                   app,
-				PlantUMLDiagramString: p.GenerateDBDataModel(appName),
+				PlantUMLDiagramString: p.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, app.Types, p.Module)),
 				OutputDir:             path.Join(p.Output, packageName),
 				OutputFileName__:      sanitiseOutputName(appName+"db") + p.DiagramExt,
 			}
@@ -277,7 +298,7 @@ func (p Project) RegisterDiagrams() error {
 }
 
 // GenerateDBDataModel takes all the types in parentAppName and generates data model diagrams for it
-func (p Project) GenerateDBDataModel(parentAppName string) string {
+func (p Project) GenerateDBDataModel(parentAppName string, t map[string]*sysl.Type) string {
 	pl := &datamodelCmd{}
 	pl.Project = ""
 	//p.Fs.MkdirAll(pl.Output, os.ModePerm)
@@ -291,13 +312,12 @@ func (p Project) GenerateDBDataModel(parentAppName string) string {
 	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
 	vNew := &catalogdiagrams.DataModelView{
 		DataModelView: *v,
-		TypeMap:       p.Module.Apps[parentAppName].Types,
 	}
-	return vNew.GenerateDataView(dataParam, parentAppName, nil, p.Module)
+	return vNew.GenerateDataView(dataParam, parentAppName, t)
 }
 
 // GenerateEndpointDataModel generates data model diagrams for a specific type
-func (p Project) GenerateEndpointDataModel(parentAppName string, t *sysl.Type) string {
+func (p Project) GenerateEndpointDataModel(parentAppName string, t map[string]*sysl.Type) string {
 	pl := &datamodelCmd{}
 	pl.Project = ""
 	p.Fs.MkdirAll(pl.Output, os.ModePerm)
@@ -307,11 +327,9 @@ func (p Project) GenerateEndpointDataModel(parentAppName string, t *sysl.Type) s
 	var stringBuilder strings.Builder
 	dataParam := &catalogdiagrams.DataModelParam{}
 	dataParam.Mod = p.Module
-
 	v := datamodeldiagram.MakeDataModelView(spclass, dataParam.Mod, &stringBuilder, dataParam.Title, "")
 	vNew := &catalogdiagrams.DataModelView{
 		DataModelView: *v,
-		TypeMap:       map[string]*sysl.Type{},
 	}
-	return vNew.GenerateDataView(dataParam, parentAppName, t, p.Module)
+	return vNew.GenerateDataView(dataParam, parentAppName, catalogdiagrams.RecurseivelyGetTypes(parentAppName, t, p.Module))
 }

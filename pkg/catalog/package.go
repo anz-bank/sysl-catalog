@@ -8,17 +8,18 @@ import (
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
-
 var re = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
 
 // Package is the second level where apps and endpoints are specified.
 type Package struct {
+	*sysl.Module
 	Parent           *Project
 	OutputDir        string
 	PackageName      string
 	OutputFile       string
 	SequenceDiagrams map[string][]*Diagram // map[appName][]*Diagram
 	DatabaseModel    map[string]*Diagram
+	Types            []*Diagram
 	Integration      *Diagram
 	EPAIntegration   *Diagram
 }
@@ -36,7 +37,7 @@ func (p Package) SequenceDiagramFromEndpoint(appName string, endpoint *sysl.Endp
 		App:                   p.Parent.Module.Apps[appName],
 		OutputDir:             path.Join(p.Parent.Output, p.PackageName),
 		PlantUMLDiagramString: seq,
-		OutputFileName__:      sanitiseOutputName(appName + endpoint.Name)+p.Parent.DiagramExt,
+		OutputFileName__:      sanitiseOutputName(appName+endpoint.Name) + p.Parent.DiagramExt,
 	}
 	return diagram, nil
 }

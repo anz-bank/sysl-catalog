@@ -2,12 +2,14 @@ package catalog
 
 import (
 	"fmt"
-	"github.com/spf13/afero"
 	"os"
 	"path"
 	"strconv"
 	"strings"
 	"sync"
+
+	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
+	"github.com/spf13/afero"
 
 	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
 
@@ -142,7 +144,7 @@ func (s Diagram) InputDataModel() []*Diagram {
 			Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 			App:                   s.Parent.Parent.Module.Apps[appName],
-			PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+			PlantUMLDiagramString: s.Parent.Parent.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: typeref}, s.Parent.Parent.Module)),
 			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 		}
 		diagram = append(diagram, newDiagram)
@@ -216,7 +218,7 @@ func (s Diagram) OutputDataModel() []*Diagram {
 				Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 				OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 				App:                   s.Parent.Parent.Module.Apps[appName],
-				PlantUMLDiagramString: s.Parent.Parent.GenerateEndpointDataModel(appName, typeref),
+				PlantUMLDiagramString: s.Parent.Parent.GenerateDBDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{appName: typeref}, s.Parent.Parent.Module)),
 				OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-response"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 			}
 			diagram = append(diagram, newDiagram)

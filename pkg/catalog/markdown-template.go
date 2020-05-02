@@ -42,7 +42,9 @@ const PackageMarkdownTemplate = `
 {{range $Diagram := $Diagrams}}
 {{if $first}}
 ## {{$Diagram.AppName}}
-{{$Diagram.AppComment}}
+{{if ne $Diagram.AppComment ""}}
+- {{$Diagram.AppComment}}
+{{end}}
 {{end}}
 {{$first = false}}
 
@@ -56,13 +58,17 @@ const PackageMarkdownTemplate = `
 
 ### Request types
 {{range $DataModelDiagram := $Diagram.InputDataModel}}
-{{$DataModelDiagram.TypeComment}}
+{{if ne $DataModelDiagram.TypeComment ""}}
+- {{$Diagrams.TypeComment}}
+{{end}}
 {{$DataModelDiagram.Img}}
 {{end}}
 
 ### Response types
 {{range $DataModelDiagram := $Diagram.OutputDataModel}}
-{{$DataModelDiagram.TypeComment}}
+{{if ne $DataModelDiagram.TypeComment ""}}
+- {{$Diagrams.TypeComment}}
+{{end}}
 {{$DataModelDiagram.Img}}
 {{end}}
 {{end}}

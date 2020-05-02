@@ -2,9 +2,7 @@ Bar:
     @package="Standard"
     AnotherEndpoint(input <: GrpcTesting.Request):
         return ok <: GrpcTesting.Response
-Blah:
-    foobar:
-        Foo <- thisEndpoint
+
 Foo:
     @description = "this is a description of foo"
     @package="Standard"

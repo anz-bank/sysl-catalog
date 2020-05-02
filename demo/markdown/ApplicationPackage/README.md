@@ -132,7 +132,7 @@ ThirdEndpoint comment
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
-<th>Full Link</th>
+<th>Full Diagram</th>
 </tr>
 
 

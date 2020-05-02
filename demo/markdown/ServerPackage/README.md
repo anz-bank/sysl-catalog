@@ -67,7 +67,7 @@ this is a description of Authenticate
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
-<th>Full Link</th>
+<th>Full Diagram</th>
 </tr>
 
 
@@ -78,7 +78,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-![](SimpleEmptydata-model0.svg)
+![](SimpleEmptydata-model1.svg)
 </td>
 <td> 
 
@@ -86,7 +86,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-[Link](Full-Emptydata-model0.svg)
+[Link](Full-Emptydata-model1.svg)
 </td>
 </tr>
 <tr>
@@ -114,7 +114,7 @@ Server.<br>Request
 </td>
 <td>
 
-![](SimpleRequestdata-model0.svg)
+![](SimpleRequestdata-model1.svg)
 </td>
 <td> 
 
@@ -122,7 +122,7 @@ Server.<br>Request
 </td>
 <td>
 
-[Link](Full-Requestdata-model0.svg)
+[Link](Full-Requestdata-model1.svg)
 </td>
 </tr>
 <tr>

@@ -71,7 +71,9 @@ const PackageMarkdownTemplate = `
 
 {{range $appName, $Diagrams := .DatabaseModel}}
 ## Database {{$appName}}
-{{$Diagrams.AppComment}}
+{{if ne $Diagrams.AppComment ""}}
+- {{$Diagrams.AppComment}}
+{{end}}
 {{$Diagrams.Img}}
 {{end}}
 
@@ -81,7 +83,7 @@ const PackageMarkdownTemplate = `
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
-<th>Full Link</th>
+<th>Full Diagram</th>
 </tr>
 
 {{range $typeName, $Diagrams := .Types}}

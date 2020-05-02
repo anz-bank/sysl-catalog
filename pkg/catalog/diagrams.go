@@ -36,6 +36,12 @@ type Diagram struct {
 	Diagramtype           string
 }
 
+type DiagramPair struct {
+	Key    string
+	Simple *Diagram
+	Full   *Diagram
+}
+
 func (d Diagram) Img() string {
 	var fs afero.Fs
 	var fastLoad bool

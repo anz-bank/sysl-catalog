@@ -37,6 +37,8 @@ func main() {
 		log.SetLevel(logrus.InfoLevel)
 	} else {
 		log.SetLevel(logrus.ErrorLevel)
+		logrus.SetLevel(logrus.ErrorLevel)
+
 	}
 	m, err := parse.NewParser().Parse(*input, fs)
 	if err != nil {

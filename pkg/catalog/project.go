@@ -146,11 +146,8 @@ func (p *Project) initProject() {
 				PackageName: packageName,
 				OutputDir:   path.Join(p.Output, packageName),
 				OutputFile:  p.OutputFileName,
-				Types: make(map[string]*struct {
-					Simple *Diagram
-					Full   *Diagram
-				}),
-				Module: &sysl.Module{Apps: map[string]*sysl.Application{}},
+				Types:       make(map[string]*DiagramPair),
+				Module:      &sysl.Module{Apps: map[string]*sysl.Application{}},
 			}
 		}
 		newPackage.Module.Apps[key] = app
@@ -166,6 +163,7 @@ func (p *Project) initProject() {
 
 func (p *Package) GenerateTypes() {
 	var wg sync.WaitGroup // Make diagram generation concurrent
+	c := make(chan DiagramPair)
 	for _, appName := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[appName]
 		for i, typeName := range AlphabeticalTypes(p.Module.Apps[appName].Types) {
@@ -173,9 +171,9 @@ func (p *Package) GenerateTypes() {
 			if t.GetRelation() != nil {
 				continue
 			}
+			wg.Add(1)
 			go func(appName, typeName string, t *sysl.Type) {
-				wg.Add(1)
-				newDiagram := &Diagram{
+				simpleDiagram := &Diagram{
 					Parent:                p,
 					App:                   app,
 					Type:                  t,
@@ -183,18 +181,14 @@ func (p *Package) GenerateTypes() {
 					OutputDir:             path.Join(p.Parent.Output, p.PackageName),
 					OutputFileName__:      sanitiseOutputName("Simple"+typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
 				}
-				p.Parent.Fs.MkdirAll(newDiagram.OutputDir, os.ModePerm)
-				file, err := p.Parent.Fs.Create(path.Join(newDiagram.OutputDir, newDiagram.OutputFileName__))
+				p.Parent.Fs.MkdirAll(simpleDiagram.OutputDir, os.ModePerm)
+				file, err := p.Parent.Fs.Create(path.Join(simpleDiagram.OutputDir, simpleDiagram.OutputFileName__))
 				if err != nil {
 					panic(err)
 				}
-				file.Write([]byte(newDiagram.PlantUMLDiagramString))
-				p.Types[typeName] = &struct {
-					Simple *Diagram
-					Full   *Diagram
-				}{Simple: newDiagram}
-				newDiagram.GenerateDiagramAndMarkdown()
-				newDiagram = &Diagram{
+				file.Write([]byte(simpleDiagram.PlantUMLDiagramString))
+				simpleDiagram.GenerateDiagramAndMarkdown()
+				fullDiagram := &Diagram{
 					Parent:                p,
 					App:                   app,
 					Type:                  t,
@@ -202,18 +196,32 @@ func (p *Package) GenerateTypes() {
 					OutputDir:             path.Join(p.Parent.Output, p.PackageName),
 					OutputFileName__:      sanitiseOutputName("Full-"+typeName+"data-model"+strconv.Itoa(i)) + p.Parent.DiagramExt,
 				}
-				p.Parent.Fs.MkdirAll(newDiagram.OutputDir, os.ModePerm)
-				file, err = p.Parent.Fs.Create(path.Join(newDiagram.OutputDir, newDiagram.OutputFileName__))
+				p.Parent.Fs.MkdirAll(fullDiagram.OutputDir, os.ModePerm)
+				file, err = p.Parent.Fs.Create(path.Join(fullDiagram.OutputDir, fullDiagram.OutputFileName__))
 				if err != nil {
 					panic(err)
 				}
-				file.Write([]byte(newDiagram.PlantUMLDiagramString))
-				p.Types[typeName].Full = newDiagram
-				newDiagram.GenerateDiagramAndMarkdown()
+				file.Write([]byte(fullDiagram.PlantUMLDiagramString))
+				fullDiagram.GenerateDiagramAndMarkdown()
+				c <- DiagramPair{
+					Key:    typeName,
+					Simple: simpleDiagram,
+					Full:   fullDiagram,
+				}
 				wg.Done()
 			}(appName, typeName, t)
+
 		}
 	}
+	go func() {
+		for {
+			select {
+			case d := <-c:
+				p.Types[d.Key] = &d
+			}
+		}
+	}()
+	wg.Wait()
 }
 
 // ExecuteTemplateAndDiagrams generates all documentation of Project with the registered Markdown
@@ -246,7 +254,11 @@ func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 		if err != nil {
 			p.Log.Errorf("Error generating package int diagram")
 		}
-		pkg.GenerateTypes()
+		go func() {
+			wg.Add(1)
+			pkg.GenerateTypes()
+			wg.Done()
+		}()
 		for _, apps := range pkg.SequenceDiagrams {
 			for _, sd := range apps {
 				wg.Add(1)

@@ -246,11 +246,7 @@ func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 		if err != nil {
 			p.Log.Errorf("Error generating package int diagram")
 		}
-		wg.Add(1)
-		go func() {
-			pkg.GenerateTypes()
-		}()
-		wg.Done()
+		pkg.GenerateTypes()
 		for _, apps := range pkg.SequenceDiagrams {
 			for _, sd := range apps {
 				wg.Add(1)

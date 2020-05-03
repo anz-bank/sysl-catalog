@@ -59,7 +59,7 @@ const PackageMarkdownTemplate = `
 ### Request types
 {{range $DataModelDiagram := $Diagram.InputDataModel}}
 {{if ne $DataModelDiagram.TypeComment ""}}
-- {{$Diagrams.TypeComment}}
+- {{$DataModelDiagram.TypeComment}}
 {{end}}
 {{$DataModelDiagram.Img}}
 {{end}}
@@ -67,7 +67,7 @@ const PackageMarkdownTemplate = `
 ### Response types
 {{range $DataModelDiagram := $Diagram.OutputDataModel}}
 {{if ne $DataModelDiagram.TypeComment ""}}
-- {{$Diagrams.TypeComment}}
+- {{$DataModelDiagram.TypeComment}}
 {{end}}
 {{$DataModelDiagram.Img}}
 {{end}}

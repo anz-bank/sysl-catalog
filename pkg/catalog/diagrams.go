@@ -187,6 +187,50 @@ func (s Diagram) InputDataModel() []*Diagram {
 	return diagram
 }
 
+// Builds datamodel diagrams for path and query params
+func (s Diagram) QueryParamDataModel() []*Diagram {
+	appName := s.AppName()
+	typeName := ""
+	var diagram []*Diagram
+	if s.Endpoint == nil || s.Endpoint.RestParams == nil || len(s.Endpoint.RestParams.QueryParam) == 0 {
+		return nil
+	}
+	for i, param := range s.Endpoint.RestParams.QueryParam {
+		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
+			if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+				appName = paramNameParts[0]
+				typeName = path[0]
+			} else {
+				typeName = paramNameParts[0]
+			}
+		} else {
+			typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
+		}
+		typeref := &sysl.Type{
+			Type: &sysl.Type_TypeRef{
+				TypeRef: &sysl.ScopedRef{
+					Ref: &sysl.Scope{Appname: &sysl.AppName{
+						Part: []string{appName},
+					},
+						Path: []string{appName, typeName},
+					},
+				},
+			},
+		}
+
+		newDiagram := &Diagram{
+			Parent:                s.Parent,
+			Type:                  typeref,
+			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+			App:                   s.Parent.Parent.Module.Apps[appName],
+			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, s.Parent.Parent.Module)),
+			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-query-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
+		}
+		diagram = append(diagram, newDiagram)
+	}
+	return diagram
+}
+
 // OutputDataModel Generates return value diagrams for the endpoint that's registered in s
 func (s Diagram) OutputDataModel() []*Diagram {
 	appName := s.AppName()
@@ -250,6 +294,15 @@ func (sd *Diagram) GenerateDiagramAndMarkdown() error {
 		wg.Done()
 	}()
 	for _, d := range sd.InputDataModel() {
+		wg.Add(1)
+		go func(s *Diagram) {
+			outputFileName := path.Join(s.OutputDir, s.OutputFileName__)
+			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.PlantUMLDiagramString, s.Parent.Parent.Fs)
+			wg.Done()
+		}(d)
+
+	}
+	for _, d := range sd.QueryParamDataModel() {
 		wg.Add(1)
 		go func(s *Diagram) {
 			outputFileName := path.Join(s.OutputDir, s.OutputFileName__)

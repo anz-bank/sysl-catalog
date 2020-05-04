@@ -7,7 +7,7 @@ require (
 	github.com/alecthomas/repr v0.0.0-20200325044227-4184120f674c // indirect
 	github.com/antlr/antlr4 v0.0.0-20200417160354-8c50731894e0 // indirect
 	github.com/anz-bank/protoc-gen-sysl v0.0.1
-	github.com/anz-bank/sysl v0.75.0
+	github.com/anz-bank/sysl v0.76.0
 	github.com/cheggaaa/pb v2.0.7+incompatible // indirect
 	github.com/cheggaaa/pb/v3 v3.0.4
 	github.com/getkin/kin-openapi v0.8.0 // indirect

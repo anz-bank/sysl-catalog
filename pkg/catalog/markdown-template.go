@@ -70,6 +70,14 @@ const PackageMarkdownTemplate = `
 {{end}}
 {{$DataModelDiagram.Img}}
 {{end}}
+
+{{range $DataModelDiagram := $Diagram.PathParamDataModel}}
+{{if ne $DataModelDiagram.TypeComment ""}}
+- {{$DataModelDiagram.TypeComment}}
+{{end}}
+{{$DataModelDiagram.Img}}
+{{end}}
+
 ### Response types
 {{range $DataModelDiagram := $Diagram.OutputDataModel}}
 {{if ne $DataModelDiagram.TypeComment ""}}

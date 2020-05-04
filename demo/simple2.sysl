@@ -39,6 +39,14 @@ Server:
     Authenticate(input <: Request):
         @description = "this is a description of Authenticate"
         return ok <: Response
+    
+    /testRestURLParam/{id<:Request}:
+        GET:
+            return ok <: Response
+    
+    /testRestQueryParam:
+        GET ?queryString={Request}:
+            return ok <: Response
 
 # This is an example of apps with types made up of different apps
 MegaDatabase:

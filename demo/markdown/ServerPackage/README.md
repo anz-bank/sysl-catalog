@@ -10,6 +10,7 @@ Server | [GET/testRestPathParamPrimitive/{primitiveID}](#Server-GET/testRestPath
 Server | [GET/testRestQueryParam](#Server-GET/testRestQueryParam) |
 Server | [GET/testRestQueryParamPrimitive](#Server-GET/testRestQueryParamPrimitive) |
 Server | [GET/testRestURLParam/{id}](#Server-GET/testRestURLParam/{id}) |
+Server | [GET/testReturnNil](#Server-GET/testReturnNil) |
 
 ## Database Index
 | Database Name |
@@ -173,6 +174,30 @@ this is a description of Authenticate
 ![](ServerGETtestRestURLParam{id}data-model-response0.svg)
 
 
+
+
+
+
+## Server GET /testReturnNil
+
+
+
+### Sequence Diagram
+![](ServerGETtestReturnNil.svg)
+
+### Request types
+
+
+
+
+
+
+### Response types
+
+
+![](ServerGETtestReturnNildata-model-response0.svg)
+
+
 ---
 
 
@@ -195,11 +220,11 @@ this is a description of Authenticate
 <tr>
 <td>
 
-MegaDatabase.<br>Empty
+Server.<br>Empty
 </td>
 <td>
 
-![](SimpleEmptydata-model1.svg)
+![](SimpleEmptydata-model2.svg)
 </td>
 <td> 
 
@@ -207,7 +232,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-[Link](Full-Emptydata-model1.svg)
+[Link](Full-Emptydata-model2.svg)
 </td>
 </tr>
 <tr>
@@ -235,7 +260,7 @@ Server.<br>Request
 </td>
 <td>
 
-![](SimpleRequestdata-model1.svg)
+![](SimpleRequestdata-model2.svg)
 </td>
 <td> 
 
@@ -243,7 +268,7 @@ Server.<br>Request
 </td>
 <td>
 
-[Link](Full-Requestdata-model1.svg)
+[Link](Full-Requestdata-model2.svg)
 </td>
 </tr>
 <tr>
@@ -253,7 +278,7 @@ Server.<br>Response
 </td>
 <td>
 
-![](SimpleResponsedata-model1.svg)
+![](SimpleResponsedata-model2.svg)
 </td>
 <td> 
 
@@ -261,7 +286,7 @@ Server.<br>Response
 </td>
 <td>
 
-[Link](Full-Responsedata-model1.svg)
+[Link](Full-Responsedata-model2.svg)
 </td>
 </tr>
 </table>

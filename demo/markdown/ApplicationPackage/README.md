@@ -78,9 +78,6 @@ hello, gamers
 ### Response types
 
 
-![](MegaDatabaseLogindata-model-response1.svg)
-
-
 ---
 
 
@@ -112,9 +109,6 @@ SecondEndpoint, comment
 
 
 ### Response types
-
-
-![](MegaDatabaseSecondEndpointdata-model-response1.svg)
 
 
 

@@ -191,6 +191,7 @@ func RecurseivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cu
 
 func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string, *sysl.Type) {
 	var typeName string
+	// Handles empty types defined using ...
 	if t == nil {
 		return "", "", nil
 	}

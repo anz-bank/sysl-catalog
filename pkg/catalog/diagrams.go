@@ -334,12 +334,19 @@ func (s Diagram) OutputDataModel() []*Diagram {
 			} else {
 				typeref = NewTypeRef(appName, typeName)
 			}
+			relatedReturnTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, s.Parent.Parent.Module)
+
+			// Don't generate diagrams for empty types e.g Types defined with ...
+			if len(relatedReturnTypes) == 1 && relatedReturnTypes[appName+"."+typeName].Type == nil {
+				fmt.Printf("Ignored empty type: %s", typeName)
+				continue
+			}
 			newDiagram := &Diagram{
 				Parent:                s.Parent,
 				Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 				OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 				App:                   s.Parent.Parent.Module.Apps[appName],
-				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, s.Parent.Parent.Module)),
+				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, relatedReturnTypes),
 				OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-response"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 			}
 			diagram = append(diagram, newDiagram)

@@ -8,7 +8,7 @@
 <div id='content'>
 <p><a href="../index.html">Back</a></p>
 
-<h1>Package ServerPackage</h1>
+<h1>ServerPackage</h1>
 
 <h2>Service Index</h2>
 
@@ -25,63 +25,98 @@
 <td>Server</td>
 <td><a href="#Server-Authenticate">Authenticate</a></td>
 </tr>
+
+<tr>
+<td>Server</td>
+<td><a href="#Server-GETtestRestPathParamPrimitive{primitiveID}">GET /testRestPathParamPrimitive/{primitiveID}</a></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><a href="#Server-GETtestRestQueryParam">GET /testRestQueryParam</a></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><a href="#Server-GETtestRestQueryParamPrimitive">GET /testRestQueryParamPrimitive</a></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><a href="#Server-GETtestRestURLParam{id}">GET /testRestURLParam/{id}</a></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><a href="#Server-GETtestReturnNil">GET /testReturnNil</a></td>
+</tr>
 </tbody>
 </table>
+<p><img src="integration.svg" alt="" /></p>
 
-<h2>Database Index</h2>
+<h1>MegaDatabase</h1>
 
-<table>
-<thead>
-<tr>
-<th>Database Name</th>
-</tr>
-</thead>
+<h1>RelModel</h1>
 
-<tbody>
-<tr>
-<td><a href="#Database-RelModel">RelModel</a></td>
-</tr>
-</tbody>
-</table>
-<p><a href="#Types">Types</a></p>
+<h1>Server</h1>
 
-<h2>Integration diagram</h2>
-
-<p><img src="ServerPackage_integration.svg"></p>
-
-<hr />
-
-<hr />
-
-<h2>Server</h2>
-
-<ul>
-<li>this is a comment for Server</li>
-</ul>
+<p>this is a comment for Server</p>
 
 <h2>Server Authenticate</h2>
 
-<p>this is a description of Authenticate</p>
-
-<h3>Sequence Diagram</h3>
-
-<p><img src="ServerAuthenticate.svg"></p>
+<p><img src="Server/Authenticate.svg" alt="" /></p>
 
 <h3>Request types</h3>
 
-<p><img src="ServerAuthenticatedata-model-parameter0.svg"></p>
+<p><img src="Server.svg" alt="" /></p>
 
 <h3>Response types</h3>
 
-<p><img src="ServerAuthenticatedata-model-response0.svg"></p>
+<h2>Server GETtestRestPathParamPrimitive{primitiveID}</h2>
 
-<hr />
+<p><img src="Server/GETtestRestPathParamPrimitive{primitiveID}.svg" alt="" /></p>
 
-<h2>Database RelModel</h2>
+<h3>Request types</h3>
 
-<p><img src="RelModeldb.svg"></p>
+<h3>Response types</h3>
 
-<h2>Types</h2>
+<h2>Server GETtestRestQueryParam</h2>
+
+<p><img src="Server/GETtestRestQueryParam.svg" alt="" /></p>
+
+<h3>Request types</h3>
+
+<h3>Response types</h3>
+
+<h2>Server GETtestRestQueryParamPrimitive</h2>
+
+<p><img src="Server/GETtestRestQueryParamPrimitive.svg" alt="" /></p>
+
+<h3>Request types</h3>
+
+<h3>Response types</h3>
+
+<h2>Server GETtestRestURLParam{id}</h2>
+
+<p><img src="Server/GETtestRestURLParam{id}.svg" alt="" /></p>
+
+<h3>Request types</h3>
+
+<h3>Response types</h3>
+
+<h2>Server GETtestReturnNil</h2>
+
+<p><img src="Server/GETtestReturnNil.svg" alt="" /></p>
+
+<h3>Request types</h3>
+
+<h3>Response types</h3>
+
+<h2>Database</h2>
+
+<p><img src="RelModel/types.svg" alt="" /></p>
+
+<h3>Types</h3>
 
 <table>
 <tr>
@@ -89,6 +124,8 @@
 <th>Diagram</th>
 <th>Comment</th>
 <th>Full Diagram</th>
+
+
 </tr>
 
 
@@ -99,7 +136,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-<img src="SimpleEmptydata-model1.svg">
+<img src="MegaDatabase/Emptysimple.svg">
 </td>
 <td> 
 
@@ -107,7 +144,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-<a href="Full-Emptydata-model1.svg">Link</a>
+<a href="MegaDatabase/Emptyfull.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -117,7 +154,7 @@ MegaDatabase.<br>Money
 </td>
 <td>
 
-<img src="SimpleMoneydata-model1.svg">
+<img src="MegaDatabase/Moneysimple.svg">
 </td>
 <td> 
 
@@ -125,7 +162,30 @@ MegaDatabase.<br>Money
 </td>
 <td>
 
-<a href="Full-Moneydata-model1.svg">Link</a>
+<a href="MegaDatabase/Moneyfull.svg">Link</a>
+</td>
+</tr>
+
+
+</tr>
+
+
+<tr>
+<td>
+
+Server.<br>Empty
+</td>
+<td>
+
+<img src="Server/Emptysimple.svg">
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+<a href="Server/Emptyfull.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -135,7 +195,7 @@ Server.<br>Request
 </td>
 <td>
 
-<img src="SimpleRequestdata-model1.svg">
+<img src="Server/Requestsimple.svg">
 </td>
 <td> 
 
@@ -143,7 +203,7 @@ Server.<br>Request
 </td>
 <td>
 
-<a href="Full-Requestdata-model1.svg">Link</a>
+<a href="Server/Requestfull.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -153,7 +213,7 @@ Server.<br>Response
 </td>
 <td>
 
-<img src="SimpleResponsedata-model1.svg">
+<img src="Server/Responsesimple.svg">
 </td>
 <td> 
 
@@ -161,7 +221,7 @@ Server.<br>Response
 </td>
 <td>
 
-<a href="Full-Responsedata-model1.svg">Link</a>
+<a href="Server/Responsefull.svg">Link</a>
 </td>
 </tr>
 </table>

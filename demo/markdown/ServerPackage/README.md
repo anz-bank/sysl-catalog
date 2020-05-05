@@ -1,219 +1,155 @@
 
 [Back](../README.md)
-# Package ServerPackage
+
+
+# ServerPackage
 
 ## Service Index
 | Service Name | Method |
 ----|----
-Server | [Authenticate](#Server-Authenticate) |
-Server | [GET/testRestPathParamPrimitive/{primitiveID}](#Server-GET/testRestPathParamPrimitive/{primitiveID}) |
-Server | [GET/testRestQueryParam](#Server-GET/testRestQueryParam) |
-Server | [GET/testRestQueryParamPrimitive](#Server-GET/testRestQueryParamPrimitive) |
-Server | [GET/testRestURLParam/{id}](#Server-GET/testRestURLParam/{id}) |
-Server | [GET/testReturnNil](#Server-GET/testReturnNil) |
-
-## Database Index
-| Database Name |
-----|
-| [RelModel](#Database-RelModel) |
-
-[Types](#Types)
-
-## Integration diagram
-
-![](ServerPackage_integration.svg)
-
----
+Server | [Authenticate](#Server-Authenticate)
+Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID})
+Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam)
+Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive)
+Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id})
+Server | [GET /testReturnNil](#Server-GETtestReturnNil)
 
 
 
----
+![](integration.svg)
 
 
 
-
-## Server
-
-- this is a comment for Server
+# MegaDatabase
 
 
 
+# RelModel
+
+
+
+# Server
+this is a comment for Server
 
 
 ## Server Authenticate
-
-this is a description of Authenticate
-
-### Sequence Diagram
-![](ServerAuthenticate.svg)
+![](Server/Authenticate.svg)
 
 ### Request types
 
-
-![](ServerAuthenticatedata-model-parameter0.svg)
-
-
-
-
+![](Server.svg)
 
 
 ### Response types
 
 
-![](ServerAuthenticatedata-model-response0.svg)
-
-
-
-
-
-
-## Server GET /testRestPathParamPrimitive/{primitiveID}
-
-
-
-### Sequence Diagram
-![](ServerGETtestRestPathParamPrimitive{primitiveID}.svg)
+## Server GETtestRestPathParamPrimitive{primitiveID}
+![](Server/GETtestRestPathParamPrimitive{primitiveID}.svg)
 
 ### Request types
-
-
-
-
-
-
-![](ServerGETtestRestPathParamPrimitive{primitiveID}data-model-path-parameter0.svg)
 
 
 ### Response types
 
 
-![](ServerGETtestRestPathParamPrimitive{primitiveID}data-model-response0.svg)
-
-
-
-
-
-
-## Server GET /testRestQueryParam
-
-
-
-### Sequence Diagram
-![](ServerGETtestRestQueryParam.svg)
+## Server GETtestRestQueryParam
+![](Server/GETtestRestQueryParam.svg)
 
 ### Request types
-
-
-
-
-![](ServerGETtestRestQueryParamdata-model-query-parameter0.svg)
-
-
-![](ServerGETtestRestQueryParamdata-model-query-parameter1.svg)
-
-
 
 
 ### Response types
 
 
-![](ServerGETtestRestQueryParamdata-model-response0.svg)
-
-
-
-
-
-
-## Server GET /testRestQueryParamPrimitive
-
-
-
-### Sequence Diagram
-![](ServerGETtestRestQueryParamPrimitive.svg)
+## Server GETtestRestQueryParamPrimitive
+![](Server/GETtestRestQueryParamPrimitive.svg)
 
 ### Request types
-
-
-
-
-![](ServerGETtestRestQueryParamPrimitivedata-model-query-parameter0.svg)
-
-
 
 
 ### Response types
 
 
-![](ServerGETtestRestQueryParamPrimitivedata-model-response0.svg)
-
-
-
-
-
-
-## Server GET /testRestURLParam/{id}
-
-
-
-### Sequence Diagram
-![](ServerGETtestRestURLParam{id}.svg)
+## Server GETtestRestURLParam{id}
+![](Server/GETtestRestURLParam{id}.svg)
 
 ### Request types
-
-
-
-
-
-
-![](ServerGETtestRestURLParam{id}data-model-path-parameter0.svg)
 
 
 ### Response types
 
 
-![](ServerGETtestRestURLParam{id}data-model-response0.svg)
-
-
-
-
-
-
-## Server GET /testReturnNil
-
-
-
-### Sequence Diagram
-![](ServerGETtestReturnNil.svg)
+## Server GETtestReturnNil
+![](Server/GETtestReturnNil.svg)
 
 ### Request types
-
-
-
-
 
 
 ### Response types
 
 
-![](ServerGETtestReturnNildata-model-response0.svg)
-
-
----
 
 
 
-## Database RelModel
-
-![](RelModeldb.svg)
 
 
-## Types
+## Database
+![](RelModel/types.svg)
+
+
+
+
+### Types
+
 <table>
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
 <th>Full Diagram</th>
+
+
+</tr>
+
+
+<tr>
+<td>
+
+MegaDatabase.<br>Empty
+</td>
+<td>
+
+<img src="MegaDatabase/Emptysimple.svg">
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+<a href="MegaDatabase/Emptyfull.svg">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+
+MegaDatabase.<br>Money
+</td>
+<td>
+
+<img src="MegaDatabase/Moneysimple.svg">
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+<a href="MegaDatabase/Moneyfull.svg">Link</a>
+</td>
+</tr>
+
+
 </tr>
 
 
@@ -224,7 +160,7 @@ Server.<br>Empty
 </td>
 <td>
 
-![](SimpleEmptydata-model2.svg)
+<img src="Server/Emptysimple.svg">
 </td>
 <td> 
 
@@ -232,25 +168,7 @@ Server.<br>Empty
 </td>
 <td>
 
-[Link](Full-Emptydata-model2.svg)
-</td>
-</tr>
-<tr>
-<td>
-
-MegaDatabase.<br>Money
-</td>
-<td>
-
-![](SimpleMoneydata-model1.svg)
-</td>
-<td> 
-
- 
-</td>
-<td>
-
-[Link](Full-Moneydata-model1.svg)
+<a href="Server/Emptyfull.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -260,7 +178,7 @@ Server.<br>Request
 </td>
 <td>
 
-![](SimpleRequestdata-model2.svg)
+<img src="Server/Requestsimple.svg">
 </td>
 <td> 
 
@@ -268,7 +186,7 @@ Server.<br>Request
 </td>
 <td>
 
-[Link](Full-Requestdata-model2.svg)
+<a href="Server/Requestfull.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -278,7 +196,7 @@ Server.<br>Response
 </td>
 <td>
 
-![](SimpleResponsedata-model2.svg)
+<img src="Server/Responsesimple.svg">
 </td>
 <td> 
 
@@ -286,7 +204,8 @@ Server.<br>Response
 </td>
 <td>
 
-[Link](Full-Responsedata-model2.svg)
+<a href="Server/Responsefull.svg">Link</a>
 </td>
 </tr>
 </table>
+

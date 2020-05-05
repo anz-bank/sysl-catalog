@@ -12,13 +12,6 @@ Foo:
         ThisApp <- DoesntExist
         return ok <: GrpcTesting.Response
 
-simple[appfmt="%(appname)", ~ignore]:
-    _:
-        Apple
-        Banana
-        Foo
-        Bar
-        GrpcTesting
 Apple:
     @package="Fruits"
     AnotherEndpoint(input <: GrpcTesting.Request):

@@ -6,6 +6,10 @@
 | Service Name | Method |
 ----|----
 Server | [Authenticate](#Server-Authenticate) |
+Server | [GET/testRestPathParamPrimitive/{primitiveID}](#Server-GET/testRestPathParamPrimitive/{primitiveID}) |
+Server | [GET/testRestQueryParam](#Server-GET/testRestQueryParam) |
+Server | [GET/testRestQueryParamPrimitive](#Server-GET/testRestQueryParamPrimitive) |
+Server | [GET/testRestURLParam/{id}](#Server-GET/testRestURLParam/{id}) |
 
 ## Database Index
 | Database Name |
@@ -48,10 +52,125 @@ this is a description of Authenticate
 ![](ServerAuthenticatedata-model-parameter0.svg)
 
 
+
+
+
+
 ### Response types
 
 
 ![](ServerAuthenticatedata-model-response0.svg)
+
+
+
+
+
+
+## Server GET /testRestPathParamPrimitive/{primitiveID}
+
+
+
+### Sequence Diagram
+![](ServerGETtestRestPathParamPrimitive{primitiveID}.svg)
+
+### Request types
+
+
+
+
+
+
+![](ServerGETtestRestPathParamPrimitive{primitiveID}data-model-path-parameter0.svg)
+
+
+### Response types
+
+
+![](ServerGETtestRestPathParamPrimitive{primitiveID}data-model-response0.svg)
+
+
+
+
+
+
+## Server GET /testRestQueryParam
+
+
+
+### Sequence Diagram
+![](ServerGETtestRestQueryParam.svg)
+
+### Request types
+
+
+
+
+![](ServerGETtestRestQueryParamdata-model-query-parameter0.svg)
+
+
+![](ServerGETtestRestQueryParamdata-model-query-parameter1.svg)
+
+
+
+
+### Response types
+
+
+![](ServerGETtestRestQueryParamdata-model-response0.svg)
+
+
+
+
+
+
+## Server GET /testRestQueryParamPrimitive
+
+
+
+### Sequence Diagram
+![](ServerGETtestRestQueryParamPrimitive.svg)
+
+### Request types
+
+
+
+
+![](ServerGETtestRestQueryParamPrimitivedata-model-query-parameter0.svg)
+
+
+
+
+### Response types
+
+
+![](ServerGETtestRestQueryParamPrimitivedata-model-response0.svg)
+
+
+
+
+
+
+## Server GET /testRestURLParam/{id}
+
+
+
+### Sequence Diagram
+![](ServerGETtestRestURLParam{id}.svg)
+
+### Request types
+
+
+
+
+
+
+![](ServerGETtestRestURLParam{id}data-model-path-parameter0.svg)
+
+
+### Response types
+
+
+![](ServerGETtestRestURLParam{id}data-model-response0.svg)
 
 
 ---

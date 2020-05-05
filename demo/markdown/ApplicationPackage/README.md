@@ -44,6 +44,10 @@ hello, world
 ### Request types
 
 
+
+
+
+
 ### Response types
 
 
@@ -65,6 +69,10 @@ hello, gamers
 
 
 ![](ServerLogindata-model-parameter0.svg)
+
+
+
+
 
 
 ### Response types
@@ -99,6 +107,10 @@ SecondEndpoint, comment
 ![](ServerSecondEndpointdata-model-parameter0.svg)
 
 
+
+
+
+
 ### Response types
 
 
@@ -117,6 +129,10 @@ ThirdEndpoint comment
 ![](MobileApp2ThirdEndpoint.svg)
 
 ### Request types
+
+
+
+
 
 
 ### Response types

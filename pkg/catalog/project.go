@@ -10,6 +10,8 @@ import (
 	"sync"
 	"text/template"
 
+	"github.com/cheggaaa/pb/v3"
+
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
 	"github.com/sirupsen/logrus"
 
@@ -20,6 +22,7 @@ import (
 
 // Project is the top level in the hierarchy of markdown generation
 type Project struct {
+	Progress                       *pb.ProgressBar
 	Title                          string
 	PageFileName                   string // Is README.md for markdown and index.html for html
 	Server                         bool   // Determines wether html refresh header is added
@@ -132,6 +135,7 @@ func (p *Project) Update(m *sysl.Module) *Project {
 
 // initProject reshuffles apps into "packages"; sort of like "sub modules"
 func (p *Project) initProject() {
+	numApps := 0
 	for _, key := range AlphabeticalApps(p.Module.Apps) {
 		app := p.Module.Apps[key]
 		p.Log.Info(p.Title, key)
@@ -157,8 +161,10 @@ func (p *Project) initProject() {
 			p.PackageModules[packageName].Apps = map[string]*sysl.Application{}
 		}
 		p.PackageModules[packageName].Apps[strings.Join(app.Name.Part, "")] = app
-
+		numApps += len(app.Types) + len(app.Endpoints)
 	}
+	numApps += len(p.Packages) + 1
+	p.Progress = pb.StartNew(numApps)
 }
 
 func (p *Package) GenerateTypes() {
@@ -169,6 +175,7 @@ func (p *Package) GenerateTypes() {
 		for i, typeName := range AlphabeticalTypes(p.Module.Apps[appName].Types) {
 			t := app.Types[typeName]
 			if t.GetRelation() != nil {
+				p.Parent.Progress.Increment()
 				continue
 			}
 			wg.Add(1)
@@ -208,6 +215,7 @@ func (p *Package) GenerateTypes() {
 					Simple: simpleDiagram,
 					Full:   fullDiagram,
 				}
+				p.Parent.Progress.Increment()
 				wg.Done()
 			}(appName, typeName, t)
 
@@ -229,6 +237,7 @@ func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 	var wg sync.WaitGroup // Make diagram generation concurrent
 	var err error
 	p.initProject()
+
 	if err := p.RegisterDiagrams(); err != nil {
 		p.Log.Errorf("Error creating parsing sequence diagrams: %v", err)
 	}
@@ -254,8 +263,8 @@ func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 		if err != nil {
 			p.Log.Errorf("Error generating package int diagram")
 		}
+		wg.Add(1)
 		go func() {
-			wg.Add(1)
 			pkg.GenerateTypes()
 			wg.Done()
 		}()
@@ -267,6 +276,7 @@ func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 						p.Log.Errorf("Error generating Sequence diagram template and diagrams:\n %v", err)
 						return
 					}
+					p.Progress.Increment()
 					wg.Done()
 				}(sd)
 			}
@@ -286,9 +296,12 @@ func (p *Project) ExecuteTemplateAndDiagrams() *Project {
 				p.Log.Errorf("Error generating package markdown:\n %v", err)
 			}
 		}()
+		p.Progress.Increment()
 
 	}
 	wg.Wait()
+	p.Progress.Increment()
+	p.Progress.Finish()
 	return p
 }
 

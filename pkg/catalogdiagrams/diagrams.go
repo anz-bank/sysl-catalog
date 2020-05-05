@@ -141,7 +141,6 @@ func RecurseivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cu
 		appName, typeName, t = TypeFromRef(m, appName, t)
 		if t != nil {
 			ret[appName+"."+typeName] = t
-
 		}
 	}
 	tuple := t.GetTuple()

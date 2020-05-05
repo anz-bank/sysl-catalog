@@ -174,12 +174,25 @@ func (s Diagram) InputDataModel() []*Diagram {
 			typeName = paramNameParts[0]
 		}
 
+		typeref := &sysl.Type{
+			Type: &sysl.Type_TypeRef{
+				TypeRef: &sysl.ScopedRef{
+					Ref: &sysl.Scope{Appname: &sysl.AppName{
+						Part: []string{appName},
+					},
+						Path: []string{appName, typeName},
+					},
+				},
+			},
+		}
+		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, s.Parent.Parent.Module)
+
 		newDiagram := &Diagram{
 			Parent:                s.Parent,
 			Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 			App:                   s.Parent.Parent.Module.Apps[appName],
-			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, s.Parent.Parent.Module)),
+			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, relatedTypes),
 			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 		}
 		diagram = append(diagram, newDiagram)
@@ -320,10 +333,9 @@ func (s Diagram) OutputDataModel() []*Diagram {
 			}
 			if sequence {
 				s.App.Types[s.Endpoint.Name+"ReturnVal"] = &sysl.Type{
-
 					Type: &sysl.Type_Tuple_{
 						Tuple: &sysl.Type_Tuple{
-							AttrDefs: map[string]*sysl.Type{"sequence": &sysl.Type{Type: &sysl.Type_Sequence{
+							AttrDefs: map[string]*sysl.Type{"sequence": {Type: &sysl.Type_Sequence{
 								Sequence: syslpopulate.NewType(typeName, appName)},
 							},
 							},

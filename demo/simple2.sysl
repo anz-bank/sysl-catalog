@@ -45,7 +45,15 @@ Server:
             return ok <: Response
     
     /testRestQueryParam:
-        GET ?queryString={Request}:
+        GET ?queryString={Request}&secondQueryString={Request}:
+            return ok <: Response
+
+    /testRestQueryParamPrimitive:
+        GET ?queryPrimitiveString=string:
+            return ok <: Response
+
+    /testRestPathParamPrimitive/{primitiveID<:string}:
+        GET:
             return ok <: Response
 
 # This is an example of apps with types made up of different apps

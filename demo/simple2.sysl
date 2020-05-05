@@ -35,10 +35,32 @@ Server:
         balance <: MegaDatabase.Empty
     !type Request:
         query <: sequence of Response
+    !type Empty:
+        ...
 
     Authenticate(input <: Request):
         @description = "this is a description of Authenticate"
         return ok <: Response
+    
+    /testRestURLParam/{id<:Request}:
+        GET:
+            return ok <: Response
+    
+    /testRestQueryParam:
+        GET ?queryString={Request}&secondQueryString={Request}:
+            return ok <: Response
+
+    /testRestQueryParamPrimitive:
+        GET ?queryPrimitiveString=string:
+            return ok <: Response
+
+    /testRestPathParamPrimitive/{primitiveID<:string}:
+        GET:
+            return ok <: Response
+
+    /testReturnNil:
+        GET:
+            return Empty
 
 # This is an example of apps with types made up of different apps
 MegaDatabase:

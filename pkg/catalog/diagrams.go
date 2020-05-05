@@ -174,13 +174,134 @@ func (s Diagram) InputDataModel() []*Diagram {
 			typeName = paramNameParts[0]
 		}
 
+		typeref := &sysl.Type{
+			Type: &sysl.Type_TypeRef{
+				TypeRef: &sysl.ScopedRef{
+					Ref: &sysl.Scope{Appname: &sysl.AppName{
+						Part: []string{appName},
+					},
+						Path: []string{appName, typeName},
+					},
+				},
+			},
+		}
+		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, s.Parent.Parent.Module)
+
 		newDiagram := &Diagram{
 			Parent:                s.Parent,
 			Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 			App:                   s.Parent.Parent.Module.Apps[appName],
-			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, s.Parent.Parent.Module)),
+			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, relatedTypes),
 			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
+		}
+		diagram = append(diagram, newDiagram)
+	}
+	return diagram
+}
+
+// InputDataModel Generates request diagrams for the endpoint that's registered in s
+func (s Diagram) PathParamDataModel() []*Diagram {
+	appName := s.AppName()
+	typeName := ""
+	var relatedTypes map[string]*sysl.Type
+	var diagram []*Diagram
+	if s.Endpoint == nil || s.Endpoint.RestParams == nil || len(s.Endpoint.RestParams.UrlParam) == 0 {
+		return nil
+	}
+	for i, param := range s.Endpoint.RestParams.UrlParam {
+		var parsedType *sysl.Type
+		switch param.Type.Type.(type) {
+		case *sysl.Type_Primitive_:
+			parsedType = param.Type
+			typeName = param.GetName()
+			relatedTypes = map[string]*sysl.Type{appName + ":" + typeName: parsedType}
+		case *sysl.Type_TypeRef:
+			if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
+				if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+					appName = paramNameParts[0]
+					typeName = path[0]
+				} else {
+					typeName = paramNameParts[0]
+				}
+			} else {
+				typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
+			}
+			parsedType = &sysl.Type{
+				Type: &sysl.Type_TypeRef{
+					TypeRef: &sysl.ScopedRef{
+						Ref: &sysl.Scope{Appname: &sysl.AppName{
+							Part: []string{appName},
+						},
+							Path: []string{appName, typeName},
+						},
+					},
+				},
+			}
+			relatedTypes = catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: parsedType}, s.Parent.Parent.Module)
+		}
+
+		newDiagram := &Diagram{
+			Parent:                s.Parent,
+			Type:                  parsedType,
+			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+			App:                   s.Parent.Parent.Module.Apps[appName],
+			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, relatedTypes),
+			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-path-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
+		}
+		diagram = append(diagram, newDiagram)
+	}
+	return diagram
+}
+
+// Builds datamodel diagrams for path and query params
+func (s Diagram) QueryParamDataModel() []*Diagram {
+	appName := s.AppName()
+	typeName := ""
+	var relatedTypes map[string]*sysl.Type
+	var diagram []*Diagram
+	if s.Endpoint == nil || s.Endpoint.RestParams == nil || len(s.Endpoint.RestParams.QueryParam) == 0 {
+		return nil
+	}
+	for i, param := range s.Endpoint.RestParams.QueryParam {
+		var parsedType *sysl.Type
+		switch param.Type.Type.(type) {
+		case *sysl.Type_Primitive_:
+			parsedType = param.Type
+			typeName = param.GetName()
+			relatedTypes = map[string]*sysl.Type{appName + ":" + typeName: parsedType}
+		case *sysl.Type_TypeRef:
+			if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
+				if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+					appName = paramNameParts[0]
+					typeName = path[0]
+				} else {
+					typeName = paramNameParts[0]
+				}
+			} else {
+				typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
+			}
+			parsedType = &sysl.Type{
+				Type: &sysl.Type_TypeRef{
+					TypeRef: &sysl.ScopedRef{
+						Ref: &sysl.Scope{Appname: &sysl.AppName{
+							Part: []string{appName},
+						},
+							Path: []string{appName, typeName},
+						},
+					},
+				},
+			}
+			relatedTypes = catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: parsedType}, s.Parent.Parent.Module)
+		}
+
+		newDiagram := &Diagram{
+			Parent:                s.Parent,
+			Type:                  parsedType,
+			OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
+			App:                   s.Parent.Parent.Module.Apps[appName],
+			PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, relatedTypes),
+			OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-query-parameter"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 		}
 		diagram = append(diagram, newDiagram)
 	}
@@ -212,10 +333,9 @@ func (s Diagram) OutputDataModel() []*Diagram {
 			}
 			if sequence {
 				s.App.Types[s.Endpoint.Name+"ReturnVal"] = &sysl.Type{
-
 					Type: &sysl.Type_Tuple_{
 						Tuple: &sysl.Type_Tuple{
-							AttrDefs: map[string]*sysl.Type{"sequence": &sysl.Type{Type: &sysl.Type_Sequence{
+							AttrDefs: map[string]*sysl.Type{"sequence": {Type: &sysl.Type_Sequence{
 								Sequence: syslpopulate.NewType(typeName, appName)},
 							},
 							},
@@ -226,12 +346,19 @@ func (s Diagram) OutputDataModel() []*Diagram {
 			} else {
 				typeref = NewTypeRef(appName, typeName)
 			}
+			relatedReturnTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, s.Parent.Parent.Module)
+
+			// Don't generate diagrams for empty types e.g Types defined with ...
+			if len(relatedReturnTypes) == 1 && relatedReturnTypes[appName+"."+typeName].Type == nil {
+				fmt.Printf("Ignored empty type: %s", typeName)
+				continue
+			}
 			newDiagram := &Diagram{
 				Parent:                s.Parent,
 				Type:                  s.Parent.Parent.Module.Apps[appName].Types[typeName],
 				OutputDir:             path.Join(s.Parent.Parent.Output, s.Parent.PackageName),
 				App:                   s.Parent.Parent.Module.Apps[appName],
-				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, s.Parent.Parent.Module)),
+				PlantUMLDiagramString: catalogdiagrams.GenerateDataModel(appName, relatedReturnTypes),
 				OutputFileName__:      sanitiseOutputName(appName+s.Endpoint.Name+"data-model-response"+strconv.Itoa(i)) + s.Parent.Parent.DiagramExt,
 			}
 			diagram = append(diagram, newDiagram)
@@ -250,6 +377,24 @@ func (sd *Diagram) GenerateDiagramAndMarkdown() error {
 		wg.Done()
 	}()
 	for _, d := range sd.InputDataModel() {
+		wg.Add(1)
+		go func(s *Diagram) {
+			outputFileName := path.Join(s.OutputDir, s.OutputFileName__)
+			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.PlantUMLDiagramString, s.Parent.Parent.Fs)
+			wg.Done()
+		}(d)
+
+	}
+	for _, d := range sd.QueryParamDataModel() {
+		wg.Add(1)
+		go func(s *Diagram) {
+			outputFileName := path.Join(s.OutputDir, s.OutputFileName__)
+			diagrams.OutputPlantuml(outputFileName, s.Parent.Parent.PlantumlService, s.PlantUMLDiagramString, s.Parent.Parent.Fs)
+			wg.Done()
+		}(d)
+
+	}
+	for _, d := range sd.PathParamDataModel() {
 		wg.Add(1)
 		go func(s *Diagram) {
 			outputFileName := path.Join(s.OutputDir, s.OutputFileName__)

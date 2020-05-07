@@ -1,0 +1,8 @@
+App:
+    endpoint(req <: foo):
+         return <: foo
+    !type foo:
+        this <: string
+    /testRestURLParam/{id<:foo}:
+        GET:
+            ...

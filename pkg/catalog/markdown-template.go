@@ -48,6 +48,14 @@ No Request types
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
 
+{{if $e.RestParams}}
+### Path Parameters
+{{if $e.RestParams.UrlParam}}
+{{range $param := $e.RestParams.UrlParam}}
+![]({{CreatePathParamDataModel $appName $param}})
+{{end}}
+{{end}}{{end}}
+
 ### Response types
 {{$responses := false}}
 {{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}

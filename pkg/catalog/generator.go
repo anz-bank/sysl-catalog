@@ -113,6 +113,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"CreateTypeDiagram":         p.CreateTypeDiagram,
 		"GenerateDataModel":         p.GenerateDataModel,
 		"CreateQueryParamDataModel": p.CreateQueryParamDataModel,
+		"CreatePathParamDataModel":  p.CreatePathParamDataModel,
 		"GetParamType":              p.GetParamType,
 		"GetReturnType":             p.GetReturnType,
 		"hasPattern":                syslutil.HasPattern,

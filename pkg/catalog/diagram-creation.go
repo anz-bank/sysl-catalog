@@ -26,7 +26,9 @@ import (
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
-var re = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
+var (
+	re = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
+)
 
 // CreateMarkdown is a wrapper function that also converts output markdown to html if in server mode
 func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, i interface{}) {
@@ -274,7 +276,7 @@ func (p *Generator) CreateQueryParamDataModel(param *sysl.Param) string {
 }
 
 // CreateQueryParamDataModel returns a Path Parameter data model filename.
-func (p *Generator) CreatePathParamDataModel(param *sysl.Param) string {
+func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
 	var typeName, appName string
 	relatedTypes := make(map[string]*sysl.Type)
 	var parsedType *sysl.Type
@@ -293,6 +295,9 @@ func (p *Generator) CreatePathParamDataModel(param *sysl.Param) string {
 			}
 		} else {
 			typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
+		}
+		if appName == "" {
+			appName = CurrentAppName
 		}
 		parsedType = NewTypeRef(appName, typeName)
 		relatedTypes = catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: parsedType}, p.Module)

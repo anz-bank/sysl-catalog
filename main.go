@@ -25,7 +25,7 @@ var (
 	projectTemplate   = kingpin.Flag("projectTemplate", "projectTemplate filname to use").String()
 	packageTemplate   = kingpin.Flag("packageTemplate", "packageTemplate filname to use").String()
 	server            = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
-	noCSS             = kingpin.Flag("noCSS", "diable adding css to served html").Bool()
+	noCSS             = kingpin.Flag("noCSS", "disable adding css to served html").Bool()
 	disableLiveReload = kingpin.Flag("disableLiveReload", "diable live reload").Default("false").Bool()
 )
 

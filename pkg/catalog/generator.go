@@ -142,7 +142,6 @@ func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
 			return nil
 		}
 	}
-	p.DisableCss = true
 	return p.WithTemplateString(string(file1), string(file2))
 }
 

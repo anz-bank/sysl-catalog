@@ -48,6 +48,18 @@ No Request types
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
 
+{{with $e.RestParams}}
+
+{{range $param := $e.RestParams.QueryParam}}
+![]({{CreateQueryParamDataModel $appName $param}})
+{{end}}
+
+{{range $param := $e.RestParams.UrlParam}}
+![]({{CreatePathParamDataModel $appName $param}})
+{{end}}
+
+{{end}}
+
 ### Response types
 {{$responses := false}}
 {{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}

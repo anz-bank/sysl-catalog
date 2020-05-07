@@ -57,12 +57,11 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	m, err := parse.NewParser().Parse(*input, fs)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	if !*server {
+		m, err := parse.NewParser().Parse(*input, fs)
+		if err != nil {
+			log.Fatal(err)
+		}
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir).
 			WithTemplateFiles(f1, f2).
 			Run()
@@ -70,7 +69,7 @@ func main() {
 	}
 
 	handler := catalog.
-		NewProject(*input, plantumlService, "html", log, m, nil, "").
+		NewProject(*input, plantumlService, "html", log, nil, nil, "").
 		WithTemplateFiles(f1, f2).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 

@@ -69,6 +69,33 @@ ThisAppShouldShow[~ignore]:
         ...
 ```
 
+## CLI options
+
+#### Output default Markdown
+`sysl-catalog -o=docs/ filename.sysl`
+
+#### Output default HTML
+`sysl-catalog -o=docs/ --type=html filename.sysl`
+
+#### Run with custom templates
+`sysl-catalog --projectTemplate=<fileName.tmpl> --packageTemplate=<filename.tmpl> filename.sysl`
+
+#### Run in server mode
+`sysl-catalog --serve filename.sysl`
+![server mode](resources/server.png)
+
+#### Run in server mode without css/rendered images
+- good for rendering raw markdown
+
+`sysl-catalog --serve --noCSS filename.sysl`
+![server mode raw](resources/standard-template.png)
+#### Run server with custom template
+`sysl-catalog --serve --projectTemplate=<fileName.tmpl> --packageTemplate=<filename.tmpl> filename.sysl`
+
+![server mode raw](resources/custom-template.png)
+
+- See templates/ for custom template examples
+
 ## Screenshots
 ![resources/project_view.png](resources/project_view.png)
 *project_view*

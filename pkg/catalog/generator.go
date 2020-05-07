@@ -83,6 +83,8 @@ func NewProject(
 func (p *Generator) WithTemplateString(p1, p2 string) *Generator {
 	var err error
 	if p1 != "" {
+		p.DisableCss = true
+		p.Format = ""
 		p.ProjectTempl, err = template.New("project").Funcs(p.GetFuncMap()).Parse(p1)
 		if err != nil {
 			p.Log.Error(err)
@@ -90,6 +92,8 @@ func (p *Generator) WithTemplateString(p1, p2 string) *Generator {
 		}
 	}
 	if p2 != "" {
+		p.DisableCss = true
+		p.Format = ""
 		p.PackageTempl, err = template.New("package").Funcs(p.GetFuncMap()).Parse(p2)
 		if err != nil {
 			p.Log.Error(err)
@@ -138,6 +142,7 @@ func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
 			return nil
 		}
 	}
+	p.DisableCss = true
 	return p.WithTemplateString(string(file1), string(file2))
 }
 

@@ -1,10 +1,4 @@
 # This project tells our integration diagram what apps to include
-simple2[appfmt="%(appname)", ~ignore]:
-    _:
-        MobileApp
-        Server
-        MegaDatabase
-        RelModel
 
 MobileApp:
     @package = "ApplicationPackage"
@@ -31,11 +25,14 @@ Server:
     @package = "ServerPackage"
     @description = "this is a comment for Server"
     !type Response:
+        @description="Response Response Response"
         query <: MegaDatabase.Money
         balance <: MegaDatabase.Empty
     !type Request:
+        @description="Request Request Request"
         query <: sequence of Response
-    !type Empty:
+    !type Empty[~empty]:
+        @description="Empty Empty Empty"
         ...
 
     Authenticate(input <: Request):
@@ -67,8 +64,10 @@ MegaDatabase:
     # This was meant to be an example of how different applications can be in the same package
     @package = "ServerPackage"
     !type Empty[~empty]:
+        @description="Empty Empty Empty"
         ...
     !type Money:
+        @description="Money Money Money"
         amount <: int
 RelModel[~db]:
     @package="ServerPackage"

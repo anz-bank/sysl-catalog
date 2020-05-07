@@ -1,32 +1,22 @@
+// html.go: html/javascript/css to convert generated markdown to html
 
+package catalog
+
+// CSS from https://github.com/KrauseFx/markdown-to-html-github-style/blob/master/style.css (MIT License)
+
+const header = `
 <!doctype html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="style.css" >
 </head>
 <body>
 <div id='content'>
-<table>
-<thead>
-<tr>
-<th>Package</th>
-</tr>
-</thead>
+`
+const endTags = `</div>
+</body>
+</html>`
 
-<tbody>
-<tr>
-<td><a href="ApplicationPackage/index.html">ApplicationPackage</a></td>
-</tr>
-
-<tr>
-<td><a href="ServerPackage/index.html">ServerPackage</a></td>
-</tr>
-</tbody>
-</table>
-<p><img src="integration.svg"></p>
-
-<p><img src="integrationEPA.svg"></p>
-
+const style = `
 <style type="text/css">
 body {
   font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -213,6 +203,4 @@ h1, h2, h3 {
   border-bottom: 1px solid #eaecef;
   color: #111;
   /* Darker */ }
-</style></div>
-</body>
-</html>
+</style>`

@@ -1,4 +1,4 @@
-FROM plantuml/plantuml-server:latest
+FROM think/plantuml:latest
 FROM golang:latest
 ENV SYSL_PLANTUML="http://localhost:8080"
 COPY . /usr/src

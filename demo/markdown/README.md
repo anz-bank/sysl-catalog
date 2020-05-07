@@ -1,15 +1,10 @@
 
-# simple2
-
 | Package |
 ----|
 [ApplicationPackage](ApplicationPackage/README.md)|
 [ServerPackage](ServerPackage/README.md)|
 
-Integration diagram:
+<img src="integration.svg">
 
-![](simple2_integration.svg)
+<img src="integrationEPA.svg">
 
-Integration diagram with end point analysis:
-
-![](simple2EPA_integration.svg)

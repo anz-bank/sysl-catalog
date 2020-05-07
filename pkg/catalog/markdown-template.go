@@ -1,129 +1,129 @@
+// markdown-template.go: the markdown template used to template the sysl module
 package catalog
 
-const ProjectMarkdownTemplate = `
-# {{.Title}}
-
+const NewProjectTemplate = `
 | Package |
-----|{{range $Package := .AlphabeticalRows}}
-[{{$Package.PackageName}}]({{$Package.PackageName}}/{{$Package.OutputFile}})|{{end}}
+----|{{range $key, $val := ModuleAsPackages .}}
+[{{$key}}]({{$key}}/README.md)|{{end}}
 
-Integration diagram:
+<img src="{{CreateIntegrationDiagram . "" false}}">
 
-{{.RootLevelIntegrationDiagram.Img}}
+<img src="{{CreateIntegrationDiagram . "" true}}">
 
-Integration diagram with end point analysis:
-
-{{.RootLevelIntegrationDiagramEPA.Img}}
 `
 
-const PackageMarkdownTemplate = `
+const NewPackageTemplate = `
 [Back](../README.md)
-# Package {{.PackageName}}
+{{$packageName := ModulePackageName .}}
+
+# {{$packageName}}
 
 ## Service Index
 | Service Name | Method |
-----|----{{range $appName, $Diagrams := .SequenceDiagrams}}{{range $Diagram := $Diagrams}}
-{{$appName}} | [{{$Diagram.EndpointNameWithoutSpaces}}](#{{$Diagram.AppName}}-{{$Diagram.EndpointNameWithoutSpaces}}) |{{end}}{{end}}
-
-## Database Index
-| Database Name |
-----|
-{{range $appName, $Diagrams := .DatabaseModel}}| [{{$appName}}](#Database-{{$appName}}) |{{end}}
-
-[Types](#Types)
-
-## Integration diagram
-
-{{.Integration.Img}}
-
----
-{{range $appName, $Diagrams := .SequenceDiagrams}}
-{{$first := true}}
-{{range $Diagram := $Diagrams}}
-{{if $first}}
-## {{$Diagram.AppName}}
-{{if ne $Diagram.AppComment ""}}
-- {{$Diagram.AppComment}}
-{{end}}
-{{end}}
-{{$first = false}}
+----|----{{$Apps := .Apps}}{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := AlphabeticalEndpoints $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}
+{{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}){{end}}{{end}}
 
 
-## {{$Diagram.AppName}} {{$Diagram.EndpointName}}
 
-{{$Diagram.EndpointComment}}
+![]({{CreateIntegrationDiagram . $packageName false}})
 
-### Sequence Diagram
-{{.Img}}
+{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
+{{if eq (hasPattern $app.Attrs "ignore") false}}
+# {{$appName}}
+{{AppComment $app}}
+{{range $e := $app.Endpoints}}
+{{if eq (hasPattern $e.Attrs "ignore") false}}
+## {{$appName}} {{SanitiseOutputName $e.Name}}
+{{Attribute "description" $e.GetAttrs}}
+
+![]({{CreateSequenceDiagram $appName $e}})
 
 ### Request types
-{{range $DataModelDiagram := $Diagram.InputDataModel}}
-{{if ne $DataModelDiagram.TypeComment ""}}
-- {{$DataModelDiagram.TypeComment}}
-{{end}}
-{{$DataModelDiagram.Img}}
+{{if eq (len $e.Param) 0}}
+No Request types
 {{end}}
 
-{{range $DataModelDiagram := $Diagram.QueryParamDataModel}}
-{{if ne $DataModelDiagram.TypeComment ""}}
-- {{$DataModelDiagram.TypeComment}}
-{{end}}
-{{$DataModelDiagram.Img}}
+{{range $param := $e.Param}}
+{{Attribute "description" (GetParamType $app $param).GetAttrs}}
+
+![]({{CreateParamDataModel $app $param}})
 {{end}}
 
-{{range $DataModelDiagram := $Diagram.PathParamDataModel}}
-{{if ne $DataModelDiagram.TypeComment ""}}
-- {{$DataModelDiagram.TypeComment}}
-{{end}}
-{{$DataModelDiagram.Img}}
+{{if $e.RestParams}}{{if $e.RestParams.UrlParam}}
+{{range $param := $e.RestParams.UrlParam}}
+{{$PathDataModel := (CreatePathParamDataModel $appName $param)}}
+{{if ne $PathDataModel ""}}
+### Path Parameter
+
+![]({{CreatePathParamDataModel $appName $param}})
+{{end}}{{end}}{{end}}
+
+{{if $e.RestParams.QueryParam}}
+{{range $param := $e.RestParams.QueryParam}}
+{{$queryDataModel := (CreateQueryParamDataModel $appName $param)}}
+{{if ne $queryDataModel ""}}
+### Query Parameter
+
+![]({{$queryDataModel}})
+{{end}}{{end}}{{end}}
+
 {{end}}
 
 ### Response types
-{{range $DataModelDiagram := $Diagram.OutputDataModel}}
-{{if ne $DataModelDiagram.TypeComment ""}}
-- {{$DataModelDiagram.TypeComment}}
-{{end}}
-{{$DataModelDiagram.Img}}
-{{end}}
-{{end}}
----
-{{end}}
+{{$responses := false}}
+{{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
+{{$responses = true}}
+{{$ret := (GetReturnType $e $s)}}{{if ne $ret nil}}
+{{Attribute "description" $ret.GetAttrs}}{{end}}
 
-{{range $appName, $Diagrams := .DatabaseModel}}
-## Database {{$appName}}
-{{if ne $Diagrams.AppComment ""}}
-- {{$Diagrams.AppComment}}
+![]({{$diagram}})
+{{end}}{{end}}
+{{if eq $responses false}}
+No Response Types
 {{end}}
-{{$Diagrams.Img}}
-{{end}}
+{{end}}{{end}}{{end}}{{end}}
 
-## Types
+
+{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
+{{if hasPattern $app.GetAttrs "db"}}
+
+## Database
+{{Attribute "description" $app.GetAttrs}}
+![]({{GenerateDataModel $app}})
+{{end}}{{end}}
+
+
+### Types
+
 <table>
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
 <th>Full Diagram</th>
+{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
+{{if ne (hasPattern $app.Attrs "db") true}}
 </tr>
 
-{{range $typeName, $Diagrams := .Types}}
+{{range $typeName := AlphabeticalTypes $types}}{{$type := index $types $typeName}}
 <tr>
 <td>
 
-{{$Diagrams.Simple.AppName}}.<br>{{$typeName}}
+{{$appName}}.<br>{{$typeName}}
 </td>
 <td>
 
-{{$Diagrams.Simple.Img}}
+<img src="{{CreateTypeDiagram  $app $typeName $type false}}">
 </td>
 <td> 
 
-{{if ne $Diagrams.Simple.TypeComment ""}}<details closed><summary>Comment</summary><br>{{$Diagrams.Simple.TypeComment}}</details>{{end}} 
+{{if ne (TypeComment $type) ""}}<details closed><summary>Comment</summary><br>{{TypeComment $type}}</details>{{end}} 
 </td>
 <td>
 
-{{$Diagrams.Full.Link}}
+<a href="{{CreateTypeDiagram  $app $typeName $type true}}">Link</a>
 </td>
-</tr>{{end}}
+</tr>{{end}}{{end}}{{end}}
 </table>
+
 `

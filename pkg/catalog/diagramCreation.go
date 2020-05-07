@@ -223,17 +223,12 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 func (p *Generator) CreateFileName(contents string, absolute string, elems ...string) string {
 	// if fastload: return image from plantuml service
 	fileName := path.Join(Map(append([]string{absolute}, elems...), SanitiseOutputName)...)
+	plantumlURL := PlantUMLURL(p.PlantumlService, contents)
 	if p.Server {
-		encoded, err := diagrams.DeflateAndEncode([]byte(contents))
-		if err != nil {
-			panic(err)
-		}
-		return fmt.Sprintf("%s/%s/%s", p.PlantumlService, "svg", encoded)
-	} else {
-		p.FilesToCreate[fileName] = contents
+		return plantumlURL
 	}
-	// if not fast load: return image filename
-	return strings.Replace(fileName, absolute+"/", "", 1)
+	p.FilesToCreate[fileName] = plantumlURL
+	return strings.Replace(fileName, absolute+"/", "", 1) // if not fast load: return image filename
 }
 
 // GenerateDataModel generates a data model for all of the types in app

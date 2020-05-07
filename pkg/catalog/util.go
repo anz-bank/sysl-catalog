@@ -1,8 +1,13 @@
 package catalog
 
 import (
+	"fmt"
+	"io/ioutil"
 	"sort"
 	"strings"
+
+	"github.com/anz-bank/sysl/pkg/diagrams"
+	"github.com/hashicorp/go-retryablehttp"
 
 	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
 
@@ -171,4 +176,24 @@ func Map(vs []string, f func(string) string) []string {
 		vsm[i] = f(v)
 	}
 	return vsm
+}
+
+// RetryHTTPRequest retries the given request
+func RetryHTTPRequest(url string) ([]byte, error) {
+	client := retryablehttp.NewClient()
+	client.Logger = nil
+	resp, err := client.Get(url)
+	if err != nil {
+		panic(err)
+	}
+	return ioutil.ReadAll(resp.Body)
+}
+
+// PlantUMLURL returns a PlantUML url
+func PlantUMLURL(plantumlService, contents string) string {
+	encoded, err := diagrams.DeflateAndEncode([]byte(contents))
+	if err != nil {
+		panic(err)
+	}
+	return fmt.Sprintf("%s/%s/%s", plantumlService, "svg", encoded)
 }

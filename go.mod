@@ -17,6 +17,7 @@ require (
 	github.com/gohugoio/hugo v0.69.2
 	github.com/golang/protobuf v1.4.1 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
+	github.com/hashicorp/go-retryablehttp v0.6.6
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect

@@ -9,8 +9,6 @@ import (
 	"sync"
 	"text/template"
 
-	"github.com/anz-bank/sysl/pkg/diagrams"
-
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/cheggaaa/pb/v3"
@@ -90,23 +88,20 @@ func (p *Generator) Run() {
 		var wg sync.WaitGroup
 		fmt.Println("Generating diagrams:")
 		progress := pb.StartNew(len(p.FilesToCreate))
-		//numRoutines := 0
 		for key, val := range p.FilesToCreate {
-			//go func(key, val string) {
-			//wg.Add(1)
-			//numRoutines++
-			p.Fs.MkdirAll(path.Join(p.Output, path.Dir(key)), os.ModePerm)
-			if err := diagrams.OutputPlantuml(path.Join(p.Output, key), p.PlantumlService, val, p.Fs); err != nil {
-				panic(err)
-			}
-			progress.Increment()
-			//wg.Done()
-			//
-			//}(key, val)
-			//if numRoutines >= 1 {
-			//	wg.Wait()
-			//	numRoutines = 0
-			//}
+			go func(key, val string) {
+				wg.Add(1)
+				p.Fs.MkdirAll(path.Join(p.Output, path.Dir(key)), os.ModePerm)
+				out, err := RetryHTTPRequest(val)
+				if err != nil {
+					panic(err)
+				}
+				if err := afero.WriteFile(p.Fs, path.Join(p.Output, key), append(out, byte('\n')), os.ModePerm); err != nil {
+					panic(err)
+				}
+				progress.Increment()
+				wg.Done()
+			}(key, val)
 		}
 		wg.Wait()
 		progress.Finish()

@@ -33,59 +33,118 @@ this is a comment for Server
 
 
 ## Server Authenticate
+this is a description of Authenticate
+
 ![](Server/Authenticate.svg)
 
 ### Request types
 
+
+Request Request Request
 ![](Server.svg)
 
 
 ### Response types
 
 
+
+No Response Types
+
+
+
 ## Server GETtestRestPathParamPrimitive{primitiveID}
+
+
 ![](Server/GETtestRestPathParamPrimitive{primitiveID}.svg)
 
 ### Request types
 
+No Request types
+
+
 
 ### Response types
 
 
+
+No Response Types
+
+
+
 ## Server GETtestRestQueryParam
+
+
 ![](Server/GETtestRestQueryParam.svg)
 
 ### Request types
 
+No Request types
+
+
 
 ### Response types
 
 
+
+No Response Types
+
+
+
 ## Server GETtestRestQueryParamPrimitive
+
+
 ![](Server/GETtestRestQueryParamPrimitive.svg)
 
 ### Request types
 
+No Request types
+
+
 
 ### Response types
 
 
+
+No Response Types
+
+
+
 ## Server GETtestRestURLParam{id}
+
+
 ![](Server/GETtestRestURLParam{id}.svg)
 
 ### Request types
 
+No Request types
+
+
 
 ### Response types
 
 
+
+No Response Types
+
+
+
 ## Server GETtestReturnNil
+
+
 ![](Server/GETtestReturnNil.svg)
 
 ### Request types
 
+No Request types
+
+
 
 ### Response types
+
+
+
+No Response Types
+
 
 
 
@@ -94,6 +153,7 @@ this is a comment for Server
 
 
 ## Database
+
 ![](RelModel/types.svg)
 
 
@@ -123,7 +183,7 @@ MegaDatabase.<br>Empty
 </td>
 <td> 
 
- 
+<details closed><summary>Comment</summary><br>Empty Empty Empty</details> 
 </td>
 <td>
 
@@ -141,7 +201,7 @@ MegaDatabase.<br>Money
 </td>
 <td> 
 
- 
+<details closed><summary>Comment</summary><br>Money Money Money</details> 
 </td>
 <td>
 
@@ -164,7 +224,7 @@ Server.<br>Empty
 </td>
 <td> 
 
- 
+<details closed><summary>Comment</summary><br>Empty Empty Empty</details> 
 </td>
 <td>
 
@@ -182,7 +242,7 @@ Server.<br>Request
 </td>
 <td> 
 
- 
+<details closed><summary>Comment</summary><br>Request Request Request</details> 
 </td>
 <td>
 
@@ -200,7 +260,7 @@ Server.<br>Response
 </td>
 <td> 
 
- 
+<details closed><summary>Comment</summary><br>Response Response Response</details> 
 </td>
 <td>
 

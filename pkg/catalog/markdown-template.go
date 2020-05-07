@@ -44,6 +44,7 @@ No Request types
 {{end}}
 {{range $param := $e.Param}}
 {{Attribute "description" (GetParamType $app $param).GetAttrs}}
+
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
 

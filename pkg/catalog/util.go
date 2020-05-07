@@ -23,6 +23,7 @@ import (
 	"github.com/anz-bank/sysl/pkg/syslutil"
 )
 
+// SanitiseOutputName removes characters so that the string can be used as a hyperlink.
 func SanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
 }

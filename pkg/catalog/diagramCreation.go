@@ -119,10 +119,10 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 }
 
 // CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement
-func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
+func (p *Generator) CreateReturnDataModel(defaultAppName string, stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
 	var sequence bool
 	var typeref *sysl.Type
-	var appName, typeName string
+	var typeName, appName string
 	if ret := stmnt.GetRet(); ret != nil {
 		t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
 		if strings.Contains(t, "sequence of") {
@@ -133,6 +133,7 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 			appName = split[0]
 			typeName = split[1]
 		} else {
+			appName = defaultAppName
 			typeName = split[0]
 		}
 		if sequence {
@@ -155,9 +156,12 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 		if len(relatedReturnTypes) == 1 && relatedReturnTypes[appName+"."+typeName].Type == nil {
 			return ""
 		}
+
 		if _, ok := p.Module.Apps[appName]; ok {
 			packageName, _ := GetAppPackageName(p.Module.Apps[appName])
 			return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedReturnTypes), packageName, appName, typeName+".svg")
+		} else {
+			fmt.Println("Unable to find:" + appName)
 		}
 	}
 	return ""
@@ -210,8 +214,8 @@ func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 	return ""
 }
 
-func (p *Generator) CreateQueryParamDataModel(param *sysl.Param) string {
-	var typeName, appName string
+func (p *Generator) CreateQueryParamDataModel(appName string, param *sysl.Endpoint_RestParams_QueryParam) string {
+	var typeName string
 	relatedTypes := make(map[string]*sysl.Type)
 	var parsedType *sysl.Type
 	switch param.Type.Type.(type) {
@@ -235,13 +239,13 @@ func (p *Generator) CreateQueryParamDataModel(param *sysl.Param) string {
 	}
 	if _, ok := p.Module.Apps[appName]; ok {
 		packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+"full.svg")
+		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+"QueryParam.svg")
 	}
 	return ""
 }
 
-func (p *Generator) CreatePathParamDataModel(param *sysl.Param) string {
-	var typeName, appName string
+func (p *Generator) CreatePathParamDataModel(appName string, param *sysl.Endpoint_RestParams_QueryParam) string {
+	var typeName string
 	relatedTypes := make(map[string]*sysl.Type)
 	var parsedType *sysl.Type
 	switch param.Type.Type.(type) {
@@ -265,7 +269,7 @@ func (p *Generator) CreatePathParamDataModel(param *sysl.Param) string {
 	}
 	if _, ok := p.Module.Apps[appName]; ok {
 		packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+"full.svg")
+		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+"PathParam.svg")
 	}
 	return ""
 }

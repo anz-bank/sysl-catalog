@@ -42,8 +42,20 @@ const NewPackageTemplate = `
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
 
+{{with $e.RestParams}}
+
+{{range $param := $e.RestParams.QueryParam}}
+![]({{CreateQueryParamDataModel $appName $param}})
+{{end}}
+
+{{range $param := $e.RestParams.UrlParam}}
+![]({{CreatePathParamDataModel $appName $param}})
+{{end}}
+
+{{end}}
+
 ### Response types
-{{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
+{{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $appName $s $e}}{{if ne $diagram ""}}
 ![]({{$diagram}})
 {{end}}{{end}}{{end}}{{end}}{{end}}{{end}}
 

@@ -1,0 +1,1141 @@
+=== RUN   TestDataModel
+=== PAUSE TestDataModel
+=== CONT  TestDataModel
+
+| Package |
+----|
+[Fruits](Fruits/README.md)|
+[GrpcTesting](GrpcTesting/README.md)|
+[RelModel](RelModel/README.md)|
+[Standard](Standard/README.md)|
+
+Title/integration.svg
+
+Title/integrationEPA.svg
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+Apple | AnotherEndpoint
+Apple | skljdfnskjdfnsd
+Apple | sodifsdoif
+Banana | thisEndpoint
+
+
+# Apple
+
+
+## Apple AnotherEndpoint
+Apple/AnotherEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple skljdfnskjdfnsd
+Apple/skljdfnskjdfnsd.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple sodifsdoif
+Apple/sodifsdoif.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+# Banana
+
+
+## Banana thisEndpoint
+Banana/thisEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+
+
+
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+
+
+</tr>
+
+
+
+</table>
+
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+Apple | AnotherEndpoint
+Apple | skljdfnskjdfnsd
+Apple | sodifsdoif
+Banana | thisEndpoint
+
+
+# Apple
+
+
+## Apple AnotherEndpoint
+Apple/AnotherEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple skljdfnskjdfnsd
+Apple/skljdfnskjdfnsd.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple sodifsdoif
+Apple/sodifsdoif.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+# Banana
+
+
+## Banana thisEndpoint
+Banana/thisEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+
+
+
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+
+
+</tr>
+
+
+
+</table>
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+GrpcTesting | qwertyuio
+
+
+# GrpcTesting
+
+
+## GrpcTesting qwertyuio
+GrpcTesting/qwertyuio.svg
+
+### Request types
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Request.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+<tr>
+<td>
+
+GrpcTesting.<br>Request
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Requestsimple.svg
+</td>
+<td> 
+
+<details closed><summary>Comment</summary><br>kajsnd</details> 
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Requestfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+GrpcTesting.<br>Response
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Responsesimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Responsefull.svg
+</td>
+</tr>
+
+</table>
+
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+Apple | AnotherEndpoint
+Apple | skljdfnskjdfnsd
+Apple | sodifsdoif
+Banana | thisEndpoint
+
+
+# Apple
+
+
+## Apple AnotherEndpoint
+Apple/AnotherEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple skljdfnskjdfnsd
+Apple/skljdfnskjdfnsd.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple sodifsdoif
+Apple/sodifsdoif.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+# Banana
+
+
+## Banana thisEndpoint
+Banana/thisEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+
+
+
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+
+
+</tr>
+
+
+
+</table>
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+GrpcTesting | qwertyuio
+
+
+# GrpcTesting
+
+
+## GrpcTesting qwertyuio
+GrpcTesting/qwertyuio.svg
+
+### Request types
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Request.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+<tr>
+<td>
+
+GrpcTesting.<br>Request
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Requestsimple.svg
+</td>
+<td> 
+
+<details closed><summary>Comment</summary><br>kajsnd</details> 
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Requestfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+GrpcTesting.<br>Response
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Responsesimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Responsefull.svg
+</td>
+</tr>
+
+</table>
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+
+
+# RelModel
+
+
+
+
+RelModel/RelModeltypes.svg
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+<tr>
+<td>
+
+RelModel.<br>audio_guide
+</td>
+<td>
+
+RelModel/RelModel/audio_guidesimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/audio_guidefull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>card_payment
+</td>
+<td>
+
+RelModel/RelModel/card_paymentsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/card_paymentfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>cash_payment
+</td>
+<td>
+
+RelModel/RelModel/cash_paymentsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/cash_paymentfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>checkpoint_lookup
+</td>
+<td>
+
+RelModel/RelModel/checkpoint_lookupsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/checkpoint_lookupfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>exhibition
+</td>
+<td>
+
+RelModel/RelModel/exhibitionsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/exhibitionfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>location
+</td>
+<td>
+
+RelModel/RelModel/locationsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/locationfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>payment_details
+</td>
+<td>
+
+RelModel/RelModel/payment_detailssimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/payment_detailsfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>ticket
+</td>
+<td>
+
+RelModel/RelModel/ticketsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/ticketfull.svg
+</td>
+</tr>
+
+</table>
+
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+Apple | AnotherEndpoint
+Apple | skljdfnskjdfnsd
+Apple | sodifsdoif
+Banana | thisEndpoint
+
+
+# Apple
+
+
+## Apple AnotherEndpoint
+Apple/AnotherEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple skljdfnskjdfnsd
+Apple/skljdfnskjdfnsd.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+## Apple sodifsdoif
+Apple/sodifsdoif.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+# Banana
+
+
+## Banana thisEndpoint
+Banana/thisEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+
+
+
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+
+
+</tr>
+
+
+
+</table>
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+GrpcTesting | qwertyuio
+
+
+# GrpcTesting
+
+
+## GrpcTesting qwertyuio
+GrpcTesting/qwertyuio.svg
+
+### Request types
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Request.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+<tr>
+<td>
+
+GrpcTesting.<br>Request
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Requestsimple.svg
+</td>
+<td> 
+
+<details closed><summary>Comment</summary><br>kajsnd</details> 
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Requestfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+GrpcTesting.<br>Response
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Responsesimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+GrpcTesting/GrpcTesting/Responsefull.svg
+</td>
+</tr>
+
+</table>
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+
+
+# RelModel
+
+
+
+
+RelModel/RelModeltypes.svg
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+<tr>
+<td>
+
+RelModel.<br>audio_guide
+</td>
+<td>
+
+RelModel/RelModel/audio_guidesimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/audio_guidefull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>card_payment
+</td>
+<td>
+
+RelModel/RelModel/card_paymentsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/card_paymentfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>cash_payment
+</td>
+<td>
+
+RelModel/RelModel/cash_paymentsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/cash_paymentfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>checkpoint_lookup
+</td>
+<td>
+
+RelModel/RelModel/checkpoint_lookupsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/checkpoint_lookupfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>exhibition
+</td>
+<td>
+
+RelModel/RelModel/exhibitionsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/exhibitionfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>location
+</td>
+<td>
+
+RelModel/RelModel/locationsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/locationfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>payment_details
+</td>
+<td>
+
+RelModel/RelModel/payment_detailssimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/payment_detailsfull.svg
+</td>
+</tr>
+<tr>
+<td>
+
+RelModel.<br>ticket
+</td>
+<td>
+
+RelModel/RelModel/ticketsimple.svg
+</td>
+<td> 
+
+ 
+</td>
+<td>
+
+RelModel/RelModel/ticketfull.svg
+</td>
+</tr>
+
+</table>
+
+
+[Back](../README.md)
+
+## Service Index
+| Service Name | Method |
+----|----
+Bar | AnotherEndpoint
+Foo | thisEndpoint
+
+
+# Bar
+
+
+## Bar AnotherEndpoint
+Bar/AnotherEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+# Foo
+this is a description of foo
+
+## Foo thisEndpoint
+Foo/thisEndpoint.svg
+
+### Request types
+
+GrpcTesting/GrpcTesting.svg
+
+
+### Response types
+
+
+
+
+
+GrpcTesting/GrpcTesting/Response.svg
+
+
+
+
+
+
+
+### Types
+
+<table>
+<tr>
+<th>App Name</th>
+<th>Diagram</th>
+<th>Comment</th>
+<th>Full Diagram</th>
+
+
+</tr>
+
+
+
+
+</tr>
+
+
+
+</table>
+
+
+GrpcTesting/GrpcTesting/Responsesimple.svg
+RelModel/RelModel/card_paymentsimple.svg
+GrpcTesting/GrpcTesting.svg
+Bar/AnotherEndpoint.svg
+RelModel/RelModel/checkpoint_lookupsimple.svg
+RelModel/RelModel/card_paymentfull.svg
+Title/integration.svg
+RelModel/RelModel/locationfull.svg
+Title/integrationEPA.svg
+RelModel/RelModel/exhibitionsimple.svg
+RelModel/RelModel/audio_guidesimple.svg
+RelModel/RelModel/payment_detailsfull.svg
+RelModel/RelModeltypes.svg
+GrpcTesting/GrpcTesting/Responsefull.svg
+Apple/skljdfnskjdfnsd.svg
+Apple/sodifsdoif.svg
+RelModel/RelModel/checkpoint_lookupfull.svg
+GrpcTesting/GrpcTesting/Request.svg
+GrpcTesting/GrpcTesting/Requestfull.svg
+RelModel/RelModel/audio_guidefull.svg
+RelModel/RelModel/cash_paymentfull.svg
+RelModel/RelModel/exhibitionfull.svg
+RelModel/RelModel/cash_paymentsimple.svg
+GrpcTesting/GrpcTesting/Requestsimple.svg
+RelModel/RelModel/ticketfull.svg
+RelModel/RelModel/locationsimple.svg
+GrpcTesting/qwertyuio.svg
+RelModel/RelModel/ticketsimple.svg
+Apple/AnotherEndpoint.svg
+RelModel/RelModel/payment_detailssimple.svg
+Foo/thisEndpoint.svg
+GrpcTesting/GrpcTesting/Response.svg
+Banana/thisEndpoint.svg
+--- PASS: TestDataModel (7.35s)
+PASS
+ok  	github.com/anz-bank/sysl-catalog	7.378s
+?   	github.com/anz-bank/sysl-catalog/pkg/catalog	[no test files]
+?   	github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams	[no test files]
+?   	github.com/anz-bank/sysl-catalog/pkg/watcher	[no test files]

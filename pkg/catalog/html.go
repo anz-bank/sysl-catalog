@@ -1,3 +1,5 @@
+// html.go: html/javascript/css to convert generated markdown to html
+
 package catalog
 
 // CSS from https://github.com/KrauseFx/markdown-to-html-github-style/blob/master/style.css (MIT License)

@@ -1,3 +1,4 @@
+// diagram-creation.go: all the methods attached to the generator object to be used in templating
 package catalog
 
 import (
@@ -17,7 +18,6 @@ import (
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
 
 	"github.com/anz-bank/sysl/pkg/cmdutils"
-	"github.com/anz-bank/sysl/pkg/sequencediagram"
 
 	"github.com/sirupsen/logrus"
 
@@ -32,14 +32,17 @@ var re = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
 func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, i interface{}) {
 	var buf bytes.Buffer
 	if err := t.Execute(&buf, i); err != nil {
-		panic(err)
+		p.Log.Error(err)
+		return
 	}
 	if err := p.Fs.MkdirAll(path.Dir(outputFileName), os.ModePerm); err != nil {
-		panic(err)
+		p.Log.Error(err)
+		return
 	}
 	f2, err := p.Fs.Create(outputFileName)
 	if err != nil {
-		panic(err)
+		p.Log.Error(err)
+		return
 	}
 	out := buf.Bytes()
 	if p.Format == "html" {
@@ -66,6 +69,7 @@ func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA b
 	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, logrus.New())
 	delete(p.Module.Apps, "__TEMP__")
 	if err != nil {
+		p.Log.Error(err)
 		return ""
 	}
 	return p.CreateFileName(result[integration.Output], title, integration.Output+".svg")
@@ -77,21 +81,11 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.Name)
 	seq, err := CreateSequenceDiagram(m, call)
 	if err != nil {
-		panic(err)
+		p.Log.Error(err)
+		return ""
 	}
 	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
 	return p.CreateFileName(seq, packageName, appName, endpoint.Name+".svg")
-}
-
-// CreateSequenceDiagram creates an sequence diagram and returns the sequence diagram string and any errors
-func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
-	l := &cmdutils.Labeler{}
-	p := &sequencediagram.SequenceDiagParam{}
-	p.Endpoints = []string{call}
-	p.AppLabeler = l
-	p.EndpointLabeler = l
-	p.Title = call
-	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
 }
 
 // CreateParamDataModel creates a parameter data model and returns a filename
@@ -118,6 +112,7 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 	return ""
 }
 
+// GetReturnType converts an application and a param into a type, useful for getting attributes.
 func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl.Type {
 	var appName, typeName string
 	appName = path.Join(app.Name.GetPart()...)
@@ -134,6 +129,7 @@ func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl
 	return p.Module.Apps[appName].Types[typeName]
 }
 
+// GetReturnType converts an endpoint and a statement into a type, useful for getting attributes.
 func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement) *sysl.Type {
 	var appName, typeName string
 	if ret := stmnt.GetRet(); ret != nil {
@@ -155,7 +151,7 @@ func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement
 	return nil
 }
 
-// CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement
+// CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement.
 func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
 	var sequence bool
 	var typeref *sysl.Type
@@ -221,10 +217,14 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 
 // CreateFileName registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFileName(contents string, absolute string, elems ...string) string {
-	// if fastload: return image from plantuml service
+	// if fastload: return image tag from plantuml service
 	fileName := path.Join(Map(append([]string{absolute}, elems...), SanitiseOutputName)...)
-	plantumlURL := PlantUMLURL(p.PlantumlService, contents)
-	if p.Server {
+	plantumlURL, err := PlantUMLURL(p.PlantumlService, contents)
+	if err != nil {
+		p.Log.Error(err)
+		return ""
+	}
+	if p.ImageTags {
 		return plantumlURL
 	}
 	p.FilesToCreate[fileName] = plantumlURL
@@ -242,6 +242,7 @@ func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 	return ""
 }
 
+// CreateQueryParamDataModel returns a Query Parameter data model filename.
 func (p *Generator) CreateQueryParamDataModel(param *sysl.Param) string {
 	var typeName, appName string
 	relatedTypes := make(map[string]*sysl.Type)
@@ -272,6 +273,7 @@ func (p *Generator) CreateQueryParamDataModel(param *sysl.Param) string {
 	return ""
 }
 
+// CreateQueryParamDataModel returns a Path Parameter data model filename.
 func (p *Generator) CreatePathParamDataModel(param *sysl.Param) string {
 	var typeName, appName string
 	relatedTypes := make(map[string]*sysl.Type)

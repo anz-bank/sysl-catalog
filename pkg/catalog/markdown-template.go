@@ -1,3 +1,4 @@
+// markdown-template.go: the markdown template used to template the sysl module
 package catalog
 
 const NewProjectTemplate = `

@@ -1,12 +1,20 @@
+// util.go: misc functions to convert/send http requests/sort maps
 package catalog
 
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
+	"path"
 	"sort"
 	"strings"
 
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/afero"
+
+	"github.com/anz-bank/sysl/pkg/cmdutils"
 	"github.com/anz-bank/sysl/pkg/diagrams"
+	"github.com/anz-bank/sysl/pkg/sequencediagram"
 	"github.com/hashicorp/go-retryablehttp"
 
 	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
@@ -184,16 +192,39 @@ func RetryHTTPRequest(url string) ([]byte, error) {
 	client.Logger = nil
 	resp, err := client.Get(url)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	return ioutil.ReadAll(resp.Body)
 }
 
 // PlantUMLURL returns a PlantUML url
-func PlantUMLURL(plantumlService, contents string) string {
+func PlantUMLURL(plantumlService, contents string) (string, error) {
 	encoded, err := diagrams.DeflateAndEncode([]byte(contents))
 	if err != nil {
-		panic(err)
+		return "", err
 	}
-	return fmt.Sprintf("%s/%s/%s", plantumlService, "svg", encoded)
+	return fmt.Sprintf("%s/%s/%s", plantumlService, "svg", encoded), nil
+}
+
+func HttpToFile(url, fileName string, fs afero.Fs) error {
+	fs.MkdirAll(path.Dir(fileName), os.ModePerm)
+	out, err := RetryHTTPRequest(url)
+	if err != nil {
+		return err
+	}
+	if err := afero.WriteFile(fs, fileName, append(out, byte('\n')), os.ModePerm); err != nil {
+		return err
+	}
+	return nil
+}
+
+// CreateSequenceDiagram creates an sequence diagram and returns the sequence diagram string and any errors
+func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
+	l := &cmdutils.Labeler{}
+	p := &sequencediagram.SequenceDiagParam{}
+	p.Endpoints = []string{call}
+	p.AppLabeler = l
+	p.EndpointLabeler = l
+	p.Title = call
+	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
 }

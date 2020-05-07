@@ -21,7 +21,7 @@ var (
 	server     = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
 	port       = kingpin.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
 	outputType = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
-	outputDir  = kingpin.Flag("output", "Output directory to generate to").Short('o').String()
+	outputDir  = kingpin.Flag("output", "OutputDir directory to generate to").Short('o').String()
 	verbose    = kingpin.Flag("verbose", "Verbose logs").Short('v').Bool()
 )
 
@@ -45,9 +45,8 @@ func main() {
 		log.Fatal(err)
 	}
 	if *server {
-		handler := catalog.NewProject(*input, "/"+*outputDir, plantumlService, "html", log, m, nil).
-			SetServerMode().
-			EnableLiveReload()
+		handler := catalog.NewProject(*input, plantumlService, "html", log, m, nil, "").
+			ServerSettings(true, true, true)
 
 		go watcher.WatchFile(func() {
 			defer func() {
@@ -57,7 +56,7 @@ func main() {
 			}()
 			m, err := parse.NewParser().Parse(*input, fs)
 			if err != nil {
-				panic(err)
+				log.Fatal(err)
 			}
 			handler.Update(m)
 			livereload.ForceRefresh()
@@ -72,5 +71,5 @@ func main() {
 		log.Fatal(http.ListenAndServe(*port, nil))
 		select {}
 	}
-	catalog.NewProject(*input, *outputDir, plantumlService, *outputType, log, m, fs).Run()
+	catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir).Run()
 }

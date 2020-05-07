@@ -1,3 +1,4 @@
+// server.go: implements http handler interface so that Generator struct can be used directly as a handler
 package catalog
 
 import (
@@ -17,16 +18,11 @@ func (p *Generator) Update(m *sysl.Module) *Generator {
 	return p
 }
 
-// Update loads another Sysl module into a project and runs
-func (p *Generator) SetServerMode() *Generator {
-	p.Server = true
-	p.Format = "html"
-	return p
-}
-
-// EnableLiveReload sets the behaviour for EnableLiveReload
-func (p *Generator) EnableLiveReload() *Generator {
-	p.LiveReload = true
+// ServerSettings sets the server settings, this should be set before using as http handler
+func (p *Generator) ServerSettings(server, liveReload, imageTags bool) *Generator {
+	p.LiveReload = liveReload
+	p.ImageTags = imageTags
+	p.OutputDir = "/"
 	return p
 }
 
@@ -45,7 +41,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
 		bytes, _ = afero.ReadFile(p.Fs, request)
-		w.Write([]byte(file))
+		w.Write(bytes)
 		return
 	}
 	bytes, _ = afero.ReadFile(p.Fs, request)

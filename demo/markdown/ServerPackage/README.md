@@ -40,8 +40,12 @@ this is a description of Authenticate
 ### Request types
 
 
+
 Request Request Request
+
 ![](Server.svg)
+
+
 
 
 ### Response types
@@ -60,6 +64,16 @@ No Response Types
 ### Request types
 
 No Request types
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -82,6 +96,26 @@ No Request types
 
 
 
+
+
+
+
+
+
+
+### Query Parameter
+
+![](Server/Requestfull.svg)
+
+
+
+### Query Parameter
+
+![](Server/Requestfull.svg)
+
+
+
+
 ### Response types
 
 
@@ -98,6 +132,16 @@ No Response Types
 ### Request types
 
 No Request types
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -120,6 +164,20 @@ No Request types
 
 
 
+
+
+
+
+
+### Path Parameter
+
+![](Server/Requestfull.svg)
+
+
+
+
+
+
 ### Response types
 
 
@@ -136,6 +194,13 @@ No Response Types
 ### Request types
 
 No Request types
+
+
+
+
+
+
+
 
 
 

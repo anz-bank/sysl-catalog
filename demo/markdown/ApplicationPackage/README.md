@@ -33,6 +33,9 @@ No Request types
 
 
 
+
+
+
 ### Response types
 
 
@@ -53,8 +56,12 @@ hello, gamers
 ### Request types
 
 
+
 Request Request Request
+
 ![](Server.svg)
+
+
 
 
 ### Response types
@@ -77,8 +84,12 @@ SecondEndpoint, comment
 ### Request types
 
 
+
 Request Request Request
+
 ![](Server.svg)
+
+
 
 
 ### Response types
@@ -97,6 +108,9 @@ ThirdEndpoint comment
 ### Request types
 
 No Request types
+
+
+
 
 
 

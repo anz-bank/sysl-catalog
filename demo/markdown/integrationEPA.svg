@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="316px" preserveAspectRatio="none" style="width:366px;height:316px;" version="1.1" viewBox="0 0 366 316" width="366px" zoomAndPan="magnify"><defs><filter height="300%" id="fwrnzsdtc354j" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[758d88821a0e741df1f73accbabae398]
+cluster X_0--><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="302.5" x="51.5" y="214"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="296.5" x="54.5" y="243.2969"/><line style="stroke: #000000; stroke-width: 1.5;" x1="51.5" x2="354" y1="240.2969" y2="240.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="72" x="164.25" y="230.9951">MobileApp</text><!--MD5=[cecb9a85ae19b9003f4441b135e71cd6]
+cluster X_1--><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="340" x="14" y="16"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="334" x="17" y="45.2969"/><line style="stroke: #000000; stroke-width: 1.5;" x1="14" x2="354" y1="42.2969" y2="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="143.5" y="32.9951">MobileApp2</text><!--MD5=[51e8d94a944361a156a1f52e5c4894ba]
+cluster X_2--><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="114" x="219.5" y="115"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="108" x="222.5" y="144.2969"/><line style="stroke: #000000; stroke-width: 1.5;" x1="219.5" x2="333.5" y1="141.2969" y2="141.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="44" x="238" y="131.9951">Server</text><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="139" x="207" y="257"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="129" x="212" y="281.8467">Authenticate client</text><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="59.5" y="257"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="37" x="66" y="281.8467">Login</text><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="139" x="207" y="59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="129" x="212" y="83.8467">Authenticate client</text><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="125" x="22" y="59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="115" x="27" y="83.8467">SecondEndpoint</text><rect fill="#FFFAF0" filter="url(#fwrnzsdtc354j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="98" x="227.5" y="158"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="232.5" y="182.8467">Authenticate</text><!--MD5=[b4e3d399786c33682cf7201d5a7381ec]
+link _1 to _0--><path d="M109.6006,277 C132.9504,277 168.9434,277 201.5348,277 " fill="none" id="_1-&gt;_0" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="206.7339,277,197.7339,273,201.7339,277,197.7339,281,206.7339,277" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[66d2e95ee2e3e1b5b59548f8bdae5bf2]
+link _0 to _4--><path d="M276.5,256.8906 C276.5,238.9568 276.5,221.0229 276.5,203.0891 " fill="none" id="_0-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="276.5,198.0308,272.5,207.0308,276.5,203.0308,280.5,207.0308,276.5,198.0308" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[450ea2f654882f822490fe83b2b538b8]
+link _3 to _2--><path d="M147.1023,79 C164.5072,79 183.5852,79 201.6174,79 " fill="none" id="_3-&gt;_2" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="206.6734,79,197.6734,75,201.6734,79,197.6734,83,206.6734,79" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[7147dd2715d95ef75e19400737a46bd1]
+link _2 to _4--><path d="M276.5,99.0308 C276.5,116.9647 276.5,134.8985 276.5,152.8324 " fill="none" id="_2-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="276.5,157.8906,280.5,148.8906,276.5,152.8906,272.5,148.8906,276.5,157.8906" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[9501394796c841a8efaa8c9af5e087be]
+@startuml
+
+
+left to right direction
+scale max 16384 height
+hide empty description
+skinparam state {
+  BackgroundColor FloralWhite
+  BorderColor Black
+  ArrowColor Crimson
+}
+state "MobileApp" as X_0 <<highlight>> {
+  state "Authenticate client" as _0 <<highlight>>
+  state "Login" as _1 <<highlight>>
+}
+state "MobileApp2" as X_1 <<highlight>> {
+  state "Authenticate client" as _2 <<highlight>>
+  state "SecondEndpoint" as _3 <<highlight>>
+}
+state "Server" as X_2 <<highlight>> {
+  state "Authenticate" as _4 <<highlight>>
+}
+_1 -[#silver]-> _0
+_0 -[#black]> _4
+_3 -[#silver]-> _2
+_2 -[#black]> _4
+@enduml
+
+PlantUML version 1.2020.08(Sun Apr 26 14:08:22 UTC 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_252-b09
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

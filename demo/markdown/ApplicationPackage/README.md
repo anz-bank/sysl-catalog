@@ -1,76 +1,50 @@
 
 [Back](../README.md)
-# Package ApplicationPackage
+
+
+# ApplicationPackage
 
 ## Service Index
 | Service Name | Method |
 ----|----
-MobileApp | [Another](#MobileApp-Another) |
-MobileApp | [Login](#MobileApp-Login) |
-MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) |
-MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) |
-
-## Database Index
-| Database Name |
-----|
-
-
-[Types](#Types)
-
-## Integration diagram
-
-![](ApplicationPackage_integration.svg)
-
----
+MobileApp | [Another](#MobileApp-Another)
+MobileApp | [Login](#MobileApp-Login)
+MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint)
+MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint)
 
 
 
-
-## MobileApp
-
-- this is a comment for MobileApp
+![](integration.svg)
 
 
 
+# MobileApp
+this is a comment for MobileApp
 
 
 ## MobileApp Another
-
 hello, world
 
-### Sequence Diagram
-![](MobileAppAnother.svg)
+![](MobileApp/Another.svg)
 
 ### Request types
 
 
 
 
-
-
 ### Response types
 
-
-![](ServerAnotherdata-model-response0.svg)
-
-
-
-
+![](Server/Response.svg)
 
 
 ## MobileApp Login
-
 hello, gamers
 
-### Sequence Diagram
-![](MobileAppLogin.svg)
+![](MobileApp/Login.svg)
 
 ### Request types
 
-
-![](ServerLogindata-model-parameter0.svg)
-
-
+![](Server.svg)
 
 
 
@@ -78,76 +52,62 @@ hello, gamers
 ### Response types
 
 
----
-
-
-
-
-## MobileApp2
-
-- this is a comment for MobileApp
-
-
-
+# MobileApp2
+this is a comment for MobileApp
 
 
 ## MobileApp2 SecondEndpoint
-
 SecondEndpoint, comment
 
-### Sequence Diagram
-![](MobileApp2SecondEndpoint.svg)
+![](MobileApp2/SecondEndpoint.svg)
 
 ### Request types
 
-
-![](ServerSecondEndpointdata-model-parameter0.svg)
-
-
+![](Server.svg)
 
 
 
 
 ### Response types
-
-
-
-
 
 
 ## MobileApp2 ThirdEndpoint
-
 ThirdEndpoint comment
 
-### Sequence Diagram
-![](MobileApp2ThirdEndpoint.svg)
+![](MobileApp2/ThirdEndpoint.svg)
 
 ### Request types
 
 
 
 
-
-
 ### Response types
 
-
-![](ServerThirdEndpointdata-model-response0.svg)
-
-
----
+![](Server/Response.svg)
 
 
 
 
-## Types
+
+
+
+
+### Types
+
 <table>
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
 <th>Comment</th>
 <th>Full Diagram</th>
+
+
+</tr>
+
+
+
 </tr>
 
 
 </table>
+

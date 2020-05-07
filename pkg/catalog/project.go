@@ -124,6 +124,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"GenerateDataModel":         p.GenerateDataModel,
 		"CreateQueryParamDataModel": p.CreateQueryParamDataModel,
 		"GetParamType":              p.GetParamType,
+		"GetReturnType":             p.GetReturnType,
 		"hasPattern":                syslutil.HasPattern,
 		"ModuleAsPackages":          ModuleAsPackages,
 		"ModulePackageName":         ModulePackageName,

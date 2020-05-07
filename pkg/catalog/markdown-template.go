@@ -37,14 +37,12 @@ const NewPackageTemplate = `
 
 ![]({{CreateSequenceDiagram $appName $e}})
 
-
 ### Request types
 {{if eq (len $e.Param) 0}}
 No Request types
 {{end}}
 {{range $param := $e.Param}}
 {{Attribute "description" (GetParamType $app $param).GetAttrs}}
-
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
 
@@ -52,6 +50,9 @@ No Request types
 {{$responses := false}}
 {{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
 {{$responses = true}}
+{{$ret := (GetReturnType $e $s)}}{{if ne $ret nil}}
+{{Attribute "description" $ret.GetAttrs}}{{end}}
+
 ![]({{$diagram}})
 {{end}}{{end}}
 {{if eq $responses false}}

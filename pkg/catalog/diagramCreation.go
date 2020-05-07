@@ -134,6 +134,27 @@ func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl
 	return p.Module.Apps[appName].Types[typeName]
 }
 
+func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement) *sysl.Type {
+	var appName, typeName string
+	if ret := stmnt.GetRet(); ret != nil {
+		t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
+		if strings.Contains(t, "sequence of") {
+			t = strings.ReplaceAll(t, "sequence of ", "")
+		}
+		if split := strings.Split(t, "."); len(split) > 1 {
+			appName = split[0]
+			typeName = split[1]
+		} else {
+			typeName = split[0]
+		}
+		if appName == "" {
+			appName = strings.Join(endpoint.Source.Part, "")
+		}
+		return p.Module.Apps[appName].Types[typeName]
+	}
+	return nil
+}
+
 // CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement
 func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
 	var sequence bool

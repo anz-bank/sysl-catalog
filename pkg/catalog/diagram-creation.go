@@ -245,7 +245,7 @@ func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 }
 
 // CreateQueryParamDataModel returns a Query Parameter data model filename.
-func (p *Generator) CreateQueryParamDataModel(param *sysl.Param) string {
+func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
 	var typeName, appName string
 	relatedTypes := make(map[string]*sysl.Type)
 	var parsedType *sysl.Type
@@ -264,6 +264,9 @@ func (p *Generator) CreateQueryParamDataModel(param *sysl.Param) string {
 			}
 		} else {
 			typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
+		}
+		if appName == "" {
+			appName = CurrentAppName
 		}
 		parsedType = NewTypeRef(appName, typeName)
 		relatedTypes = catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: parsedType}, p.Module)

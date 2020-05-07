@@ -42,19 +42,32 @@ const NewPackageTemplate = `
 {{if eq (len $e.Param) 0}}
 No Request types
 {{end}}
+
 {{range $param := $e.Param}}
 {{Attribute "description" (GetParamType $app $param).GetAttrs}}
 
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
 
-{{if $e.RestParams}}
-### Path Parameters
-{{if $e.RestParams.UrlParam}}
+{{if $e.RestParams}}{{if $e.RestParams.UrlParam}}
 {{range $param := $e.RestParams.UrlParam}}
+{{$PathDataModel := (CreatePathParamDataModel $appName $param)}}
+{{if ne $PathDataModel ""}}
+### Path Parameter
+
 ![]({{CreatePathParamDataModel $appName $param}})
+{{end}}{{end}}{{end}}
+
+{{if $e.RestParams.QueryParam}}
+{{range $param := $e.RestParams.QueryParam}}
+{{$queryDataModel := (CreateQueryParamDataModel $appName $param)}}
+{{if ne $queryDataModel ""}}
+### Query Parameter
+
+![]({{$queryDataModel}})
+{{end}}{{end}}{{end}}
+
 {{end}}
-{{end}}{{end}}
 
 ### Response types
 {{$responses := false}}

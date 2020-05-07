@@ -6,3 +6,6 @@ App:
     /testRestURLParam/{id<:foo}:
         GET:
             ...
+    /testRestQueryParam/{id<:foo}:
+        GET ?queryString={foo}&secondQueryString={foo}:
+            return ok <: foo

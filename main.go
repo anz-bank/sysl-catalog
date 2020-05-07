@@ -45,7 +45,7 @@ func main() {
 		log.Fatal(err)
 	}
 	if *server {
-		handler := catalog.NewProject(*input, "/"+*outputDir, plantumlService, "html", log, m).
+		handler := catalog.NewProject(*input, "/"+*outputDir, plantumlService, "html", log, m, nil).
 			SetServerMode().
 			EnableLiveReload()
 
@@ -72,6 +72,5 @@ func main() {
 		log.Fatal(http.ListenAndServe(*port, nil))
 		select {}
 	}
-	project := catalog.NewProject(*input, *outputDir, plantumlService, *outputType, log, m)
-	project.SetOutputFs(fs).ExecuteTemplateAndDiagrams()
+	catalog.NewProject(*input, *outputDir, plantumlService, *outputType, log, m, fs).Run()
 }

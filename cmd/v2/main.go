@@ -2,19 +2,14 @@ package main
 
 import (
 	"os"
-	"testing"
-
-	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 
 	"github.com/anz-bank/sysl/pkg/parse"
 
-	"github.com/sirupsen/logrus"
-
+	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/spf13/afero"
 )
 
-func TestDataModel(t *testing.T) {
-	t.Parallel()
+func main() {
 	fs := afero.NewOsFs()
 	filename := "tests/simple.sysl"
 	plantumlService := os.Getenv("SYSL_PLANTUML")
@@ -25,6 +20,5 @@ func TestDataModel(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	catalog.NewProject(filename, "demo/html", plantumlService, "html", logrus.New(), m).SetServerMode().SetOutputFs(fs).
-		ExecuteTemplateAndDiagrams()
+	catalog.Run(m, plantumlService, fs)
 }

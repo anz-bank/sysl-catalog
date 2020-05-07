@@ -2,6 +2,7 @@
 package catalog
 
 import (
+	"html"
 	"net/http"
 	"path"
 	"strings"
@@ -19,7 +20,8 @@ func (p *Generator) Update(m *sysl.Module) *Generator {
 }
 
 // ServerSettings sets the server settings, this should be set before using as http handler
-func (p *Generator) ServerSettings(server, liveReload, imageTags bool) *Generator {
+func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Generator {
+	p.DisableCss = disableCSS
 	p.LiveReload = liveReload
 	p.ImageTags = imageTags
 	p.OutputDir = "/"
@@ -47,7 +49,16 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	bytes, _ = afero.ReadFile(p.Fs, request)
 	file = string(bytes)
 	if p.LiveReload {
-		file = strings.ReplaceAll(file, "<body>", `<body><script src="/livereload.js?port=6900&mindelay=10&v=2" data-no-instant defer></script>`)
+		if strings.Contains(file, `<body>`) {
+			// if its html add the script just after the body tag
+			file = strings.ReplaceAll(file, "<body>", `<body>`+script)
+		} else {
+			// if it's raw html, we can render it but still add the livereload script
+			file = header +
+				`<pre style="word-wrap: break-word; white-space: pre-wrap;">` +
+				html.EscapeString(file) +
+				`</pre>` + script + endTags
+		}
 	}
 	w.Write([]byte(file))
 }

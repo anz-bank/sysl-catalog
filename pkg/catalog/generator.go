@@ -4,6 +4,7 @@ package catalog
 import (
 	"fmt"
 	"path"
+	"path/filepath"
 	"strings"
 	"sync"
 	"text/template"
@@ -20,19 +21,21 @@ import (
 
 // Generator is the contextual object that is used in the markdown generation
 type Generator struct {
-	FilesToCreate   map[string]string
-	Title           string
-	LiveReload      bool   // Add live reload javascript to html
-	ImageTags       bool   // embedded plantuml img tags, or generated svgs
-	Format          string // "html" or "markdown"
-	OutputDir       string
-	OutputFileName  string
-	PlantumlService string
-	Log             *logrus.Logger
-	Fs              afero.Fs
-	Module          *sysl.Module
-	ProjectTempl    *template.Template // Templ is used to template the Generator struct
-	PackageTempl    *template.Template // PackageTempl is passed down to all Packages
+	FilesToCreate        map[string]string
+	MermaidFilesToCreate map[string]string
+	Title                string
+	LiveReload           bool // Add live reload javascript to html
+	ImageTags            bool // embedded plantuml img tags, or generated svgs
+	DisableCss           bool
+	Format               string // "html" or "markdown"
+	OutputDir            string
+	OutputFileName       string
+	PlantumlService      string
+	Log                  *logrus.Logger
+	Fs                   afero.Fs
+	Module               *sysl.Module
+	ProjectTempl         *template.Template // Templ is used to template the Generator struct
+	PackageTempl         *template.Template // PackageTempl is passed down to all Packages
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.
@@ -76,10 +79,76 @@ func NewProject(
 	return &p
 }
 
+// WithTemplateFileNames loads template strings into project and package of p respectively
+func (p *Generator) WithTemplateString(p1, p2 string) *Generator {
+	var err error
+	if p1 != "" {
+		p.ProjectTempl, err = template.New("project").Funcs(p.GetFuncMap()).Parse(p1)
+		if err != nil {
+			p.Log.Error(err)
+			return nil
+		}
+	}
+	if p2 != "" {
+		p.PackageTempl, err = template.New("package").Funcs(p.GetFuncMap()).Parse(p2)
+		if err != nil {
+			p.Log.Error(err)
+			return nil
+		}
+	}
+	return p
+}
+
+// WithTemplateFileNames loads templates from fs registered in p
+func (p *Generator) WithTemplateFileNames(p1, p2 string) *Generator {
+	var file1, file2 []byte
+	var err error
+	if p1 != "" {
+		file1, err = afero.ReadFile(p.Fs, p1)
+		if err != nil {
+			p.Log.Error(err)
+			return nil
+		}
+	}
+	if p2 != "" {
+		file2, err = afero.ReadFile(p.Fs, p2)
+		if err != nil {
+			p.Log.Error(err)
+			return nil
+		}
+	}
+	return p.WithTemplateString(string(file1), string(file2))
+}
+
+// WithTemplateFileNames loads templates from fs registered in p
+func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
+	var file1, file2 []byte
+	var err error
+	if p1 != nil {
+		file1, err = afero.ReadAll(p1)
+		if err != nil {
+			p.Log.Error(err)
+			return nil
+		}
+	}
+	if p2 != nil {
+		file2, err = afero.ReadAll(p2)
+		if err != nil {
+			p.Log.Error(err)
+			return nil
+		}
+	}
+	return p.WithTemplateString(string(file1), string(file2))
+}
+
 // Run Executes a project and generates markdown and diagrams to a given filesystem.
 func (p *Generator) Run() {
+	m := struct {
+		*sysl.Module
+		Title string
+	}{p.Module, p.Title}
+	p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m)
 	packages := ModuleAsPackages(p.Module)
-	p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), p.Module)
 	for _, key := range AlphabeticalModules(packages) {
 		pkg := packages[key]
 		p.CreateMarkdown(p.PackageTempl, path.Join(p.OutputDir, key, p.OutputFileName), pkg)
@@ -101,6 +170,9 @@ func (p *Generator) Run() {
 		wg.Wait()
 		progress.Finish()
 	}
+	//for key, url := range p.MermaidFilesToCreate {
+	//	// Use mermaid-go
+	//}
 }
 
 // GetFuncMap returns the funcs that are used in diagram generation.
@@ -128,5 +200,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"TypeComment":               TypeComment,
 		"Attribute":                 Attribute,
 		"SanitiseOutputName":        SanitiseOutputName,
+		"ToLower":                   strings.ToLower,
+		"Base":                      filepath.Base,
 	}
 }

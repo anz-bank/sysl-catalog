@@ -1,25 +1,9 @@
-// markdown-template.go: the markdown template used to template the sysl module
-package catalog
-
-const NewProjectTemplate = `
-
-# {{Base .Title}}
-
-| Package |
-----|{{range $key, $val := ModuleAsPackages .Module}}
-[{{$key}}]({{$key}}/README.md)|{{end}}
-
-## Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module "" false}}">
-
-## End Point Analysis Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module "" true}}">
-
-`
-
-const NewPackageTemplate = `
-[Back](../README.md)
 {{$packageName := ModulePackageName .}}
+---
+id: {{$packageName}}
+title: {{ToLower $packageName}}
+sidebar_label: {{ToLower $packageName}}
+---
 
 # {{$packageName}}
 
@@ -120,9 +104,9 @@ No Response Types
 
 <img src="{{CreateTypeDiagram  $app $typeName $type false}}">
 </td>
-<td> 
+<td>
 
-{{if ne (TypeComment $type) ""}}<details closed><summary>Comment</summary><br>{{TypeComment $type}}</details>{{end}} 
+{{if ne (TypeComment $type) ""}}<details closed><summary>Comment</summary><br>{{TypeComment $type}}</details>{{end}}
 </td>
 <td>
 
@@ -130,5 +114,3 @@ No Response Types
 </td>
 </tr>{{end}}{{end}}{{end}}
 </table>
-
-`

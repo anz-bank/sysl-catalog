@@ -1,0 +1,16 @@
+{{$title := ToLower (Base .Title)}}
+---
+id: documentation
+title: {{$title}}
+sidebar_label: {{$title}}
+---
+
+| Package |
+----|{{range $key, $val := ModuleAsPackages .Module}}
+[{{$key}}]({{$key}}/README.md)|{{end}}
+
+## Integration Diagram
+<img src="{{CreateIntegrationDiagram .Module "" false}}">
+
+## End Point Analysis Integration Diagram
+<img src="{{CreateIntegrationDiagram .Module "" true}}">

@@ -47,7 +47,7 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 		return
 	}
 	out := buf.Bytes()
-	if p.Format == "html" {
+	if p.Format == "html" && !p.DisableCss {
 		out = []byte(header + string(blackfriday.Run(out)) + style + endTags)
 	}
 	f2.Write(out)

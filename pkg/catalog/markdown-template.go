@@ -34,7 +34,10 @@ const NewPackageTemplate = `
 
 {{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
 {{if eq (hasPattern $app.Attrs "ignore") false}}
-# {{$appName}}
+
+{{if ne $appName $packageName}}
+# {{$appName}}{{end}}
+
 {{AppComment $app}}
 {{range $e := $app.Endpoints}}
 {{if eq (hasPattern $e.Attrs "ignore") false}}

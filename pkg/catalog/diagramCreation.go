@@ -118,6 +118,22 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 	return ""
 }
 
+func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl.Type {
+	var appName, typeName string
+	appName = path.Join(app.Name.GetPart()...)
+	if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
+		if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+			appName = paramNameParts[0]
+			typeName = path[0]
+		} else {
+			typeName = paramNameParts[0]
+		}
+	} else {
+		typeName = paramNameParts[0]
+	}
+	return p.Module.Apps[appName].Types[typeName]
+}
+
 // CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement
 func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
 	var sequence bool

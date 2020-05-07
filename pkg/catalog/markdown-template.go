@@ -37,21 +37,34 @@ const NewPackageTemplate = `
 
 ![]({{CreateSequenceDiagram $appName $e}})
 
+
 ### Request types
+{{if eq (len $e.Param) 0}}
+No Request types
+{{end}}
 {{range $param := $e.Param}}
+{{Attribute "description" (GetParamType $app $param).GetAttrs}}
+
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
 
 ### Response types
+{{$responses := false}}
 {{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
+{{$responses = true}}
 ![]({{$diagram}})
-{{end}}{{end}}{{end}}{{end}}{{end}}{{end}}
+{{end}}{{end}}
+{{if eq $responses false}}
+No Response Types
+{{end}}
+{{end}}{{end}}{{end}}{{end}}
 
 
 {{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
-{{if hasPattern $app.Attrs "db"}}
+{{if hasPattern $app.GetAttrs "db"}}
 
 ## Database
+{{Attribute "description" $app.GetAttrs}}
 ![]({{GenerateDataModel $app}})
 {{end}}{{end}}
 

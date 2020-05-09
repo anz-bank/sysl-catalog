@@ -2,6 +2,7 @@
 package catalog
 
 import (
+	"encoding/base64"
 	"fmt"
 	"html"
 	"net/http"
@@ -72,6 +73,12 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	case "":
 		request += "index.html"
+	case ".ico":
+		bytes, err = base64.StdEncoding.DecodeString(favicon)
+		if err != nil {
+			p.Log.Info(err)
+		}
+		return
 	}
 	bytes, err = afero.ReadFile(p.Fs, request)
 	if err != nil {

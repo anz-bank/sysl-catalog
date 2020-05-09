@@ -27,6 +27,7 @@ var (
 	server            = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
 	noCSS             = kingpin.Flag("noCSS", "disable adding css to served html").Bool()
 	disableLiveReload = kingpin.Flag("disableLiveReload", "diable live reload").Default("false").Bool()
+	noImages          = kingpin.Flag("noImages", "don't create images").Default("false").Bool()
 )
 
 func main() {
@@ -64,6 +65,7 @@ func main() {
 		}
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir).
 			WithTemplateFiles(f1, f2).
+			SetOptions(*noCSS, *noImages).
 			Run()
 		return
 	}

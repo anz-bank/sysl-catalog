@@ -26,9 +26,10 @@ type Generator struct {
 	FilesToCreate        map[string]string
 	MermaidFilesToCreate map[string]string
 	Title                string
-	LiveReload           bool // Add live reload javascript to html
-	ImageTags            bool // embedded plantuml img tags, or generated svgs
-	DisableCss           bool
+	LiveReload           bool   // Add live reload javascript to html
+	ImageTags            bool   // embedded plantuml img tags, or generated svgs
+	DisableCss           bool   // used for rendering raw markdown
+	DisableImages        bool   // used for omitting image creation
 	Format               string // "html" or "markdown" or "" if custom
 	OutputDir            string
 	OutputFileName       string
@@ -105,6 +106,13 @@ func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
 	return p.WithTemplateString(string(file1), string(file2))
 }
 
+func (p *Generator) SetOptions(disableCss, disableImages bool) *Generator {
+	p.DisableCss = disableCss
+	p.DisableImages = disableImages
+	return p
+
+}
+
 // Run Executes a project and generates markdown and diagrams to a given filesystem.
 func (p *Generator) Run() {
 	m := struct {
@@ -116,7 +124,8 @@ func (p *Generator) Run() {
 	for _, key := range AlphabeticalModules(packages) {
 		p.CreateMarkdown(p.PackageTempl, path.Join(p.OutputDir, key, p.OutputFileName), packages[key])
 	}
-	if p.ImageTags {
+	if p.ImageTags || p.DisableImages {
+		fmt.Println("Skipping Image creation")
 		return
 	}
 	var wg sync.WaitGroup

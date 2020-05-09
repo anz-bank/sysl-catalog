@@ -142,7 +142,7 @@ Response Response Response
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
-<th>Comment</th>
+<th>Attribute</th>
 <th>Full Diagram</th>
 
 

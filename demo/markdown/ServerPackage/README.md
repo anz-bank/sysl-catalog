@@ -216,7 +216,7 @@ No Response Types
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
-<th>Comment</th>
+<th>Attribute</th>
 <th>Full Diagram</th>
 
 
@@ -234,7 +234,7 @@ MegaDatabase.<br>Empty
 </td>
 <td> 
 
-<details closed><summary>Comment</summary><br>Empty Empty Empty</details> 
+<details closed><summary>Attribute</summary><br>Empty Empty Empty</details> 
 </td>
 <td>
 
@@ -252,7 +252,7 @@ MegaDatabase.<br>Money
 </td>
 <td> 
 
-<details closed><summary>Comment</summary><br>Money Money Money</details> 
+<details closed><summary>Attribute</summary><br>Money Money Money</details> 
 </td>
 <td>
 
@@ -275,7 +275,7 @@ Server.<br>Empty
 </td>
 <td> 
 
-<details closed><summary>Comment</summary><br>Empty Empty Empty</details> 
+<details closed><summary>Attribute</summary><br>Empty Empty Empty</details> 
 </td>
 <td>
 
@@ -293,7 +293,7 @@ Server.<br>Request
 </td>
 <td> 
 
-<details closed><summary>Comment</summary><br>Request Request Request</details> 
+<details closed><summary>Attribute</summary><br>Request Request Request</details> 
 </td>
 <td>
 
@@ -311,7 +311,7 @@ Server.<br>Response
 </td>
 <td> 
 
-<details closed><summary>Comment</summary><br>Response Response Response</details> 
+<details closed><summary>Attribute</summary><br>Response Response Response</details> 
 </td>
 <td>
 

@@ -30,6 +30,11 @@ var (
 	ofTypeSymbol = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
 )
 
+const (
+	plantuml = iota
+	mermaidjs
+)
+
 // CreateMarkdown is a wrapper function that also converts output markdown to html if in server mode
 func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, i interface{}) error {
 	var buf bytes.Buffer
@@ -45,8 +50,9 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 	}
 	out := buf.Bytes()
 	if p.Format == "html" && !p.DisableCss {
-		out = []byte(header + strings.ReplaceAll(string(blackfriday.Run(out)), "README.md", p.OutputFileName) + style + endTags)
-
+		raw := string(blackfriday.Run(out))
+		raw = strings.ReplaceAll(raw, "README.md", p.OutputFileName)
+		out = []byte(header + raw + style + endTags)
 	}
 	if _, err = f2.Write(out); err != nil {
 		return err
@@ -74,20 +80,21 @@ func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA b
 		p.Log.Error(err)
 		return ""
 	}
-	return p.CreateFileName(result[integration.Output], title, integration.Output+".svg")
+	plantumlString := result[integration.Output]
+	return p.CreateFile(plantumlString, plantuml, title, integration.Output+p.Ext)
 }
 
 // CreateSequenceDiagram creates an sequence diagram and returns the filename
 func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoint) string {
 	m := p.Module
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.Name)
-	seq, err := CreateSequenceDiagram(m, call)
+	plantumlString, err := CreateSequenceDiagram(m, call)
 	if err != nil {
 		p.Log.Error(err)
 		return ""
 	}
 	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-	return p.CreateFileName(seq, packageName, appName, endpoint.Name+".svg")
+	return p.CreateFile(plantumlString, plantuml, packageName, appName, endpoint.Name+p.Ext)
 }
 
 // CreateParamDataModel creates a parameter data model and returns a filename
@@ -99,7 +106,8 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 	}
 	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
 	relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
-	return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName+".svg")
+	plantumlString := catalogdiagrams.GenerateDataModel(appName, relatedTypes)
+	return p.CreateFile(plantumlString, plantuml, packageName, appName+p.Ext)
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
@@ -195,23 +203,40 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 		return ""
 	}
 	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-	return p.CreateFileName(plantumlString, packageName, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+".svg")
+	return p.CreateFile(plantumlString, plantuml, packageName, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
 }
 
-// CreateFileName registers a file that needs to be created in p, or returns the embedded img tag if in server mode
-func (p *Generator) CreateFileName(contents string, absolute string, elems ...string) string {
-	// if fastload: return image tag from plantuml service
-	fileName := path.Join(Map(append([]string{absolute}, elems...), SanitiseOutputName)...)
-	plantumlURL, err := PlantUMLURL(p.PlantumlService, contents)
+// CreateFileName returns the absolute and relative filepaths
+func CreateFileName(dir string, elems ...string) (string, string) {
+	absolutefileName := path.Join(Map(append([]string{dir}, elems...), SanitiseOutputName)...)
+	relativefileName := strings.Replace(absolutefileName, dir+"/", "", 1)
+	return absolutefileName, relativefileName
+}
+
+// CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
+func (p *Generator) CreateFile(contents string, diagramType int, absolute string, elems ...string) string {
+	fileName, relativeFilepath := CreateFileName(absolute, elems...)
+	var fileContents string
+	var targetMap map[string]string
+	var err error
+	switch diagramType {
+	case plantuml:
+		fileContents, err = PlantUMLURL(p.PlantumlService, contents)
+		targetMap = p.FilesToCreate
+	case mermaidjs:
+		fileContents = ""
+		targetMap = p.MermaidFilesToCreate
+	}
 	if err != nil {
 		p.Log.Error(err)
 		return ""
 	}
+	// if p.ImageTags: return image tag from plantUML service
 	if p.ImageTags {
-		return plantumlURL
+		return fileContents
 	}
-	p.FilesToCreate[fileName] = plantumlURL
-	return strings.Replace(fileName, absolute+"/", "", 1) // if not fast load: return image filename
+	targetMap[fileName] = fileContents
+	return relativeFilepath
 }
 
 // GenerateDataModel generates a data model for all of the types in app
@@ -222,7 +247,7 @@ func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 		return ""
 	}
 	packageName, _ := GetAppPackageName(app)
-	return p.CreateFileName(plantumlString, packageName, appName, "types"+".svg")
+	return p.CreateFile(plantumlString, plantuml, packageName, appName, "types"+p.Ext)
 }
 
 // CreateQueryParamDataModel returns a Query Parameter data model filename.

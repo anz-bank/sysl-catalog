@@ -3,6 +3,7 @@ package catalog
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -18,6 +19,7 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
+	"github.com/joshcarp/mermaid-go/mermaid"
 	"github.com/spf13/afero"
 )
 
@@ -33,6 +35,7 @@ type Generator struct {
 	DisableCss           bool   // used for rendering raw markdown
 	DisableImages        bool   // used for omitting image creation
 	Format               string // "html" or "markdown" or "" if custom
+	Ext                  string
 	OutputDir            string
 	OutputFileName       string
 	PlantumlService      string
@@ -60,6 +63,7 @@ func NewProject(
 		PlantumlService: plantumlService,
 		FilesToCreate:   make(map[string]string),
 		Fs:              fs,
+		Ext:             ".svg",
 	}
 	return p.WithTemplateString(NewProjectTemplate, NewPackageTemplate)
 }
@@ -138,7 +142,7 @@ func (p *Generator) Run() {
 	}
 	var wg sync.WaitGroup
 	fmt.Println("Generating diagrams:")
-	progress := pb.StartNew(len(p.FilesToCreate))
+	progress := pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
 	for fileName, url := range p.FilesToCreate {
 		wg.Add(1)
 		go func(fileName, url string) {
@@ -148,6 +152,18 @@ func (p *Generator) Run() {
 			progress.Increment()
 			wg.Done()
 		}(fileName, url)
+	}
+	for fileName, contents := range p.MermaidFilesToCreate {
+		wg.Add(1)
+		go func(fileName, contents string) {
+			mermaidSvg := mermaid.Execute(contents)
+			var err = afero.WriteFile(p.Fs, fileName, []byte(mermaidSvg+"\n"), os.ModePerm)
+			if err != nil {
+				p.Log.Error(err)
+			}
+			progress.Increment()
+			wg.Done()
+		}(fileName, contents)
 	}
 	wg.Wait()
 	progress.Finish()

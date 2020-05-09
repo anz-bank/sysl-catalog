@@ -39,7 +39,7 @@ const NewPackageTemplate = `
 {{range $e := $app.Endpoints}}
 {{if eq (hasPattern $e.Attrs "ignore") false}}
 ## {{$appName}} {{SanitiseOutputName $e.Name}}
-{{Attribute "description" $e.GetAttrs}}
+{{Attribute $e "description"}}
 
 ![]({{CreateSequenceDiagram $appName $e}})
 

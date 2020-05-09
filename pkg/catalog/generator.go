@@ -19,6 +19,8 @@ import (
 	"github.com/spf13/afero"
 )
 
+var typeMaps = map[string]string{"md": "README.md", "markdown": "README.md", "html": "index.html"}
+
 // Generator is the contextual object that is used in the markdown generation
 type Generator struct {
 	FilesToCreate        map[string]string
@@ -27,7 +29,7 @@ type Generator struct {
 	LiveReload           bool // Add live reload javascript to html
 	ImageTags            bool // embedded plantuml img tags, or generated svgs
 	DisableCss           bool
-	Format               string // "html" or "markdown"
+	Format               string // "html" or "markdown" or "" if custom
 	OutputDir            string
 	OutputFileName       string
 	PlantumlService      string
@@ -53,38 +55,15 @@ func NewProject(
 		FilesToCreate:   make(map[string]string),
 		Fs:              fs,
 	}
-	var ProjectTemplate, PackageTemplate string
-	switch outputType {
-	case "html":
-		p.OutputFileName = "index.html"
-		ProjectTemplate = strings.ReplaceAll(NewProjectTemplate, "README.md", "index.html")
-		PackageTemplate = strings.ReplaceAll(NewPackageTemplate, "README.md", "index.html")
-		p.Format = "html"
-	case "markdown", "md":
-		p.OutputFileName = "README.md"
-		ProjectTemplate, PackageTemplate = NewProjectTemplate, NewPackageTemplate
-		p.Format = "md"
-	}
-	var err error
-	p.ProjectTempl, err = template.New("project").Funcs(p.GetFuncMap()).Parse(ProjectTemplate)
-	if err != nil {
-		p.Log.Error(err)
-		return nil
-	}
-	p.PackageTempl, err = template.New("package").Funcs(p.GetFuncMap()).Parse(PackageTemplate)
-	if err != nil {
-		p.Log.Error(err)
-		return nil
-	}
-	return &p
+	p.Format = strings.ToLower(outputType)
+	p.OutputFileName = typeMaps[p.Format]
+	return p.WithTemplateString(NewProjectTemplate, NewPackageTemplate)
 }
 
 // WithTemplateFileNames loads template strings into project and package of p respectively
 func (p *Generator) WithTemplateString(p1, p2 string) *Generator {
 	var err error
 	if p1 != "" {
-		p.DisableCss = true
-		p.Format = ""
 		p.ProjectTempl, err = template.New("project").Funcs(p.GetFuncMap()).Parse(p1)
 		if err != nil {
 			p.Log.Error(err)
@@ -92,8 +71,6 @@ func (p *Generator) WithTemplateString(p1, p2 string) *Generator {
 		}
 	}
 	if p2 != "" {
-		p.DisableCss = true
-		p.Format = ""
 		p.PackageTempl, err = template.New("package").Funcs(p.GetFuncMap()).Parse(p2)
 		if err != nil {
 			p.Log.Error(err)
@@ -101,27 +78,6 @@ func (p *Generator) WithTemplateString(p1, p2 string) *Generator {
 		}
 	}
 	return p
-}
-
-// WithTemplateFileNames loads templates from fs registered in p
-func (p *Generator) WithTemplateFileNames(p1, p2 string) *Generator {
-	var file1, file2 []byte
-	var err error
-	if p1 != "" {
-		file1, err = afero.ReadFile(p.Fs, p1)
-		if err != nil {
-			p.Log.Error(err)
-			return nil
-		}
-	}
-	if p2 != "" {
-		file2, err = afero.ReadFile(p.Fs, p2)
-		if err != nil {
-			p.Log.Error(err)
-			return nil
-		}
-	}
-	return p.WithTemplateString(string(file1), string(file2))
 }
 
 // WithTemplateFileNames loads templates from fs registered in p
@@ -134,6 +90,8 @@ func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
 			p.Log.Error(err)
 			return nil
 		}
+		p.DisableCss = true
+		p.Format = ""
 	}
 	if p2 != nil {
 		file2, err = afero.ReadAll(p2)
@@ -141,6 +99,8 @@ func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
 			p.Log.Error(err)
 			return nil
 		}
+		p.DisableCss = true
+		p.Format = ""
 	}
 	return p.WithTemplateString(string(file1), string(file2))
 }
@@ -157,23 +117,25 @@ func (p *Generator) Run() {
 		pkg := packages[key]
 		p.CreateMarkdown(p.PackageTempl, path.Join(p.OutputDir, key, p.OutputFileName), pkg)
 	}
-	if !p.ImageTags {
-		var wg sync.WaitGroup
-		fmt.Println("Generating diagrams:")
-		progress := pb.StartNew(len(p.FilesToCreate))
-		for key, url := range p.FilesToCreate {
-			go func(key, url string) {
-				wg.Add(1)
-				if err := HttpToFile(url, path.Join(p.OutputDir, key), p.Fs); err != nil {
-					p.Log.Error(err)
-				}
-				progress.Increment()
-				wg.Done()
-			}(key, url)
-		}
-		wg.Wait()
-		progress.Finish()
+	if p.ImageTags {
+		return
 	}
+	var wg sync.WaitGroup
+	fmt.Println("Generating diagrams:")
+	progress := pb.StartNew(len(p.FilesToCreate))
+	for key, url := range p.FilesToCreate {
+		go func(key, url string) {
+			wg.Add(1)
+			if err := HttpToFile(url, path.Join(p.OutputDir, key), p.Fs); err != nil {
+				p.Log.Error(err)
+			}
+			progress.Increment()
+			wg.Done()
+		}(key, url)
+	}
+	wg.Wait()
+	progress.Finish()
+
 	//for key, url := range p.MermaidFilesToCreate {
 	//	// Use mermaid-go
 	//}

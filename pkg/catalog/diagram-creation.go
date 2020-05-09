@@ -48,7 +48,8 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 	}
 	out := buf.Bytes()
 	if p.Format == "html" && !p.DisableCss {
-		out = []byte(header + string(blackfriday.Run(out)) + style + endTags)
+		out = []byte(header + strings.ReplaceAll(string(blackfriday.Run(out)), "README.md", p.OutputFileName) + style + endTags)
+
 	}
 	f2.Write(out)
 

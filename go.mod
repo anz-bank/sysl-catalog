@@ -21,6 +21,7 @@ require (
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/pkg/errors v0.9.1
 	github.com/radovskyb/watcher v1.0.7
 	github.com/russross/blackfriday/v2 v2.0.1
 	github.com/shurcooL/go v0.0.0-20200502201357-93f07166e636 // indirect

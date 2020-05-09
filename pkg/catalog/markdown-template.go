@@ -28,13 +28,10 @@ const NewPackageTemplate = `
 ----|----{{$Apps := .Apps}}{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := AlphabeticalEndpoints $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}
 {{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}){{end}}{{end}}
 
-
-
 ![]({{CreateIntegrationDiagram . $packageName false}})
 
 {{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
 {{if eq (hasPattern $app.Attrs "ignore") false}}
-
 {{if ne $appName $packageName}}
 # {{$appName}}{{end}}
 
@@ -88,7 +85,6 @@ No Request types
 No Response Types
 {{end}}{{end}}{{end}}{{end}}{{end}}
 
-
 {{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
 {{if hasPattern $app.GetAttrs "db"}}
 
@@ -96,7 +92,6 @@ No Response Types
 {{Attribute "description" $app.GetAttrs}}
 ![]({{GenerateDataModel $app}})
 {{end}}{{end}}
-
 
 ### Types
 

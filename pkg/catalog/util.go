@@ -229,3 +229,19 @@ func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	p.Title = call
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
 }
+
+// GetAppTypeName returns the appName and typeName of a param
+func GetAppTypeName(param *sysl.Param) (string, string) {
+	var appName, typeName string
+	if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
+		if typeNamePath := param.Type.GetTypeRef().GetRef().GetPath(); typeNamePath != nil {
+			appName = paramNameParts[0]
+			typeName = typeNamePath[0]
+		} else {
+			typeName = paramNameParts[0]
+		}
+	} else {
+		typeName = paramNameParts[0]
+	}
+	return appName, typeName
+}

@@ -95,19 +95,9 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 // CreateParamDataModel creates a parameter data model and returns a filename
 func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Param) string {
 	var appName, typeName string
-	appName = path.Join(app.Name.GetPart()...)
-	if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-		if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
-			appName = paramNameParts[0]
-			typeName = typeNameParts[0]
-		} else {
-			typeName = paramNameParts[0]
-		}
-	} else {
-		typeName = paramNameParts[0]
-	}
-	if _, ok := p.Module.Apps[appName]; !ok {
-		return ""
+	appName, typeName = GetAppTypeName(param)
+	if appName == "" {
+		appName = path.Join(app.Name.GetPart()...)
 	}
 	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
 	relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
@@ -117,16 +107,9 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
 func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl.Type {
 	var appName, typeName string
-	appName = path.Join(app.Name.GetPart()...)
-	if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-		if typeNamePath := param.Type.GetTypeRef().GetRef().GetPath(); typeNamePath != nil {
-			appName = paramNameParts[0]
-			typeName = typeNamePath[0]
-		} else {
-			typeName = paramNameParts[0]
-		}
-	} else {
-		typeName = paramNameParts[0]
+	appName, typeName = GetAppTypeName(param)
+	if appName == "" {
+		appName = path.Join(app.Name.GetPart()...)
 	}
 	return p.Module.Apps[appName].Types[typeName]
 }

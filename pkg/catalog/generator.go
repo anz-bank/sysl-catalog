@@ -9,6 +9,8 @@ import (
 	"sync"
 	"text/template"
 
+	"github.com/pkg/errors"
+
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/cheggaaa/pb/v3"
@@ -37,8 +39,8 @@ type Generator struct {
 	Log                  *logrus.Logger
 	Fs                   afero.Fs
 	Module               *sysl.Module
-	ProjectTempl         *template.Template // ProjectTempl is used to template the Generator struct
-	PackageTempl         *template.Template // PackageTempl is passed down to all Packages
+	ProjectTempl         *template.Template
+	PackageTempl         *template.Template
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.
@@ -119,10 +121,15 @@ func (p *Generator) Run() {
 		*sysl.Module
 		Title string
 	}{p.Module, p.Title}
-	p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m)
+	if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m); err != nil {
+		p.Log.Error(err)
+	}
 	packages := ModuleAsPackages(p.Module)
 	for _, key := range AlphabeticalModules(packages) {
-		p.CreateMarkdown(p.PackageTempl, path.Join(p.OutputDir, key, p.OutputFileName), packages[key])
+		fullOutputName := path.Join(p.OutputDir, key, p.OutputFileName)
+		if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, packages[key]); err != nil {
+			p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
+		}
 	}
 	if p.ImageTags || p.DisableImages {
 		fmt.Println("Skipping Image creation")
@@ -131,15 +138,15 @@ func (p *Generator) Run() {
 	var wg sync.WaitGroup
 	fmt.Println("Generating diagrams:")
 	progress := pb.StartNew(len(p.FilesToCreate))
-	for key, url := range p.FilesToCreate {
+	for fileName, url := range p.FilesToCreate {
 		wg.Add(1)
-		go func(key, url string) {
-			if err := HttpToFile(url, path.Join(p.OutputDir, key), p.Fs); err != nil {
+		go func(fileName, url string) {
+			if err := HttpToFile(url, path.Join(p.OutputDir, fileName), p.Fs); err != nil {
 				p.Log.Error(err)
 			}
 			progress.Increment()
 			wg.Done()
-		}(key, url)
+		}(fileName, url)
 	}
 	wg.Wait()
 	progress.Finish()

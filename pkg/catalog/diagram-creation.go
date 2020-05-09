@@ -27,24 +27,21 @@ import (
 )
 
 var (
-	re = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
+	ofTypeSymbol = regexp.MustCompile(`(?m)(?:<:)(?:.*)`)
 )
 
 // CreateMarkdown is a wrapper function that also converts output markdown to html if in server mode
-func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, i interface{}) {
+func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, i interface{}) error {
 	var buf bytes.Buffer
 	if err := t.Execute(&buf, i); err != nil {
-		p.Log.Error(err)
-		return
+		return err
 	}
 	if err := p.Fs.MkdirAll(path.Dir(outputFileName), os.ModePerm); err != nil {
-		p.Log.Error(err)
-		return
+		return err
 	}
 	f2, err := p.Fs.Create(outputFileName)
 	if err != nil {
-		p.Log.Error(err)
-		return
+		return err
 	}
 	out := buf.Bytes()
 	if p.Format == "html" && !p.DisableCss {
@@ -52,8 +49,9 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 
 	}
 	if _, err = f2.Write(out); err != nil {
-		p.Log.Error(err)
+		return err
 	}
+	return nil
 }
 
 // CreateIntegrationDiagram creates an integration diagram and returns the filename
@@ -121,7 +119,7 @@ func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement
 	if ret == nil {
 		return nil
 	}
-	t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
+	t := strings.ReplaceAll(ofTypeSymbol.FindString(ret.Payload), "<: ", "")
 	if strings.Contains(t, "sequence of") {
 		t = strings.ReplaceAll(t, "sequence of ", "")
 	}
@@ -146,7 +144,7 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 	if ret == nil {
 		return ""
 	}
-	t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
+	t := strings.ReplaceAll(ofTypeSymbol.FindString(ret.Payload), "<: ", "")
 	if strings.Contains(t, "sequence of") {
 		t = strings.ReplaceAll(t, "sequence of ", "")
 		sequence = true

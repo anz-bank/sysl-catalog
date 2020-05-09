@@ -122,8 +122,7 @@ func ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 			continue
 		}
 		if _, ok := packages[packageName]; !ok {
-			packages[packageName] = &sysl.Module{}
-			packages[packageName].Apps = map[string]*sysl.Application{}
+			packages[packageName] = &sysl.Module{Apps: map[string]*sysl.Application{}}
 		}
 		packages[packageName].Apps[strings.Join(app.Name.Part, "")] = app
 	}
@@ -191,18 +190,24 @@ func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
 }
 
+type Typer interface {
+	GetType() *sysl.Type
+}
+
 // GetAppTypeName returns the appName and typeName of a param
-func GetAppTypeName(param *sysl.Param) (string, string) {
+func GetAppTypeName(param Typer) (string, string) {
 	var appName, typeName string
-	if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-		if typeNamePath := param.Type.GetTypeRef().GetRef().GetPath(); typeNamePath != nil {
-			appName = paramNameParts[0]
-			typeName = typeNamePath[0]
+	appNameParts := param.GetType().GetTypeRef().GetRef().GetAppname().GetPart()
+	if len(appNameParts) > 0 {
+		typeNameParts := param.GetType().GetTypeRef().GetRef().GetPath()
+		if typeNameParts != nil {
+			appName = appNameParts[0]
+			typeName = typeNameParts[0]
 		} else {
-			typeName = paramNameParts[0]
+			typeName = appNameParts[0]
 		}
 	} else {
-		typeName = paramNameParts[0]
+		typeName = param.GetType().GetTypeRef().GetRef().GetPath()[0]
 	}
 	return appName, typeName
 }

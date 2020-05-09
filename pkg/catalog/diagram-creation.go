@@ -234,16 +234,7 @@ func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl
 		parsedType = param.Type
 		typeName = param.GetName()
 	case *sysl.Type_TypeRef:
-		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-			if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
-				appName = paramNameParts[0]
-				typeName = typeNameParts[0]
-			} else {
-				typeName = paramNameParts[0]
-			}
-		} else {
-			typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
-		}
+		appName, typeName = GetAppTypeName(param)
 		if appName == "" {
 			appName = CurrentAppName
 		}
@@ -264,16 +255,7 @@ func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.
 		parsedType = param.Type
 		typeName = param.GetName()
 	case *sysl.Type_TypeRef:
-		if appNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(appNameParts) > 0 {
-			if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
-				appName = appNameParts[0]
-				typeName = typeNameParts[0]
-			} else {
-				typeName = appNameParts[0]
-			}
-		} else {
-			typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
-		}
+		appName, typeName = GetAppTypeName(param)
 		if appName == "" {
 			appName = CurrentAppName
 		}

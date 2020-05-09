@@ -175,7 +175,10 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 		typeName = split[0]
 	}
 	if sequence {
-		p.Module.Apps[strings.Join(endpoint.Source.Part, "")].Types[endpoint.Name+"ReturnVal"] = &sysl.Type{
+		newSequenceName := endpoint.Name + "ReturnVal"
+		newAppName := strings.Join(endpoint.Source.Part, "")
+		defer delete(p.Module.Apps[newAppName].Types, newSequenceName)
+		p.Module.Apps[newAppName].Types[newSequenceName] = &sysl.Type{
 			Type: &sysl.Type_Tuple_{
 				Tuple: &sysl.Type_Tuple{
 					AttrDefs: map[string]*sysl.Type{"sequence": {Type: &sysl.Type_Sequence{
@@ -185,7 +188,7 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 				},
 			},
 		}
-		typeref = NewTypeRef(appName, endpoint.Name+"ReturnVal")
+		typeref = NewTypeRef(appName, newSequenceName)
 	} else {
 		typeref = NewTypeRef(appName, typeName)
 	}
@@ -193,14 +196,6 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 		return ""
 	}
 	return p.CreateTypeDiagram(p.Module.Apps[appName], typeName, typeref, true)
-	//relatedReturnTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, p.Module)
-	//// Don't generate diagrams for empty types e.g Types defined with ...
-	//if len(relatedReturnTypes) == 1 && relatedReturnTypes[appName+"."+typeName].Type == nil {
-	//	return ""
-	//}
-	//
-	//packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-	//return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedReturnTypes), packageName, appName, typeName+".svg")
 }
 
 // CreateTypeDiagram creates a data model diagram and returns the filename
@@ -252,13 +247,11 @@ func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 // CreateQueryParamDataModel returns a Query Parameter data model filename.
 func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
 	var typeName, appName string
-	relatedTypes := make(map[string]*sysl.Type)
 	var parsedType *sysl.Type
 	switch param.Type.Type.(type) {
 	case *sysl.Type_Primitive_:
 		parsedType = param.Type
 		typeName = param.GetName()
-		relatedTypes = map[string]*sysl.Type{appName + ":" + typeName: parsedType}
 	case *sysl.Type_TypeRef:
 		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
 			if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
@@ -274,25 +267,21 @@ func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl
 			appName = CurrentAppName
 		}
 		parsedType = NewTypeRef(appName, typeName)
-		relatedTypes = catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: parsedType}, p.Module)
 	}
-	if _, ok := p.Module.Apps[appName]; ok {
-		packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+".svg")
+	if _, ok := p.Module.Apps[appName]; !ok {
+		return ""
 	}
-	return ""
+	return p.CreateTypeDiagram(p.Module.Apps[appName], typeName, parsedType, true)
 }
 
 // CreateQueryParamDataModel returns a Path Parameter data model filename.
 func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
 	var typeName, appName string
-	relatedTypes := make(map[string]*sysl.Type)
 	var parsedType *sysl.Type
 	switch param.Type.Type.(type) {
 	case *sysl.Type_Primitive_:
 		parsedType = param.Type
 		typeName = param.GetName()
-		relatedTypes = map[string]*sysl.Type{appName + ":" + typeName: parsedType}
 	case *sysl.Type_TypeRef:
 		if appNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(appNameParts) > 0 {
 			if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
@@ -308,12 +297,9 @@ func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.
 			appName = CurrentAppName
 		}
 		parsedType = NewTypeRef(appName, typeName)
-		relatedTypes = catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: parsedType}, p.Module)
 	}
 	if _, ok := p.Module.Apps[appName]; !ok {
 		return ""
 	}
-
-	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-	return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+".svg")
+	return p.CreateTypeDiagram(p.Module.Apps[appName], typeName, parsedType, true)
 }

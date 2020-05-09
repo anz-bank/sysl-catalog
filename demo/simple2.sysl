@@ -50,7 +50,6 @@ Server:
     /testRestQueryParamPrimitive:
         GET ?queryPrimitiveString=string:
             return ok <: Response
-
     /testRestPathParamPrimitive/{primitiveID<:string}:
         GET:
             return ok <: Response

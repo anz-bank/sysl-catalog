@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"path"
+
+	"github.com/anz-bank/sysl/pkg/sysl"
 
 	"github.com/buger/goterm"
 
@@ -81,17 +84,20 @@ func main() {
 	logrus.SetOutput(ioutil.Discard)
 	go watcher.WatchFile(func(i interface{}) {
 		PrintToPosition(3, "Regenerating")
-		defer func() {
-			if r := recover(); r != nil {
-				PrintToPosition(4, r)
-			}
+		m, err := func() (m *sysl.Module, err error) {
+			defer func() {
+				if r := recover(); r != nil {
+					m = nil
+					err = fmt.Errorf("%s", r)
+				}
+			}()
+			m, err = parse.NewParser().Parse(*input, fs)
+			return
 		}()
-		m, err := parse.NewParser().Parse(*input, fs)
 		if err != nil {
 			PrintToPosition(4, err)
-			return
 		}
-		handler.Update(m)
+		handler.Update(m, err)
 		livereload.ForceRefresh()
 		PrintToPosition(2, i)
 		PrintToPosition(4, goterm.RESET_LINE)

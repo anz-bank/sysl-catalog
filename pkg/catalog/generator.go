@@ -39,6 +39,7 @@ type Generator struct {
 	Log                  *logrus.Logger
 	Fs                   afero.Fs
 	Module               *sysl.Module
+	errs                 []error // Any errors that stop from rendering will be output to the browser
 	ProjectTempl         *template.Template
 	PackageTempl         *template.Template
 }

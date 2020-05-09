@@ -2,6 +2,7 @@
 package catalog
 
 import (
+	"fmt"
 	"html"
 	"net/http"
 	"path"
@@ -11,9 +12,21 @@ import (
 )
 
 // Update loads another Sysl module into a project and runs
-func (p *Generator) Update(m *sysl.Module) *Generator {
+func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	p.Fs = afero.NewMemMapFs()
 	p.Module = m
+
+	for _, err := range errs {
+		if p.errs == nil {
+			p.errs = make([]error, 0, len(errs))
+		}
+		if err != nil {
+			p.errs = append(p.errs, err)
+		}
+	}
+	if len(p.errs) != 0 {
+		return p
+	}
 	p.Run()
 	return p
 }
@@ -39,6 +52,12 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.Log.Info(err)
 		}
 	}()
+
+	if len(p.errs) > 0 {
+		bytes = convertToEscapedHTML(fmt.Sprintln(p.errs))
+		p.errs = []error{}
+		return
+	}
 	if p.Fs == nil {
 		p.Update(p.Module)
 	}
@@ -66,10 +85,14 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "html":
 		bytes = []byte(file + script)
 	default:
-		bytes = []byte(
-			header +
-				`<pre style="word-wrap: break-word; white-space: pre-wrap;">` +
-				html.EscapeString(file) +
-				`</pre>` + script + endTags)
+		bytes = convertToEscapedHTML(file)
 	}
+}
+
+func convertToEscapedHTML(file string) []byte {
+	return []byte(
+		header +
+			`<pre style="word-wrap: break-word; white-space: pre-wrap;">` +
+			html.EscapeString(file) +
+			`</pre>` + script + endTags)
 }

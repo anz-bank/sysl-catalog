@@ -126,7 +126,7 @@ func (p *Generator) Run() {
 		p.Log.Error(err)
 	}
 	packages := ModuleAsPackages(p.Module)
-	for _, key := range AlphabeticalModules(packages) {
+	for _, key := range SortedKeys(packages) {
 		fullOutputName := path.Join(p.OutputDir, key, p.OutputFileName)
 		if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, packages[key]); err != nil {
 			p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
@@ -169,11 +169,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"hasPattern":                syslutil.HasPattern,
 		"ModuleAsPackages":          ModuleAsPackages,
 		"ModulePackageName":         ModulePackageName,
-		"AlphabeticalModules":       AlphabeticalModules,
-		"AlphabeticalParams":        AlphabeticalParams,
-		"AlphabeticalApps":          AlphabeticalApps,
-		"AlphabeticalTypes":         AlphabeticalTypes,
-		"AlphabeticalEndpoints":     AlphabeticalEndpoints,
+		"SortedKeys":                SortedKeys,
 		"AppComment":                AppComment,
 		"TypeComment":               TypeComment,
 		"Attribute":                 Attribute,

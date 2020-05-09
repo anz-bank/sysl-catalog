@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"reflect"
 	"sort"
 	"strings"
 
@@ -28,54 +29,14 @@ func SanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
 }
 
-// AlphabeticalEndpoints sorts a map of Applications alphabetically
-func AlphabeticalModules(m map[string]*sysl.Module) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
+func SortedKeys(m interface{}) []string {
+	keys := reflect.ValueOf(m).MapKeys()
+	ret := make([]string, 0, len(keys))
+	for _, v := range keys {
+		ret = append(ret, v.String())
 	}
-	sort.Strings(keys)
-	return keys
-}
-
-// AlphabeticalEndpoints sorts a map of Applications alphabetically
-func AlphabeticalApps(m map[string]*sysl.Application) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
-}
-
-// AlphabeticalEndpoints sorts a map of Applications alphabetically
-func AlphabeticalTypes(m map[string]*sysl.Type) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
-}
-
-// AlphabeticalEndpoints sorts a map of endpoints alphabetically
-func AlphabeticalEndpoints(m map[string]*sysl.Endpoint) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
-}
-
-// AlphabeticalEndpoints sorts a map of Package alphabetically
-func AlphabeticalParams(m map[string]*sysl.Param) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
+	sort.Strings(ret)
+	return ret
 }
 
 // GetAppPackageName returns the package and app name of any sysl application
@@ -154,7 +115,7 @@ func Attribute(attr string, Attrs map[string]*sysl.Attribute) string {
 
 func ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 	packages := make(map[string]*sysl.Module)
-	for _, key := range AlphabeticalApps(m.Apps) {
+	for _, key := range SortedKeys(m.Apps) {
 		app := m.Apps[key]
 		packageName, _ := GetAppPackageName(app)
 		if syslutil.HasPattern(app.Attrs, "ignore") {
@@ -170,7 +131,7 @@ func ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 }
 
 func ModulePackageName(m *sysl.Module) string {
-	for _, key := range AlphabeticalApps(m.Apps) {
+	for _, key := range SortedKeys(m.Apps) {
 		app := m.Apps[key]
 		packageName, _ := GetAppPackageName(app)
 		return packageName

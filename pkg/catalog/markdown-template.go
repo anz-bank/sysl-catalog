@@ -25,12 +25,12 @@ const NewPackageTemplate = `
 
 ## Service Index
 | Service Name | Method |
-----|----{{$Apps := .Apps}}{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := AlphabeticalEndpoints $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}
+----|----{{$Apps := .Apps}}{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := SortedKeys $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}
 {{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}){{end}}{{end}}
 
 ![]({{CreateIntegrationDiagram . $packageName false}})
 
-{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if eq (hasPattern $app.Attrs "ignore") false}}
 {{if ne $appName $packageName}}
 # {{$appName}}{{end}}
@@ -85,7 +85,7 @@ No Request types
 No Response Types
 {{end}}{{end}}{{end}}{{end}}{{end}}
 
-{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if hasPattern $app.GetAttrs "db"}}
 
 ## Database
@@ -101,11 +101,11 @@ No Response Types
 <th>Diagram</th>
 <th>Comment</th>
 <th>Full Diagram</th>
-{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
 {{if ne (hasPattern $app.Attrs "db") true}}
 </tr>
 
-{{range $typeName := AlphabeticalTypes $types}}{{$type := index $types $typeName}}
+{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
 <tr>
 <td>
 

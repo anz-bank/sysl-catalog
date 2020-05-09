@@ -1,11 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"path"
+
+	"github.com/buger/goterm"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
@@ -74,26 +76,38 @@ func main() {
 		NewProject(*input, plantumlService, "html", log, nil, nil, "").
 		WithTemplateFiles(f1, f2).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
-
-	go watcher.WatchFile(func() {
+	goterm.Clear()
+	PrintToPosition(1, "Serving on http://localhost"+*port)
+	logrus.SetOutput(ioutil.Discard)
+	go watcher.WatchFile(func(i interface{}) {
+		PrintToPosition(3, "Regenerating")
 		defer func() {
 			if r := recover(); r != nil {
-				fmt.Println("Error:", r)
+				PrintToPosition(4, r)
 			}
 		}()
 		m, err := parse.NewParser().Parse(*input, fs)
 		if err != nil {
-			panic(err)
+			PrintToPosition(4, err)
+			return
 		}
 		handler.Update(m)
 		livereload.ForceRefresh()
-		fmt.Println("Done Regenerating")
+		PrintToPosition(2, i)
+		PrintToPosition(4, goterm.RESET_LINE)
+		PrintToPosition(3, goterm.RESET_LINE)
+		PrintToPosition(3, "Done Regenerating")
 	}, path.Dir(*input))
-	fmt.Println("Serving on http://localhost" + *port)
 	livereload.Initialize()
 	http.HandleFunc("/livereload.js", livereload.ServeJS)
 	http.HandleFunc("/livereload", livereload.Handler)
 	http.Handle("/", handler)
 	log.Fatal(http.ListenAndServe(*port, nil))
 	select {}
+}
+
+func PrintToPosition(y int, i interface{}) {
+	goterm.MoveCursor(1, y)
+	goterm.Print(i)
+	goterm.Flush()
 }

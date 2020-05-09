@@ -12,10 +12,7 @@ MobileApp | [Login](#MobileApp-Login)
 MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint)
 MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint)
 
-
-
 ![](integration.svg)
-
 
 
 
@@ -78,7 +75,6 @@ Empty Empty Empty
 
 
 
-
 # MobileApp2
 
 this is a comment for MobileApp
@@ -133,8 +129,6 @@ No Request types
 Response Response Response
 
 ![](Server/Response.svg)
-
-
 
 
 

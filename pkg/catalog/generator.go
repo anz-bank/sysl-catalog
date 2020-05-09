@@ -132,7 +132,7 @@ func (p *Generator) Run() {
 		}
 	}
 	if p.ImageTags || p.DisableImages {
-		fmt.Println("Skipping Image creation")
+		logrus.Info("Skipping Image creation")
 		return
 	}
 	var wg sync.WaitGroup

@@ -14,10 +14,7 @@ Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimiti
 Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id})
 Server | [GET /testReturnNil](#Server-GETtestReturnNil)
 
-
-
 ![](integration.svg)
-
 
 
 
@@ -28,9 +25,7 @@ Server | [GET /testReturnNil](#Server-GETtestReturnNil)
 
 
 
-
 # RelModel
-
 
 
 
@@ -209,11 +204,9 @@ No Response Types
 
 
 
-
 ## Database
 
 ![](RelModel/types.svg)
-
 
 
 

@@ -11,8 +11,6 @@ Foo:
         Bar <- AnotherEndpoint
         ThisApp <- DoesntExist
         return ok <: GrpcTesting.Response
-
-
 Apple:
     @package="Fruits"
     AnotherEndpoint(input <: GrpcTesting.Request):

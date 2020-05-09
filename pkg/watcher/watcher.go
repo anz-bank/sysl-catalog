@@ -1,13 +1,13 @@
 package watcher
 
 import (
-	"fmt"
-	"github.com/radovskyb/watcher"
 	"log"
 	"time"
+
+	"github.com/radovskyb/watcher"
 )
 
-func WatchFile(action func(), files ...string) {
+func WatchFile(action func(i interface{}), files ...string) {
 	w := watcher.New()
 	// Only notify rename and move events.
 	w.FilterOps(watcher.Rename, watcher.Move, watcher.Write)
@@ -15,8 +15,7 @@ func WatchFile(action func(), files ...string) {
 		for {
 			select {
 			case event := <-w.Event:
-				fmt.Println(event)
-				action()
+				action(event)
 			case err := <-w.Error:
 				log.Fatalln(err)
 			case <-w.Closed:

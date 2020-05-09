@@ -92,22 +92,12 @@ func createProjectApp(Apps map[string]*sysl.Application) *sysl.Application {
 	return app
 }
 
-func AppComment(application *sysl.Application) string {
-	if description := application.GetAttrs()["description"]; description != nil {
-		return description.GetS()
-	}
-	return ""
+type Attr interface {
+	GetAttrs() map[string]*sysl.Attribute
 }
 
-func TypeComment(Type *sysl.Type) string {
-	if description := Type.GetAttrs()["description"]; description != nil {
-		return description.GetS()
-	}
-	return ""
-}
-
-func Attribute(attr string, Attrs map[string]*sysl.Attribute) string {
-	if description := Attrs[attr]; description != nil {
+func Attribute(a Attr, query string) string {
+	if description := a.GetAttrs()[query]; description != nil {
 		return description.GetS()
 	}
 	return ""

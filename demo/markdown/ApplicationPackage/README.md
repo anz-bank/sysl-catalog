@@ -56,7 +56,7 @@ hello, gamers
 
 
 
-Request Request Request
+
 
 ![](Server.svg)
 
@@ -89,7 +89,7 @@ SecondEndpoint, comment
 
 
 
-Request Request Request
+
 
 ![](Server.svg)
 

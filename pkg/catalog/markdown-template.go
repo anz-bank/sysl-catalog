@@ -35,7 +35,7 @@ const NewPackageTemplate = `
 {{if ne $appName $packageName}}
 # {{$appName}}{{end}}
 
-{{AppComment $app}}
+{{Attribute $app "description"}}
 {{range $e := $app.Endpoints}}
 {{if eq (hasPattern $e.Attrs "ignore") false}}
 ## {{$appName}} {{SanitiseOutputName $e.Name}}
@@ -49,7 +49,7 @@ No Request types
 {{end}}
 
 {{range $param := $e.Param}}
-{{Attribute "description" (GetParamType $app $param).GetAttrs}}
+{{Attribute $param.Type "description"}}
 
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
@@ -77,7 +77,7 @@ No Request types
 {{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
 {{$responses = true}}
 {{$ret := (GetReturnType $e $s)}}{{if ne $ret nil}}
-{{Attribute "description" $ret.GetAttrs}}{{end}}
+{{Attribute $ret "description"}}{{end}}
 
 ![]({{$diagram}})
 {{end}}{{end}}
@@ -89,7 +89,7 @@ No Response Types
 {{if hasPattern $app.GetAttrs "db"}}
 
 ## Database
-{{Attribute "description" $app.GetAttrs}}
+{{Attribute $app "description"}}
 ![]({{GenerateDataModel $app}})
 {{end}}{{end}}
 
@@ -99,7 +99,7 @@ No Response Types
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
-<th>Comment</th>
+<th>Attribute</th>
 <th>Full Diagram</th>
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
 {{if ne (hasPattern $app.Attrs "db") true}}
@@ -117,7 +117,7 @@ No Response Types
 </td>
 <td> 
 
-{{if ne (TypeComment $type) ""}}<details closed><summary>Comment</summary><br>{{TypeComment $type}}</details>{{end}} 
+{{if ne (Attribute $type "description") ""}}<details closed><summary>Attribute</summary><br>{{Attribute $type "description"}}</details>{{end}} 
 </td>
 <td>
 

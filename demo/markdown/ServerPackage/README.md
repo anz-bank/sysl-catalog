@@ -45,7 +45,7 @@ this is a description of Authenticate
 
 
 
-Request Request Request
+
 
 ![](Server.svg)
 

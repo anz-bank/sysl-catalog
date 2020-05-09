@@ -170,8 +170,6 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"ModuleAsPackages":          ModuleAsPackages,
 		"ModulePackageName":         ModulePackageName,
 		"SortedKeys":                SortedKeys,
-		"AppComment":                AppComment,
-		"TypeComment":               TypeComment,
 		"Attribute":                 Attribute,
 		"SanitiseOutputName":        SanitiseOutputName,
 		"ToLower":                   strings.ToLower,

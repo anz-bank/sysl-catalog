@@ -36,27 +36,27 @@ type Generator struct {
 	Log                  *logrus.Logger
 	Fs                   afero.Fs
 	Module               *sysl.Module
-	ProjectTempl         *template.Template // Templ is used to template the Generator struct
+	ProjectTempl         *template.Template // ProjectTempl is used to template the Generator struct
 	PackageTempl         *template.Template // PackageTempl is passed down to all Packages
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.
 func NewProject(
-	title, plantumlservice, outputType string,
+	title, plantumlService, outputType string,
 	log *logrus.Logger,
 	module *sysl.Module,
 	fs afero.Fs, outputDir string) *Generator {
 	p := Generator{
 		Title:           title,
 		OutputDir:       outputDir,
+		OutputFileName:  typeMaps[strings.ToLower(outputType)],
+		Format:          strings.ToLower(outputType),
 		Log:             log,
 		Module:          module,
-		PlantumlService: plantumlservice,
+		PlantumlService: plantumlService,
 		FilesToCreate:   make(map[string]string),
 		Fs:              fs,
 	}
-	p.Format = strings.ToLower(outputType)
-	p.OutputFileName = typeMaps[p.Format]
 	return p.WithTemplateString(NewProjectTemplate, NewPackageTemplate)
 }
 
@@ -114,8 +114,7 @@ func (p *Generator) Run() {
 	p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m)
 	packages := ModuleAsPackages(p.Module)
 	for _, key := range AlphabeticalModules(packages) {
-		pkg := packages[key]
-		p.CreateMarkdown(p.PackageTempl, path.Join(p.OutputDir, key, p.OutputFileName), pkg)
+		p.CreateMarkdown(p.PackageTempl, path.Join(p.OutputDir, key, p.OutputFileName), packages[key])
 	}
 	if p.ImageTags {
 		return
@@ -124,8 +123,8 @@ func (p *Generator) Run() {
 	fmt.Println("Generating diagrams:")
 	progress := pb.StartNew(len(p.FilesToCreate))
 	for key, url := range p.FilesToCreate {
+		wg.Add(1)
 		go func(key, url string) {
-			wg.Add(1)
 			if err := HttpToFile(url, path.Join(p.OutputDir, key), p.Fs); err != nil {
 				p.Log.Error(err)
 			}
@@ -135,10 +134,6 @@ func (p *Generator) Run() {
 	}
 	wg.Wait()
 	progress.Finish()
-
-	//for key, url := range p.MermaidFilesToCreate {
-	//	// Use mermaid-go
-	//}
 }
 
 // GetFuncMap returns the funcs that are used in diagram generation.

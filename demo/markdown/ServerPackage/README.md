@@ -64,7 +64,6 @@ Request Request Request
 No Response Types
 
 
-
 ## Server GETtestRestPathParamPrimitive{primitiveID}
 
 
@@ -84,14 +83,11 @@ No Request types
 
 
 
-
-
 ### Response types
 
 
 
 No Response Types
-
 
 
 ## Server GETtestRestQueryParam
@@ -114,15 +110,13 @@ No Request types
 
 ### Query Parameter
 
-![](Server/Requestfull.svg)
+![](Server/Request.svg)
 
 
 
 ### Query Parameter
 
-![](Server/Requestfull.svg)
-
-
+![](Server/Request.svg)
 
 
 ### Response types
@@ -130,7 +124,6 @@ No Request types
 
 
 No Response Types
-
 
 
 ## Server GETtestRestQueryParamPrimitive
@@ -152,14 +145,11 @@ No Request types
 
 
 
-
-
 ### Response types
 
 
 
 No Response Types
-
 
 
 ## Server GETtestRestURLParam{id}
@@ -180,9 +170,7 @@ No Request types
 
 ### Path Parameter
 
-![](Server/Requestfull.svg)
-
-
+![](Server/Request.svg)
 
 
 
@@ -192,7 +180,6 @@ No Request types
 
 
 No Response Types
-
 
 
 ## Server GETtestReturnNil
@@ -211,14 +198,11 @@ No Request types
 
 
 
-
-
 ### Response types
 
 
 
 No Response Types
-
 
 
 
@@ -261,7 +245,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-<a href="MegaDatabase/Emptyfull.svg">Link</a>
+<a href="MegaDatabase/Empty.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -279,7 +263,7 @@ MegaDatabase.<br>Money
 </td>
 <td>
 
-<a href="MegaDatabase/Moneyfull.svg">Link</a>
+<a href="MegaDatabase/Money.svg">Link</a>
 </td>
 </tr>
 
@@ -302,7 +286,7 @@ Server.<br>Empty
 </td>
 <td>
 
-<a href="Server/Emptyfull.svg">Link</a>
+<a href="Server/Empty.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -320,7 +304,7 @@ Server.<br>Request
 </td>
 <td>
 
-<a href="Server/Requestfull.svg">Link</a>
+<a href="Server/Request.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -338,7 +322,7 @@ Server.<br>Response
 </td>
 <td>
 
-<a href="Server/Responsefull.svg">Link</a>
+<a href="Server/Response.svg">Link</a>
 </td>
 </tr>
 </table>

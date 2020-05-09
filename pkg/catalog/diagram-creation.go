@@ -51,8 +51,9 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 		out = []byte(header + strings.ReplaceAll(string(blackfriday.Run(out)), "README.md", p.OutputFileName) + style + endTags)
 
 	}
-	f2.Write(out)
-
+	if _, err = f2.Write(out); err != nil {
+		p.Log.Error(err)
+	}
 }
 
 // CreateIntegrationDiagram creates an integration diagram and returns the filename
@@ -96,23 +97,21 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 	var appName, typeName string
 	appName = path.Join(app.Name.GetPart()...)
 	if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-		if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+		if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
 			appName = paramNameParts[0]
-			typeName = path[0]
+			typeName = typeNameParts[0]
 		} else {
 			typeName = paramNameParts[0]
 		}
 	} else {
 		typeName = paramNameParts[0]
 	}
-
-	typeref := NewTypeRef(appName, typeName)
-	if _, ok := p.Module.Apps[appName]; ok {
-		packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, p.Module)
-		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName+".svg")
+	if _, ok := p.Module.Apps[appName]; !ok {
+		return ""
 	}
-	return ""
+	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
+	relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
+	return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName+".svg")
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
@@ -120,9 +119,9 @@ func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl
 	var appName, typeName string
 	appName = path.Join(app.Name.GetPart()...)
 	if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-		if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+		if typeNamePath := param.Type.GetTypeRef().GetRef().GetPath(); typeNamePath != nil {
 			appName = paramNameParts[0]
-			typeName = path[0]
+			typeName = typeNamePath[0]
 		} else {
 			typeName = paramNameParts[0]
 		}
@@ -135,23 +134,24 @@ func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl
 // GetReturnType converts an endpoint and a statement into a type, useful for getting attributes.
 func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement) *sysl.Type {
 	var appName, typeName string
-	if ret := stmnt.GetRet(); ret != nil {
-		t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
-		if strings.Contains(t, "sequence of") {
-			t = strings.ReplaceAll(t, "sequence of ", "")
-		}
-		if split := strings.Split(t, "."); len(split) > 1 {
-			appName = split[0]
-			typeName = split[1]
-		} else {
-			typeName = split[0]
-		}
-		if appName == "" {
-			appName = strings.Join(endpoint.Source.Part, "")
-		}
-		return p.Module.Apps[appName].Types[typeName]
+	ret := stmnt.GetRet()
+	if ret == nil {
+		return nil
 	}
-	return nil
+	t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
+	if strings.Contains(t, "sequence of") {
+		t = strings.ReplaceAll(t, "sequence of ", "")
+	}
+	if split := strings.Split(t, "."); len(split) > 1 {
+		appName = split[0]
+		typeName = split[1]
+	} else {
+		typeName = split[0]
+	}
+	if appName == "" {
+		appName = strings.Join(endpoint.Source.Part, "")
+	}
+	return p.Module.Apps[appName].Types[typeName]
 }
 
 // CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement.
@@ -159,44 +159,48 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 	var sequence bool
 	var typeref *sysl.Type
 	var appName, typeName string
-	if ret := stmnt.GetRet(); ret != nil {
-		t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
-		if strings.Contains(t, "sequence of") {
-			t = strings.ReplaceAll(t, "sequence of ", "")
-			sequence = true
-		}
-		if split := strings.Split(t, "."); len(split) > 1 {
-			appName = split[0]
-			typeName = split[1]
-		} else {
-			typeName = split[0]
-		}
-		if sequence {
-			p.Module.Apps[strings.Join(endpoint.Source.Part, "")].Types[endpoint.Name+"ReturnVal"] = &sysl.Type{
-				Type: &sysl.Type_Tuple_{
-					Tuple: &sysl.Type_Tuple{
-						AttrDefs: map[string]*sysl.Type{"sequence": {Type: &sysl.Type_Sequence{
-							Sequence: syslpopulate.NewType(typeName, appName)},
-						},
-						},
+	ret := stmnt.GetRet()
+	if ret == nil {
+		return ""
+	}
+	t := strings.ReplaceAll(re.FindString(ret.Payload), "<: ", "")
+	if strings.Contains(t, "sequence of") {
+		t = strings.ReplaceAll(t, "sequence of ", "")
+		sequence = true
+	}
+	if split := strings.Split(t, "."); len(split) > 1 {
+		appName = split[0]
+		typeName = split[1]
+	} else {
+		typeName = split[0]
+	}
+	if sequence {
+		p.Module.Apps[strings.Join(endpoint.Source.Part, "")].Types[endpoint.Name+"ReturnVal"] = &sysl.Type{
+			Type: &sysl.Type_Tuple_{
+				Tuple: &sysl.Type_Tuple{
+					AttrDefs: map[string]*sysl.Type{"sequence": {Type: &sysl.Type_Sequence{
+						Sequence: syslpopulate.NewType(typeName, appName)},
+					},
 					},
 				},
-			}
-			typeref = NewTypeRef(appName, endpoint.Name+"ReturnVal")
-		} else {
-			typeref = NewTypeRef(appName, typeName)
+			},
 		}
-		relatedReturnTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, p.Module)
-		// Don't generate diagrams for empty types e.g Types defined with ...
-		if len(relatedReturnTypes) == 1 && relatedReturnTypes[appName+"."+typeName].Type == nil {
-			return ""
-		}
-		if _, ok := p.Module.Apps[appName]; ok {
-			packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-			return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedReturnTypes), packageName, appName, typeName+".svg")
-		}
+		typeref = NewTypeRef(appName, endpoint.Name+"ReturnVal")
+	} else {
+		typeref = NewTypeRef(appName, typeName)
 	}
-	return ""
+	if _, ok := p.Module.Apps[appName]; !ok {
+		return ""
+	}
+	return p.CreateTypeDiagram(p.Module.Apps[appName], typeName, typeref, true)
+	//relatedReturnTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, p.Module)
+	//// Don't generate diagrams for empty types e.g Types defined with ...
+	//if len(relatedReturnTypes) == 1 && relatedReturnTypes[appName+"."+typeName].Type == nil {
+	//	return ""
+	//}
+	//
+	//packageName, _ := GetAppPackageName(p.Module.Apps[appName])
+	//return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedReturnTypes), packageName, appName, typeName+".svg")
 }
 
 // CreateTypeDiagram creates a data model diagram and returns the filename
@@ -211,11 +215,11 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 	} else {
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
 	}
-	if _, ok := p.Module.Apps[appName]; ok {
-		packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-		return p.CreateFileName(plantumlString, packageName, appName, typeName+TernaryOperator(recursive, "full", "simple").(string)+".svg")
+	if _, ok := p.Module.Apps[appName]; !ok {
+		return ""
 	}
-	return ""
+	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
+	return p.CreateFileName(plantumlString, packageName, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+".svg")
 }
 
 // CreateFileName registers a file that needs to be created in p, or returns the embedded img tag if in server mode
@@ -238,11 +242,11 @@ func (p *Generator) CreateFileName(contents string, absolute string, elems ...st
 func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 	appName := strings.Join(app.Name.Part, "")
 	plantumlString := catalogdiagrams.GenerateDataModel(appName, app.Types)
-	if _, ok := p.Module.Apps[appName]; ok {
-		packageName, _ := GetAppPackageName(app)
-		return p.CreateFileName(plantumlString, packageName, appName, "types"+".svg")
+	if _, ok := p.Module.Apps[appName]; !ok {
+		return ""
 	}
-	return ""
+	packageName, _ := GetAppPackageName(app)
+	return p.CreateFileName(plantumlString, packageName, appName, "types"+".svg")
 }
 
 // CreateQueryParamDataModel returns a Query Parameter data model filename.
@@ -257,9 +261,9 @@ func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl
 		relatedTypes = map[string]*sysl.Type{appName + ":" + typeName: parsedType}
 	case *sysl.Type_TypeRef:
 		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-			if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
+			if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
 				appName = paramNameParts[0]
-				typeName = path[0]
+				typeName = typeNameParts[0]
 			} else {
 				typeName = paramNameParts[0]
 			}
@@ -274,7 +278,7 @@ func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl
 	}
 	if _, ok := p.Module.Apps[appName]; ok {
 		packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+"full.svg")
+		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+".svg")
 	}
 	return ""
 }
@@ -290,12 +294,12 @@ func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.
 		typeName = param.GetName()
 		relatedTypes = map[string]*sysl.Type{appName + ":" + typeName: parsedType}
 	case *sysl.Type_TypeRef:
-		if paramNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(paramNameParts) > 0 {
-			if path := param.Type.GetTypeRef().GetRef().GetPath(); path != nil {
-				appName = paramNameParts[0]
-				typeName = path[0]
+		if appNameParts := param.Type.GetTypeRef().GetRef().GetAppname().GetPart(); len(appNameParts) > 0 {
+			if typeNameParts := param.Type.GetTypeRef().GetRef().GetPath(); typeNameParts != nil {
+				appName = appNameParts[0]
+				typeName = typeNameParts[0]
 			} else {
-				typeName = paramNameParts[0]
+				typeName = appNameParts[0]
 			}
 		} else {
 			typeName = param.Type.GetTypeRef().GetRef().GetPath()[0]
@@ -306,9 +310,10 @@ func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.
 		parsedType = NewTypeRef(appName, typeName)
 		relatedTypes = catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: parsedType}, p.Module)
 	}
-	if _, ok := p.Module.Apps[appName]; ok {
-		packageName, _ := GetAppPackageName(p.Module.Apps[appName])
-		return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+"full.svg")
+	if _, ok := p.Module.Apps[appName]; !ok {
+		return ""
 	}
-	return ""
+
+	packageName, _ := GetAppPackageName(p.Module.Apps[appName])
+	return p.CreateFileName(catalogdiagrams.GenerateDataModel(appName, relatedTypes), packageName, appName, typeName+".svg")
 }

@@ -4,6 +4,7 @@ package catalog
 
 // CSS from https://github.com/KrauseFx/markdown-to-html-github-style/blob/master/style.css (MIT License)
 const script = `<script src="/livereload.js?port=6900&mindelay=10&v=2" data-no-instant defer></script>`
+
 const header = `
 <!doctype html>
 <html lang="en"><head>
@@ -12,6 +13,7 @@ const header = `
 <body>
 <div id='content'>
 `
+
 const endTags = `</div>
 </body>
 </html>`

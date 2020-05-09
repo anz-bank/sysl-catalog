@@ -50,7 +50,6 @@ Response Response Response
 
 
 
-
 ## MobileApp Login
 hello, gamers
 
@@ -71,7 +70,10 @@ Request Request Request
 
 
 
-No Response Types
+
+Empty Empty Empty
+
+![](MegaDatabase/Empty.svg)
 
 
 
@@ -102,7 +104,10 @@ Request Request Request
 
 
 
-No Response Types
+
+Empty Empty Empty
+
+![](MegaDatabase/Empty.svg)
 
 
 
@@ -128,7 +133,6 @@ No Request types
 Response Response Response
 
 ![](Server/Response.svg)
-
 
 
 

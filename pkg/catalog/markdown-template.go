@@ -73,9 +73,7 @@ No Request types
 ### Query Parameter
 
 ![]({{$queryDataModel}})
-{{end}}{{end}}{{end}}
-
-{{end}}
+{{end}}{{end}}{{end}}{{end}}
 
 ### Response types
 {{$responses := false}}
@@ -88,8 +86,7 @@ No Request types
 {{end}}{{end}}
 {{if eq $responses false}}
 No Response Types
-{{end}}
-{{end}}{{end}}{{end}}{{end}}
+{{end}}{{end}}{{end}}{{end}}{{end}}
 
 
 {{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}

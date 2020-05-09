@@ -5,7 +5,6 @@ import (
 	"html"
 	"net/http"
 	"path"
-	"strings"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/spf13/afero"
@@ -30,35 +29,47 @@ func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Gene
 
 // ServeHTTP is implements the handler interface
 func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	var bytes []byte
-	var file string
+	var (
+		bytes []byte
+		file  string
+		err   error
+	)
+	defer func() {
+		if _, err := w.Write(bytes); err != nil {
+			p.Log.Info(err)
+		}
+	}()
 	if p.Fs == nil {
-		p.Fs = afero.NewMemMapFs()
-		p.Run()
+		p.Update(p.Module)
 	}
 	request := r.RequestURI
 	switch path.Ext(request) {
-	case "":
-		request += "index.html"
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
-		bytes, _ = afero.ReadFile(p.Fs, request)
-		w.Write(bytes)
+		bytes, err = afero.ReadFile(p.Fs, request)
+		if err != nil {
+			p.Log.Info(err)
+		}
+		return
+	case "":
+		request += "index.html"
+	}
+	bytes, err = afero.ReadFile(p.Fs, request)
+	if err != nil {
+		p.Log.Info(err)
+	}
+	file = string(bytes)
+	if !p.LiveReload {
 		return
 	}
-	bytes, _ = afero.ReadFile(p.Fs, request)
-	file = string(bytes)
-	if p.LiveReload {
-		if strings.Contains(file, `<body>`) {
-			// if its html add the script just after the body tag
-			file = strings.ReplaceAll(file, "<body>", `<body>`+script)
-		} else {
-			// if it's raw html, we can render it but still add the livereload script
-			file = header +
+	switch p.Format {
+	case "html":
+		bytes = []byte(file + script)
+	default:
+		bytes = []byte(
+			header +
 				`<pre style="word-wrap: break-word; white-space: pre-wrap;">` +
 				html.EscapeString(file) +
-				`</pre>` + script + endTags
-		}
+				`</pre>` + script + endTags)
 	}
-	w.Write([]byte(file))
 }

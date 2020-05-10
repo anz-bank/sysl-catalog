@@ -16,7 +16,6 @@ import (
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	p.Fs = afero.NewMemMapFs()
 	p.Module = m
-
 	for _, err := range errs {
 		if p.errs == nil {
 			p.errs = make([]error, 0, len(errs))
@@ -53,7 +52,6 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.Log.Info(err)
 		}
 	}()
-
 	if len(p.errs) > 0 {
 		bytes = convertToEscapedHTML(fmt.Sprintln(p.errs))
 		p.errs = []error{}
@@ -71,14 +69,14 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.Log.Info(err)
 		}
 		return
-	case "":
-		request += "index.html"
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)
 		if err != nil {
 			p.Log.Info(err)
 		}
 		return
+	case "":
+		request += "index.html"
 	}
 	bytes, err = afero.ReadFile(p.Fs, request)
 	if err != nil {

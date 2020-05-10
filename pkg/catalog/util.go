@@ -39,16 +39,6 @@ func SortedKeys(m interface{}) []string {
 	return ret
 }
 
-// GetAppPackageName returns the package and app name of any sysl application
-func GetAppPackageName(app *sysl.Application) (string, string) {
-	appName := strings.Join(app.Name.GetPart(), "")
-	packageName := appName
-	if attr := app.GetAttrs()["package"]; attr != nil {
-		packageName = attr.GetS()
-	}
-	return packageName, appName
-}
-
 // NewTypeRef returns a type reference, needed to correctly generate data model diagrams
 func NewTypeRef(appName, typeName string) *sysl.Type {
 	return &sysl.Type{
@@ -103,24 +93,39 @@ func Attribute(a Attr, query string) string {
 	return ""
 }
 
+type Namer interface {
+	Attr
+	GetName() *sysl.AppName
+}
+
+// GetAppPackageName returns the package and app name of any sysl application
+func GetAppPackageName(a Namer) (string, string) {
+	appName := strings.Join(a.GetName().GetPart(), "")
+	packageName := appName
+	if attr := a.GetAttrs()["package"]; attr != nil {
+		packageName = attr.GetS()
+	}
+	return packageName, appName
+}
+
 func ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 	packages := make(map[string]*sysl.Module)
-	for _, key := range SortedKeys(m.Apps) {
-		app := m.Apps[key]
+	for _, key := range SortedKeys(m.GetApps()) {
+		app := m.GetApps()[key]
 		packageName, _ := GetAppPackageName(app)
-		if syslutil.HasPattern(app.Attrs, "ignore") {
+		if syslutil.HasPattern(app.GetAttrs(), "ignore") {
 			continue
 		}
 		if _, ok := packages[packageName]; !ok {
 			packages[packageName] = &sysl.Module{Apps: map[string]*sysl.Application{}}
 		}
-		packages[packageName].Apps[strings.Join(app.Name.Part, "")] = app
+		packages[packageName].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
 	}
 	return packages
 }
 
 func ModulePackageName(m *sysl.Module) string {
-	for _, key := range SortedKeys(m.Apps) {
+	for _, key := range SortedKeys(m.GetApps()) {
 		app := m.Apps[key]
 		packageName, _ := GetAppPackageName(app)
 		return packageName
@@ -154,11 +159,13 @@ func PlantUMLURL(plantumlService, contents string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%s/%s/%s", plantumlService, "svg", encoded), nil
+	return fmt.Sprint(plantumlService, "/", "svg", "/", encoded), nil
 }
 
 func HttpToFile(url, fileName string, fs afero.Fs) error {
-	fs.MkdirAll(path.Dir(fileName), os.ModePerm)
+	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
+		return err
+	}
 	out, err := RetryHTTPRequest(url)
 	if err != nil {
 		return err
@@ -172,11 +179,12 @@ func HttpToFile(url, fileName string, fs afero.Fs) error {
 // CreateSequenceDiagram creates an sequence diagram and returns the sequence diagram string and any errors
 func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	l := &cmdutils.Labeler{}
-	p := &sequencediagram.SequenceDiagParam{}
-	p.Endpoints = []string{call}
-	p.AppLabeler = l
-	p.EndpointLabeler = l
-	p.Title = call
+	p := &sequencediagram.SequenceDiagParam{
+		AppLabeler:      l,
+		EndpointLabeler: l,
+		Endpoints:       []string{call},
+		Title:           call,
+	}
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
 }
 
@@ -187,9 +195,10 @@ type Typer interface {
 // GetAppTypeName returns the appName and typeName of a param
 func GetAppTypeName(param Typer) (string, string) {
 	var appName, typeName string
-	appNameParts := param.GetType().GetTypeRef().GetRef().GetAppname().GetPart()
+	ref := param.GetType().GetTypeRef().GetRef()
+	appNameParts := ref.GetAppname().GetPart()
 	if len(appNameParts) > 0 {
-		typeNameParts := param.GetType().GetTypeRef().GetRef().GetPath()
+		typeNameParts := ref.GetPath()
 		if typeNameParts != nil {
 			appName = appNameParts[0]
 			typeName = typeNameParts[0]
@@ -197,7 +206,7 @@ func GetAppTypeName(param Typer) (string, string) {
 			typeName = appNameParts[0]
 		}
 	} else {
-		typeName = param.GetType().GetTypeRef().GetRef().GetPath()[0]
+		typeName = ref.GetPath()[0]
 	}
 	return appName, typeName
 }

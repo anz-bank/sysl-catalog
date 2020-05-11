@@ -7,6 +7,7 @@
 | Package |
 ----|
 [ServerPackage](ServerPackage/README.md)|
+[foo](foo/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

@@ -7,7 +7,6 @@
 [FirstDivision](FirstDivision/README.md)|
 [SecondDivision](SecondDivision/README.md)|
 [ThirdDivision](ThirdDivision/README.md)|
-[this](this/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

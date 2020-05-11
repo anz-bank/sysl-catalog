@@ -2,12 +2,14 @@
 package catalog
 
 const NewProjectTemplate = `
-
+{{range $name, $link := .Links}}
+[{{$name}}]({{$link}})
+{{end}}
 # {{Base .Title}}
 
 | Package |
-----|{{range $key, $val := ModuleAsPackages .Module}}
-[{{$key}}]({{$key}}/README.md)|{{end}}
+----|{{range $key, $val := GetRows .Module}}
+[{{$val}}]({{$val}}/README.md)|{{end}}
 
 ## Integration Diagram
 <img src="{{CreateIntegrationDiagram .Module "" false}}">

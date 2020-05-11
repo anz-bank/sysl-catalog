@@ -2,13 +2,22 @@
 
 # This app specifies the projects to include, it is optional and can be left out
 simple2[~project]:
-    _:
+    FirstDivision:
         # you can specify packages to include
         ApplicationPackage
-        ServerPackage
-        # or specific applications
+    SecondDivision:
         MegaDatabase
+    ThirdDivision:
+        ServerPackage
 
+this:
+    @package="MegaDatabase"
+    this:
+        ...
+that:
+    @pacakge="MegaDatabase"
+    this:
+        this <- this
 MobileApp:
     @package = "ApplicationPackage"
     @description = "this is a comment for MobileApp"

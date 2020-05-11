@@ -81,6 +81,20 @@ func createProjectApp(Apps map[string]*sysl.Application) *sysl.Application {
 	return app
 }
 
+// createProjectApp returns a "project" app used to make integration diagrams for any "sub module" apps
+func createModuleFromSlices(m *sysl.Module, stmnts []string) *sysl.Module {
+	ret := &sysl.Module{Apps: make(map[string]*sysl.Application)}
+	for _, appName := range stmnts {
+		for key, e := range m.GetApps() {
+			if Attribute(e, "package") == appName {
+				ret.Apps[key] = e
+			}
+		}
+	}
+
+	return ret
+}
+
 type Attr interface {
 	GetAttrs() map[string]*sysl.Attribute
 }

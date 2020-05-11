@@ -123,23 +123,53 @@ func (p *Generator) SetOptions(disableCss, disableImages bool) *Generator {
 	return p
 
 }
+func (p *Generator) GetRows(module *sysl.Module) []string {
+	if packages := p.ModuleAsPackages2(module); len(packages) > 1 {
+		return SortedKeys(packages)
+	}
+	packages := p.ModuleAsPackages(module)
+	return SortedKeys(packages)
+}
 
 // Run Executes a project and generates markdown and diagrams to a given filesystem.
 func (p *Generator) Run() {
-	m := struct {
+	type mWrap struct {
 		*sysl.Module
 		Title string
-	}{p.Module, p.Title}
+		Links map[string]string
+	}
+	m := mWrap{Module: p.Module, Title: p.Title}
 	if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m); err != nil {
 		p.Log.Error(err)
 	}
-	packages := p.ModuleAsPackages(p.Module)
-	for _, key := range SortedKeys(packages) {
-		fullOutputName := path.Join(p.OutputDir, key, p.OutputFileName)
-		if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, packages[key]); err != nil {
-			p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
+	packages := p.ModuleAsPackages2(p.Module)
+	if len(packages) <= 1 {
+		packages := p.ModuleAsPackages(p.Module)
+		for _, key2 := range SortedKeys(packages) {
+			pkg := packages[key2]
+			fullOutputName := path.Join(p.OutputDir, key2, p.OutputFileName)
+			if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
+				p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
+			}
+		}
+	} else {
+		for _, key := range SortedKeys(packages) {
+			moduleMap := packages[key]
+			module := createModuleFromSlices(p.Module, SortedKeys(moduleMap))
+			subpackages := p.ModuleAsPackages(module)
+			if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, key, p.OutputFileName), mWrap{Module: module, Title: key, Links: map[string]string{"Back": "../" + p.OutputFileName}}); err != nil {
+				p.Log.Error(err)
+			}
+			for _, key2 := range SortedKeys(subpackages) {
+				pkg := subpackages[key2]
+				fullOutputName := path.Join(p.OutputDir, key, key2, p.OutputFileName)
+				if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
+					p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
+				}
+			}
 		}
 	}
+
 	if p.ImageTags || p.DisableImages {
 		logrus.Info("Skipping Image creation")
 		return
@@ -185,6 +215,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"CreateQueryParamDataModel": p.CreateQueryParamDataModel,
 		"CreatePathParamDataModel":  p.CreatePathParamDataModel,
 		"GetParamType":              p.GetParamType,
+		"GetRows":                   p.GetRows,
 		"GetReturnType":             p.GetReturnType,
 		"hasPattern":                syslutil.HasPattern,
 		"ModuleAsPackages":          p.ModuleAsPackages,

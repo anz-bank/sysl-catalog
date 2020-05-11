@@ -307,7 +307,7 @@ func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.
 	return p.CreateTypeDiagram(p.Module.GetApps()[appName], typeName, parsedType, true)
 }
 
-func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string]struct{}) {
+func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string]string) {
 	includedProjects := Filter(
 		SortedKeys(m.Apps),
 		func(i string) bool {
@@ -316,16 +316,48 @@ func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string
 		},
 	)
 	if len(includedProjects) > 0 {
-		set := make(map[string]struct{})
+		set := make(map[string]string)
 		app := m.GetApps()[includedProjects[0]]
 		for _, e := range app.GetEndpoints() {
+			if syslutil.HasPattern(e.GetAttrs(), "ignore") {
+				continue
+			}
 			for _, e2 := range e.GetStmt() {
-				set[e2.GetAction().GetAction()] = struct{}{}
+				set[e2.GetAction().GetAction()] = e.Name
 			}
 		}
 		return m.GetApps()[includedProjects[0]], set
 	}
 	return nil, nil
+}
+
+func (p *Generator) ModuleAsPackages2(m *sysl.Module) map[string]map[string]*sysl.Module {
+	packages := make(map[string]map[string]*sysl.Module)
+	_, includedProjects := p.getProjectApp(m)
+	for _, key := range SortedKeys(m.GetApps()) {
+		app := m.GetApps()[key]
+		packageName := Attribute(app, "package")
+		if packageName == "" {
+			packageName = key
+		}
+		// what endpoint on the "project app" are we on?
+		projectEndpoint, ok := includedProjects[packageName]
+		if len(includedProjects) > 0 && !ok || (projectEndpoint == "") {
+			continue
+		}
+		if syslutil.HasPattern(app.GetAttrs(), "ignore") || syslutil.HasPattern(app.GetAttrs(), "project") {
+			continue
+		}
+		if _, ok := packages[projectEndpoint]; !ok {
+			packages[projectEndpoint] = make(map[string]*sysl.Module)
+		}
+		if _, ok := packages[projectEndpoint][packageName]; !ok {
+			packages[projectEndpoint][packageName] = &sysl.Module{Apps: map[string]*sysl.Application{}}
+		}
+
+		packages[projectEndpoint][packageName].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
+	}
+	return packages
 }
 
 func (p *Generator) ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {

@@ -223,14 +223,14 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 
 // CreateFileName returns the absolute and relative filepaths
 func CreateFileName(dir string, elems ...string) (string, string) {
-	absolutefileName := path.Join(Map(append([]string{dir}, elems...), SanitiseOutputName)...)
+	absolutefileName := path.Join(append([]string{dir}, Map(elems, SanitiseOutputName)...)...)
 	relativefileName := strings.Replace(absolutefileName, dir+"/", "", 1)
 	return absolutefileName, relativefileName
 }
 
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFile(contents string, diagramType int, absolute string, elems ...string) string {
-	fileName, relativeFilepath := CreateFileName(absolute, elems...)
+	fileName, relativeFilepath := CreateFileName(path.Join(p.NextOutputDir, absolute), elems...)
 	var fileContents string
 	var targetMap map[string]string
 	var err error

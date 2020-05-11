@@ -37,6 +37,7 @@ type Generator struct {
 	Format               string // "html" or "markdown" or "" if custom
 	Ext                  string
 	OutputDir            string
+	NextOutputDir        string
 	OutputFileName       string
 	PlantumlService      string
 	Log                  *logrus.Logger
@@ -125,7 +126,8 @@ func (p *Generator) SetOptions(disableCss, disableImages bool) *Generator {
 // GetRows returns a slice of rows that should be output on the index pages of the markdown
 func (p *Generator) GetRows(module *sysl.Module) []string {
 	if packages := p.ModuleAsMacroPackage(module); len(packages) > 1 {
-		return SortedKeys(packages)
+		keys := SortedKeys(packages)
+		return keys
 	}
 	packages := p.ModuleAsPackages(module)
 	return SortedKeys(packages)
@@ -159,6 +161,7 @@ func (p *Generator) Run() {
 	switch len(macroPackages) {
 	case 0, 1:
 		packages = p.ModuleAsPackages(p.Module)
+		p.NextOutputDir = ""
 		packageFunc()
 	default:
 		for _, key := range SortedKeys(macroPackages) {
@@ -172,6 +175,7 @@ func (p *Generator) Run() {
 			if err != nil {
 				p.Log.Error(err)
 			}
+			p.NextOutputDir = macroPackageName
 			packageFunc()
 		}
 	}

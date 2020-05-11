@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="12px" preserveAspectRatio="none" style="width:12px;height:12px;" version="1.1" viewBox="0 0 12 12" width="12px" zoomAndPan="magnify"><defs/><g><!--MD5=[2eeb45c99ab888e46f2760f206ac9e01]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="388px" preserveAspectRatio="none" style="width:390px;height:388px;" version="1.1" viewBox="0 0 390 388" width="390px" zoomAndPan="magnify"><defs><filter height="300%" id="f3k0u1mk70r6j" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[758d88821a0e741df1f73accbabae398]
+cluster X_0--><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="107" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="318.5" x="59.5" y="24"/><rect fill="#FFFFFF" height="74.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="312.5" x="62.5" y="53.2969"/><line style="stroke: #000000; stroke-width: 1.5;" x1="59.5" x2="378" y1="50.2969" y2="50.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="72" x="180.25" y="40.9951">MobileApp</text><!--MD5=[cecb9a85ae19b9003f4441b135e71cd6]
+cluster X_1--><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="107" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="356" x="22" y="270"/><rect fill="#FFFFFF" height="74.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="350" x="25" y="299.2969"/><line style="stroke: #000000; stroke-width: 1.5;" x1="22" x2="378" y1="296.2969" y2="296.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="159.5" y="286.9951">MobileApp2</text><!--MD5=[51e8d94a944361a156a1f52e5c4894ba]
+cluster X_2--><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="130" x="227.5" y="155"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="124" x="230.5" y="184.2969"/><line style="stroke: #000000; stroke-width: 1.5;" x1="227.5" x2="357.5" y1="181.2969" y2="181.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="44" x="270.5" y="171.9951">Server</text><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="139" x="223" y="75"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="129" x="228" y="99.8467">Authenticate client</text><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="75.5" y="75"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="37" x="82" y="99.8467">Login</text><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="139" x="223" y="321"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="129" x="228" y="345.8467">Authenticate client</text><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="125" x="38" y="321"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="115" x="43" y="345.8467">SecondEndpoint</text><rect fill="#FFFAF0" filter="url(#f3k0u1mk70r6j)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="98" x="243.5" y="190"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="248.5" y="214.8467">Authenticate</text><!--MD5=[450ea2f654882f822490fe83b2b538b8]
+link _3 to _2--><path d="M163.188,341 C180.619,341 199.765,341 217.826,341 " fill="none" id="_3-&gt;_2" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="222.889,341,213.889,337,217.889,341,213.889,345,222.889,341" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[7147dd2715d95ef75e19400737a46bd1]
+link _2 to _4--><path d="M292.5,320.7871 C292.5,292.405 292.5,264.022 292.5,235.639 " fill="none" id="_2-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="292.5,230.34,288.5,239.34,292.5,235.34,296.5,239.34,292.5,230.34" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[b4e3d399786c33682cf7201d5a7381ec]
+link _1 to _0--><path d="M125.564,95 C148.691,95 184.851,95 217.519,95 " fill="none" id="_1-&gt;_0" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="222.729,95,213.729,91,217.729,95,213.729,99,222.729,95" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[66d2e95ee2e3e1b5b59548f8bdae5bf2]
+link _0 to _4--><path d="M292.5,115.364 C292.5,138.427 292.5,161.49 292.5,184.552 " fill="none" id="_0-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="292.5,189.785,296.5,180.785,292.5,184.785,288.5,180.785,292.5,189.785" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[b137e197f0a627fbf60e3b9939b0be20]
 @startuml
 
 
@@ -10,6 +17,21 @@ skinparam state {
   BorderColor Black
   ArrowColor Crimson
 }
+state "MobileApp" as X_0 <<highlight>> {
+  state "Authenticate client" as _0 <<highlight>>
+  state "Login" as _1 <<highlight>>
+}
+state "MobileApp2" as X_1 <<highlight>> {
+  state "Authenticate client" as _2 <<highlight>>
+  state "SecondEndpoint" as _3 <<highlight>>
+}
+state "Server" as X_2 {
+  state "Authenticate" as _4
+}
+_3 -[#silver]-> _2
+_2 -[#black]> _4
+_1 -[#silver]-> _0
+_0 -[#black]> _4
 @enduml
 
 PlantUML version 1.2019.11(Sun Sep 22 10:02:15 UTC 2019)

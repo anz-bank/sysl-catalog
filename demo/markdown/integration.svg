@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="12px" preserveAspectRatio="none" style="width:12px;height:12px;" version="1.1" viewBox="0 0 12 12" width="12px" zoomAndPan="magnify"><defs/><g><!--MD5=[14537d92a1525e95ceabbf7fd72bd409]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="151px" preserveAspectRatio="none" style="width:245px;height:151px;" version="1.1" viewBox="0 0 245 151" width="245px" zoomAndPan="magnify"><defs><filter height="300%" id="f52mjp8tgu4n0" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[834ef74a6aa73a899f9de7987f49a674]
+entity _0--><rect fill="#FFFAF0" filter="url(#f52mjp8tgu4n0)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="92" x="6" y="8"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="1" y="13"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="1" y="34.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="72" x="16" y="30.9951">MobileApp</text><!--MD5=[5793e68b51480d2da18d2edf8802f392]
+entity _1--><rect fill="#FFFAF0" filter="url(#f52mjp8tgu4n0)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="64" x="86" y="104"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="81" y="109"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="81" y="130.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="44" x="96" y="126.9951">Server</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
+entity _2--><rect fill="#FFFAF0" filter="url(#f52mjp8tgu4n0)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="101" x="133.5" y="8"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="128.5" y="13"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="128.5" y="34.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="143.5" y="30.9951">MobileApp2</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
+link _0 to _1--><path d="M64.1054,44.241 C75.0836,59.8766 91.3027,82.9766 103.079,99.7489 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="105.9713,103.8683,104.0734,94.204,103.0982,99.7762,97.526,98.801,105.9713,103.8683" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[797b2ad59651ef14175f94513191e355]
+link _2 to _1--><path d="M171.895,44.241 C160.916,59.8766 144.697,82.9766 132.921,99.7489 " fill="none" id="_2-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="130.029,103.8683,138.4747,98.8017,132.9024,99.7764,131.9277,94.2042,130.029,103.8683" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[1733fee2034354acc695f55b3a05e41b]
 @startuml
 
 
@@ -9,6 +14,11 @@ skinparam component {
   BorderColor Black
   ArrowColor Crimson
 }
+[MobileApp] as _0 <<highlight>>
+[Server] as _1
+_0 - -> _1
+[MobileApp2] as _2 <<highlight>>
+_2 - -> _1
 @enduml
 
 PlantUML version 1.2019.11(Sun Sep 22 10:02:15 UTC 2019)

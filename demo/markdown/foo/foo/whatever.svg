@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="258px" preserveAspectRatio="none" style="width:176px;height:258px;" version="1.1" viewBox="0 0 176 258" width="176px" zoomAndPan="magnify"><defs><filter height="300%" id="f1p3ztbkcrvdcs" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="129" x="19" y="22.9951">foo &lt;- whatever</text><rect fill="#FFFFFF" filter="url(#f1p3ztbkcrvdcs)" height="30" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="80" y="155.8594"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="85" x2="85" y1="81.5938" y2="203.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="22" x="71" y="78.292">foo</text><ellipse cx="85" cy="49.2969" fill="#FEFECE" filter="url(#f1p3ztbkcrvdcs)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="81,37.2969,87,32.2969,85,37.2969,87,42.2969,81,37.2969" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="22" x="71" y="215.8545">foo</text><ellipse cx="85" cy="235.1563" fill="#FEFECE" filter="url(#f1p3ztbkcrvdcs)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="81,223.1563,87,218.1563,85,223.1563,87,228.1563,81,223.1563" style="stroke: #A80036; stroke-width: 1.0;"/><rect fill="#FFFFFF" filter="url(#f1p3ztbkcrvdcs)" height="30" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="80" y="155.8594"/><rect fill="#EEEEEE" filter="url(#f1p3ztbkcrvdcs)" height="3" style="stroke: #EEEEEE; stroke-width: 1.0;" width="161" x="3" y="112.1602"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="164" y1="112.1602" y2="112.1602"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="164" y1="115.1602" y2="115.1602"/><rect fill="#EEEEEE" filter="url(#f1p3ztbkcrvdcs)" height="23.1328" style="stroke: #000000; stroke-width: 2.0;" width="137" x="15" y="101.5938"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="118" x="21" y="117.6606">foo &lt;- whatever</text><polygon fill="#A80036" points="68,151.8594,78,155.8594,68,159.8594,72,155.8594" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="3" x2="74" y1="155.8594" y2="155.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="58" x="10" y="150.7935">whatever</text><!--MD5=[455e74915128d39a4e7d64848d182a9f]
+@startuml
+
+
+control "foo" as _0
+skinparam maxMessageSize 250
+title foo <- whatever
+== foo <- whatever ==
+[->_0 : whatever
+activate _0
+deactivate _0
+@enduml
+
+PlantUML version 1.2019.11(Sun Sep 22 10:02:15 UTC 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_222-b10
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

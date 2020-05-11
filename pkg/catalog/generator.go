@@ -156,7 +156,6 @@ func (p *Generator) Run() {
 			}
 		}
 	}
-
 	switch len(macroPackages) {
 	case 0, 1:
 		packages = p.ModuleAsPackages(p.Module)
@@ -175,7 +174,6 @@ func (p *Generator) Run() {
 			}
 			packageFunc()
 		}
-
 	}
 	var wg sync.WaitGroup
 	var progress *pb.ProgressBar
@@ -184,7 +182,7 @@ func (p *Generator) Run() {
 		for fileName, contents := range inMap {
 			wg.Add(1)
 			go func(fileName, contents string) {
-				var err = f(p.Fs, fileName, contents)
+				var err = f(p.Fs, path.Join(p.OutputDir, fileName), contents)
 				if err != nil {
 					p.Log.Error(err)
 				}
@@ -199,7 +197,6 @@ func (p *Generator) Run() {
 		progress = pb.StartNew(len(p.MermaidFilesToCreate))
 		fmt.Println("Generating Mermaid diagrams:")
 		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
-
 	}
 	if p.ImageTags || p.DisableImages {
 		logrus.Info("Skipping Image creation")

@@ -61,6 +61,17 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		p.Update(p.Module)
 	}
 	request := r.RequestURI
+	switch request {
+	case "/plantuml", "/plantuml/":
+		p.Mermaid = false
+		return
+	case "/mermaid", "/mermaid/":
+		p.Mermaid = true
+		return
+	case "/update", "/update/":
+		p.Run()
+		return
+	}
 	switch path.Ext(request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")

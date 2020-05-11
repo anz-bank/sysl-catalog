@@ -89,6 +89,9 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch p.Format {
 	case "html":
 		bytes = []byte(file + script)
+		if p.DisableCss {
+			bytes = convertToEscapedHTML(file)
+		}
 	default:
 		bytes = convertToEscapedHTML(file)
 	}

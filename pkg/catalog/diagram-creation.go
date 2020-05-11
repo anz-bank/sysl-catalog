@@ -241,13 +241,15 @@ func (p *Generator) CreateFile(contents string, diagramType int, absolute string
 	case mermaidjs:
 		fileContents = contents
 		targetMap = p.MermaidFilesToCreate
+	default:
+		panic("Wrong diagram type specified")
 	}
 	if err != nil {
 		p.Log.Error(err)
 		return ""
 	}
 	// if p.ImageTags: return image tag from plantUML service
-	if p.ImageTags {
+	if p.ImageTags && diagramType == plantuml {
 		return fileContents
 	}
 	targetMap[fileName] = fileContents
@@ -331,7 +333,17 @@ func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string
 	return nil, nil
 }
 
-func (p *Generator) ModuleAsPackages2(m *sysl.Module) map[string]map[string]*sysl.Module {
+// ModuleAsMacroPackage returns "macro packages" that map to the endpoints on the "project" application
+/*
+project[~project]: <-- first map
+	FirstDivision: <-- first key
+		package1 <--- second map["package1"]*sysl.Module
+		package2 <--- second map["package2"]*sysl.Module
+	SecondDivision:
+		package3
+*/
+
+func (p *Generator) ModuleAsMacroPackage(m *sysl.Module) map[string]map[string]*sysl.Module {
 	packages := make(map[string]map[string]*sysl.Module)
 	_, includedProjects := p.getProjectApp(m)
 	for _, key := range SortedKeys(m.GetApps()) {

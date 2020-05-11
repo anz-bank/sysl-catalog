@@ -9,7 +9,12 @@ simple2[~project]:
         MegaDatabase
     ThirdDivision:
         ServerPackage
-
+    this:
+        foo
+foo:
+    @package="foo"
+    whatever:
+        ...
 this:
     @package="MegaDatabase"
     this:

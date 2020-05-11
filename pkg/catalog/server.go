@@ -77,12 +77,14 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
 		bytes, err = afero.ReadFile(p.Fs, request)
 		if err != nil {
+			bytes = convertToEscapedHTML(err.Error())
 			p.Log.Info(err)
 		}
 		return
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)
 		if err != nil {
+			bytes = convertToEscapedHTML(err.Error())
 			p.Log.Info(err)
 		}
 		return
@@ -91,7 +93,9 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	bytes, err = afero.ReadFile(p.Fs, request)
 	if err != nil {
+		bytes = convertToEscapedHTML(err.Error())
 		p.Log.Info(err)
+		return
 	}
 	file = string(bytes)
 	if !p.LiveReload {

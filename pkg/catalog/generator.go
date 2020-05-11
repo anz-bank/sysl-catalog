@@ -3,7 +3,6 @@ package catalog
 
 import (
 	"fmt"
-	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -19,7 +18,6 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
-	"github.com/joshcarp/mermaid-go/mermaid"
 	"github.com/spf13/afero"
 )
 
@@ -123,8 +121,10 @@ func (p *Generator) SetOptions(disableCss, disableImages bool) *Generator {
 	return p
 
 }
+
+// GetRows returns a slice of rows that should be output on the index pages of the markdown
 func (p *Generator) GetRows(module *sysl.Module) []string {
-	if packages := p.ModuleAsPackages2(module); len(packages) > 1 {
+	if packages := p.ModuleAsMacroPackage(module); len(packages) > 1 {
 		return SortedKeys(packages)
 	}
 	packages := p.ModuleAsPackages(module)
@@ -142,63 +142,74 @@ func (p *Generator) Run() {
 	if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m); err != nil {
 		p.Log.Error(err)
 	}
-	packages := p.ModuleAsPackages2(p.Module)
-	if len(packages) <= 1 {
-		packages := p.ModuleAsPackages(p.Module)
-		for _, key2 := range SortedKeys(packages) {
-			pkg := packages[key2]
-			fullOutputName := path.Join(p.OutputDir, key2, p.OutputFileName)
+	macroPackages := p.ModuleAsMacroPackage(p.Module)
+	var packages map[string]*sysl.Module
+	var macroPackageName string
+	// We either execute this function when we're iterating through the simple packages
+	// or if there are "macroPackages" defined on the ~project app (their endpoints)
+	packageFunc := func() {
+		for _, packageName := range SortedKeys(packages) {
+			pkg := packages[packageName]
+			fullOutputName := path.Join(p.OutputDir, macroPackageName, packageName, p.OutputFileName)
 			if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
 				p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
 			}
 		}
-	} else {
-		for _, key := range SortedKeys(packages) {
-			moduleMap := packages[key]
+	}
+
+	switch len(macroPackages) {
+	case 0, 1:
+		packages = p.ModuleAsPackages(p.Module)
+		packageFunc()
+	default:
+		for _, key := range SortedKeys(macroPackages) {
+			macroPackageName = key
+			moduleMap := macroPackages[macroPackageName]
 			module := createModuleFromSlices(p.Module, SortedKeys(moduleMap))
-			subpackages := p.ModuleAsPackages(module)
-			if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, key, p.OutputFileName), mWrap{Module: module, Title: key, Links: map[string]string{"Back": "../" + p.OutputFileName}}); err != nil {
+			packages = p.ModuleAsPackages(module)
+			macroPackageFileName := path.Join(p.OutputDir, macroPackageName, p.OutputFileName)
+			m := mWrap{Module: module, Title: macroPackageName, Links: map[string]string{"Back": "../" + p.OutputFileName}}
+			err := p.CreateMarkdown(p.ProjectTempl, macroPackageFileName, m)
+			if err != nil {
 				p.Log.Error(err)
 			}
-			for _, key2 := range SortedKeys(subpackages) {
-				pkg := subpackages[key2]
-				fullOutputName := path.Join(p.OutputDir, key, key2, p.OutputFileName)
-				if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
-					p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
+			packageFunc()
+		}
+
+	}
+	var wg sync.WaitGroup
+	var progress *pb.ProgressBar
+	var done int64
+	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
+		for fileName, contents := range inMap {
+			wg.Add(1)
+			go func(fileName, contents string) {
+				var err = f(p.Fs, fileName, contents)
+				if err != nil {
+					p.Log.Error(err)
 				}
-			}
+				progress.Increment()
+				wg.Done()
+				done++
+			}(fileName, contents)
 		}
 	}
 
+	if p.Mermaid {
+		progress = pb.StartNew(len(p.MermaidFilesToCreate))
+		fmt.Println("Generating Mermaid diagrams:")
+		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
+
+	}
 	if p.ImageTags || p.DisableImages {
 		logrus.Info("Skipping Image creation")
 		return
 	}
-	var wg sync.WaitGroup
+	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
+	progress.SetCurrent(done)
 	fmt.Println("Generating diagrams:")
-	progress := pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
-	for fileName, url := range p.FilesToCreate {
-		wg.Add(1)
-		go func(fileName, url string) {
-			if err := HttpToFile(url, path.Join(p.OutputDir, fileName), p.Fs); err != nil {
-				p.Log.Error(err)
-			}
-			progress.Increment()
-			wg.Done()
-		}(fileName, url)
-	}
-	for fileName, contents := range p.MermaidFilesToCreate {
-		wg.Add(1)
-		go func(fileName, contents string) {
-			mermaidSvg := mermaid.Execute(contents)
-			var err = afero.WriteFile(p.Fs, fileName, []byte(mermaidSvg+"\n"), os.ModePerm)
-			if err != nil {
-				p.Log.Error(err)
-			}
-			progress.Increment()
-			wg.Done()
-		}(fileName, contents)
-	}
+	diagramCreator(p.FilesToCreate, HttpToFile)
+
 	wg.Wait()
 	progress.Finish()
 }

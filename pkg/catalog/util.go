@@ -10,6 +10,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/joshcarp/mermaid-go/mermaid"
+
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 
@@ -178,15 +180,25 @@ func PlantUMLURL(plantumlService, contents string) (string, error) {
 	return fmt.Sprint(plantumlService, "/", "svg", "/", encoded), nil
 }
 
-func HttpToFile(url, fileName string, fs afero.Fs) error {
-	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
+func HttpToFile(fs afero.Fs, fileName, url string) error {
+	if err := fs.MkdirAll(path.Dir(string(fileName)), os.ModePerm); err != nil {
 		return err
 	}
-	out, err := RetryHTTPRequest(url)
+	out, err := RetryHTTPRequest(string(url))
 	if err != nil {
 		return err
 	}
-	if err := afero.WriteFile(fs, fileName, append(out, byte('\n')), os.ModePerm); err != nil {
+	if err := afero.WriteFile(fs, string(fileName), out, os.ModePerm); err != nil {
+		return err
+	}
+	return nil
+}
+
+// GenerateAndWriteMermaidDiagram writes a mermaid svg to file
+func GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
+	mermaidSvg := []byte(mermaid.Execute(data) + "\n")
+	var err = afero.WriteFile(fs, fileName, mermaidSvg, os.ModePerm)
+	if err != nil {
 		return err
 	}
 	return nil

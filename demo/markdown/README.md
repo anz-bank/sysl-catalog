@@ -4,9 +4,10 @@
 
 | Package |
 ----|
-[ApplicationPackage](ApplicationPackage/README.md)|
-[MegaDatabase](MegaDatabase/README.md)|
-[ServerPackage](ServerPackage/README.md)|
+[FirstDivision](FirstDivision/README.md)|
+[SecondDivision](SecondDivision/README.md)|
+[ThirdDivision](ThirdDivision/README.md)|
+[this](this/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

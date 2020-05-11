@@ -31,10 +31,11 @@ type Generator struct {
 	MermaidFilesToCreate map[string]string
 	SourceFileName       string
 	Title                string
-	LiveReload           bool   // Add live reload javascript to html
-	ImageTags            bool   // embedded plantuml img tags, or generated svgs
-	DisableCss           bool   // used for rendering raw markdown
-	DisableImages        bool   // used for omitting image creation
+	LiveReload           bool // Add live reload javascript to html
+	ImageTags            bool // embedded plantuml img tags, or generated svgs
+	DisableCss           bool // used for rendering raw markdown
+	DisableImages        bool // used for omitting image creation
+	Mermaid              bool
 	Format               string // "html" or "markdown" or "" if custom
 	Ext                  string
 	OutputDir            string
@@ -53,7 +54,7 @@ func NewProject(
 	titleAndFileName, plantumlService, outputType string,
 	log *logrus.Logger,
 	module *sysl.Module,
-	fs afero.Fs, outputDir string) *Generator {
+	fs afero.Fs, outputDir string, mermaidEnabled bool) *Generator {
 	p := Generator{
 		Title:           titleAndFileName,
 		SourceFileName:  titleAndFileName,
@@ -66,6 +67,7 @@ func NewProject(
 		FilesToCreate:   make(map[string]string),
 		Fs:              fs,
 		Ext:             ".svg",
+		Mermaid:         mermaidEnabled,
 	}
 	return p.WithTemplateString(NewProjectTemplate, NewPackageTemplate)
 }

@@ -61,9 +61,20 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 	}
 	return nil
 }
+func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA bool) string {
+	if p.Mermaid {
+		return p.CreateIntegrationDiagramMermaid(m, title, EPA)
+	}
+	return p.CreateIntegrationDiagramPlantuml(m, title, EPA)
+}
+
+//TODO @ashwinsajiv: fill out this function to generate mermaid integration diagrams
+func (p *Generator) CreateIntegrationDiagramMermaid(m *sysl.Module, title string, EPA bool) string {
+	return "" //p.CreateFile("plantumlString", mermaidjs, "title", "integration.Output+p.Ext")
+}
 
 // CreateIntegrationDiagram creates an integration diagram and returns the filename
-func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA bool) string {
+func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title string, EPA bool) string {
 	type intsCmd struct {
 		diagrams.Plantumlmixin
 		cmdutils.CmdContextParamIntgen
@@ -228,7 +239,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, absolute string
 		fileContents, err = PlantUMLURL(p.PlantumlService, contents)
 		targetMap = p.FilesToCreate
 	case mermaidjs:
-		fileContents = ""
+		fileContents = contents
 		targetMap = p.MermaidFilesToCreate
 	}
 	if err != nil {

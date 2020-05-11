@@ -33,6 +33,7 @@ var (
 	noCSS             = kingpin.Flag("noCSS", "disable adding css to served html").Bool()
 	disableLiveReload = kingpin.Flag("disableLiveReload", "diable live reload").Default("false").Bool()
 	noImages          = kingpin.Flag("noImages", "don't create images").Default("false").Bool()
+	enableMermaid     = kingpin.Flag("mermaid", "use mermaid diagrams where possible").Default("false").Bool()
 )
 
 func main() {
@@ -68,7 +69,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir).
+		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
 			WithTemplateFiles(f1, f2).
 			SetOptions(*noCSS, *noImages).
 			Run()
@@ -76,7 +77,7 @@ func main() {
 	}
 
 	handler := catalog.
-		NewProject(*input, plantumlService, "html", log, nil, nil, "").
+		NewProject(*input, plantumlService, "html", log, nil, nil, "", *enableMermaid).
 		WithTemplateFiles(f1, f2).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 	goterm.Clear()

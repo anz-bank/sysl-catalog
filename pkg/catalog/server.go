@@ -88,7 +88,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	switch p.Format {
 	case "html":
-		bytes = []byte(file + script)
+		bytes = []byte(file + script) //TODO @ashwinsajiv: html to switch between mermaid and plantuml
 		if p.DisableCss {
 			bytes = convertToEscapedHTML(file)
 		}

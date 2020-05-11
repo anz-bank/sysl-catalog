@@ -10,6 +10,8 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/anz-bank/sysl/pkg/syslutil"
+
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/russross/blackfriday/v2"
 
@@ -66,16 +68,18 @@ func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA b
 		diagrams.Plantumlmixin
 		cmdutils.CmdContextParamIntgen
 	}
-	projectApp := createProjectApp(m.Apps)
-	p.Module.GetApps()["__TEMP__"] = projectApp
 	integration := intsCmd{}
+	projectApp := createProjectApp(m.Apps)
+	project := "__TEMP__"
+	defer delete(p.Module.GetApps(), project)
+	p.Module.GetApps()[project] = projectApp
+	integration.Project = project
 	integration.Output = "integration" + TernaryOperator(EPA, "EPA", "").(string)
 	integration.Title = title
-	integration.Project = "__TEMP__"
+
 	integration.EPA = EPA
 	integration.Clustered = true
 	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, logrus.New())
-	delete(p.Module.GetApps(), "__TEMP__")
 	if err != nil {
 		p.Log.Error(err)
 		return ""
@@ -290,4 +294,48 @@ func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.
 		return ""
 	}
 	return p.CreateTypeDiagram(p.Module.GetApps()[appName], typeName, parsedType, true)
+}
+
+func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string]struct{}) {
+	includedProjects := Filter(
+		SortedKeys(m.Apps),
+		func(i string) bool {
+			return syslutil.HasPattern(m.GetApps()[i].GetAttrs(), "project") &&
+				m.GetApps()[i].SourceContext.File == p.SourceFileName
+		},
+	)
+	if len(includedProjects) > 0 {
+		set := make(map[string]struct{})
+		app := m.GetApps()[includedProjects[0]]
+		for _, e := range app.GetEndpoints() {
+			for _, e2 := range e.GetStmt() {
+				set[e2.GetAction().GetAction()] = struct{}{}
+			}
+		}
+		return m.GetApps()[includedProjects[0]], set
+	}
+	return nil, nil
+}
+
+func (p *Generator) ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
+	packages := make(map[string]*sysl.Module)
+	_, includedProjects := p.getProjectApp(m)
+	for _, key := range SortedKeys(m.GetApps()) {
+		app := m.GetApps()[key]
+		packageName := Attribute(app, "package")
+		if packageName == "" {
+			packageName = key
+		}
+		if _, ok := includedProjects[packageName]; len(includedProjects) > 0 && !ok {
+			continue
+		}
+		if syslutil.HasPattern(app.GetAttrs(), "ignore") || syslutil.HasPattern(app.GetAttrs(), "project") {
+			continue
+		}
+		if _, ok := packages[packageName]; !ok {
+			packages[packageName] = &sysl.Module{Apps: map[string]*sysl.Application{}}
+		}
+		packages[packageName].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
+	}
+	return packages
 }

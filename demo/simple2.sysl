@@ -1,5 +1,14 @@
 # This project tells our integration diagram what apps to include
 
+# This app specifies the projects to include, it is optional and can be left out
+simple2[~project]:
+    _:
+        # you can specify packages to include
+        ApplicationPackage
+        ServerPackage
+        # or specific applications
+        MegaDatabase
+
 MobileApp:
     @package = "ApplicationPackage"
     @description = "this is a comment for MobileApp"
@@ -10,6 +19,7 @@ MobileApp:
     Another:
         @description = "hello, world"
         return ok <: Server.Response
+
 MobileApp2:
     @package = "ApplicationPackage"
     @description = "this is a comment for MobileApp"
@@ -61,7 +71,6 @@ Server:
 # This is an example of apps with types made up of different apps
 MegaDatabase:
     # This was meant to be an example of how different applications can be in the same package
-    @package = "ServerPackage"
     !type Empty[~empty]:
         @description="Empty Empty Empty"
         ...

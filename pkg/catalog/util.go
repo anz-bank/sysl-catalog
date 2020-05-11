@@ -21,7 +21,6 @@ import (
 	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
-	"github.com/anz-bank/sysl/pkg/syslutil"
 )
 
 // SanitiseOutputName removes characters so that the string can be used as a hyperlink.
@@ -108,22 +107,6 @@ func GetAppPackageName(a Namer) (string, string) {
 	return packageName, appName
 }
 
-func ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
-	packages := make(map[string]*sysl.Module)
-	for _, key := range SortedKeys(m.GetApps()) {
-		app := m.GetApps()[key]
-		packageName, _ := GetAppPackageName(app)
-		if syslutil.HasPattern(app.GetAttrs(), "ignore") {
-			continue
-		}
-		if _, ok := packages[packageName]; !ok {
-			packages[packageName] = &sysl.Module{Apps: map[string]*sysl.Application{}}
-		}
-		packages[packageName].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
-	}
-	return packages
-}
-
 func ModulePackageName(m *sysl.Module) string {
 	for _, key := range SortedKeys(m.GetApps()) {
 		app := m.Apps[key]
@@ -140,6 +123,25 @@ func Map(vs []string, f func(string) string) []string {
 		vsm[i] = f(v)
 	}
 	return vsm
+}
+
+// Map applies a function to every element in a string slice
+func Filter(vs []string, f func(string) bool) []string {
+	vsm := make([]string, 0, len(vs))
+	for _, v := range vs {
+		if f(v) {
+			vsm = append(vsm, v)
+		}
+	}
+	return vsm
+}
+
+func AsSet(in []string) map[string]struct{} {
+	ret := make(map[string]struct{})
+	for _, e := range in {
+		ret[e] = struct{}{}
+	}
+	return ret
 }
 
 // RetryHTTPRequest retries the given request

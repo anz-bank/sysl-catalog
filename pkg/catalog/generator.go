@@ -29,6 +29,7 @@ var typeMaps = map[string]string{"md": "README.md", "markdown": "README.md", "ht
 type Generator struct {
 	FilesToCreate        map[string]string
 	MermaidFilesToCreate map[string]string
+	SourceFileName       string
 	Title                string
 	LiveReload           bool   // Add live reload javascript to html
 	ImageTags            bool   // embedded plantuml img tags, or generated svgs
@@ -49,12 +50,13 @@ type Generator struct {
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.
 func NewProject(
-	title, plantumlService, outputType string,
+	titleAndFileName, plantumlService, outputType string,
 	log *logrus.Logger,
 	module *sysl.Module,
 	fs afero.Fs, outputDir string) *Generator {
 	p := Generator{
-		Title:           title,
+		Title:           titleAndFileName,
+		SourceFileName:  titleAndFileName,
 		OutputDir:       outputDir,
 		OutputFileName:  typeMaps[strings.ToLower(outputType)],
 		Format:          strings.ToLower(outputType),
@@ -129,7 +131,7 @@ func (p *Generator) Run() {
 	if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m); err != nil {
 		p.Log.Error(err)
 	}
-	packages := ModuleAsPackages(p.Module)
+	packages := p.ModuleAsPackages(p.Module)
 	for _, key := range SortedKeys(packages) {
 		fullOutputName := path.Join(p.OutputDir, key, p.OutputFileName)
 		if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, packages[key]); err != nil {
@@ -183,7 +185,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"GetParamType":              p.GetParamType,
 		"GetReturnType":             p.GetReturnType,
 		"hasPattern":                syslutil.HasPattern,
-		"ModuleAsPackages":          ModuleAsPackages,
+		"ModuleAsPackages":          p.ModuleAsPackages,
 		"ModulePackageName":         ModulePackageName,
 		"SortedKeys":                SortedKeys,
 		"Attribute":                 Attribute,

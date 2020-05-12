@@ -177,7 +177,7 @@ func PlantUMLURL(plantumlService, contents string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprint(plantumlService, "/", "svg", "/", encoded), nil
+	return fmt.Sprint(plantumlService, "/", "svg", "/~1", encoded), nil
 }
 
 func HttpToFile(fs afero.Fs, fileName, url string) error {

@@ -35,9 +35,9 @@ type Generator struct {
 	DisableImages        bool // used for omitting image creation
 	Mermaid              bool
 	Format               string // "html" or "markdown" or "" if custom
+	CurrentDir           string
 	Ext                  string
 	OutputDir            string
-	NextOutputDir        string
 	OutputFileName       string
 	PlantumlService      string
 	Log                  *logrus.Logger
@@ -152,7 +152,8 @@ func (p *Generator) Run() {
 	packageFunc := func() {
 		for _, packageName := range SortedKeys(packages) {
 			pkg := packages[packageName]
-			fullOutputName := path.Join(p.OutputDir, macroPackageName, packageName, p.OutputFileName)
+			p.CurrentDir = path.Join(macroPackageName, packageName)
+			fullOutputName := path.Join(p.OutputDir, p.CurrentDir, p.OutputFileName)
 			if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
 				p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
 			}
@@ -161,7 +162,6 @@ func (p *Generator) Run() {
 	switch len(macroPackages) {
 	case 0, 1:
 		packages = p.ModuleAsPackages(p.Module)
-		p.NextOutputDir = ""
 		packageFunc()
 	default:
 		for _, key := range SortedKeys(macroPackages) {
@@ -170,12 +170,12 @@ func (p *Generator) Run() {
 			module := createModuleFromSlices(p.Module, SortedKeys(moduleMap))
 			packages = p.ModuleAsPackages(module)
 			macroPackageFileName := path.Join(p.OutputDir, macroPackageName, p.OutputFileName)
+			p.CurrentDir = macroPackageName
 			m := mWrap{Module: module, Title: macroPackageName, Links: map[string]string{"Back": "../" + p.OutputFileName}}
 			err := p.CreateMarkdown(p.ProjectTempl, macroPackageFileName, m)
 			if err != nil {
 				p.Log.Error(err)
 			}
-			p.NextOutputDir = macroPackageName
 			packageFunc()
 		}
 	}

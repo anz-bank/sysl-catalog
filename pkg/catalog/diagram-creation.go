@@ -95,9 +95,7 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 		return ""
 	}
 	plantumlString := result[integration.Output]
-	title = strings.ReplaceAll(title, p.SourceFileName, "")
-	title = strings.ReplaceAll(title, p.NextOutputDir, "")
-	return p.CreateFile(plantumlString, plantuml, title, integration.Output+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, integration.Output+p.Ext)
 }
 
 // CreateSequenceDiagram creates an sequence diagram and returns the filename
@@ -109,8 +107,7 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 		p.Log.Error(err)
 		return ""
 	}
-	packageName, _ := GetAppPackageName(p.Module.GetApps()[appName])
-	return p.CreateFile(plantumlString, plantuml, packageName, appName, endpoint.GetName()+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, appName, endpoint.GetName()+p.Ext)
 }
 
 // CreateParamDataModel creates a parameter data model and returns a filename
@@ -120,10 +117,9 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 	if appName == "" {
 		appName = path.Join(app.Name.GetPart()...)
 	}
-	packageName, _ := GetAppPackageName(p.Module.GetApps()[appName])
 	relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
 	plantumlString := catalogdiagrams.GenerateDataModel(appName, relatedTypes)
-	return p.CreateFile(plantumlString, plantuml, packageName, appName+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, appName+p.Ext)
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
@@ -218,8 +214,7 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 	if _, ok := p.Module.GetApps()[appName]; !ok {
 		return ""
 	}
-	packageName, _ := GetAppPackageName(p.Module.GetApps()[appName])
-	return p.CreateFile(plantumlString, plantuml, packageName, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
 }
 
 // CreateFileName returns the absolute and relative filepaths
@@ -230,8 +225,8 @@ func CreateFileName(dir string, elems ...string) (string, string) {
 }
 
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
-func (p *Generator) CreateFile(contents string, diagramType int, absolute string, elems ...string) string {
-	fileName, relativeFilepath := CreateFileName(path.Join(p.NextOutputDir, absolute), elems...)
+func (p *Generator) CreateFile(contents string, diagramType int, elems ...string) string {
+	fileName, relativeFilepath := CreateFileName(p.CurrentDir, elems...)
 	var fileContents string
 	var targetMap map[string]string
 	var err error
@@ -264,8 +259,7 @@ func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 	if _, ok := p.Module.GetApps()[appName]; !ok {
 		return ""
 	}
-	packageName, _ := GetAppPackageName(app)
-	return p.CreateFile(plantumlString, plantuml, packageName, appName, "types"+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, appName, "types"+p.Ext)
 }
 
 // CreateQueryParamDataModel returns a Query Parameter data model filename.

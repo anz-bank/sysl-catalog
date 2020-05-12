@@ -20,7 +20,7 @@ this:
     this:
         ...
 that:
-    @pacakge="MegaDatabase"
+    @package="MegaDatabase"
     this:
         this <- this
 MobileApp:

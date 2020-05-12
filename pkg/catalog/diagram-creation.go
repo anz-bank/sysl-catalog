@@ -13,7 +13,7 @@ import (
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
-	"github.com/russross/blackfriday/v2"
+	"github.com/russross/blackfriday"
 
 	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
 
@@ -52,7 +52,7 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 	}
 	out := buf.Bytes()
 	if p.Format == "html" && !p.DisableCss {
-		raw := string(blackfriday.Run(out))
+		raw := string(blackfriday.MarkdownCommon(out))
 		raw = strings.ReplaceAll(raw, "README.md", p.OutputFileName)
 		out = []byte(header + raw + style + endTags)
 	}

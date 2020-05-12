@@ -2,8 +2,8 @@
 entity _0--><rect fill="#FFFAF0" filter="url(#f1v4s9xj85xdz0)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="101" x="6" y="28.9531"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="1" y="33.9531"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="1" y="55.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="16" y="51.9482">MobileApp2</text><!--MD5=[5793e68b51480d2da18d2edf8802f392]
 entity _1--><rect fill="#FFFAF0" filter="url(#f1v4s9xj85xdz0)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="64" x="90.5" y="124.9531"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="85.5" y="129.9531"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="85.5" y="151.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="44" x="100.5" y="147.9482">Server</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
 entity _2--><rect fill="#FFFAF0" filter="url(#f1v4s9xj85xdz0)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="92" x="142.5" y="28.9531"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="137.5" y="33.9531"/><rect fill="#FFFAF0" height="5" style="stroke: #000000; stroke-width: 1.5;" width="10" x="137.5" y="55.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="72" x="152.5" y="51.9482">MobileApp</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
-link _0 to _1--><path d="M68.6054,65.1941 C79.5836,80.8297 95.8027,103.9297 107.579,120.702 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="110.471,124.8214,108.5723,115.1573,107.5976,120.7296,102.0253,119.7548,110.471,124.8214" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[797b2ad59651ef14175f94513191e355]
-link _2 to _1--><path d="M176.395,65.1941 C165.416,80.8297 149.197,103.9297 137.421,120.702 " fill="none" id="_2-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="134.529,124.8214,142.9747,119.7548,137.4024,120.7296,136.4277,115.1573,134.529,124.8214" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[332ec8b5219d0873a3084c2159e2e169]
+link _0 to _1--><path d="M68.9141,65.01 C79.7231,80.7322 95.4383,103.5906 107.057,120.4906 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="109.9172,124.6508,108.1146,114.9683,107.0845,120.5306,101.5223,119.5006,109.9172,124.6508" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[797b2ad59651ef14175f94513191e355]
+link _2 to _1--><path d="M176.0859,65.01 C165.2769,80.7322 149.5617,103.5906 137.943,120.4906 " fill="none" id="_2-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="135.0828,124.6508,143.4777,119.5006,137.9155,120.5306,136.8854,114.9683,135.0828,124.6508" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[9222690c5707c8efc70eb70d58bcd30c]
 @startuml
 
 
@@ -22,11 +22,11 @@ _0 - -> _1
 _2 - -> _1
 @enduml
 
-PlantUML version 1.2019.11(Sun Sep 22 10:02:15 UTC 2019)
+PlantUML version 1.2020.09(Sun May 10 10:51:06 UTC 2020)
 (GPL source distribution)
 Java Runtime: OpenJDK Runtime Environment
 JVM: OpenJDK 64-Bit Server VM
-Java Version: 1.8.0_222-b10
+Java Version: 1.8.0_252-b09
 Operating System: Linux
 Default Encoding: UTF-8
 Language: en

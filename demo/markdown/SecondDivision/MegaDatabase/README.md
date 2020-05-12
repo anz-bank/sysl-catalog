@@ -49,7 +49,7 @@ No Response Types
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
-<th>Attribute</th>
+<th>Description</th>
 <th>Full Diagram</th>
 
 

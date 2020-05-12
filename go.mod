@@ -15,7 +15,7 @@ require (
 	github.com/joshcarp/mermaid-go v0.0.0-20200403052241-d6fecd5216de
 	github.com/pkg/errors v0.9.1
 	github.com/radovskyb/watcher v1.0.7
-	gopkg.in/russross/blackfriday.v2 v2.0.1
+	github.com/russross/blackfriday/v2 v2.0.1
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/afero v1.2.2
 	golang.org/x/net v0.0.0-20200506145744-7e3656a0809f // indirect

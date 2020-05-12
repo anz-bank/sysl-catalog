@@ -13,7 +13,7 @@ import (
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
-	"gopkg.in/russross/blackfriday.v2"
+	"github.com/russross/blackfriday/v2"
 
 	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
 

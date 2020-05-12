@@ -96,6 +96,7 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	}
 	plantumlString := result[integration.Output]
 	title = strings.ReplaceAll(title, p.SourceFileName, "")
+	title = strings.ReplaceAll(title, p.NextOutputDir, "")
 	return p.CreateFile(plantumlString, plantuml, title, integration.Output+p.Ext)
 }
 

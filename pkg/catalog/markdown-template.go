@@ -12,10 +12,10 @@ const NewProjectTemplate = `
 [{{$val}}]({{$val}}/README.md)|{{end}}
 
 ## Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module "" false}}">
+<img src="{{CreateIntegrationDiagram .Module .Title false}}">
 
 ## End Point Analysis Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module "" true}}">
+<img src="{{CreateIntegrationDiagram .Module .Title true}}">
 
 `
 

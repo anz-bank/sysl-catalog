@@ -87,7 +87,6 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	integration.Project = project
 	integration.Output = "integration" + TernaryOperator(EPA, "EPA", "").(string)
 	integration.Title = title
-
 	integration.EPA = EPA
 	integration.Clustered = true
 	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, logrus.New())
@@ -96,6 +95,7 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 		return ""
 	}
 	plantumlString := result[integration.Output]
+	title = strings.ReplaceAll(title, p.SourceFileName, "")
 	return p.CreateFile(plantumlString, plantuml, title, integration.Output+p.Ext)
 }
 

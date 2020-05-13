@@ -61,7 +61,7 @@ Server:
 
     Authenticate(input <: Request):
         @description = "this is a description of Authenticate"
-        return ok <: Response
+        return ok <: sequence of Response
     
     /testRestURLParam/{id<:Request}:
         GET:

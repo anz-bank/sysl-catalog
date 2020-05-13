@@ -9,8 +9,8 @@
 [ApplicationPackage](ApplicationPackage/README.md)|
 
 ## Integration Diagram
-<img src="integration.svg">
+<img src="firstdivision/integration.svg">
 
 ## End Point Analysis Integration Diagram
-<img src="integrationEPA.svg">
+<img src="firstdivision/integrationepa.svg">
 

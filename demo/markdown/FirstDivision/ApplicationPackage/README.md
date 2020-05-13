@@ -12,7 +12,7 @@ MobileApp | [Login](#MobileApp-Login)
 MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint)
 MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint)
 
-![](integration.svg)
+![](firstdivision/applicationpackage/integration.svg)
 
 
 
@@ -25,7 +25,7 @@ this is a comment for MobileApp
 ## MobileApp Another
 hello, world
 
-![](MobileApp/Another.svg)
+![](firstdivision/applicationpackage/mobileapp/another.svg)
 
 ### Request types
 
@@ -43,14 +43,14 @@ No Request types
 
 Response Response Response
 
-![](Server/Response.svg)
+![](firstdivision/applicationpackage/server/response.svg)
 
 
 
 ## MobileApp Login
 hello, gamers
 
-![](MobileApp/Login.svg)
+![](firstdivision/applicationpackage/mobileapp/login.svg)
 
 ### Request types
 
@@ -58,7 +58,7 @@ hello, gamers
 
 
 
-![](Server.svg)
+![](firstdivision/applicationpackage/server.svg)
 
 
 
@@ -70,7 +70,7 @@ hello, gamers
 
 Empty Empty Empty
 
-![](MegaDatabase/Empty.svg)
+![](firstdivision/applicationpackage/megadatabase/empty.svg)
 
 
 
@@ -83,7 +83,7 @@ this is a comment for MobileApp
 ## MobileApp2 SecondEndpoint
 SecondEndpoint, comment
 
-![](MobileApp2/SecondEndpoint.svg)
+![](firstdivision/applicationpackage/mobileapp2/secondendpoint.svg)
 
 ### Request types
 
@@ -91,7 +91,7 @@ SecondEndpoint, comment
 
 
 
-![](Server.svg)
+![](firstdivision/applicationpackage/server.svg)
 
 
 
@@ -103,14 +103,14 @@ SecondEndpoint, comment
 
 Empty Empty Empty
 
-![](MegaDatabase/Empty.svg)
+![](firstdivision/applicationpackage/megadatabase/empty.svg)
 
 
 
 ## MobileApp2 ThirdEndpoint
 ThirdEndpoint comment
 
-![](MobileApp2/ThirdEndpoint.svg)
+![](firstdivision/applicationpackage/mobileapp2/thirdendpoint.svg)
 
 ### Request types
 
@@ -128,7 +128,7 @@ No Request types
 
 Response Response Response
 
-![](Server/Response.svg)
+![](firstdivision/applicationpackage/server/response.svg)
 
 
 

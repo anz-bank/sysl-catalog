@@ -5,25 +5,23 @@ title: {{ToLower $packageName}}
 sidebar_label: {{ToLower $packageName}}
 ---
 
-# {{$packageName}}
-
 ## Service Index
 | Service Name | Method |
-----|----{{$Apps := .Apps}}{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := AlphabeticalEndpoints $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}
-{{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}){{end}}{{end}}
-
-
+----|----{{$Apps := .Apps}}{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if eq (hasPattern $app.Attrs "ignore") false}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := SortedKeys $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}{{if eq (hasPattern $endpoint.Attrs "ignore") false}}
+{{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}){{end}}{{end}}{{end}}{{end}}
 
 ![]({{CreateIntegrationDiagram . $packageName false}})
 
-{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if eq (hasPattern $app.Attrs "ignore") false}}
-# {{$appName}}
-{{AppComment $app}}
+{{if ne $appName $packageName}}
+# {{$appName}}{{end}}
+
+{{Attribute $app "description"}}
 {{range $e := $app.Endpoints}}
 {{if eq (hasPattern $e.Attrs "ignore") false}}
 ## {{$appName}} {{SanitiseOutputName $e.Name}}
-{{Attribute "description" $e.GetAttrs}}
+{{Attribute $e "description"}}
 
 ![]({{CreateSequenceDiagram $appName $e}})
 
@@ -33,7 +31,7 @@ No Request types
 {{end}}
 
 {{range $param := $e.Param}}
-{{Attribute "description" (GetParamType $app $param).GetAttrs}}
+{{Attribute $param.Type "description"}}
 
 ![]({{CreateParamDataModel $app $param}})
 {{end}}
@@ -54,33 +52,28 @@ No Request types
 ### Query Parameter
 
 ![]({{$queryDataModel}})
-{{end}}{{end}}{{end}}
-
-{{end}}
+{{end}}{{end}}{{end}}{{end}}
 
 ### Response types
 {{$responses := false}}
 {{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
 {{$responses = true}}
-{{$ret := (GetReturnType $e $s)}}{{if ne $ret nil}}
-{{Attribute "description" $ret.GetAttrs}}{{end}}
+{{$ret := (GetReturnType $e $s)}}{{if $ret }}
+{{Attribute $ret "description"}}{{end}}
 
 ![]({{$diagram}})
 {{end}}{{end}}
 {{if eq $responses false}}
 No Response Types
-{{end}}
-{{end}}{{end}}{{end}}{{end}}
+{{end}}{{end}}{{end}}{{end}}{{end}}
 
-
-{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if hasPattern $app.GetAttrs "db"}}
 
 ## Database
-{{Attribute "description" $app.GetAttrs}}
+{{Attribute $app "description"}}
 ![]({{GenerateDataModel $app}})
 {{end}}{{end}}
-
 
 ### Types
 
@@ -88,13 +81,13 @@ No Response Types
 <tr>
 <th>App Name</th>
 <th>Diagram</th>
-<th>Comment</th>
+<th>Description</th>
 <th>Full Diagram</th>
-{{range $appName := AlphabeticalApps .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
 {{if ne (hasPattern $app.Attrs "db") true}}
 </tr>
 
-{{range $typeName := AlphabeticalTypes $types}}{{$type := index $types $typeName}}
+{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
 <tr>
 <td>
 
@@ -106,7 +99,7 @@ No Response Types
 </td>
 <td>
 
-{{if ne (TypeComment $type) ""}}<details closed><summary>Comment</summary><br>{{TypeComment $type}}</details>{{end}}
+{{if ne (Attribute $type "description") ""}}<details closed><summary>Description</summary><br>{{Attribute $type "description"}}</details>{{end}}
 </td>
 <td>
 

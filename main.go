@@ -29,6 +29,7 @@ var (
 	verbose           = kingpin.Flag("verbose", "Verbose logs").Short('v').Bool()
 	projectTemplate   = kingpin.Flag("projectTemplate", "projectTemplate filname to use").String()
 	packageTemplate   = kingpin.Flag("packageTemplate", "packageTemplate filname to use").String()
+	outputFileName    = kingpin.Flag("outputFileName", "output file name for pages; {{.Title}}").Default("").String()
 	server            = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
 	noCSS             = kingpin.Flag("noCSS", "disable adding css to served html").Bool()
 	disableLiveReload = kingpin.Flag("disableLiveReload", "diable live reload").Default("false").Bool()
@@ -71,7 +72,7 @@ func main() {
 		}
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
 			WithTemplateFiles(f1, f2).
-			SetOptions(*noCSS, *noImages).
+			SetOptions(*noCSS, *noImages, *outputFileName).
 			Run()
 		return
 	}
@@ -79,6 +80,7 @@ func main() {
 	handler := catalog.
 		NewProject(*input, plantumlService, "html", log, nil, nil, "", *enableMermaid).
 		WithTemplateFiles(f1, f2).
+		SetOptions(*noCSS, *noImages, *outputFileName).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 	goterm.Clear()
 	PrintToPosition(1, "Serving on http://localhost"+*port)

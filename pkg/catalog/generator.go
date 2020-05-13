@@ -116,9 +116,12 @@ func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
 	return p.WithTemplateString(string(file1), string(file2))
 }
 
-func (p *Generator) SetOptions(disableCss, disableImages bool) *Generator {
+func (p *Generator) SetOptions(disableCss, disableImages bool, readmeName string) *Generator {
 	p.DisableCss = disableCss
 	p.DisableImages = disableImages
+	if readmeName != "" {
+		p.OutputFileName = readmeName
+	}
 	return p
 
 }
@@ -153,7 +156,11 @@ func (p *Generator) Run() {
 		for _, packageName := range SortedKeys(packages) {
 			pkg := packages[packageName]
 			p.CurrentDir = path.Join(macroPackageName, packageName)
-			fullOutputName := path.Join(p.OutputDir, p.CurrentDir, p.OutputFileName)
+			markdownName := p.OutputFileName
+			if markdownName == "{{.Title}}" {
+				markdownName = packageName
+			}
+			fullOutputName := path.Join(p.OutputDir, p.CurrentDir, markdownName)
 			if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
 				p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
 			}

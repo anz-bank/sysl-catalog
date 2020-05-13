@@ -5,12 +5,14 @@ title: {{$title}}
 sidebar_label: {{$title}}
 ---
 
+# {{Base .Title}}
+
 | Package |
-----|{{range $key, $val := ModuleAsPackages .Module}}
-[{{$key}}]({{$key}}/README.md)|{{end}}
+----|{{range $key, $val := GetRows .Module}}
+[{{$val}}]({{$val}}/README.md)|{{end}}
 
 ## Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module "" false}}">
+<img src="{{CreateIntegrationDiagram .Module .Title false}}">
 
 ## End Point Analysis Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module "" true}}">
+<img src="{{CreateIntegrationDiagram .Module .Title true}}">

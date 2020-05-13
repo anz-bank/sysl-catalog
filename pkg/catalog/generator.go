@@ -144,7 +144,8 @@ func (p *Generator) Run() {
 		Links map[string]string
 	}
 	m := mWrap{Module: p.Module, Title: p.Title}
-	if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, p.OutputFileName), m); err != nil {
+	fileName := markdownName(p.OutputFileName, strings.ReplaceAll(path.Base(p.Title), ".sysl", ""))
+	if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, fileName), m); err != nil {
 		p.Log.Error(err)
 	}
 	macroPackages := p.ModuleAsMacroPackage(p.Module)
@@ -156,11 +157,8 @@ func (p *Generator) Run() {
 		for _, packageName := range SortedKeys(packages) {
 			pkg := packages[packageName]
 			p.CurrentDir = path.Join(macroPackageName, packageName)
-			markdownName := p.OutputFileName
-			if markdownName == "{{.Title}}" {
-				markdownName = packageName
-			}
-			fullOutputName := path.Join(p.OutputDir, p.CurrentDir, markdownName)
+			fileName := markdownName(p.OutputFileName, packageName)
+			fullOutputName := path.Join(p.OutputDir, p.CurrentDir, fileName)
 			if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
 				p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
 			}
@@ -176,7 +174,8 @@ func (p *Generator) Run() {
 			moduleMap := macroPackages[macroPackageName]
 			module := createModuleFromSlices(p.Module, SortedKeys(moduleMap))
 			packages = p.ModuleAsPackages(module)
-			macroPackageFileName := path.Join(p.OutputDir, macroPackageName, p.OutputFileName)
+			fileName := markdownName(p.OutputFileName, macroPackageName)
+			macroPackageFileName := path.Join(p.OutputDir, macroPackageName, fileName)
 			p.CurrentDir = macroPackageName
 			m := mWrap{Module: module, Title: macroPackageName, Links: map[string]string{"Back": "../" + p.OutputFileName}}
 			err := p.CreateMarkdown(p.ProjectTempl, macroPackageFileName, m)
@@ -220,6 +219,14 @@ func (p *Generator) Run() {
 
 	wg.Wait()
 	progress.Finish()
+}
+
+func markdownName(s, candidate string) string {
+	if strings.Contains(s, "{{.Title}}") {
+		candidate = SanitiseOutputName(candidate)
+		return strings.ReplaceAll(s, "{{.Title}}", candidate)
+	}
+	return s
 }
 
 // GetFuncMap returns the funcs that are used in diagram generation.

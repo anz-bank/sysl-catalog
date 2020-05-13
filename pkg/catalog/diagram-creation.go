@@ -157,7 +157,7 @@ func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement
 }
 
 // CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement.
-func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
+func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
 	var sequence bool
 	var typeref *sysl.Type
 	var appName, typeName string
@@ -178,7 +178,7 @@ func (p *Generator) CreateReturnDataModel(stmnt *sysl.Statement, endpoint *sysl.
 	}
 	if sequence {
 		newSequenceName := endpoint.GetName() + "ReturnVal"
-		newAppName := strings.Join(endpoint.GetSource().GetPart(), "")
+		newAppName := appname
 		defer delete(p.Module.GetApps()[newAppName].GetTypes(), newSequenceName)
 		p.Module.GetApps()[newAppName].GetTypes()[newSequenceName] = &sysl.Type{
 			Type: &sysl.Type_Tuple_{

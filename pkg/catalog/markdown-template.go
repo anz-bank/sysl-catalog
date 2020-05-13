@@ -76,7 +76,7 @@ No Request types
 
 ### Response types
 {{$responses := false}}
-{{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
+{{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel  $appName $s $e}}{{if ne $diagram ""}}
 {{$responses = true}}
 {{$ret := (GetReturnType $e $s)}}{{if $ret }}
 {{Attribute $ret "description"}}{{end}}

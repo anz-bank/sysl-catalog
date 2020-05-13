@@ -9,7 +9,7 @@
 ----|----
 this | [this](#this-this)
 
-![](integration.svg)
+![](seconddivision/megadatabase/integration.svg)
 
 
 
@@ -22,7 +22,7 @@ this | [this](#this-this)
 ## this this
 
 
-![](this/this.svg)
+![](seconddivision/megadatabase/this/this.svg)
 
 ### Request types
 

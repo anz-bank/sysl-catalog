@@ -119,7 +119,7 @@ No Response Types
 </td>
 <td> 
 
-{{if ne (Attribute $type "description") ""}}<details closed><summary>Attribute</summary><br>{{Attribute $type "description"}}</details>{{end}} 
+{{if ne (Attribute $type "description") ""}}<details closed><summary>Description</summary><br>{{Attribute $type "description"}}</details>{{end}} 
 </td>
 <td>
 

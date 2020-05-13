@@ -187,7 +187,7 @@ func (p *Generator) Run() {
 	}
 	var wg sync.WaitGroup
 	var progress *pb.ProgressBar
-	var done int64
+	var completedDiagrams int64
 	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
 		for fileName, contents := range inMap {
 			wg.Add(1)
@@ -198,7 +198,7 @@ func (p *Generator) Run() {
 				}
 				progress.Increment()
 				wg.Done()
-				done++
+				completedDiagrams++
 			}(fileName, contents)
 		}
 	}
@@ -213,7 +213,7 @@ func (p *Generator) Run() {
 		return
 	}
 	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
-	progress.SetCurrent(done)
+	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
 	diagramCreator(p.FilesToCreate, HttpToFile)
 

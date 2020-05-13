@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -221,12 +222,14 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 func CreateFileName(dir string, elems ...string) (string, string) {
 	absolutefileName := path.Join(append([]string{dir}, Map(elems, SanitiseOutputName)...)...)
 	relativefileName := strings.Replace(absolutefileName, dir+"/", "", 1)
+	absolutefileName = strings.ToLower(absolutefileName)
+	relativefileName = strings.ToLower(relativefileName)
 	return absolutefileName, relativefileName
 }
 
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFile(contents string, diagramType int, elems ...string) string {
-	fileName, relativeFilepath := CreateFileName(p.CurrentDir, elems...)
+	fileName, _ := CreateFileName(p.CurrentDir, elems...)
 	var fileContents string
 	var targetMap map[string]string
 	var err error
@@ -244,12 +247,20 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 		p.Log.Error(err)
 		return ""
 	}
+	newFileName := fileName
+	for i := 0; ; i++ {
+		if diagram, ok := targetMap[newFileName]; !ok || diagram == fileContents {
+			break
+		}
+		newFileName = strings.ReplaceAll(fileName, p.Ext, strconv.Itoa(i)+p.Ext)
+	}
+	fileName = newFileName
 	// if p.ImageTags: return image tag from plantUML service
 	if p.ImageTags && diagramType == plantuml {
 		return fileContents
 	}
 	targetMap[fileName] = fileContents
-	return relativeFilepath
+	return strings.Replace(fileName, p.CurrentDir+"/", "", 1)
 }
 
 // GenerateDataModel generates a data model for all of the types in app

@@ -133,10 +133,18 @@ func ModulePackageName(m *sysl.Module) string {
 }
 
 // Map applies a function to every element in a string slice
-func Map(vs []string, f func(string) string) []string {
+func Map(vs []string, funcs ...func(string) string) []string {
 	vsm := make([]string, len(vs))
 	for i, v := range vs {
-		vsm[i] = f(v)
+		for j, f := range funcs {
+			var middle string
+			if j == 0 {
+				middle = f(v)
+				vsm[i] = middle
+			}
+			vsm[i] = f(middle)
+		}
+
 	}
 	return vsm
 }

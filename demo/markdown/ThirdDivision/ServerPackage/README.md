@@ -228,7 +228,7 @@ Server.<br>Empty
 </td>
 <td> 
 
-<details closed><summary>Attribute</summary><br>Empty Empty Empty</details> 
+<details closed><summary>Description</summary><br>Empty Empty Empty</details> 
 </td>
 <td>
 
@@ -246,7 +246,7 @@ Server.<br>Request
 </td>
 <td> 
 
-<details closed><summary>Attribute</summary><br>Request Request Request</details> 
+<details closed><summary>Description</summary><br>Request Request Request</details> 
 </td>
 <td>
 
@@ -264,7 +264,7 @@ Server.<br>Response
 </td>
 <td> 
 
-<details closed><summary>Attribute</summary><br>Response Response Response</details> 
+<details closed><summary>Description</summary><br>Response Response Response</details> 
 </td>
 <td>
 

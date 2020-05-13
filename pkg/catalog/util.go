@@ -185,6 +185,7 @@ func AsSet(in []string) map[string]struct{} {
 func RetryHTTPRequest(url string) ([]byte, error) {
 	client := retryablehttp.NewClient()
 	client.Logger = nil
+	client.RetryMax = 100
 	resp, err := client.Get(url)
 	if err != nil {
 		return nil, err

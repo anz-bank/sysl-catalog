@@ -10,6 +10,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/anz-bank/sysl/pkg/syslutil"
+
 	"github.com/joshcarp/mermaid-go/mermaid"
 
 	"github.com/sirupsen/logrus"
@@ -233,6 +235,9 @@ func GetAppTypeName(param Typer) (string, string) {
 	var appName, typeName string
 	ref := param.GetType().GetTypeRef().GetRef()
 	appNameParts := ref.GetAppname().GetPart()
+	if a, b := syslutil.GetTypeDetail(param.GetType()); a == "primitive" {
+		return a, b
+	}
 	if len(appNameParts) > 0 {
 		typeNameParts := ref.GetPath()
 		if typeNameParts != nil {

@@ -113,13 +113,19 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 
 // CreateParamDataModel creates a parameter data model and returns a filename
 func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Param) string {
-	var appName, typeName string
+	var appName, typeName, plantumlString string
 	appName, typeName = GetAppTypeName(param)
 	if appName == "" {
 		appName = path.Join(app.Name.GetPart()...)
 	}
-	relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
-	plantumlString := catalogdiagrams.GenerateDataModel(appName, relatedTypes)
+	if appName == "primitive" {
+		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: param.GetType()})
+		appName = typeName
+	} else {
+		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
+		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
+	}
+
 	return p.CreateFile(plantumlString, plantuml, appName+p.Ext)
 }
 

@@ -14,7 +14,7 @@ Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimiti
 Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id})
 Server | [GET /testReturnNil](#Server-GETtestReturnNil)
 
-![](integration.svg)
+![](thirddivision/serverpackage/integration.svg)
 
 
 
@@ -33,7 +33,7 @@ this is a comment for Server
 ## Server Authenticate
 this is a description of Authenticate
 
-![](Server/Authenticate.svg)
+![](thirddivision/serverpackage/server/authenticate.svg)
 
 ### Request types
 
@@ -41,7 +41,7 @@ this is a description of Authenticate
 
 
 
-![](Server.svg)
+![](thirddivision/serverpackage/server.svg)
 
 
 
@@ -56,7 +56,7 @@ No Response Types
 ## Server GETtestRestPathParamPrimitive{primitiveID}
 
 
-![](Server/GETtestRestPathParamPrimitive{primitiveID}.svg)
+![](thirddivision/serverpackage/server/gettestrestpathparamprimitive{primitiveid}.svg)
 
 ### Request types
 
@@ -82,7 +82,7 @@ No Response Types
 ## Server GETtestRestQueryParam
 
 
-![](Server/GETtestRestQueryParam.svg)
+![](thirddivision/serverpackage/server/gettestrestqueryparam.svg)
 
 ### Request types
 
@@ -99,13 +99,13 @@ No Request types
 
 ### Query Parameter
 
-![](Server/Request.svg)
+![](thirddivision/serverpackage/server/request.svg)
 
 
 
 ### Query Parameter
 
-![](Server/Request.svg)
+![](thirddivision/serverpackage/server/request.svg)
 
 
 ### Response types
@@ -118,7 +118,7 @@ No Response Types
 ## Server GETtestRestQueryParamPrimitive
 
 
-![](Server/GETtestRestQueryParamPrimitive.svg)
+![](thirddivision/serverpackage/server/gettestrestqueryparamprimitive.svg)
 
 ### Request types
 
@@ -144,7 +144,7 @@ No Response Types
 ## Server GETtestRestURLParam{id}
 
 
-![](Server/GETtestRestURLParam{id}.svg)
+![](thirddivision/serverpackage/server/gettestresturlparam{id}.svg)
 
 ### Request types
 
@@ -159,7 +159,7 @@ No Request types
 
 ### Path Parameter
 
-![](Server/Request.svg)
+![](thirddivision/serverpackage/server/request.svg)
 
 
 
@@ -174,7 +174,7 @@ No Response Types
 ## Server GETtestReturnNil
 
 
-![](Server/GETtestReturnNil.svg)
+![](thirddivision/serverpackage/server/gettestreturnnil.svg)
 
 ### Request types
 
@@ -199,7 +199,7 @@ No Response Types
 
 ## Database
 
-![](RelModel/types.svg)
+![](thirddivision/serverpackage/relmodel/types.svg)
 
 
 
@@ -224,7 +224,7 @@ Server.<br>Empty
 </td>
 <td>
 
-<img src="Server/Emptysimple.svg">
+<img src="thirddivision/serverpackage/server/emptysimple.svg">
 </td>
 <td> 
 
@@ -232,7 +232,7 @@ Server.<br>Empty
 </td>
 <td>
 
-<a href="Server/Empty.svg">Link</a>
+<a href="thirddivision/serverpackage/server/empty.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -242,7 +242,7 @@ Server.<br>Request
 </td>
 <td>
 
-<img src="Server/Requestsimple.svg">
+<img src="thirddivision/serverpackage/server/requestsimple.svg">
 </td>
 <td> 
 
@@ -250,7 +250,7 @@ Server.<br>Request
 </td>
 <td>
 
-<a href="Server/Request.svg">Link</a>
+<a href="thirddivision/serverpackage/server/request.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -260,7 +260,7 @@ Server.<br>Response
 </td>
 <td>
 
-<img src="Server/Responsesimple.svg">
+<img src="thirddivision/serverpackage/server/responsesimple.svg">
 </td>
 <td> 
 
@@ -268,7 +268,7 @@ Server.<br>Response
 </td>
 <td>
 
-<a href="Server/Response.svg">Link</a>
+<a href="thirddivision/serverpackage/server/response.svg">Link</a>
 </td>
 </tr>
 </table>

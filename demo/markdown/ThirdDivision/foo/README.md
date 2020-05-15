@@ -9,7 +9,7 @@
 ----|----
 foo | [whatever](#foo-whatever)
 
-![](integration.svg)
+![](thirddivision/foo/integration.svg)
 
 
 
@@ -21,7 +21,7 @@ foo | [whatever](#foo-whatever)
 ## foo whatever
 
 
-![](foo/whatever.svg)
+![](thirddivision/foo/foo/whatever.svg)
 
 ### Request types
 

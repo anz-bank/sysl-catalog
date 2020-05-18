@@ -48,6 +48,21 @@ type Generator struct {
 	PackageTempl         *template.Template
 }
 
+type SourceCoder interface {
+	Attr
+	GetSourceContext() *sysl.SourceContext
+}
+
+// RootPath appends CurrentDir to output
+func (p *Generator) SourcePath(a SourceCoder) string {
+	//[{{RootPath}}{{Attribute $app "source_path"}}#{{Attribute $app "source_line"}}]
+	rootDir := rootDirectory(path.Join(p.OutputDir, p.CurrentDir))
+	if source_path := Attribute(a, "source_path"); source_path != "" {
+		return rootDir + Attribute(a, "source_path")
+	}
+	return path.Join(rootDir, a.GetSourceContext().File)
+}
+
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.
 func NewProject(
 	titleAndFileName, plantumlService, outputType string,
@@ -243,6 +258,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"GetParamType":              p.GetParamType,
 		"GetRows":                   p.GetRows,
 		"GetReturnType":             p.GetReturnType,
+		"SourcePath":                p.SourcePath,
 		"hasPattern":                syslutil.HasPattern,
 		"ModuleAsPackages":          p.ModuleAsPackages,
 		"ModulePackageName":         ModulePackageName,

@@ -32,6 +32,17 @@ func SanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
 }
 
+// rootDirectory converts a path (eg whatever/anotherdir/this.that) to the ../ pattern to get
+// back to the original folder that the sysl-catalog command was executed from
+func rootDirectory(s string) string {
+	var rootPath string
+	dir, _ := path.Split(s)
+	numberOfLevels := len(strings.Split(dir, "/"))
+	for i := 0; i < numberOfLevels; i++ {
+		rootPath += "../"
+	}
+	return rootPath
+}
 func SortedKeys(m interface{}) []string {
 	keys := reflect.ValueOf(m).MapKeys()
 	ret := make([]string, 0, len(keys))

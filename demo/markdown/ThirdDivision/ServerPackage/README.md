@@ -5,14 +5,14 @@
 # ServerPackage
 
 ## Service Index
-| Service Name | Method |
+| Service Name | Method | Source Location |
 ----|----
-Server | [Authenticate](#Server-Authenticate)
-Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID})
-Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam)
-Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive)
-Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id})
-Server | [GET /testReturnNil](#Server-GETtestReturnNil)
+Server | [Authenticate](#Server-Authenticate) | |  
+Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | |  
+Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | |  
+Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | |  
+Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | |  
+Server | [GET /testReturnNil](#Server-GETtestReturnNil) | |  
 
 ![](thirddivision/serverpackage/integration.svg)
 

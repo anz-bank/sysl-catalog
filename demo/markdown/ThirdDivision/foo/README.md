@@ -5,9 +5,9 @@
 # foo
 
 ## Service Index
-| Service Name | Method |
+| Service Name | Method | Source Location |
 ----|----
-foo | [whatever](#foo-whatever)
+foo | [whatever](#foo-whatever) | |  
 
 ![](thirddivision/foo/integration.svg)
 

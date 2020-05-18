@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 
@@ -27,8 +28,7 @@ var (
 	outputType        = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
 	outputDir         = kingpin.Flag("output", "OutputDir directory to generate to").Short('o').String()
 	verbose           = kingpin.Flag("verbose", "Verbose logs").Short('v').Bool()
-	projectTemplate   = kingpin.Flag("projectTemplate", "projectTemplate filname to use").String()
-	packageTemplate   = kingpin.Flag("packageTemplate", "packageTemplate filname to use").String()
+	templates         = kingpin.Flag("templates", "custom templates to use, separated by a comma").String()
 	outputFileName    = kingpin.Flag("outputFileName", "output file name for pages; {{.Title}}").Default("").String()
 	server            = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
 	noCSS             = kingpin.Flag("noCSS", "disable adding css to served html").Bool()
@@ -40,8 +40,6 @@ var (
 func main() {
 	kingpin.Parse()
 	plantumlService := os.Getenv("SYSL_PLANTUML")
-	var f1, f2 afero.File
-	var err error
 	if plantumlService == "" {
 		log.Fatal("Error: Set SYSL_PLANTUML env variable")
 	}
@@ -53,25 +51,13 @@ func main() {
 		log.SetLevel(logrus.ErrorLevel)
 		logrus.SetLevel(logrus.ErrorLevel)
 	}
-	if *projectTemplate != "" {
-		f1, err = fs.Open(*projectTemplate)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
-	if *packageTemplate != "" {
-		f2, err = fs.Open(*packageTemplate)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
 	if !*server {
 		m, err := parse.NewParser().Parse(*input, fs)
 		if err != nil {
 			log.Fatal(err)
 		}
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
-			WithTemplateFiles(f1, f2).
+			WithTemplateFs(fs, strings.Split(*templates, ",")...).
 			SetOptions(*noCSS, *noImages, *outputFileName).
 			Run()
 		return
@@ -79,7 +65,7 @@ func main() {
 
 	handler := catalog.
 		NewProject(*input, plantumlService, "html", log, nil, nil, "", *enableMermaid).
-		WithTemplateFiles(f1, f2).
+		WithTemplateFs(fs, strings.Split(*templates, ",")...).
 		SetOptions(*noCSS, *noImages, *outputFileName).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 	goterm.Clear()

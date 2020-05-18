@@ -5,10 +5,8 @@ title: {{$title}}
 sidebar_label: {{$title}}
 ---
 
-# {{Base .Title}}
-
 | Package |
-----|{{range $key, $val := GetRows .Module}}
+----|{{range $key, $val := Packages .Module}}
 [{{$val}}]({{$val}}/README.md)|{{end}}
 
 ## Integration Diagram

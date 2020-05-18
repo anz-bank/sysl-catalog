@@ -44,6 +44,7 @@ type Generator struct {
 	Module               *sysl.Module
 	errs                 []error // Any errors that stop from rendering will be output to the browser
 	Templates            []*template.Template
+	StartTemplateIndex   int
 }
 
 type SourceCoder interface {
@@ -80,6 +81,9 @@ func NewProject(
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
 	}
+	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
+		p.StartTemplateIndex = 1 // skip the MacroPackageProject
+	}
 	return p.WithTemplateString(MacroPackageProject, ProjectTemplate, NewPackageTemplate)
 }
 
@@ -96,33 +100,21 @@ func (p *Generator) WithTemplateString(tmpls ...string) *Generator {
 	return p
 }
 
-// WithTemplateFileNames loads templates from fs registered in p
-func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
-	var file1, file2 []byte
-	var err error
-	if p1 != nil {
-		file1, err = afero.ReadAll(p1)
+func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator {
+	var tmpls []string
+	for _, e := range fileNames {
+		bytes, err := afero.ReadFile(fs, e)
 		if err != nil {
-			p.Log.Error(err)
-			return nil
+			p.Log.Error(p)
 		}
-		p.DisableCss = true
-		p.Format = ""
+		tmpls = append(tmpls, string(bytes))
 	}
-	if p2 != nil {
-		file2, err = afero.ReadAll(p2)
-		if err != nil {
-			p.Log.Error(err)
-			return nil
-		}
-		p.DisableCss = true
-		p.Format = ""
+	if len(fileNames) == 0 {
+		return p
 	}
-	if p1 != nil || p2 != nil {
-		p.Templates = make([]*template.Template, 0, 2)
-		return p.WithTemplateString(string(file1), string(file2))
-	}
-	return p
+	p.Templates = make([]*template.Template, 0, 2)
+	p.StartTemplateIndex = 0
+	return p.WithTemplateString(tmpls...)
 }
 
 func (p *Generator) SetOptions(disableCss, disableImages bool, readmeName string) *Generator {
@@ -145,7 +137,7 @@ type wrappedModule struct {
 func (p *Generator) Run() {
 	m := wrappedModule{Module: p.Module, Title: p.Title}
 	fileName := markdownName(p.OutputFileName, path.Base(p.Title))
-	if err := p.CreateMarkdown(p.Templates[0], path.Join(p.OutputDir, fileName), m); err != nil {
+	if err := p.CreateMarkdown(p.Templates[p.StartTemplateIndex], path.Join(p.OutputDir, fileName), m); err != nil {
 		p.Log.Error(err)
 	}
 	var wg sync.WaitGroup

@@ -4,12 +4,7 @@ id: {{$packageName}}
 title: {{ToLower $packageName}}
 sidebar_label: {{ToLower $packageName}}
 ---
-
-## Service Index
-| Service Name | Method |
-----|----{{$Apps := .Apps}}{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if eq (hasPattern $app.Attrs "ignore") false}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := SortedKeys $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}{{if eq (hasPattern $endpoint.Attrs "ignore") false}}
-{{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}){{end}}{{end}}{{end}}{{end}}
-
+{{$Apps := .Apps}}
 ![]({{CreateIntegrationDiagram . $packageName false}})
 
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
@@ -56,7 +51,7 @@ No Request types
 
 ### Response types
 {{$responses := false}}
-{{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel $s $e}}{{if ne $diagram ""}}
+{{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel  $appName $s $e}}{{if ne $diagram ""}}
 {{$responses = true}}
 {{$ret := (GetReturnType $e $s)}}{{if $ret }}
 {{Attribute $ret "description"}}{{end}}

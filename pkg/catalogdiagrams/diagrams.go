@@ -98,16 +98,16 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 	return v.StringBuilder.String()
 }
 
-func RecurseivelyGetTypes(appName string, types map[string]*sysl.Type, m *sysl.Module) map[string]*sysl.Type {
+func RecursivelyGetTypes(appName string, types map[string]*sysl.Type, m *sysl.Module) map[string]*sysl.Type {
 	cummulative := make(map[string]*sysl.Type)
 	for _, elem := range types {
-		RecurseivelyGetTypesHelper(appName, elem, m, cummulative)
+		RecursivelyGetTypesHelper(appName, elem, m, cummulative)
 	}
 	return cummulative
 }
 
-// RecurseivelyGetTypesHelper gets returns a type map of a type and all of its fields recursively.
-func RecurseivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cummulative map[string]*sysl.Type) map[string]*sysl.Type {
+// RecursivelyGetTypesHelper gets returns a type map of a type and all of its fields recursively.
+func RecursivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cummulative map[string]*sysl.Type) map[string]*sysl.Type {
 	currentApp := appName
 	var typeName string
 	if t == nil {
@@ -162,7 +162,7 @@ func RecurseivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cu
 		}
 		ret[appName+"."+typeName] = newType
 
-		for key, v := range RecurseivelyGetTypesHelper(appName, ret[appName+"."+typeName], m, ret) {
+		for key, v := range RecursivelyGetTypesHelper(appName, ret[appName+"."+typeName], m, ret) {
 			if _, ok := cummulative[key]; ok {
 				continue
 			}

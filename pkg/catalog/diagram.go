@@ -140,6 +140,48 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 	return p.CreateFile(plantumlString, plantuml, appName, typeName+p.Ext)
 }
 
+// CreateQueryParamDataModel returns a Query Parameter data model filename.
+func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
+	var typeName, appName string
+	var parsedType *sysl.Type
+	switch param.GetType().GetType().(type) {
+	case *sysl.Type_Primitive_:
+		parsedType = param.GetType()
+		typeName = param.GetName()
+	case *sysl.Type_TypeRef:
+		appName, typeName = GetAppTypeName(param)
+		if appName == "" {
+			appName = CurrentAppName
+		}
+		parsedType = NewTypeRef(appName, typeName)
+	}
+	if _, ok := p.Module.GetApps()[appName]; !ok {
+		return ""
+	}
+	return p.CreateTypeDiagram(p.Module.GetApps()[appName], typeName, parsedType, true)
+}
+
+// CreateQueryParamDataModel returns a Path Parameter data model filename.
+func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
+	var typeName, appName string
+	var parsedType *sysl.Type
+	switch param.Type.Type.(type) {
+	case *sysl.Type_Primitive_:
+		parsedType = param.GetType()
+		typeName = param.GetName()
+	case *sysl.Type_TypeRef:
+		appName, typeName = GetAppTypeName(param)
+		if appName == "" {
+			appName = CurrentAppName
+		}
+		parsedType = NewTypeRef(appName, typeName)
+	}
+	if _, ok := p.Module.GetApps()[appName]; !ok {
+		return ""
+	}
+	return p.CreateTypeDiagram(p.Module.GetApps()[appName], typeName, parsedType, true)
+}
+
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
 func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl.Type {
 	var appName, typeName string
@@ -224,7 +266,7 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 	typeref := NewTypeRef(appName, typeName)
 	var plantumlString string
 	if recursive {
-		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, m)
+		relatedTypes := catalogdiagrams.RecursivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, m)
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
 	} else {
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})

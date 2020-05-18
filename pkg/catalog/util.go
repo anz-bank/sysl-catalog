@@ -242,7 +242,8 @@ type Typer interface {
 	GetType() *sysl.Type
 }
 
-// GetAppTypeName returns the appName and typeName of a param
+// GetAppTypeName takes a Sysl Type and returns the appName and typeName of a param
+// If the type is a primitive, the appName returned is "primitive"
 func GetAppTypeName(param Typer) (string, string) {
 	var appName, typeName string
 	ref := param.GetType().GetTypeRef().GetRef()

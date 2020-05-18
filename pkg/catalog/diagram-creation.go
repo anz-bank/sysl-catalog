@@ -12,11 +12,12 @@ import (
 	"text/template"
 
 	"github.com/anz-bank/sysl/pkg/syslutil"
+	"github.com/pkg/errors"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/russross/blackfriday"
 
-	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
+	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
 
@@ -190,7 +191,7 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 			Type: &sysl.Type_Tuple_{
 				Tuple: &sysl.Type_Tuple{
 					AttrDefs: map[string]*sysl.Type{"sequence": {Type: &sysl.Type_Sequence{
-						Sequence: syslpopulate.NewType(typeName, appName)},
+						Sequence: newsysl.Type(typeName, appName)},
 					},
 					},
 				},
@@ -348,15 +349,15 @@ func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string
 // ModuleAsMacroPackage returns "macro packages" that map to the endpoints on the "project" application
 /*
 project[~project]: <-- first map
-	FirstDivision: <-- first key
-		package1 <--- second map["package1"]*sysl.Module
-		package2 <--- second map["package2"]*sysl.Module
-	SecondDivision:
-		package3
+	FirstDivision: <-- ["FirstDivision"]:
+		package1   <-- all apps in this package will be contained in this module
+		package2   <-- same with this one
+	SecondDivision: <-- ["SecondDivision"]:
+		package3    <-- You get the point
 */
 
-func (p *Generator) ModuleAsMacroPackage(m *sysl.Module) map[string]map[string]*sysl.Module {
-	packages := make(map[string]map[string]*sysl.Module)
+func (p *Generator) ModuleAsMacroPackage(m *sysl.Module) map[string]*sysl.Module {
+	packages := make(map[string]*sysl.Module)
 	_, includedProjects := p.getProjectApp(m)
 	for _, key := range SortedKeys(m.GetApps()) {
 		app := m.GetApps()[key]
@@ -373,17 +374,48 @@ func (p *Generator) ModuleAsMacroPackage(m *sysl.Module) map[string]map[string]*
 			continue
 		}
 		if _, ok := packages[projectEndpoint]; !ok {
-			packages[projectEndpoint] = make(map[string]*sysl.Module)
+			packages[projectEndpoint] = newsysl.Module()
 		}
-		if _, ok := packages[projectEndpoint][packageName]; !ok {
-			packages[projectEndpoint][packageName] = &sysl.Module{Apps: map[string]*sysl.Application{}}
+		if _, ok := packages[projectEndpoint]; !ok {
+			packages[projectEndpoint] = &sysl.Module{Apps: map[string]*sysl.Application{}}
 		}
-
-		packages[projectEndpoint][packageName].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
+		packages[projectEndpoint].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
 	}
 	return packages
 }
 
+// MacroPackages executes the markdown for a MacroPackage and returns a slice of the rows
+func (p *Generator) MacroPackages(module *sysl.Module) []string {
+	MacroPackages := p.ModuleAsMacroPackage(module)
+	for macroPackageName, macroPackage := range MacroPackages {
+		fileName := markdownName(p.OutputFileName, macroPackageName)
+		macroPackageFileName := path.Join(p.OutputDir, macroPackageName, fileName)
+		p.CurrentDir = macroPackageName
+		p.TempDir = macroPackageName // this is for p.Packages()
+		m := wrappedModule{Module: macroPackage, Title: macroPackageName, Links: map[string]string{"Back": "../" + p.OutputFileName}}
+		err := p.CreateMarkdown(p.Templates[1], macroPackageFileName, m)
+		if err != nil {
+			p.Log.Error(err)
+		}
+	}
+	return SortedKeys(MacroPackages)
+}
+
+// Packages executes the markdown for a package and returns a slice of the rows
+func (p *Generator) Packages(m *sysl.Module) []string {
+	MacroPackages := p.ModuleAsPackages(m)
+	for packageName, pkg := range MacroPackages {
+		p.CurrentDir = path.Join(p.TempDir, packageName)
+		fileName := markdownName(p.OutputFileName, packageName)
+		fullOutputName := path.Join(p.OutputDir, p.CurrentDir, fileName)
+		if err := p.CreateMarkdown(p.Templates[len(p.Templates)-1], fullOutputName, pkg); err != nil {
+			p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
+		}
+	}
+	return SortedKeys(MacroPackages)
+}
+
+// ModuleAsPackages returns a map of [packagename]*sysl.Module
 func (p *Generator) ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 	packages := make(map[string]*sysl.Module)
 	_, includedProjects := p.getProjectApp(m)

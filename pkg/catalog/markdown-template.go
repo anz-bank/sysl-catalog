@@ -1,14 +1,32 @@
 // markdown-template.go: the markdown template used to template the sysl module
 package catalog
 
-const NewProjectTemplate = `
+const ProjectTemplate = `
 {{range $name, $link := .Links}}
 [{{$name}}]({{$link}})
 {{end}}
 # {{Base .Title}}
 
 | Package |
-----|{{range $key, $val := GetRows .Module}}
+----|{{range $val := Packages .Module}}
+[{{$val}}]({{$val}}/README.md)|{{end}}
+
+## Integration Diagram
+<img src="{{CreateIntegrationDiagram .Module .Title false}}">
+
+## End Point Analysis Integration Diagram
+<img src="{{CreateIntegrationDiagram .Module .Title true}}">
+
+`
+
+const MacroPackageProject = `
+{{range $name, $link := .Links}}
+[{{$name}}]({{$link}})
+{{end}}
+# {{Base .Title}}
+
+| Package |
+----|{{range $val := MacroPackages .Module}}
 [{{$val}}]({{$val}}/README.md)|{{end}}
 
 ## Integration Diagram

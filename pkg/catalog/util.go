@@ -10,6 +10,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/anz-bank/protoc-gen-sysl/newsysl"
+
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/joshcarp/mermaid-go/mermaid"
@@ -21,8 +23,6 @@ import (
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/sequencediagram"
 	"github.com/hashicorp/go-retryablehttp"
-
-	"github.com/anz-bank/protoc-gen-sysl/syslpopulate"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
@@ -78,12 +78,12 @@ func TernaryOperator(condition bool, i ...interface{}) interface{} {
 
 // createProjectApp returns a "project" app used to make integration diagrams for any "sub module" apps
 func createProjectApp(Apps map[string]*sysl.Application) *sysl.Application {
-	app := syslpopulate.NewApplication("")
+	app := newsysl.Application("")
 	app.Endpoints = make(map[string]*sysl.Endpoint)
-	app.Endpoints["_"] = syslpopulate.NewEndpoint("_")
+	app.Endpoints["_"] = newsysl.Endpoint("_")
 	app.Endpoints["_"].Stmt = []*sysl.Statement{}
 	for key, _ := range Apps {
-		app.Endpoints["_"].Stmt = append(app.Endpoints["_"].Stmt, syslpopulate.NewStringStatement(key))
+		app.Endpoints["_"].Stmt = append(app.Endpoints["_"].Stmt, newsysl.StringStatement(key))
 	}
 	if app.Attrs == nil {
 		app.Attrs = make(map[string]*sysl.Attribute)

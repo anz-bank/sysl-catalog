@@ -6,10 +6,10 @@
 
 ## Service Index
 | Service Name | Method | Source Location |
-----|----
-foo | [whatever](#foo-whatever) | |  
+----|----|----
+foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
-![](thirddivision/foo/integration.svg)
+![](integration.svg)
 
 
 
@@ -21,7 +21,7 @@ foo | [whatever](#foo-whatever) | |
 ## foo whatever
 
 
-![](thirddivision/foo/foo/whatever.svg)
+![](foo/whatever.svg)
 
 ### Request types
 

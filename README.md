@@ -78,7 +78,8 @@ ThisAppShouldShow[~ignore]:
 `sysl-catalog -o=docs/ --type=html filename.sysl`
 
 #### Run with custom templates
-`sysl-catalog --projectTemplate=<fileName.tmpl> --packageTemplate=<filename.tmpl> filename.sysl`
+- With this the first template will be executed first, then the second
+`sysl-catalog --templates=<fileName.tmpl>,<filename.tmpl> filename.sysl`
 
 #### Run in server mode
 `sysl-catalog --serve filename.sysl`
@@ -90,7 +91,7 @@ ThisAppShouldShow[~ignore]:
 `sysl-catalog --serve --noCSS filename.sysl`
 ![server mode raw](resources/standard-template.png)
 #### Run server with custom template
-`sysl-catalog --serve --projectTemplate=<fileName.tmpl> --packageTemplate=<filename.tmpl> filename.sysl`
+`sysl-catalog --serve --templates=<fileName.tmpl>,<filename.tmpl> filename.sysl`
 
 ![server mode raw](resources/custom-template.png)
 

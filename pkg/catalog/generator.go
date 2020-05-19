@@ -9,8 +9,6 @@ import (
 	"sync"
 	"text/template"
 
-	"github.com/pkg/errors"
-
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/cheggaaa/pb/v3"
@@ -36,6 +34,7 @@ type Generator struct {
 	Mermaid              bool
 	Format               string // "html" or "markdown" or "" if custom
 	CurrentDir           string
+	TempDir              string
 	Ext                  string
 	OutputDir            string
 	OutputFileName       string
@@ -44,8 +43,8 @@ type Generator struct {
 	Fs                   afero.Fs
 	Module               *sysl.Module
 	errs                 []error // Any errors that stop from rendering will be output to the browser
-	ProjectTempl         *template.Template
-	PackageTempl         *template.Template
+	Templates            []*template.Template
+	StartTemplateIndex   int
 }
 
 type SourceCoder interface {
@@ -55,7 +54,6 @@ type SourceCoder interface {
 
 // RootPath appends CurrentDir to output
 func (p *Generator) SourcePath(a SourceCoder) string {
-	//[{{RootPath}}{{Attribute $app "source_path"}}#{{Attribute $app "source_line"}}]
 	rootDir := rootDirectory(path.Join(p.OutputDir, p.CurrentDir))
 	if source_path := Attribute(a, "source_path"); source_path != "" {
 		return rootDir + Attribute(a, "source_path")
@@ -83,52 +81,40 @@ func NewProject(
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
 	}
-	return p.WithTemplateString(NewProjectTemplate, NewPackageTemplate)
+	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
+		p.StartTemplateIndex = 1 // skip the MacroPackageProject
+	}
+	return p.WithTemplateString(MacroPackageProject, ProjectTemplate, NewPackageTemplate)
 }
 
 // WithTemplateFileNames loads template strings into project and package of p respectively
-func (p *Generator) WithTemplateString(p1, p2 string) *Generator {
-	var err error
-	if p1 != "" {
-		p.ProjectTempl, err = template.New("project").Funcs(p.GetFuncMap()).Parse(p1)
+func (p *Generator) WithTemplateString(tmpls ...string) *Generator {
+	for _, e := range tmpls {
+		tmpl, err := template.New("").Funcs(p.GetFuncMap()).Parse(e)
 		if err != nil {
 			p.Log.Error(err)
 			return nil
 		}
-	}
-	if p2 != "" {
-		p.PackageTempl, err = template.New("package").Funcs(p.GetFuncMap()).Parse(p2)
-		if err != nil {
-			p.Log.Error(err)
-			return nil
-		}
+		p.Templates = append(p.Templates, tmpl)
 	}
 	return p
 }
 
-// WithTemplateFileNames loads templates from fs registered in p
-func (p *Generator) WithTemplateFiles(p1, p2 afero.File) *Generator {
-	var file1, file2 []byte
-	var err error
-	if p1 != nil {
-		file1, err = afero.ReadAll(p1)
-		if err != nil {
-			p.Log.Error(err)
-			return nil
-		}
-		p.DisableCss = true
-		p.Format = ""
+func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator {
+	var tmpls []string
+	if len(fileNames) == 0 || fileNames[0] == "" {
+		return p
 	}
-	if p2 != nil {
-		file2, err = afero.ReadAll(p2)
+	for _, e := range fileNames {
+		bytes, err := afero.ReadFile(fs, e)
 		if err != nil {
-			p.Log.Error(err)
-			return nil
+			p.Log.Error(p)
 		}
-		p.DisableCss = true
-		p.Format = ""
+		tmpls = append(tmpls, string(bytes))
 	}
-	return p.WithTemplateString(string(file1), string(file2))
+	p.Templates = make([]*template.Template, 0, 2)
+	p.StartTemplateIndex = 0
+	return p.WithTemplateString(tmpls...)
 }
 
 func (p *Generator) SetOptions(disableCss, disableImages bool, readmeName string) *Generator {
@@ -141,64 +127,18 @@ func (p *Generator) SetOptions(disableCss, disableImages bool, readmeName string
 
 }
 
-// GetRows returns a slice of rows that should be output on the index pages of the markdown
-func (p *Generator) GetRows(module *sysl.Module) []string {
-	if packages := p.ModuleAsMacroPackage(module); len(packages) > 1 {
-		keys := SortedKeys(packages)
-		return keys
-	}
-	packages := p.ModuleAsPackages(module)
-	return SortedKeys(packages)
+type wrappedModule struct {
+	*sysl.Module
+	Title string
+	Links map[string]string
 }
 
 // Run Executes a project and generates markdown and diagrams to a given filesystem.
 func (p *Generator) Run() {
-	type mWrap struct {
-		*sysl.Module
-		Title string
-		Links map[string]string
-	}
-	m := mWrap{Module: p.Module, Title: p.Title}
-	fileName := markdownName(p.OutputFileName, strings.ReplaceAll(path.Base(p.Title), ".sysl", ""))
-	if err := p.CreateMarkdown(p.ProjectTempl, path.Join(p.OutputDir, fileName), m); err != nil {
+	m := wrappedModule{Module: p.Module, Title: p.Title}
+	fileName := markdownName(p.OutputFileName, path.Base(p.Title))
+	if err := p.CreateMarkdown(p.Templates[p.StartTemplateIndex], path.Join(p.OutputDir, fileName), m); err != nil {
 		p.Log.Error(err)
-	}
-	macroPackages := p.ModuleAsMacroPackage(p.Module)
-	var packages map[string]*sysl.Module
-	var macroPackageName string
-	// We either execute this function when we're iterating through the simple packages
-	// or if there are "macroPackages" defined on the ~project app (their endpoints)
-	packageFunc := func() {
-		for _, packageName := range SortedKeys(packages) {
-			pkg := packages[packageName]
-			p.CurrentDir = path.Join(macroPackageName, packageName)
-			fileName := markdownName(p.OutputFileName, packageName)
-			fullOutputName := path.Join(p.OutputDir, p.CurrentDir, fileName)
-			if err := p.CreateMarkdown(p.PackageTempl, fullOutputName, pkg); err != nil {
-				p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
-			}
-		}
-	}
-	switch len(macroPackages) {
-	case 0, 1:
-		packages = p.ModuleAsPackages(p.Module)
-		packageFunc()
-	default:
-		for _, key := range SortedKeys(macroPackages) {
-			macroPackageName = key
-			moduleMap := macroPackages[macroPackageName]
-			module := createModuleFromSlices(p.Module, SortedKeys(moduleMap))
-			packages = p.ModuleAsPackages(module)
-			fileName := markdownName(p.OutputFileName, macroPackageName)
-			macroPackageFileName := path.Join(p.OutputDir, macroPackageName, fileName)
-			p.CurrentDir = macroPackageName
-			m := mWrap{Module: module, Title: macroPackageName, Links: map[string]string{"Back": "../" + p.OutputFileName}}
-			err := p.CreateMarkdown(p.ProjectTempl, macroPackageFileName, m)
-			if err != nil {
-				p.Log.Error(err)
-			}
-			packageFunc()
-		}
 	}
 	var wg sync.WaitGroup
 	var progress *pb.ProgressBar
@@ -256,9 +196,10 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"CreateQueryParamDataModel": p.CreateQueryParamDataModel,
 		"CreatePathParamDataModel":  p.CreatePathParamDataModel,
 		"GetParamType":              p.GetParamType,
-		"GetRows":                   p.GetRows,
 		"GetReturnType":             p.GetReturnType,
 		"SourcePath":                p.SourcePath,
+		"Packages":                  p.Packages,
+		"MacroPackages":             p.MacroPackages,
 		"hasPattern":                syslutil.HasPattern,
 		"ModuleAsPackages":          p.ModuleAsPackages,
 		"ModulePackageName":         ModulePackageName,

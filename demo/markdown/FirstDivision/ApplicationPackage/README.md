@@ -6,13 +6,13 @@
 
 ## Service Index
 | Service Name | Method | Source Location |
-----|----
-MobileApp | [Another](#MobileApp-Another) | |  
-MobileApp | [Login](#MobileApp-Login) | |  
-MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) | |  
-MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | |  
+----|----|----
+MobileApp | [Another](#MobileApp-Another) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+MobileApp | [Login](#MobileApp-Login) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
-![](firstdivision/applicationpackage/integration.svg)
+![](integration.svg)
 
 
 
@@ -25,7 +25,7 @@ this is a comment for MobileApp
 ## MobileApp Another
 hello, world
 
-![](firstdivision/applicationpackage/mobileapp/another.svg)
+![](MobileApp/another.svg)
 
 ### Request types
 
@@ -43,14 +43,14 @@ No Request types
 
 Response Response Response
 
-![](firstdivision/applicationpackage/server/response.svg)
+![](Server/response.svg)
 
 
 
 ## MobileApp Login
 hello, gamers
 
-![](firstdivision/applicationpackage/mobileapp/login.svg)
+![](MobileApp/login.svg)
 
 ### Request types
 
@@ -58,7 +58,7 @@ hello, gamers
 
 
 
-![](firstdivision/applicationpackage/server.svg)
+![](Server/request.svg)
 
 
 
@@ -70,7 +70,7 @@ hello, gamers
 
 Empty Empty Empty
 
-![](firstdivision/applicationpackage/megadatabase/empty.svg)
+![](MegaDatabase/empty.svg)
 
 
 
@@ -83,7 +83,7 @@ this is a comment for MobileApp
 ## MobileApp2 SecondEndpoint
 SecondEndpoint, comment
 
-![](firstdivision/applicationpackage/mobileapp2/secondendpoint.svg)
+![](MobileApp2/secondendpoint.svg)
 
 ### Request types
 
@@ -91,7 +91,7 @@ SecondEndpoint, comment
 
 
 
-![](firstdivision/applicationpackage/server.svg)
+![](Server/request.svg)
 
 
 
@@ -103,14 +103,14 @@ SecondEndpoint, comment
 
 Empty Empty Empty
 
-![](firstdivision/applicationpackage/megadatabase/empty.svg)
+![](MegaDatabase/empty.svg)
 
 
 
 ## MobileApp2 ThirdEndpoint
 ThirdEndpoint comment
 
-![](firstdivision/applicationpackage/mobileapp2/thirdendpoint.svg)
+![](MobileApp2/thirdendpoint.svg)
 
 ### Request types
 
@@ -128,7 +128,7 @@ No Request types
 
 Response Response Response
 
-![](firstdivision/applicationpackage/server/response.svg)
+![](Server/response.svg)
 
 
 

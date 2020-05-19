@@ -1,0 +1,20 @@
+{
+  "services": {
+    "Services": [
+      "services/{{Base .Title}}",
+      {{$packages := ModuleAsPackages .Module}}{{range $i, $pkgName := SortedKeys $packages}}{{$pkg := index $packages $pkgName}}
+      {
+        "type": "category",
+        "label": "Fakerock",
+        "items": [
+          "services/{{$pkgName}}/{{$pkgName}}"
+        ]
+
+      {{if Last $packages $i}}
+      }
+      {{else}}
+      },
+      {{end}}{{end}}
+    ]
+  }
+}

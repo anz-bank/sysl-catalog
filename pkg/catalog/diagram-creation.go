@@ -419,7 +419,7 @@ func (p *Generator) Packages(m *sysl.Module) []string {
 		p.CurrentDir = path.Join(p.TempDir, packageName)
 		fileName := markdownName(p.OutputFileName, packageName)
 		fullOutputName := path.Join(p.OutputDir, p.CurrentDir, fileName)
-		if err := p.CreateMarkdown(p.Templates[2], fullOutputName, pkg); err != nil {
+		if err := p.CreateMarkdown(p.Templates[len(p.Templates)-1], fullOutputName, pkg); err != nil {
 			p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
 		}
 	}

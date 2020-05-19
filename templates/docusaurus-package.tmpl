@@ -5,6 +5,7 @@ title: {{ToLower $packageName}}
 sidebar_label: {{ToLower $packageName}}
 ---
 {{$Apps := .Apps}}
+
 ![]({{CreateIntegrationDiagram . $packageName false}})
 
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}

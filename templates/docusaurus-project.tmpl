@@ -5,10 +5,7 @@ title: {{$title}}
 sidebar_label: {{$title}}
 ---
 
-| Package |
-----|{{range $key, $val := Packages .Module}}
-[{{$val}}]({{$val}}/README.md)|{{end}}
-
+{{range $val := Packages .Module}}{{end}}
 ## Integration Diagram
 <img src="{{CreateIntegrationDiagram .Module .Title false}}">
 

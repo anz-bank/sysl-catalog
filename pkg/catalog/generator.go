@@ -184,6 +184,10 @@ func markdownName(s, candidate string) string {
 	return s
 }
 
+func Last(i interface{}, ind int) bool {
+	return ind == len(SortedKeys(i))-1
+}
+
 // GetFuncMap returns the funcs that are used in diagram generation.
 func (p *Generator) GetFuncMap() template.FuncMap {
 	return template.FuncMap{
@@ -208,5 +212,6 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"SanitiseOutputName":        SanitiseOutputName,
 		"ToLower":                   strings.ToLower,
 		"Base":                      filepath.Base,
+		"Last":                      Last,
 	}
 }

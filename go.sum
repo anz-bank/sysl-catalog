@@ -109,6 +109,8 @@ github.com/antlr/antlr4 v0.0.0-20200503195918-621b933c7a7f/go.mod h1:T7PbCXFs94r
 github.com/anz-bank/protoc-gen-sysl v0.0.1/go.mod h1:jzm3bfiLagqjGkslhHBJ4kEsQN80iOGnOY4D0OUtbAY=
 github.com/anz-bank/protoc-gen-sysl v0.0.3 h1:asRID4qw6UhwTOmJd8HzmpEPwmNoux6i0YqY/5mjS3o=
 github.com/anz-bank/protoc-gen-sysl v0.0.3/go.mod h1:Az4HhcZOHOGuduY0TyNvUQTfHogNiPdtzWouL7ZXHik=
+github.com/anz-bank/protoc-gen-sysl v0.0.4 h1:V2+wC/TSE8HjLfSdag3ozwBN5/jZqc2tiPMgIf8xEs4=
+github.com/anz-bank/protoc-gen-sysl v0.0.4/go.mod h1:HbaAWumof1Yc4s5krAF8ydRg14RLnDaIcnnB/Eq+vtU=
 github.com/anz-bank/sysl v0.8.0/go.mod h1:8xObVLjsOdMmAT9avuKCE/Aj+2hLxe/pn0dIZds31LM=
 github.com/anz-bank/sysl v0.60.0/go.mod h1:2pND3J4WkH9UMP4wZ8zkZ9XAc1TfJ8vrKDgGbOQWmNw=
 github.com/anz-bank/sysl v0.76.0/go.mod h1:gE+ZIrsOGIMGRpWhuFpV/outDLAjuxW9buHgR3B2qLg=

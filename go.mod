@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/antlr/antlr4 v0.0.0-20200503195918-621b933c7a7f // indirect
-	github.com/anz-bank/protoc-gen-sysl v0.0.3
+	github.com/anz-bank/protoc-gen-sysl v0.0.4
 	github.com/anz-bank/sysl v0.93.0
 	github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129
 	github.com/cheggaaa/pb/v3 v3.0.4

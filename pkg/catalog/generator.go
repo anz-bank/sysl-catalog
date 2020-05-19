@@ -11,6 +11,8 @@ import (
 	"sync"
 	"text/template"
 
+	"github.com/iancoleman/strcase"
+
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/cheggaaa/pb/v3"
@@ -190,9 +192,12 @@ func Last(i interface{}, ind int) bool {
 	return ind == len(SortedKeys(i))-1
 }
 
-func Remove(s, old string) string {
-	var re = regexp.MustCompile(old)
-	return re.ReplaceAllString(s, "")
+func Remove(s string, old ...string) string {
+	for _, e := range old {
+		re := regexp.MustCompile(e)
+		s = re.ReplaceAllString(s, "")
+	}
+	return s
 }
 
 // GetFuncMap returns the funcs that are used in diagram generation.
@@ -220,6 +225,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"ToLower":                   strings.ToLower,
 		"Remove":                    Remove,
 		"ToTitle":                   strings.ToTitle,
+		"ToCamel":                   strcase.ToCamel,
 		"Base":                      filepath.Base,
 		"Last":                      Last,
 	}

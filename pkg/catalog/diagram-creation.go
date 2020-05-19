@@ -97,14 +97,14 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	integration := intsCmd{}
 	projectApp := createProjectApp(m.Apps)
 	project := "__TEMP__"
-	defer delete(p.Module.GetApps(), project)
-	p.Module.GetApps()[project] = projectApp
+	defer delete(p.RootModule.GetApps(), project)
+	p.RootModule.GetApps()[project] = projectApp
 	integration.Project = project
 	integration.Output = "integration" + TernaryOperator(EPA, "EPA", "").(string)
 	integration.Title = title
 	integration.EPA = EPA
 	integration.Clustered = true
-	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.Module, logrus.New())
+	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.RootModule, logrus.New())
 	if err != nil {
 		p.Log.Error(err)
 		return ""
@@ -115,7 +115,7 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 
 // CreateSequenceDiagram creates an sequence diagram and returns the filename
 func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoint) string {
-	m := p.Module
+	m := p.RootModule
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.GetName())
 	plantumlString, err := CreateSequenceDiagram(m, call)
 	if err != nil {
@@ -136,7 +136,7 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: param.GetType()})
 		appName = typeName
 	} else {
-		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
+		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.RootModule)
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
 	}
 	return p.CreateFile(plantumlString, plantuml, appName, typeName+p.Ext)
@@ -149,7 +149,7 @@ func (p *Generator) GetParamType(app *sysl.Application, param *sysl.Param) *sysl
 	if appName == "" {
 		appName = path.Join(app.GetName().GetPart()...)
 	}
-	return p.Module.Apps[appName].GetTypes()[typeName]
+	return p.RootModule.Apps[appName].GetTypes()[typeName]
 }
 
 // GetReturnType converts an endpoint and a statement into a type, useful for getting attributes.
@@ -172,7 +172,7 @@ func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement
 	if appName == "" {
 		appName = strings.Join(endpoint.GetSource().GetPart(), "")
 	}
-	return p.Module.GetApps()[appName].GetTypes()[typeName]
+	return p.RootModule.GetApps()[appName].GetTypes()[typeName]
 }
 
 // CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement.
@@ -198,8 +198,8 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 	if sequence {
 		newSequenceName := endpoint.GetName() + "ReturnVal"
 		newAppName := appname
-		defer delete(p.Module.GetApps()[newAppName].GetTypes(), newSequenceName)
-		p.Module.GetApps()[newAppName].GetTypes()[newSequenceName] = &sysl.Type{
+		defer delete(p.RootModule.GetApps()[newAppName].GetTypes(), newSequenceName)
+		p.RootModule.GetApps()[newAppName].GetTypes()[newSequenceName] = &sysl.Type{
 			Type: &sysl.Type_Tuple_{
 				Tuple: &sysl.Type_Tuple{
 					AttrDefs: map[string]*sysl.Type{"sequence": {Type: &sysl.Type_Sequence{
@@ -213,15 +213,15 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 	} else {
 		typeref = NewTypeRef(appName, typeName)
 	}
-	if _, ok := p.Module.Apps[appName]; !ok {
+	if _, ok := p.RootModule.Apps[appName]; !ok {
 		return ""
 	}
-	return p.CreateTypeDiagram(p.Module.GetApps()[appName], typeName, typeref, true)
+	return p.CreateTypeDiagram(p.RootModule.GetApps()[appName], typeName, typeref, true)
 }
 
 // CreateTypeDiagram creates a data model diagram and returns the filename
 func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t *sysl.Type, recursive bool) string {
-	m := p.Module
+	m := p.RootModule
 	appName := strings.Join(app.Name.Part, "")
 	typeref := NewTypeRef(appName, typeName)
 	var plantumlString string
@@ -231,7 +231,7 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 	} else {
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
 	}
-	if _, ok := p.Module.GetApps()[appName]; !ok {
+	if _, ok := p.RootModule.GetApps()[appName]; !ok {
 		return ""
 	}
 	return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
@@ -291,7 +291,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 	appName := strings.Join(app.GetName().GetPart(), "")
 	plantumlString := catalogdiagrams.GenerateDataModel(appName, app.GetTypes())
-	if _, ok := p.Module.GetApps()[appName]; !ok {
+	if _, ok := p.RootModule.GetApps()[appName]; !ok {
 		return ""
 	}
 	return p.CreateFile(plantumlString, plantuml, appName, "types"+p.Ext)
@@ -312,10 +312,10 @@ func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl
 		}
 		parsedType = NewTypeRef(appName, typeName)
 	}
-	if _, ok := p.Module.GetApps()[appName]; !ok {
+	if _, ok := p.RootModule.GetApps()[appName]; !ok {
 		return ""
 	}
-	return p.CreateTypeDiagram(p.Module.GetApps()[appName], typeName, parsedType, true)
+	return p.CreateTypeDiagram(p.RootModule.GetApps()[appName], typeName, parsedType, true)
 }
 
 // CreateQueryParamDataModel returns a Path Parameter data model filename.
@@ -333,10 +333,10 @@ func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.
 		}
 		parsedType = NewTypeRef(appName, typeName)
 	}
-	if _, ok := p.Module.GetApps()[appName]; !ok {
+	if _, ok := p.RootModule.GetApps()[appName]; !ok {
 		return ""
 	}
-	return p.CreateTypeDiagram(p.Module.GetApps()[appName], typeName, parsedType, true)
+	return p.CreateTypeDiagram(p.RootModule.GetApps()[appName], typeName, parsedType, true)
 }
 
 func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string]string) {
@@ -410,8 +410,10 @@ func (p *Generator) MacroPackages(module *sysl.Module) []string {
 		macroPackageFileName := path.Join(p.OutputDir, macroPackageName, fileName)
 		p.CurrentDir = macroPackageName
 		p.TempDir = macroPackageName // this is for p.Packages()
-		m := wrappedModule{Module: macroPackage, Title: macroPackageName, Links: map[string]string{"Back": "../" + p.OutputFileName}}
-		err := p.CreateMarkdown(p.Templates[1], macroPackageFileName, m)
+		p.Title = macroPackageName
+		p.Links = map[string]string{"Back": "../" + p.OutputFileName}
+		p.Module = macroPackage
+		err := p.CreateMarkdown(p.Templates[1], macroPackageFileName, p)
 		if err != nil {
 			p.Log.Error(err)
 		}

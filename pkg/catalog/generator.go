@@ -30,7 +30,8 @@ type Generator struct {
 	FilesToCreate        map[string]string
 	MermaidFilesToCreate map[string]string
 	SourceFileName       string
-	Title                string
+	ProjectTitle         string
+	RootModule           *sysl.Module
 	LiveReload           bool // Add live reload javascript to html
 	ImageTags            bool // embedded plantuml img tags, or generated svgs
 	DisableCss           bool // used for rendering raw markdown
@@ -40,15 +41,18 @@ type Generator struct {
 	CurrentDir           string
 	TempDir              string
 	Ext                  string
-	OutputDir            string
 	OutputFileName       string
 	PlantumlService      string
 	Log                  *logrus.Logger
 	Fs                   afero.Fs
-	Module               *sysl.Module
 	errs                 []error // Any errors that stop from rendering will be output to the browser
 	Templates            []*template.Template
 	StartTemplateIndex   int
+	// All of these are used in markdown generation
+	Module    *sysl.Module
+	Title     string
+	OutputDir string
+	Links     map[string]string
 }
 
 type SourceCoder interface {
@@ -72,13 +76,13 @@ func NewProject(
 	module *sysl.Module,
 	fs afero.Fs, outputDir string, mermaidEnabled bool) *Generator {
 	p := Generator{
-		Title:           titleAndFileName,
+		ProjectTitle:    titleAndFileName,
 		SourceFileName:  titleAndFileName,
 		OutputDir:       outputDir,
 		OutputFileName:  typeMaps[strings.ToLower(outputType)],
 		Format:          strings.ToLower(outputType),
 		Log:             log,
-		Module:          module,
+		RootModule:      module,
 		PlantumlService: plantumlService,
 		FilesToCreate:   make(map[string]string),
 		Fs:              fs,
@@ -131,17 +135,12 @@ func (p *Generator) SetOptions(disableCss, disableImages bool, readmeName string
 
 }
 
-type wrappedModule struct {
-	*sysl.Module
-	Title string
-	Links map[string]string
-}
-
 // Run Executes a project and generates markdown and diagrams to a given filesystem.
 func (p *Generator) Run() {
-	m := wrappedModule{Module: p.Module, Title: p.Title}
-	fileName := markdownName(p.OutputFileName, path.Base(p.Title))
-	if err := p.CreateMarkdown(p.Templates[p.StartTemplateIndex], path.Join(p.OutputDir, fileName), m); err != nil {
+	p.Title = p.ProjectTitle
+	fileName := markdownName(p.OutputFileName, path.Base(p.ProjectTitle))
+	p.Module = p.RootModule
+	if err := p.CreateMarkdown(p.Templates[p.StartTemplateIndex], path.Join(p.OutputDir, fileName), p); err != nil {
 		p.Log.Error(err)
 	}
 	var wg sync.WaitGroup

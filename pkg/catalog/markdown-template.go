@@ -20,9 +20,6 @@ const ProjectTemplate = `
 `
 
 const MacroPackageProject = `
-{{range $name, $link := .Links}}
-[{{$name}}]({{$link}})
-{{end}}
 # {{Base .Title}}
 
 | Package |

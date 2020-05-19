@@ -1,5 +1,4 @@
 
-
 # simple2.sysl
 
 | Package |

@@ -15,8 +15,8 @@ import (
 // Update loads another Sysl module into a project and runs
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	p.Fs = afero.NewMemMapFs()
-	p.Module = m
-	if p.Module != nil && len(p.ModuleAsMacroPackage(p.Module)) <= 1 {
+	p.RootModule = m
+	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	} else {
 		p.StartTemplateIndex = 0
@@ -63,7 +63,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if p.Fs == nil {
-		p.Update(p.Module)
+		p.Update(p.RootModule)
 	}
 	request := r.RequestURI
 	switch request {

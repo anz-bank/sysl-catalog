@@ -41,7 +41,7 @@ this is a description of Authenticate
 
 
 
-![](server.svg)
+![](Server/request.svg)
 
 
 

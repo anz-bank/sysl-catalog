@@ -58,7 +58,7 @@ hello, gamers
 
 
 
-![](server.svg)
+![](Server/request.svg)
 
 
 
@@ -91,7 +91,7 @@ SecondEndpoint, comment
 
 
 
-![](server.svg)
+![](Server/request.svg)
 
 
 

@@ -108,6 +108,7 @@ func RecurseivelyGetTypes(appName string, types map[string]*sysl.Type, m *sysl.M
 
 // RecurseivelyGetTypesHelper gets returns a type map of a type and all of its fields recursively.
 func RecurseivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cummulative map[string]*sysl.Type) map[string]*sysl.Type {
+	currentApp := appName
 	var typeName string
 	if t == nil {
 		return nil
@@ -152,7 +153,7 @@ func RecurseivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cu
 	}
 	for _, ts := range tuple.AttrDefs {
 		var newType *sysl.Type
-		appName, typeName, newType = TypeFromRef(m, appName, ts)
+		appName, typeName, newType = TypeFromRef(m, currentApp, ts)
 		if newType == nil {
 			continue
 		}

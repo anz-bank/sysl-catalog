@@ -9,8 +9,8 @@
 [MegaDatabase](MegaDatabase/README.md)|
 
 ## Integration Diagram
-<img src="seconddivision/megadatabase/integration0.svg">
+<img src="integration.svg">
 
 ## End Point Analysis Integration Diagram
-<img src="seconddivision/megadatabase/integrationepa.svg">
+<img src="integrationepa.svg">
 

@@ -102,15 +102,15 @@ func (p *Generator) WithTemplateString(tmpls ...string) *Generator {
 
 func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator {
 	var tmpls []string
+	if len(fileNames) == 0 || fileNames[0] == "" {
+		return p
+	}
 	for _, e := range fileNames {
 		bytes, err := afero.ReadFile(fs, e)
 		if err != nil {
 			p.Log.Error(p)
 		}
 		tmpls = append(tmpls, string(bytes))
-	}
-	if len(fileNames) == 0 {
-		return p
 	}
 	p.Templates = make([]*template.Template, 0, 2)
 	p.StartTemplateIndex = 0

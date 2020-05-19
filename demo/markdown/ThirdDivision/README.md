@@ -10,8 +10,8 @@
 [foo](foo/README.md)|
 
 ## Integration Diagram
-<img src="thirddivision/foo/integration0.svg">
+<img src="integration.svg">
 
 ## End Point Analysis Integration Diagram
-<img src="thirddivision/foo/integrationepa.svg">
+<img src="integrationepa.svg">
 

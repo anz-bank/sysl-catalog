@@ -9,7 +9,7 @@
 ----|----|----
 this | [this](#this-this) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
-![](seconddivision/megadatabase/integration.svg)
+![](integration.svg)
 
 
 
@@ -27,7 +27,7 @@ this | [this](#this-this) | [../../../../demo/simple2.sysl](../../../../demo/sim
 ## this this
 
 
-![](seconddivision/megadatabase/this/this.svg)
+![](this/this.svg)
 
 ### Request types
 
@@ -69,7 +69,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-<img src="seconddivision/megadatabase/megadatabase/emptysimple.svg">
+<img src="MegaDatabase/emptysimple.svg">
 </td>
 <td> 
 
@@ -77,7 +77,7 @@ MegaDatabase.<br>Empty
 </td>
 <td>
 
-<a href="seconddivision/megadatabase/megadatabase/empty.svg">Link</a>
+<a href="MegaDatabase/empty.svg">Link</a>
 </td>
 </tr>
 <tr>
@@ -87,7 +87,7 @@ MegaDatabase.<br>Money
 </td>
 <td>
 
-<img src="seconddivision/megadatabase/megadatabase/moneysimple.svg">
+<img src="MegaDatabase/moneysimple.svg">
 </td>
 <td> 
 
@@ -95,7 +95,7 @@ MegaDatabase.<br>Money
 </td>
 <td>
 
-<a href="seconddivision/megadatabase/megadatabase/money.svg">Link</a>
+<a href="MegaDatabase/money.svg">Link</a>
 </td>
 </tr>
 

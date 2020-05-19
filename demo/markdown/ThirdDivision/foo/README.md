@@ -9,7 +9,7 @@
 ----|----|----
 foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
-![](thirddivision/foo/integration.svg)
+![](integration.svg)
 
 
 
@@ -21,7 +21,7 @@ foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../de
 ## foo whatever
 
 
-![](thirddivision/foo/foo/whatever.svg)
+![](foo/whatever.svg)
 
 ### Request types
 

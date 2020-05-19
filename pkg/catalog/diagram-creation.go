@@ -227,16 +227,21 @@ func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t 
 
 // CreateFileName returns the absolute and relative filepaths
 func CreateFileName(dir string, elems ...string) (string, string) {
-	absolutefileName := path.Join(append([]string{dir}, Map(elems, SanitiseOutputName)...)...)
-	relativefileName := strings.Replace(absolutefileName, dir+"/", "", 1)
-	absolutefileName = strings.ToLower(absolutefileName)
-	relativefileName = strings.ToLower(relativefileName)
-	return absolutefileName, relativefileName
+	var absolutefilePath, filename string
+	for i, e := range elems {
+		if i == len(elems)-1 {
+			filename = strings.ToLower(SanitiseOutputName(e))
+			absolutefilePath = path.Join(absolutefilePath, filename)
+			break
+		}
+		absolutefilePath = path.Join(absolutefilePath, SanitiseOutputName(e))
+	}
+	return path.Join(dir+"/", absolutefilePath), dir + "/"
 }
 
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFile(contents string, diagramType int, elems ...string) string {
-	fileName, _ := CreateFileName(p.CurrentDir, elems...)
+	absFilePath, currentDir := CreateFileName(p.CurrentDir, elems...)
 	var fileContents string
 	var targetMap map[string]string
 	var err error
@@ -254,20 +259,20 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 		p.Log.Error(err)
 		return ""
 	}
-	newFileName := fileName
+	newFileName := absFilePath
 	for i := 0; ; i++ {
 		if diagram, ok := targetMap[newFileName]; !ok || diagram == fileContents {
 			break
 		}
-		newFileName = strings.ReplaceAll(fileName, p.Ext, strconv.Itoa(i)+p.Ext)
+		newFileName = strings.ReplaceAll(absFilePath, p.Ext, strconv.Itoa(i)+p.Ext)
 	}
-	fileName = newFileName
+	absFilePath = newFileName
 	// if p.ImageTags: return image tag from plantUML service
 	if p.ImageTags && diagramType == plantuml {
 		return fileContents
 	}
-	targetMap[fileName] = fileContents
-	return strings.Replace(fileName, p.CurrentDir+"/", "", 1)
+	targetMap[absFilePath] = fileContents
+	return strings.Replace(absFilePath, currentDir, "", 1)
 }
 
 // GenerateDataModel generates a data model for all of the types in app
@@ -386,6 +391,7 @@ func (p *Generator) ModuleAsMacroPackage(m *sysl.Module) map[string]*sysl.Module
 
 // MacroPackages executes the markdown for a MacroPackage and returns a slice of the rows
 func (p *Generator) MacroPackages(module *sysl.Module) []string {
+	defer p.resetTempVars()
 	MacroPackages := p.ModuleAsMacroPackage(module)
 	for macroPackageName, macroPackage := range MacroPackages {
 		fileName := markdownName(p.OutputFileName, macroPackageName)
@@ -401,14 +407,20 @@ func (p *Generator) MacroPackages(module *sysl.Module) []string {
 	return SortedKeys(MacroPackages)
 }
 
+func (p *Generator) resetTempVars() {
+	p.CurrentDir = p.TempDir
+	p.TempDir = ""
+}
+
 // Packages executes the markdown for a package and returns a slice of the rows
 func (p *Generator) Packages(m *sysl.Module) []string {
+	defer p.resetTempVars()
 	MacroPackages := p.ModuleAsPackages(m)
 	for packageName, pkg := range MacroPackages {
 		p.CurrentDir = path.Join(p.TempDir, packageName)
 		fileName := markdownName(p.OutputFileName, packageName)
 		fullOutputName := path.Join(p.OutputDir, p.CurrentDir, fileName)
-		if err := p.CreateMarkdown(p.Templates[len(p.Templates)-1], fullOutputName, pkg); err != nil {
+		if err := p.CreateMarkdown(p.Templates[2], fullOutputName, pkg); err != nil {
 			p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
 		}
 	}

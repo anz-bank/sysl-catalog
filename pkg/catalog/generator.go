@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 	"text/template"
@@ -188,6 +189,11 @@ func Last(i interface{}, ind int) bool {
 	return ind == len(SortedKeys(i))-1
 }
 
+func Remove(s, old string) string {
+	var re = regexp.MustCompile(old)
+	return re.ReplaceAllString(s, "")
+}
+
 // GetFuncMap returns the funcs that are used in diagram generation.
 func (p *Generator) GetFuncMap() template.FuncMap {
 	return template.FuncMap{
@@ -211,6 +217,8 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"Attribute":                 Attribute,
 		"SanitiseOutputName":        SanitiseOutputName,
 		"ToLower":                   strings.ToLower,
+		"Remove":                    Remove,
+		"ToTitle":                   strings.ToTitle,
 		"Base":                      filepath.Base,
 		"Last":                      Last,
 	}

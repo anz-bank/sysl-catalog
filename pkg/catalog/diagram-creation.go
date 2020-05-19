@@ -126,8 +126,7 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Para
 		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.Module)
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
 	}
-
-	return p.CreateFile(plantumlString, plantuml, appName+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, appName, typeName+p.Ext)
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.

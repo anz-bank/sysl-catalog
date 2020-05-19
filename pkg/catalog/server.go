@@ -16,6 +16,11 @@ import (
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	p.Fs = afero.NewMemMapFs()
 	p.Module = m
+	if p.Module != nil && len(p.ModuleAsMacroPackage(p.Module)) <= 1 {
+		p.StartTemplateIndex = 1 // skip the MacroPackageProject
+	} else {
+		p.StartTemplateIndex = 0
+	}
 	for _, err := range errs {
 		if p.errs == nil {
 			p.errs = make([]error, 0, len(errs))

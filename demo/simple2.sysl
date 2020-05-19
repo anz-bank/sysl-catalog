@@ -2,12 +2,10 @@
 
 # This app specifies the projects to include, it is optional and can be left out
 simple2[~project]:
-    FirstDivision:
+    _:
         # you can specify packages to include
         ApplicationPackage
-    SecondDivision:
         MegaDatabase
-    ThirdDivision:
         ServerPackage
         foo
 

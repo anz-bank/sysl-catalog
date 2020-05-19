@@ -11,11 +11,14 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/renderer/html"
+
 	"github.com/anz-bank/sysl/pkg/syslutil"
 	"github.com/pkg/errors"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
-	"github.com/russross/blackfriday"
 
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 
@@ -53,8 +56,18 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 		return err
 	}
 	out := buf.Bytes()
+	var converted bytes.Buffer
 	if p.Format == "html" && !p.DisableCss {
-		raw := string(blackfriday.MarkdownCommon(out))
+		md := goldmark.New(
+			goldmark.WithExtensions(extension.GFM),
+			goldmark.WithRendererOptions(
+				html.WithUnsafe(),
+			),
+		)
+		if err := md.Convert(out, &converted); err != nil {
+			p.Log.Error(err)
+		}
+		raw := string(converted.Bytes())
 		raw = strings.ReplaceAll(raw, "README.md", p.OutputFileName)
 		out = []byte(header + raw + style + endTags)
 	}

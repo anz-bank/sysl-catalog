@@ -9,5 +9,5 @@ import (
 func TestReplace(t *testing.T) {
 	txt := "this_is_some_text"
 	remove := "_[^_]*?_text"
-	assert.Equal(t, Remove(txt, remove), "this_is_some")
+	assert.Equal(t, "this_is", Remove(txt, remove))
 }

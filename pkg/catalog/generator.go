@@ -6,6 +6,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"sync"
 	"text/template"
@@ -90,8 +91,8 @@ func NewProject(
 
 // WithTemplateFileNames loads template strings into project and package of p respectively
 func (p *Generator) WithTemplateString(tmpls ...string) *Generator {
-	for _, e := range tmpls {
-		tmpl, err := template.New("").Funcs(p.GetFuncMap()).Parse(e)
+	for i, e := range tmpls {
+		tmpl, err := template.New(strconv.Itoa(i)).Funcs(p.GetFuncMap()).Parse(e)
 		if err != nil {
 			p.Log.Error(err)
 			return nil

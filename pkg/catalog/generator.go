@@ -100,7 +100,7 @@ func (p *Generator) WithTemplateString(tmpls ...string) *Generator {
 	for i, e := range tmpls {
 		tmpl, err := template.New(strconv.Itoa(i)).Funcs(p.GetFuncMap()).Parse(e)
 		if err != nil {
-			p.Log.Error(err)
+			p.Log.Error("Error registering template:", err)
 			return nil
 		}
 		p.Templates = append(p.Templates, tmpl)
@@ -116,7 +116,7 @@ func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator 
 	for _, e := range fileNames {
 		bytes, err := afero.ReadFile(fs, e)
 		if err != nil {
-			p.Log.Error(p)
+			p.Log.Error("Error opening template file:", p)
 		}
 		tmpls = append(tmpls, string(bytes))
 	}
@@ -141,7 +141,7 @@ func (p *Generator) Run() {
 	fileName := markdownName(p.OutputFileName, path.Base(p.ProjectTitle))
 	p.Module = p.RootModule
 	if err := p.CreateMarkdown(p.Templates[p.StartTemplateIndex], path.Join(p.OutputDir, fileName), p); err != nil {
-		p.Log.Error(err)
+		p.Log.Error("Error creating project markdown:", err)
 	}
 	var wg sync.WaitGroup
 	var progress *pb.ProgressBar
@@ -152,7 +152,7 @@ func (p *Generator) Run() {
 			go func(fileName, contents string) {
 				var err = f(p.Fs, path.Join(p.OutputDir, fileName), contents)
 				if err != nil {
-					p.Log.Error(err)
+					p.Log.Error("Error generating file:", err)
 				}
 				progress.Increment()
 				wg.Done()

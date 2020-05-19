@@ -15,10 +15,8 @@ import (
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/renderer/html"
 
-	"github.com/anz-bank/sysl/pkg/syslutil"
-	"github.com/pkg/errors"
-
 	"github.com/anz-bank/sysl/pkg/diagrams"
+	"github.com/anz-bank/sysl/pkg/syslutil"
 
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 
@@ -65,7 +63,7 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 			),
 		)
 		if err := md.Convert(out, &converted); err != nil {
-			p.Log.Error(err)
+			p.Log.Error("Error converting markdown to html:", err)
 		}
 		raw := string(converted.Bytes())
 		raw = strings.ReplaceAll(raw, "README.md", p.OutputFileName)
@@ -106,7 +104,7 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	integration.Clustered = true
 	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.RootModule, logrus.New())
 	if err != nil {
-		p.Log.Error(err)
+		p.Log.Error("Error creating integration diagram:", err)
 		return ""
 	}
 	plantumlString := result[integration.Output]
@@ -119,7 +117,7 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.GetName())
 	plantumlString, err := CreateSequenceDiagram(m, call)
 	if err != nil {
-		p.Log.Error(err)
+		p.Log.Error("Error creating sequence diagram:", err)
 		return ""
 	}
 	return p.CreateFile(plantumlString, plantuml, appName, endpoint.GetName()+p.Ext)
@@ -271,7 +269,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 		panic("Wrong diagram type specified")
 	}
 	if err != nil {
-		p.Log.Error(err)
+		p.Log.Error("Error creating file:", err)
 		return ""
 	}
 	newFileName := absFilePath
@@ -418,7 +416,7 @@ func (p *Generator) MacroPackages(module *sysl.Module) []string {
 		p.Module = macroPackage
 		err := p.CreateMarkdown(p.Templates[1], macroPackageFileName, p)
 		if err != nil {
-			p.Log.Error(err)
+			p.Log.Error("Error generating project table:", err)
 		}
 	}
 	return SortedKeys(MacroPackages)
@@ -438,7 +436,7 @@ func (p *Generator) Packages(m *sysl.Module) []string {
 		fileName := markdownName(p.OutputFileName, packageName)
 		fullOutputName := path.Join(p.OutputDir, p.CurrentDir, fileName)
 		if err := p.CreateMarkdown(p.Templates[len(p.Templates)-1], fullOutputName, pkg); err != nil {
-			p.Log.Error(errors.Wrap(err, "error in generating "+fullOutputName))
+			p.Log.Error("error in generating "+fullOutputName, err)
 		}
 	}
 	return SortedKeys(MacroPackages)

@@ -248,7 +248,10 @@ func CreateFileName(dir string, elems ...string) (string, string) {
 		}
 		absolutefilePath = path.Join(absolutefilePath, SanitiseOutputName(e))
 	}
-	return path.Join(dir+"/", absolutefilePath), dir + "/"
+	if dir != "" {
+		dir += "/"
+	}
+	return path.Join(dir, absolutefilePath), dir
 }
 
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode

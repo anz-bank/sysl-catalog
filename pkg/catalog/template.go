@@ -61,7 +61,7 @@ const NewPackageTemplate = `
 ![]({{CreateSequenceDiagram $appName $e}})
 
 ### Request types
-{{if eq (len $e.Param) 0}}
+{{if and (eq (len $e.Param) 0) (not $e.RestParams) }}
 No Request types
 {{end}}
 
@@ -73,16 +73,16 @@ No Request types
 
 {{if $e.RestParams}}{{if $e.RestParams.UrlParam}}
 {{range $param := $e.RestParams.UrlParam}}
-{{$PathDataModel := (CreatePathParamDataModel $appName $param)}}
-{{if ne $PathDataModel ""}}
+{{$pathDataModel := (CreateParamDataModel $app $param)}}
+{{if ne $pathDataModel ""}}
 ### Path Parameter
 
-![]({{CreatePathParamDataModel $appName $param}})
+![]({{$pathDataModel}})
 {{end}}{{end}}{{end}}
 
 {{if $e.RestParams.QueryParam}}
 {{range $param := $e.RestParams.QueryParam}}
-{{$queryDataModel := (CreateQueryParamDataModel $appName $param)}}
+{{$queryDataModel := (CreateParamDataModel $app $param)}}
 {{if ne $queryDataModel ""}}
 ### Query Parameter
 
@@ -130,7 +130,7 @@ No Response Types
 </td>
 <td>
 
-<img src="{{CreateTypeDiagram  $app $typeName $type false}}">
+<img src="{{CreateTypeDiagram  $appName $typeName $type false}}">
 </td>
 <td> 
 
@@ -138,7 +138,7 @@ No Response Types
 </td>
 <td>
 
-<a href="{{CreateTypeDiagram  $app $typeName $type true}}">Link</a>
+<a href="{{CreateTypeDiagram  $appName $typeName $type true}}">Link</a>
 </td>
 </tr>{{end}}{{end}}{{end}}
 </table>

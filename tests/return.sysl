@@ -1,0 +1,13 @@
+App:
+     somefoo:
+         return <: sequence of foo
+     someprimitivefoo:
+         return <: sequence of string
+     /testReturnNil:
+          GET:
+              return Empty
+     !type foo:
+        this <: string
+     !type Empty:
+          ...
+     

@@ -17,5 +17,5 @@ test:
 build:
 	docker build . -t anz-bank/sysl-catalog
 
-demo:
-	docker run anz-bank/sysl-catalog -v ./demo:/demo -- /demo/simple.sysl --serve
+demo: build
+	docker run -p 6900:6900 --entrypoint=sh -v $(pwd)/demo:/demo anz-bank/sysl-catalog -c '/usr/src/sysl-catalog /demo/simple2.sysl --serve' -d

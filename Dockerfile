@@ -36,7 +36,7 @@ RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 	./main.go
 
 FROM ${REGISTRY:+${REGISTRY}/}${BASE_IMAGE}
-ENV SYSL_PLANTUML="http://localhost:8080"
+ENV SYSL_PLANTUML="http://www.plantuml.com/plantuml"
 WORKDIR /usr/src
 COPY --from=builder ./build/sysl-catalog .
 ENTRYPOINT ["/usr/src/sysl-catalog"]

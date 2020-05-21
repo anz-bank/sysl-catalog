@@ -39,4 +39,7 @@ FROM ${REGISTRY:+${REGISTRY}/}${BASE_IMAGE}
 ENV SYSL_PLANTUML="http://www.plantuml.com/plantuml"
 WORKDIR /usr/src
 COPY --from=builder ./build/sysl-catalog .
+RUN ["java", "-Djava.awt.headless=true", "-jar", "/plantuml.jar", "-version"]
+RUN ["dot", "-version"]
+
 ENTRYPOINT ["/usr/src/sysl-catalog"]

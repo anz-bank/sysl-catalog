@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  plantuml-server:
+    image: plantuml/plantuml-server:jetty
+    container_name: plantuml-server
+    ports:
+      - 8080:8080
+  sysl-catalog:
+    image: anz-bank/sysl-catalog:latest
+    build:
+      context: .
+    volumes:
+    - ./demo:/demo/
+    environment:
+    - SYSL_PLANTUML=http://localhost:8080
+    # - SYSL_PLANTUML=http://www.plantuml.com/plantuml
+    ports:
+    - 6900:6900
+    command:
+    - /demo/simple2.sysl
+    - --serve
+    depends_on:
+    - plantuml-server
+
+    

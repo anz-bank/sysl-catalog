@@ -15,7 +15,8 @@ test:
 
 
 build:
-	docker build . -t anz-bank/sysl-catalog
+	docker-compose build	
 
 demo: build
-	docker run -p 6900:6900 --entrypoint=sh -v $(pwd)/demo:/demo anz-bank/sysl-catalog -c '/usr/src/sysl-catalog /demo/simple2.sysl --serve' -d
+	docker-compose up sysl-catalog
+	open http://localhost:6900

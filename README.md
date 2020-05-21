@@ -103,3 +103,16 @@ ThisAppShouldShow[~ignore]:
 
 ![resources/package_view.png](resources/package_view.png)
 *package_view*
+
+## Docker image
+
+You can create a docker image containing the necessary depdenencies by running:
+
+
+```make build```
+
+### Run the Image
+
+You can run the image as follows:
+
+`docker run -v $(pwd)/demo:/demo/ anz-bank/sysl-catalog /demo/simple2.sysl --serve`

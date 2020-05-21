@@ -3,7 +3,6 @@ module github.com/anz-bank/sysl-catalog
 go 1.14
 
 require (
-	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/anz-bank/protoc-gen-sysl v0.0.4
 	github.com/anz-bank/sysl v0.97.0
 	github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129

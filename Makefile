@@ -12,3 +12,10 @@ install:
 .PHONY: test
 test:
 	go test ./...
+
+
+build:
+	docker build . -t anz-bank/sysl-catalog
+
+demo:
+	docker run anz-bank/sysl-catalog -v ./demo:/demo -- /demo/simple.sysl --serve

@@ -18,5 +18,5 @@ build:
 	docker-compose build	
 
 demo: build
-	docker-compose up sysl-catalog
+	docker-compose up sysl-catalog -d
 	open http://localhost:6900

@@ -23,6 +23,6 @@ FourthApp:
     !enum qwert:
         AUD : 1234
 
-simple2:
-    _:
-        GrpcTesting
+GrpcTesting:
+    !type Request:
+        id <: int

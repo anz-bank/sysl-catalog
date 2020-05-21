@@ -8,3 +8,7 @@ all:
 	sed -i "" "s/simple2.sysl/<a href=http:\/\/github.com\/anz-bank\/sysl-catalog>This is an example of sysl catalog deployed to github pages <\/a>/" docs/index.html
 install:
 	go install github.com/anz-bank/sysl-catalog
+
+.PHONY: test
+test:
+	go test ./...

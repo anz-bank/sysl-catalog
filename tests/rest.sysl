@@ -7,12 +7,20 @@ App:
         this <: string
         that <: int
 Bar:
-    /bar:
+    /bar/{id <: string}:
+        GET:
+            App <- GET /address
+            return ok <: foo
+    /sameappref/{id <: tar}:
+        GET:
+            App <- GET /address
+            return ok <: foo
+    /ref/{id <: App.foo}:
         GET:
             App <- GET /address
             return ok <: foo
     /address:
-        GET:
+        GET?street=string:
             return ok <: sequence of foo
     !type foo:
         this <: string

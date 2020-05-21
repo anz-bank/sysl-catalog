@@ -185,6 +185,7 @@ func AsSet(in []string) map[string]struct{} {
 func RetryHTTPRequest(url string) ([]byte, error) {
 	client := retryablehttp.NewClient()
 	client.Logger = nil
+	client.RetryMax = 100
 	resp, err := client.Get(url)
 	if err != nil {
 		return nil, err
@@ -241,9 +242,9 @@ type Typer interface {
 	GetType() *sysl.Type
 }
 
-// GetAppTypeName returns the appName and typeName of a param
-func GetAppTypeName(param Typer) (string, string) {
-	var appName, typeName string
+// GetAppTypeName takes a Sysl Type and returns the appName and typeName of a param
+// If the type is a primitive, the appName returned is "primitive"
+func GetAppTypeName(param Typer) (appName string, typeName string) {
 	ref := param.GetType().GetTypeRef().GetRef()
 	appNameParts := ref.GetAppname().GetPart()
 	if a, b := syslutil.GetTypeDetail(param.GetType()); a == "primitive" {

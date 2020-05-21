@@ -15,20 +15,16 @@ import (
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/renderer/html"
 
-	"github.com/anz-bank/sysl/pkg/diagrams"
-	"github.com/anz-bank/sysl/pkg/syslutil"
-
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
-
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
-
 	"github.com/anz-bank/sysl/pkg/cmdutils"
+	"github.com/anz-bank/sysl/pkg/diagrams"
+	"github.com/anz-bank/sysl/pkg/integrationdiagram"
+	"github.com/anz-bank/sysl/pkg/sysl"
+	"github.com/anz-bank/sysl/pkg/syslutil"
+	"github.com/anz-bank/sysl/pkg/syslwrapper"
 
 	"github.com/sirupsen/logrus"
-
-	"github.com/anz-bank/sysl/pkg/integrationdiagram"
-
-	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
 var (
@@ -124,20 +120,19 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 }
 
 // CreateParamDataModel creates a parameter data model and returns a filename
-func (p *Generator) CreateParamDataModel(app *sysl.Application, param *sysl.Param) string {
-	var appName, typeName, plantumlString string
+func (p *Generator) CreateParamDataModel(app *sysl.Application, param Typer) string {
+	var appName, typeName string
+	var getRecursive bool
 	appName, typeName = GetAppTypeName(param)
 	if appName == "" {
-		appName = path.Join(app.Name.GetPart()...)
+		appName = path.Join(app.GetName().GetPart()...)
 	}
 	if appName == "primitive" {
-		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: param.GetType()})
-		appName = typeName
+		getRecursive = false
 	} else {
-		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, p.RootModule)
-		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
+		getRecursive = true
 	}
-	return p.CreateFile(plantumlString, plantuml, appName, typeName+p.Ext)
+	return p.CreateTypeDiagram(appName, typeName, param.GetType(), getRecursive)
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
@@ -175,7 +170,7 @@ func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement
 
 // CreateReturnDataModel creates a return data model and returns a filename, or empty string if it wasn't a return statement.
 func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement, endpoint *sysl.Endpoint) string {
-	var sequence bool
+	var sequence, getRecursive bool
 	var typeref *sysl.Type
 	var appName, typeName string
 	ret := stmnt.GetRet()
@@ -191,6 +186,7 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 		appName = split[0]
 		typeName = split[1]
 	} else {
+		appName = appname
 		typeName = split[0]
 	}
 	if sequence {
@@ -207,30 +203,39 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 				},
 			},
 		}
-		typeref = NewTypeRef(appName, newSequenceName)
+		typeref = NewTypeRef(newAppName, newSequenceName)
 	} else {
 		typeref = NewTypeRef(appName, typeName)
 	}
 	if _, ok := p.RootModule.Apps[appName]; !ok {
 		return ""
 	}
-	return p.CreateTypeDiagram(p.RootModule.GetApps()[appName], typeName, typeref, true)
+	if syslwrapper.IsPrimitive(typeName) {
+		getRecursive = false
+		typeref = syslwrapper.MakePrimitive(typeName)
+	} else {
+		getRecursive = true
+	}
+	return p.CreateTypeDiagram(appName, typeName, typeref, getRecursive)
 }
 
 // CreateTypeDiagram creates a data model diagram and returns the filename
-func (p *Generator) CreateTypeDiagram(app *sysl.Application, typeName string, t *sysl.Type, recursive bool) string {
+// It handles recursively getting the related types, or for primitives, just returns the
+func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.Type, recursive bool) string {
 	m := p.RootModule
-	appName := strings.Join(app.Name.Part, "")
-	typeref := NewTypeRef(appName, typeName)
 	var plantumlString string
 	if recursive {
-		relatedTypes := catalogdiagrams.RecurseivelyGetTypes(appName, map[string]*sysl.Type{typeName: typeref}, m)
+		relatedTypes := catalogdiagrams.RecursivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, m)
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
+		if _, ok := p.RootModule.GetApps()[appName]; !ok {
+			return ""
+		}
+		// Handle Empty
+		if len(relatedTypes) == 0 {
+			return ""
+		}
 	} else {
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
-	}
-	if _, ok := p.RootModule.GetApps()[appName]; !ok {
-		return ""
 	}
 	return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
 }
@@ -296,48 +301,6 @@ func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 		return ""
 	}
 	return p.CreateFile(plantumlString, plantuml, appName, "types"+p.Ext)
-}
-
-// CreateQueryParamDataModel returns a Query Parameter data model filename.
-func (p *Generator) CreateQueryParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
-	var typeName, appName string
-	var parsedType *sysl.Type
-	switch param.GetType().GetType().(type) {
-	case *sysl.Type_Primitive_:
-		parsedType = param.GetType()
-		typeName = param.GetName()
-	case *sysl.Type_TypeRef:
-		appName, typeName = GetAppTypeName(param)
-		if appName == "" {
-			appName = CurrentAppName
-		}
-		parsedType = NewTypeRef(appName, typeName)
-	}
-	if _, ok := p.RootModule.GetApps()[appName]; !ok {
-		return ""
-	}
-	return p.CreateTypeDiagram(p.RootModule.GetApps()[appName], typeName, parsedType, true)
-}
-
-// CreateQueryParamDataModel returns a Path Parameter data model filename.
-func (p *Generator) CreatePathParamDataModel(CurrentAppName string, param *sysl.Endpoint_RestParams_QueryParam) string {
-	var typeName, appName string
-	var parsedType *sysl.Type
-	switch param.Type.Type.(type) {
-	case *sysl.Type_Primitive_:
-		parsedType = param.GetType()
-		typeName = param.GetName()
-	case *sysl.Type_TypeRef:
-		appName, typeName = GetAppTypeName(param)
-		if appName == "" {
-			appName = CurrentAppName
-		}
-		parsedType = NewTypeRef(appName, typeName)
-	}
-	if _, ok := p.RootModule.GetApps()[appName]; !ok {
-		return ""
-	}
-	return p.CreateTypeDiagram(p.RootModule.GetApps()[appName], typeName, parsedType, true)
 }
 
 func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string]string) {

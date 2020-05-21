@@ -3,7 +3,10 @@ App:
          return <: foo
     !type foo:
         this <: string
-    /testRestURLParam/{id<:foo}:
+    /testURLParamPrimitive/{id<:string}:
+        GET:
+            ...
+    /testURLParamRef/{id<:foo}:
         GET:
             ...
     /testRestQueryParam/{id<:foo}:

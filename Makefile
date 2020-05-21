@@ -13,7 +13,6 @@ install:
 test:
 	go test ./...
 
-
 build:
 	docker-compose build	
 

@@ -35,27 +35,6 @@ App2:
 		"/svg/~1UDgCpa5Bn30G1U1xViNpr5DXgo8UbhBTjegNBKZ5WqW9RMX2aqoPfAY8_rtMYWTFVSVv7ZEJR8v84cpARxLuQflx-bG_5crTeMog6ccAgi6fQL5N3-t5NtNpris_YaE8akFYhD1cK0XHiQBuCIiHUcaLd7n7TdDrUmsjpAYZ29FnisJfq9ERoIiVyIc0e-odaMdnGqcM67UMMDfdRQ8wA_6WU9MZbVqaW8APtjPHoSO5yk9Bl1JpdBr21dGxxFVQZDgUx-Rv3rskbFsZReSqpT5bug3yi3Zx7G00__yzoceA",
 		contents)
 }
-func TestReferenceInOtherApp(t *testing.T) {
-	m, err := parse.NewParser().ParseString(`
-App1:
-    ep(req <: App2.this):
-        return ok <: App2.this
-
-App2:
-    !type this:
-        contents <: string
-
-`)
-	assert.Nil(t, err)
-	outputDir := "test"
-	fs := afero.NewMemMapFs()
-	logger := logrus.New()
-	p := NewProject("test.sysl", plantumlService, "markdown", logger, m, fs, outputDir, false)
-	p.Run()
-	file, err := afero.ReadFile(fs, "test/App1/App2/this.svg")
-	assert.NoError(t, err)
-	assert.Contains(t, string(file), `contents : string`)
-}
 func TestCreateQueryParamDataModelWithPrimitive(t *testing.T) {
 	filePath := "../../tests/rest.sysl"
 	outputDir := "test"

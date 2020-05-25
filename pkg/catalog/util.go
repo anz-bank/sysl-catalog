@@ -121,6 +121,30 @@ func Attribute(a Attr, query string) string {
 	return ""
 }
 
+func Fields(t *sysl.Type) map[string]*sysl.Type {
+	if tuple := t.GetTuple(); tuple != nil {
+		return tuple.GetAttrDefs()
+	}
+	return nil
+}
+
+func FieldType(t *sysl.Type) string {
+	typeName, typeDetail := syslutil.GetTypeDetail(t)
+	if typeName == "primitive" {
+		return strings.ToLower(typeDetail)
+	}
+	if typeName == "sequence" {
+		return "sequence of " + typeDetail
+	}
+	if typeName == "type_ref" {
+		return strings.Join(t.GetTypeRef().GetRef().GetPath(), ".")
+	}
+	if typeName != "" {
+		return typeName
+	}
+	return typeDetail
+}
+
 type Namer interface {
 	Attr
 	GetName() *sysl.AppName

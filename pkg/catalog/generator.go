@@ -218,6 +218,8 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"ModulePackageName":        ModulePackageName,
 		"SortedKeys":               SortedKeys,
 		"Attribute":                Attribute,
+		"Fields":                   Fields,
+		"FieldType":                FieldType,
 		"SanitiseOutputName":       SanitiseOutputName,
 		"ToLower":                  strings.ToLower,
 		"ToCamel":                  strcase.ToCamel,

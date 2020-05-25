@@ -8,11 +8,22 @@
 <div id='content'>
 <p><a href="../index.html">Back</a></p>
 <h1>MegaDatabase</h1>
-<h2>Service Index</h2>
+<h2>Integration Diagram</h2>
+<p><img src="integration.svg" alt=""></p>
+<h2>Database Index</h2>
 <table>
 <thead>
 <tr>
-<th>Service Name</th>
+<th>Database Application Name</th>
+<th>Source Location</th>
+</tr>
+</thead>
+</table>
+<h2>Application Index</h2>
+<table>
+<thead>
+<tr>
+<th>Application Name</th>
 <th>Method</th>
 <th>Source Location</th>
 </tr>
@@ -25,52 +36,101 @@
 </tr>
 </tbody>
 </table>
-<p><img src="integration.svg" alt=""></p>
-<h1>this</h1>
-<h2>this this</h2>
-<p><img src="this/this.svg" alt=""></p>
-<h3>Request types</h3>
-<p>No Request types</p>
-<h3>Response types</h3>
-<p>No Response Types</p>
-<h3>Types</h3>
+<h2>Type Index</h2>
 <table>
+<thead>
 <tr>
-<th>App Name</th>
-<th>Diagram</th>
-<th>Description</th>
-<th>Full Diagram</th>
+<th>Application Name</th>
+<th>Type Name</th>
+<th>Source Location</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td>
-<p>MegaDatabase.<br>Empty</p>
-</td>
-<td>
-<img src="MegaDatabase/emptysimple.svg">
-</td>
-<td> 
-<details closed><summary>Description</summary><br>Empty Empty Empty</details> 
-</td>
-<td>
-<p><a href="MegaDatabase/empty.svg">Link</a></p>
-</td>
+<td>MegaDatabase</td>
+<td><a href="#MegaDatabase.Empty">Empty</a></td>
+<td><a href="../../../../demo/simple2.sysl">../../../../demo/simple2.sysl</a></td>
 </tr>
 <tr>
-<td>
-<p>MegaDatabase.<br>Money</p>
-</td>
-<td>
-<img src="MegaDatabase/moneysimple.svg">
-</td>
-<td> 
-<details closed><summary>Description</summary><br>Money Money Money</details> 
-</td>
-<td>
-<p><a href="MegaDatabase/money.svg">Link</a></p>
-</td>
+<td>MegaDatabase</td>
+<td><a href="#MegaDatabase.Money">Money</a></td>
+<td><a href="../../../../demo/simple2.sysl">../../../../demo/simple2.sysl</a></td>
 </tr>
-</tr>
+</tbody>
 </table>
+<h1>Databases</h1>
+<h1>Applications</h1>
+<h2>Application MegaDatabase</h2>
+<ul>
+<li></li>
+</ul>
+<h2>Application this</h2>
+<ul>
+<li></li>
+</ul>
+<h3>this this</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="this/this.svg" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<h4>Request types</h4>
+<p>No Request types</p>
+</details>
+<details>
+<summary>Response types</summary>
+<h4>Response types</h4>
+<p>No Response Types</p>
+</details>
+<hr>
+<h1>Types</h1>
+<details>
+<summary>MegaDatabase.Empty</summary>
+<h3>MegaDatabase.Empty</h3>
+<ul>
+<li>Empty Empty Empty</li>
+</ul>
+<p><img src="MegaDatabase/emptysimple.svg" alt=""></p>
+<p><a href="MegaDatabase/empty.svg">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+</table>
+</details>
+<details>
+<summary>MegaDatabase.Money</summary>
+<h3>MegaDatabase.Money</h3>
+<ul>
+<li>Money Money Money</li>
+</ul>
+<p><img src="MegaDatabase/moneysimple.svg" alt=""></p>
+<p><a href="MegaDatabase/money.svg">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>amount</td>
+<td>int</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<div class="footer">
 
 <style type="text/css">
 body {

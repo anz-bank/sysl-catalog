@@ -1,11 +1,20 @@
 
+
 [Back](../README.md)
 
 
 # ServerPackage
 
-## Service Index
-| Service Name | Method | Source Location |
+## Integration Diagram
+![](integration.svg)
+
+## Database Index
+| Database Application Name  | Source Location |
+----|----
+[RelModel](#Database-RelModel) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+
+## Application Index
+| Application Name | Method | Source Location |
 ----|----|----
 Server | [Authenticate](#Server-Authenticate) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
@@ -14,262 +23,385 @@ Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimiti
 Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
-![](integration.svg)
+## Type Index
+| Application Name | Type Name | Source Location |
+----|----|----
+Server | [Empty](#Server.Empty) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
+Server | [Request](#Server.Request) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
+Server | [Response](#Server.Response) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
 
+# Databases
 
 
 
-# RelModel
+<details>
+<summary>Database RelModel</summary>
 
-
-
-
-
-# Server
-
-this is a comment for Server
-
-
-## Server Authenticate
-this is a description of Authenticate
-
-![](Server/authenticate.svg)
-
-### Request types
-
-
-
-
-
-![](Server/request.svg)
-
-
-
-
-### Response types
-
-
-
-No Response Types
-
-
-## Server GETtestRestPathParamPrimitive{primitiveID}
-
-
-![](Server/gettestrestpathparamprimitive{primitiveid}.svg)
-
-### Request types
-
-No Request types
-
-
-
-
-
-
-
-
-
-
-
-### Response types
-
-
-
-No Response Types
-
-
-## Server GETtestRestQueryParam
-
-
-![](Server/gettestrestqueryparam.svg)
-
-### Request types
-
-No Request types
-
-
-
-
-
-
-
-
-
-
-### Query Parameter
-
-![](Server/request.svg)
-
-
-
-### Query Parameter
-
-![](Server/request.svg)
-
-
-### Response types
-
-
-
-No Response Types
-
-
-## Server GETtestRestQueryParamPrimitive
-
-
-![](Server/gettestrestqueryparamprimitive.svg)
-
-### Request types
-
-No Request types
-
-
-
-
-
-
-
-
-
-
-
-### Response types
-
-
-
-No Response Types
-
-
-## Server GETtestRestURLParam{id}
-
-
-![](Server/gettestresturlparam{id}.svg)
-
-### Request types
-
-No Request types
-
-
-
-
-
-
-
-
-### Path Parameter
-
-![](Server/request.svg)
-
-
-
-
-### Response types
-
-
-
-No Response Types
-
-
-## Server GETtestReturnNil
-
-
-![](Server/gettestreturnnil.svg)
-
-### Request types
-
-No Request types
-
-
-
-
-
-
-
-
-### Response types
-
-
-
-No Response Types
-
-
-
-
-
-## Database
 
 ![](RelModel/types.svg)
+</details>
 
 
 
-### Types
-
-<table>
-<tr>
-<th>App Name</th>
-<th>Diagram</th>
-<th>Description</th>
-<th>Full Diagram</th>
+# Applications
 
 
 
-</tr>
 
 
-<tr>
-<td>
 
-Server.<br>Empty
-</td>
-<td>
+## Application Server
 
-<img src="Server/emptysimple.svg">
-</td>
-<td> 
+- this is a comment for Server
 
-<details closed><summary>Description</summary><br>Empty Empty Empty</details> 
-</td>
-<td>
 
-<a href="Server/empty.svg">Link</a>
-</td>
-</tr>
-<tr>
-<td>
 
-Server.<br>Request
-</td>
-<td>
 
-<img src="Server/requestsimple.svg">
-</td>
-<td> 
 
-<details closed><summary>Description</summary><br>Request Request Request</details> 
-</td>
-<td>
+### Server Authenticate
+this is a description of Authenticate
 
-<a href="Server/request.svg">Link</a>
-</td>
-</tr>
-<tr>
-<td>
+<details>
+<summary>Sequence Diagram</summary>
 
-Server.<br>Response
-</td>
-<td>
+![](Server/authenticate.svg)
+</details>
 
-<img src="Server/responsesimple.svg">
-</td>
-<td> 
+<details>
+<summary>Request types</summary>
 
-<details closed><summary>Description</summary><br>Response Response Response</details> 
-</td>
-<td>
+#### Request types
 
-<a href="Server/response.svg">Link</a>
-</td>
-</tr>
-</table>
+
+
+
+
+![](Server/request.svg)
+
+
+
+</details>
+<details>
+<summary>Response types</summary>
+
+#### Response types
+
+
+
+
+
+![](Server/response.svg)
+
+
+
+</details>
+
+---
+
+
+
+
+
+### Server GETtestRestPathParamPrimitive{primitiveID}
+
+
+<details>
+<summary>Sequence Diagram</summary>
+
+![](Server/gettestrestpathparamprimitive{primitiveid}.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
+
+
+
+
+
+
+
+
+#### Path Parameter
+
+![](primitive/stringsimple.svg)
+
+
+
+</details>
+<details>
+<summary>Response types</summary>
+
+#### Response types
+
+
+
+
+
+![](Server/response.svg)
+
+
+
+</details>
+
+---
+
+
+
+
+
+### Server GETtestRestQueryParam
+
+
+<details>
+<summary>Sequence Diagram</summary>
+
+![](Server/gettestrestqueryparam.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
+
+
+
+
+
+
+
+
+
+
+#### Query Parameter
+
+![](Server/request.svg)
+
+
+
+#### Query Parameter
+
+![](Server/request.svg)
+
+</details>
+<details>
+<summary>Response types</summary>
+
+#### Response types
+
+
+
+
+
+![](Server/response.svg)
+
+
+
+</details>
+
+---
+
+
+
+
+
+### Server GETtestRestQueryParamPrimitive
+
+
+<details>
+<summary>Sequence Diagram</summary>
+
+![](Server/gettestrestqueryparamprimitive.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
+
+
+
+
+
+
+
+
+
+
+#### Query Parameter
+
+![](primitive/stringsimple.svg)
+
+</details>
+<details>
+<summary>Response types</summary>
+
+#### Response types
+
+
+
+
+
+![](Server/response.svg)
+
+
+
+</details>
+
+---
+
+
+
+
+
+### Server GETtestRestURLParam{id}
+
+
+<details>
+<summary>Sequence Diagram</summary>
+
+![](Server/gettestresturlparam{id}.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
+
+
+
+
+
+
+
+
+#### Path Parameter
+
+![](Server/request.svg)
+
+
+
+</details>
+<details>
+<summary>Response types</summary>
+
+#### Response types
+
+
+
+
+
+![](Server/response.svg)
+
+
+
+</details>
+
+---
+
+
+
+
+
+### Server GETtestReturnNil
+
+
+<details>
+<summary>Sequence Diagram</summary>
+
+![](Server/gettestreturnnil.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
+
+
+
+
+
+
+
+</details>
+<details>
+<summary>Response types</summary>
+
+#### Response types
+
+
+
+No Response Types
+
+
+</details>
+
+---
+
+
+
+
+# Types
+
+
+
+
+
+<details>
+<summary>Server.Empty</summary>
+
+### Server.Empty
+
+- Empty Empty Empty
+
+![](Server/emptysimple.svg)
+
+[Full Diagram](Server/empty.svg)
+
+#### Fields
+
+| Field name | Type | Description |
+|----|----|----|
+
+</details>
+<details>
+<summary>Server.Request</summary>
+
+### Server.Request
+
+- Request Request Request
+
+![](Server/requestsimple.svg)
+
+[Full Diagram](Server/request.svg)
+
+#### Fields
+
+| Field name | Type | Description |
+|----|----|----|
+| query | sequence of Response | |
+
+</details>
+<details>
+<summary>Server.Response</summary>
+
+### Server.Response
+
+- Response Response Response
+
+![](Server/responsesimple.svg)
+
+[Full Diagram](Server/response.svg)
+
+#### Fields
+
+| Field name | Type | Description |
+|----|----|----|
+| balance | MegaDatabase.Empty | |
+| query | MegaDatabase.Money | |
+
+</details>
+
+<div class="footer">
 

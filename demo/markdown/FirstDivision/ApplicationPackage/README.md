@@ -1,33 +1,60 @@
 
+
 [Back](../README.md)
 
 
 # ApplicationPackage
 
-## Service Index
-| Service Name | Method | Source Location |
+## Integration Diagram
+![](integration.svg)
+
+## Database Index
+| Database Application Name  | Source Location |
+----|----
+
+## Application Index
+| Application Name | Method | Source Location |
 ----|----|----
 MobileApp | [Another](#MobileApp-Another) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 MobileApp | [Login](#MobileApp-Login) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
-![](integration.svg)
+## Type Index
+| Application Name | Type Name | Source Location |
+----|----|----
+
+# Databases
 
 
 
 
-# MobileApp
-
-this is a comment for MobileApp
+# Applications
 
 
-## MobileApp Another
+
+
+## Application MobileApp
+
+- this is a comment for MobileApp
+
+
+
+
+
+### MobileApp Another
 hello, world
 
-![](MobileApp/another.svg)
+<details>
+<summary>Sequence Diagram</summary>
 
-### Request types
+![](MobileApp/another.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
 
 No Request types
 
@@ -35,8 +62,11 @@ No Request types
 
 
 
+</details>
+<details>
+<summary>Response types</summary>
 
-### Response types
+#### Response types
 
 
 
@@ -47,12 +77,27 @@ Response Response Response
 
 
 
-## MobileApp Login
+</details>
+
+---
+
+
+
+
+
+### MobileApp Login
 hello, gamers
 
-![](MobileApp/login.svg)
+<details>
+<summary>Sequence Diagram</summary>
 
-### Request types
+![](MobileApp/login.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
 
 
 
@@ -62,8 +107,11 @@ hello, gamers
 
 
 
+</details>
+<details>
+<summary>Response types</summary>
 
-### Response types
+#### Response types
 
 
 
@@ -74,18 +122,35 @@ Empty Empty Empty
 
 
 
+</details>
 
-# MobileApp2
-
-this is a comment for MobileApp
+---
 
 
-## MobileApp2 SecondEndpoint
+
+
+
+## Application MobileApp2
+
+- this is a comment for MobileApp
+
+
+
+
+
+### MobileApp2 SecondEndpoint
 SecondEndpoint, comment
 
-![](MobileApp2/secondendpoint.svg)
+<details>
+<summary>Sequence Diagram</summary>
 
-### Request types
+![](MobileApp2/secondendpoint.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
 
 
 
@@ -95,8 +160,11 @@ SecondEndpoint, comment
 
 
 
+</details>
+<details>
+<summary>Response types</summary>
 
-### Response types
+#### Response types
 
 
 
@@ -107,12 +175,27 @@ Empty Empty Empty
 
 
 
-## MobileApp2 ThirdEndpoint
+</details>
+
+---
+
+
+
+
+
+### MobileApp2 ThirdEndpoint
 ThirdEndpoint comment
 
-![](MobileApp2/thirdendpoint.svg)
+<details>
+<summary>Sequence Diagram</summary>
 
-### Request types
+![](MobileApp2/thirdendpoint.svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+#### Request types
 
 No Request types
 
@@ -120,8 +203,11 @@ No Request types
 
 
 
+</details>
+<details>
+<summary>Response types</summary>
 
-### Response types
+#### Response types
 
 
 
@@ -132,26 +218,20 @@ Response Response Response
 
 
 
+</details>
+
+---
 
 
 
 
-### Types
-
-<table>
-<tr>
-<th>App Name</th>
-<th>Diagram</th>
-<th>Description</th>
-<th>Full Diagram</th>
-
-
-</tr>
+# Types
 
 
 
-</tr>
 
 
-</table>
+
+
+<div class="footer">
 

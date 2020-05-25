@@ -17,7 +17,7 @@ func TestReplace(t *testing.T) {
 	assert.Equal(t, "this_is", Remove(txt, remove))
 }
 
-const plantumlService = "http://localhost:8080"
+const plantumlService = "http://plantuml.com/plantuml"
 
 var testFiles = []string{
 	"test/App/App/gettestrestqueryparam{id}.svg",

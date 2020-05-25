@@ -8,11 +8,28 @@
 <div id='content'>
 <p><a href="../index.html">Back</a></p>
 <h1>ServerPackage</h1>
-<h2>Service Index</h2>
+<h2>Integration Diagram</h2>
+<p><img src="integration.svg" alt=""></p>
+<h2>Database Index</h2>
 <table>
 <thead>
 <tr>
-<th>Service Name</th>
+<th>Database Application Name</th>
+<th>Source Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#Database-RelModel">RelModel</a></td>
+<td><a href="../../../../demo/simple2.sysl">../../../../demo/simple2.sysl</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Application Index</h2>
+<table>
+<thead>
+<tr>
+<th>Application Name</th>
 <th>Method</th>
 <th>Source Location</th>
 </tr>
@@ -50,106 +67,223 @@
 </tr>
 </tbody>
 </table>
-<p><img src="integration.svg" alt=""></p>
-<h1>RelModel</h1>
-<h1>Server</h1>
-<p>this is a comment for Server</p>
-<h2>Server Authenticate</h2>
-<p>this is a description of Authenticate</p>
-<p><img src="Server/authenticate.svg" alt=""></p>
-<h3>Request types</h3>
-<p><img src="Server/request.svg" alt=""></p>
-<h3>Response types</h3>
-<p>No Response Types</p>
-<h2>Server GETtestRestPathParamPrimitive{primitiveID}</h2>
-<p><img src="Server/gettestrestpathparamprimitive%7Bprimitiveid%7D.svg" alt=""></p>
-<h3>Request types</h3>
-<p>No Request types</p>
-<h3>Response types</h3>
-<p>No Response Types</p>
-<h2>Server GETtestRestQueryParam</h2>
-<p><img src="Server/gettestrestqueryparam.svg" alt=""></p>
-<h3>Request types</h3>
-<p>No Request types</p>
-<h3>Query Parameter</h3>
-<p><img src="Server/request.svg" alt=""></p>
-<h3>Query Parameter</h3>
-<p><img src="Server/request.svg" alt=""></p>
-<h3>Response types</h3>
-<p>No Response Types</p>
-<h2>Server GETtestRestQueryParamPrimitive</h2>
-<p><img src="Server/gettestrestqueryparamprimitive.svg" alt=""></p>
-<h3>Request types</h3>
-<p>No Request types</p>
-<h3>Response types</h3>
-<p>No Response Types</p>
-<h2>Server GETtestRestURLParam{id}</h2>
-<p><img src="Server/gettestresturlparam%7Bid%7D.svg" alt=""></p>
-<h3>Request types</h3>
-<p>No Request types</p>
-<h3>Path Parameter</h3>
-<p><img src="Server/request.svg" alt=""></p>
-<h3>Response types</h3>
-<p>No Response Types</p>
-<h2>Server GETtestReturnNil</h2>
-<p><img src="Server/gettestreturnnil.svg" alt=""></p>
-<h3>Request types</h3>
-<p>No Request types</p>
-<h3>Response types</h3>
-<p>No Response Types</p>
-<h2>Database</h2>
-<p><img src="RelModel/types.svg" alt=""></p>
-<h3>Types</h3>
+<h2>Type Index</h2>
 <table>
+<thead>
 <tr>
-<th>App Name</th>
-<th>Diagram</th>
-<th>Description</th>
-<th>Full Diagram</th>
+<th>Application Name</th>
+<th>Type Name</th>
+<th>Source Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td><a href="#Server.Empty">Empty</a></td>
+<td><a href="../../../../demo/simple2.sysl">../../../../demo/simple2.sysl</a></td>
 </tr>
 <tr>
-<td>
-<p>Server.<br>Empty</p>
-</td>
-<td>
-<img src="Server/emptysimple.svg">
-</td>
-<td> 
-<details closed><summary>Description</summary><br>Empty Empty Empty</details> 
-</td>
-<td>
-<p><a href="Server/empty.svg">Link</a></p>
-</td>
+<td>Server</td>
+<td><a href="#Server.Request">Request</a></td>
+<td><a href="../../../../demo/simple2.sysl">../../../../demo/simple2.sysl</a></td>
 </tr>
 <tr>
-<td>
-<p>Server.<br>Request</p>
-</td>
-<td>
-<img src="Server/requestsimple.svg">
-</td>
-<td> 
-<details closed><summary>Description</summary><br>Request Request Request</details> 
-</td>
-<td>
-<p><a href="Server/request.svg">Link</a></p>
-</td>
+<td>Server</td>
+<td><a href="#Server.Response">Response</a></td>
+<td><a href="../../../../demo/simple2.sysl">../../../../demo/simple2.sysl</a></td>
 </tr>
-<tr>
-<td>
-<p>Server.<br>Response</p>
-</td>
-<td>
-<img src="Server/responsesimple.svg">
-</td>
-<td> 
-<details closed><summary>Description</summary><br>Response Response Response</details> 
-</td>
-<td>
-<p><a href="Server/response.svg">Link</a></p>
-</td>
-</tr>
+</tbody>
 </table>
+<h1>Databases</h1>
+<details>
+<summary>Database RelModel</summary>
+<p><img src="RelModel/types.svg" alt=""></p>
+</details>
+<h1>Applications</h1>
+<h2>Application Server</h2>
+<ul>
+<li>this is a comment for Server</li>
+</ul>
+<h3>Server Authenticate</h3>
+<p>this is a description of Authenticate</p>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="Server/authenticate.svg" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<h4>Request types</h4>
+<p><img src="Server/request.svg" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<h4>Response types</h4>
+<p><img src="Server/response.svg" alt=""></p>
+</details>
+<hr>
+<h3>Server GETtestRestPathParamPrimitive{primitiveID}</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="Server/gettestrestpathparamprimitive%7Bprimitiveid%7D.svg" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<h4>Request types</h4>
+<h4>Path Parameter</h4>
+<p><img src="primitive/stringsimple.svg" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<h4>Response types</h4>
+<p><img src="Server/response.svg" alt=""></p>
+</details>
+<hr>
+<h3>Server GETtestRestQueryParam</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="Server/gettestrestqueryparam.svg" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<h4>Request types</h4>
+<h4>Query Parameter</h4>
+<p><img src="Server/request.svg" alt=""></p>
+<h4>Query Parameter</h4>
+<p><img src="Server/request.svg" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<h4>Response types</h4>
+<p><img src="Server/response.svg" alt=""></p>
+</details>
+<hr>
+<h3>Server GETtestRestQueryParamPrimitive</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="Server/gettestrestqueryparamprimitive.svg" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<h4>Request types</h4>
+<h4>Query Parameter</h4>
+<p><img src="primitive/stringsimple.svg" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<h4>Response types</h4>
+<p><img src="Server/response.svg" alt=""></p>
+</details>
+<hr>
+<h3>Server GETtestRestURLParam{id}</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="Server/gettestresturlparam%7Bid%7D.svg" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<h4>Request types</h4>
+<h4>Path Parameter</h4>
+<p><img src="Server/request.svg" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<h4>Response types</h4>
+<p><img src="Server/response.svg" alt=""></p>
+</details>
+<hr>
+<h3>Server GETtestReturnNil</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="Server/gettestreturnnil.svg" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<h4>Request types</h4>
+</details>
+<details>
+<summary>Response types</summary>
+<h4>Response types</h4>
+<p>No Response Types</p>
+</details>
+<hr>
+<h1>Types</h1>
+<details>
+<summary>Server.Empty</summary>
+<h3>Server.Empty</h3>
+<ul>
+<li>Empty Empty Empty</li>
+</ul>
+<p><img src="Server/emptysimple.svg" alt=""></p>
+<p><a href="Server/empty.svg">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+</table>
+</details>
+<details>
+<summary>Server.Request</summary>
+<h3>Server.Request</h3>
+<ul>
+<li>Request Request Request</li>
+</ul>
+<p><img src="Server/requestsimple.svg" alt=""></p>
+<p><a href="Server/request.svg">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>sequence of Response</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<details>
+<summary>Server.Response</summary>
+<h3>Server.Response</h3>
+<ul>
+<li>Response Response Response</li>
+</ul>
+<p><img src="Server/responsesimple.svg" alt=""></p>
+<p><a href="Server/response.svg">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>balance</td>
+<td>MegaDatabase.Empty</td>
+<td></td>
+</tr>
+<tr>
+<td>query</td>
+<td>MegaDatabase.Money</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<div class="footer">
 
 <style type="text/css">
 body {

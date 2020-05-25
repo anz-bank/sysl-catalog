@@ -1,29 +1,56 @@
 
+
 [Back](../README.md)
 
 
 # foo
 
-## Service Index
-| Service Name | Method | Source Location |
+## Integration Diagram
+![](integration.svg)
+
+## Database Index
+| Database Application Name  | Source Location |
+----|----
+
+## Application Index
+| Application Name | Method | Source Location |
 ----|----|----
 foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
-![](integration.svg)
+## Type Index
+| Application Name | Type Name | Source Location |
+----|----|----
+
+# Databases
+
+
+
+# Applications
+
+
+
+
+## Application foo
+
+- 
 
 
 
 
 
+### foo whatever
 
 
-
-## foo whatever
-
+<details>
+<summary>Sequence Diagram</summary>
 
 ![](foo/whatever.svg)
+</details>
 
-### Request types
+<details>
+<summary>Request types</summary>
+
+#### Request types
 
 No Request types
 
@@ -31,29 +58,29 @@ No Request types
 
 
 
+</details>
+<details>
+<summary>Response types</summary>
 
-### Response types
+#### Response types
 
 
 
 No Response Types
 
 
+</details>
+
+---
 
 
 
-### Types
 
-<table>
-<tr>
-<th>App Name</th>
-<th>Diagram</th>
-<th>Description</th>
-<th>Full Diagram</th>
+# Types
 
 
-</tr>
 
 
-</table>
+
+<div class="footer">
 

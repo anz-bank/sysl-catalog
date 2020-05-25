@@ -238,6 +238,8 @@ func TypeFromRef(mod *sysl.Module, appName string, t *sysl.Type) (string, string
 	return "", "", nil
 }
 
+//TODO:Generate Mermaid Datamodel
+
 // GenerateDataModel takes all the types in parentAppName and generates data model diagrams for it
 func GenerateDataModel(parentAppName string, t map[string]*sysl.Type) string {
 	type datamodelCmd struct {

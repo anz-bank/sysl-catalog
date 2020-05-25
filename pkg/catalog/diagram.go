@@ -20,6 +20,13 @@ import (
 	"github.com/anz-bank/sysl/pkg/cmdutils"
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
+
+	"github.com/anz-bank/sysl/pkg/mermaid/endpointanalysisdiagram"
+
+	integration "github.com/anz-bank/sysl/pkg/mermaid/integrationdiagram"
+
+	"github.com/anz-bank/sysl/pkg/mermaid/sequencediagram"
+
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
 	"github.com/anz-bank/sysl/pkg/syslwrapper"
@@ -72,14 +79,25 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 }
 func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA bool) string {
 	if p.Mermaid {
-		return p.CreateIntegrationDiagramMermaid(m, title, EPA)
+		return p.CreateIntegrationDiagramMermaid(m, EPA)
 	}
 	return p.CreateIntegrationDiagramPlantuml(m, title, EPA)
 }
 
-//TODO @ashwinsajiv: fill out this function to generate mermaid integration diagrams
-func (p *Generator) CreateIntegrationDiagramMermaid(m *sysl.Module, title string, EPA bool) string {
-	return "" //p.CreateFile("plantumlString", mermaidjs, "title", "integration.Output+p.Ext")
+func (p *Generator) CreateIntegrationDiagramMermaid(m *sysl.Module, EPA bool) string {
+	var result string
+	var err error
+	if EPA {
+		result, err = endpointanalysisdiagram.GenerateEndpointAnalysisDiagram(m)
+		if err != nil {
+			p.Log.Error(err)
+			return ""
+		}
+	} else {
+		result, err = integration.GenerateIntegrationDiagram(m, "")
+	}
+	output := "integration" + TernaryOperator(EPA, "EPA", "").(string)
+	return p.CreateFile(result, mermaidjs, output+p.Ext)
 }
 
 // CreateIntegrationDiagram creates an integration diagram and returns the filename
@@ -107,9 +125,26 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	return p.CreateFile(plantumlString, plantuml, integration.Output+p.Ext)
 }
 
-// CreateSequenceDiagram creates an sequence diagram and returns the filename
 func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoint) string {
-	m := p.RootModule
+	if p.Mermaid {
+		return p.CreateSequenceDiagramMermaid(appName, endpoint)
+	}
+	return p.CreateSequenceDiagramPlantuml(appName, endpoint)
+}
+
+func (p *Generator) CreateSequenceDiagramMermaid(appName string, endpoint *sysl.Endpoint) string {
+	m := p.Module
+	result, error := sequencediagram.GenerateSequenceDiagram(m, appName, endpoint.GetName())
+	if error != nil {
+		p.Log.Error(error)
+		return ""
+	}
+	return p.CreateFile(result, mermaidjs, endpoint.GetName()+p.Ext)
+}
+
+// CreateSequenceDiagram creates an sequence diagram and returns the filename
+func (p *Generator) CreateSequenceDiagramPlantuml(appName string, endpoint *sysl.Endpoint) string {
+	m := p.Module
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.GetName())
 	plantumlString, err := CreateSequenceDiagram(m, call)
 	if err != nil {

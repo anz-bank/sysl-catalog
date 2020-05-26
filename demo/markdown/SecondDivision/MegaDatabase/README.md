@@ -8,9 +8,11 @@
 ## Integration Diagram
 ![](integration.svg)
 
-## Database Index
-| Database Application Name  | Source Location |
-----|----
+
+
+
+
+
 
 ## Application Index
 | Application Name | Method | Source Location |
@@ -23,8 +25,6 @@ this | [this](#this-this) | [../../../../demo/simple2.sysl](../../../../demo/sim
 MegaDatabase | [Empty](#MegaDatabase.Empty) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
 MegaDatabase | [Money](#MegaDatabase.Money) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
 
-# Databases
-
 
 
 
@@ -32,10 +32,6 @@ MegaDatabase | [Money](#MegaDatabase.Money) | [../../../../demo/simple2.sysl](..
 
 
 
-
-## Application MegaDatabase
-
-- 
 
 
 

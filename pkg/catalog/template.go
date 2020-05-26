@@ -45,11 +45,19 @@ const NewPackageTemplate = `
 
 ## Integration Diagram
 ![]({{CreateIntegrationDiagram . $packageName false}})
+{{$Apps := .Apps}}
 
+{{$databases := false}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if and (eq (hasPattern $app.Attrs "ignore") false) (eq (hasPattern $app.Attrs "db") true)}}
+{{$databases = true}}
+{{end}}{{end}}
+
+{{if $databases}}
 ## Database Index
 | Database Application Name  | Source Location |
-----|----{{$Apps := .Apps}}{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if and (eq (hasPattern $app.Attrs "ignore") false) (eq (hasPattern $app.Attrs "db") true)}}
+----|----{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if and (eq (hasPattern $app.Attrs "ignore") false) (eq (hasPattern $app.Attrs "db") true)}}
 [{{$appName}}](#Database-{{$appName}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}
+{{end}}
 
 ## Application Index
 | Application Name | Method | Source Location |
@@ -61,6 +69,8 @@ const NewPackageTemplate = `
 ----|----|----{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}{{if ne (hasPattern $app.Attrs "db") true}}{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
 {{$appName}} | [{{$typeName}}](#{{$appName}}.{{$typeName}}) | [{{SourcePath $type}}]({{SourcePath $type}})|{{end}}{{end}}{{end}}
 
+
+{{if $databases}}
 # Databases
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if hasPattern $app.GetAttrs "db"}}
@@ -72,11 +82,13 @@ const NewPackageTemplate = `
 ![]({{GenerateDataModel $app}})
 </details>
 {{end}}{{end}}
+{{end}}
 
 # Applications
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if eq (hasPattern $app.Attrs "ignore") false}}
 {{if eq (hasPattern $app.Attrs "db") false}}
+{{if ne (len $app.Endpoints) 0}}
 
 ## Application {{$appName}}
 
@@ -148,7 +160,7 @@ No Response Types
 
 ---
 
-{{end}}{{end}}{{end}}{{end}}{{end}}
+{{end}}{{end}}{{end}}{{end}}{{end}}{{end}}
 
 
 # Types

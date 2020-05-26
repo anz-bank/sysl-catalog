@@ -8,9 +8,11 @@
 ## Integration Diagram
 ![](integration.svg)
 
-## Database Index
-| Database Application Name  | Source Location |
-----|----
+
+
+
+
+
 
 ## Application Index
 | Application Name | Method | Source Location |
@@ -24,12 +26,11 @@ MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [../../../../demo/simp
 | Application Name | Type Name | Source Location |
 ----|----|----
 
-# Databases
-
 
 
 
 # Applications
+
 
 
 
@@ -125,6 +126,7 @@ Empty Empty Empty
 </details>
 
 ---
+
 
 
 

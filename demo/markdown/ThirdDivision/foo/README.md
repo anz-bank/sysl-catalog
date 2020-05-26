@@ -8,9 +8,11 @@
 ## Integration Diagram
 ![](integration.svg)
 
-## Database Index
-| Database Application Name  | Source Location |
-----|----
+
+
+
+
+
 
 ## Application Index
 | Application Name | Method | Source Location |
@@ -21,11 +23,11 @@ foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../de
 | Application Name | Type Name | Source Location |
 ----|----|----
 
-# Databases
 
 
 
 # Applications
+
 
 
 

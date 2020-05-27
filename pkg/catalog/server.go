@@ -29,9 +29,6 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 			p.errs = append(p.errs, err)
 		}
 	}
-	if len(p.errs) != 0 {
-		return p
-	}
 	p.Run()
 	return p
 }
@@ -57,11 +54,11 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.Log.Info(err)
 		}
 	}()
-	if len(p.errs) > 0 {
-		bytes = convertToEscapedHTML(fmt.Sprintln(p.errs))
-		p.errs = []error{}
-		return
-	}
+	defer func() {
+		if len(p.errs) > 0 {
+			bytes = convertToEscapedHTML(fmt.Sprintln(p.errs))
+		}
+	}()
 	if p.Fs == nil {
 		p.Update(p.RootModule)
 	}
@@ -82,14 +79,15 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
 		bytes, err = afero.ReadFile(p.Fs, request)
 		if err != nil {
-			bytes = convertToEscapedHTML(err.Error())
+			p.errs = append(p.errs, err)
 			p.Log.Info(err)
 		}
+		p.errs = []error{}
 		return
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)
 		if err != nil {
-			bytes = convertToEscapedHTML(err.Error())
+			p.errs = append(p.errs, err)
 			p.Log.Info(err)
 		}
 		return
@@ -98,12 +96,16 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	bytes, err = afero.ReadFile(p.Fs, request)
 	if err != nil {
-		bytes = convertToEscapedHTML(err.Error())
+		if len(p.errs) > 0 && p.errs[len(p.errs)-1].Error() == err.Error() {
+			return
+		}
+		p.errs = append(p.errs, err)
 		p.Log.Info(err)
 		return
 	}
 	file = string(bytes)
 	if !p.LiveReload {
+		p.errs = []error{}
 		return
 	}
 	switch p.Format {
@@ -115,6 +117,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	default:
 		bytes = convertToEscapedHTML(file)
 	}
+	p.errs = []error{}
 }
 
 func convertToEscapedHTML(file string) []byte {

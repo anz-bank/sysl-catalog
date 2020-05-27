@@ -59,10 +59,16 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			bytes = convertToEscapedHTML(fmt.Sprintln(p.errs))
 		}
 	}()
-	if p.Fs == nil {
+	request := r.RequestURI
+
+	if p.RootModule == nil && path.Ext(request) != ".ico" {
+		bytes = convertToHTML(`<img class="blink-image" src="favicon.ico">` + flashing)
+		return
+	}
+	if p.Fs == nil && path.Ext(request) != ".ico" {
 		p.Update(p.RootModule)
 	}
-	request := r.RequestURI
+
 	switch request {
 	case "/plantuml", "/plantuml/":
 		p.Mermaid = false
@@ -126,4 +132,8 @@ func convertToEscapedHTML(file string) []byte {
 			`<pre style="word-wrap: break-word; white-space: pre-wrap;">` +
 			html.EscapeString(file) +
 			`</pre>` + script + endTags)
+}
+
+func convertToHTML(file string) []byte {
+	return []byte(header + file + script + endTags)
 }

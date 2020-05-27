@@ -38,8 +38,6 @@ type Generator struct {
 	DisableImages        bool // used for omitting image creation
 	Mermaid              bool
 	Format               string // "html" or "markdown" or "" if custom
-	CurrentDir           string
-	TempDir              string
 	Ext                  string
 	OutputFileName       string
 	PlantumlService      string
@@ -49,10 +47,12 @@ type Generator struct {
 	Templates            []*template.Template
 	StartTemplateIndex   int
 	// All of these are used in markdown generation
-	Module    *sysl.Module
-	Title     string
-	OutputDir string
-	Links     map[string]string
+	CurrentDir string
+	TempDir    string
+	Module     *sysl.Module
+	Title      string
+	OutputDir  string
+	Links      map[string]string
 }
 
 type SourceCoder interface {

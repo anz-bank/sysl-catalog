@@ -6,7 +6,7 @@
 # MegaDatabase
 
 ## Integration Diagram
-![](integration.svg)
+![](https://plantuml.com/plantuml/svg/~1UDgCZazBjL0GnlVpAUPTkHAkl14jBdAzQj6YAuJH8a8c7Jm7pnyvPwGY-kuXHckVtJFFZ-6Nx0ua2UxABreyjSrTVQaVYxQki6og6jCKgmOlJOjrTT_--qDtVztj2gSe56In1aIBONpWaIeIUgF8eFJ068K3U_cS6M9FXj7I1sRN_s-kKB4UbK2Sj9ifaCNUszaxTe9VW7YcVXg3NznGUkC3tXeVo3mhBRokFWmSjkLig9y0iGZ1ls-dCcWRlODlU155yeeKiJkiHSUjP7WyAZqgiqhaENG7JDCSkmnEx8R5cfy0003__yBrRDq0)
 
 
 
@@ -51,7 +51,7 @@ MegaDatabase | [Money](#MegaDatabase.Money) | [../../../../demo/simple2.sysl](..
 <details>
 <summary>Sequence Diagram</summary>
 
-![](this/this.svg)
+![](https://plantuml.com/plantuml/svg/~1UDfI9nfmgQih40MWIXr3G_pTNVrSWnn3N5qKdFrTN1LqTHLS_1Ny_4CKN5qyGnJXIeasbMYtSZaKboGMbPJcvd0bv-UL5ENdA2YLP6GMAoaa5Yl46t0LPsVc5IGM9UOgv2PM-AOM5oUcfmPdLgKg69aQS9LabkIaAe2KAzZeWcakMriKleAjBLUqhbsyWO8LH3unkIIpBB4a5MHsIYeopo4rBmNa3400003__rbaKLi0)
 </details>
 
 <details>
@@ -95,9 +95,9 @@ No Response Types
 
 - Empty Empty Empty
 
-![](MegaDatabase/emptysimple.svg)
+![](https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie-QQc9xeabYGc9HQdkkOMb5GgAIGMAyGRsDWeQBZev1SbPsIcQ2hOsIbKSzLoEQJcfO3211000F__kV0uRm00)
 
-[Full Diagram](MegaDatabase/empty.svg)
+[Full Diagram](https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie-QQc9xeabYGc9HQdwhdc5fHKAYaa5Yl46zZOA6YuwEGN9MTafcWgsDafL7FLSZcavgM00WKG003__-skE9q0)
 
 #### Fields
 
@@ -112,9 +112,9 @@ No Response Types
 
 - Money Money Money
 
-![](MegaDatabase/moneysimple.svg)
+![](https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie-URdfLOgAIGMAyGRADZOA6YuwEGN9MTafcWgsDafL7DfAoJcvfVcbIXOAMJcbN3LSZcavgM0mWKG003__sCmEAS0)
 
-[Full Diagram](MegaDatabase/money.svg)
+[Full Diagram](https://plantuml.com/plantuml/svg/~1UDgCaB4AmZ0KHVTynRLB5QquIoajlY0ERK3YBCysQA5De4a74VzT177EcG-Noobzu2dCuo3IQ4IQ8egVMbsqEif6dYij2GT54ba6KcYKXgIJNlpLwDNehw8Ts7iajRapSU0RUxEjdJNF1EnntI7FiQIDczf7twrG57Y9DNXqimtOexT1l4LfRFUDz0a00F__bZ8zP000)
 
 #### Fields
 

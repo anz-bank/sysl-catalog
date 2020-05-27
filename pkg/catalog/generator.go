@@ -125,9 +125,10 @@ func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator 
 	return p.WithTemplateString(tmpls...)
 }
 
-func (p *Generator) SetOptions(disableCss, disableImages bool, readmeName string) *Generator {
+func (p *Generator) SetOptions(disableCss, disableImages, imageTags bool, readmeName string) *Generator {
 	p.DisableCss = disableCss
-	p.DisableImages = disableImages
+	p.DisableImages = disableImages || imageTags
+	p.ImageTags = imageTags
 	if readmeName != "" {
 		p.OutputFileName = readmeName
 	}

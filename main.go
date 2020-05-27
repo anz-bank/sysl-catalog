@@ -24,6 +24,7 @@ import (
 
 var (
 	input             = kingpin.Arg("input", "input sysl file to generate documentation for").Required().String()
+	plantUMLoption    = kingpin.Flag("plantuml", "plantuml service to use").String()
 	port              = kingpin.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
 	outputType        = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
 	outputDir         = kingpin.Flag("output", "OutputDir directory to generate to").Short('o').String()
@@ -34,6 +35,7 @@ var (
 	noCSS             = kingpin.Flag("noCSS", "disable adding css to served html").Bool()
 	disableLiveReload = kingpin.Flag("disableLiveReload", "diable live reload").Default("false").Bool()
 	noImages          = kingpin.Flag("noImages", "don't create images").Default("false").Bool()
+	embed             = kingpin.Flag("embed", "Embed images instead of creating svgs").Default("false").Bool()
 	enableMermaid     = kingpin.Flag("mermaid", "use mermaid diagrams where possible").Default("false").Bool()
 )
 
@@ -42,6 +44,9 @@ func main() {
 	plantumlService := os.Getenv("SYSL_PLANTUML")
 	if plantumlService == "" {
 		log.Fatal("Error: Set SYSL_PLANTUML env variable")
+	}
+	if *plantUMLoption != "" {
+		plantumlService = *plantUMLoption
 	}
 	fs := afero.NewOsFs()
 	log := logrus.New()
@@ -58,7 +63,7 @@ func main() {
 		}
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
 			WithTemplateFs(fs, strings.Split(*templates, ",")...).
-			SetOptions(*noCSS, *noImages, *outputFileName).
+			SetOptions(*noCSS, *noImages, *embed, *outputFileName).
 			Run()
 		return
 	}
@@ -66,7 +71,7 @@ func main() {
 	handler := catalog.
 		NewProject(*input, plantumlService, "html", log, nil, nil, "", *enableMermaid).
 		WithTemplateFs(fs, strings.Split(*templates, ",")...).
-		SetOptions(*noCSS, *noImages, *outputFileName).
+		SetOptions(*noCSS, *noImages, *embed, *outputFileName).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 	goterm.Clear()
 	PrintToPosition(1, "Serving on http://localhost"+*port)

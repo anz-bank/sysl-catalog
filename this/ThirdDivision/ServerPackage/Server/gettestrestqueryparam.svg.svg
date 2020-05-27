@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="258px" preserveAspectRatio="none" style="width:303px;height:258px;" version="1.1" viewBox="0 0 303 258" width="303px" zoomAndPan="magnify"><defs><filter height="300%" id="f4e2kt6mr7jnr" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="263" x="15.5" y="23.5352">Server &lt;- GET /testRestQueryParam</text><rect fill="#FFFFFF" filter="url(#f4e2kt6mr7jnr)" height="29.3105" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="183" y="156.5977"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="187.5" x2="187.5" y1="81.9766" y2="203.9082"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="43" x="163.5" y="79.0234">Server</text><ellipse cx="188" cy="49.4883" fill="#FEFECE" filter="url(#f4e2kt6mr7jnr)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="184,37.4883,190,32.4883,188,37.4883,190,42.4883,184,37.4883" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="43" x="163.5" y="216.4434">Server</text><ellipse cx="188" cy="235.3965" fill="#FEFECE" filter="url(#f4e2kt6mr7jnr)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="184,223.3965,190,218.3965,188,223.3965,190,228.3965,184,223.3965" style="stroke: #A80036; stroke-width: 1.0;"/><rect fill="#FFFFFF" filter="url(#f4e2kt6mr7jnr)" height="29.3105" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="183" y="156.5977"/><rect fill="#EEEEEE" filter="url(#f4e2kt6mr7jnr)" height="3" style="stroke: #EEEEEE; stroke-width: 1.0;" width="288" x="3" y="112.6318"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="291" y1="112.6318" y2="112.6318"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="291" y1="115.6318" y2="115.6318"/><rect fill="#EEEEEE" filter="url(#f4e2kt6mr7jnr)" height="23.3105" style="stroke: #000000; stroke-width: 2.0;" width="264" x="15" y="101.9766"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="246" x="21" y="118.5449">Server &lt;- GET /testRestQueryParam</text><polygon fill="#A80036" points="171,152.5977,181,156.5977,171,160.5977,175,156.5977" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="3" x2="177" y1="156.5977" y2="156.5977"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="161" x="10" y="151.8555">GET /testRestQueryParam</text><polygon fill="#A80036" points="14,181.9082,4,185.9082,14,189.9082,10,185.9082" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="8" x2="187" y1="185.9082" y2="185.9082"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="60" x="20" y="181.166">Response</text><!--MD5=[e76f5e1fe89c03e847321a55b4f804bd]
+@startuml
+control "Server" as _0
+skinparam maxMessageSize 250
+title Server <- GET /testRestQueryParam
+== Server <- GET /testRestQueryParam ==
+[->_0 : GET /testRestQueryParam
+activate _0
+[<- -_0 : Response
+deactivate _0
+@enduml
+
+PlantUML version 1.2019.11(Sun Sep 22 20:02:15 AEST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 13.0.1+9
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: en
+Country: AU
+--></g></svg>

@@ -82,7 +82,9 @@ func main() {
 					err = fmt.Errorf("%s", r)
 				}
 			}()
+			fmt.Println("Parsing")
 			m, err = parse.NewParser().Parse(*input, fs)
+			fmt.Println("Done Parsing")
 			return
 		}()
 		if err != nil {

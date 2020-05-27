@@ -174,9 +174,10 @@ func (p *Generator) Run() {
 	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
 	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
-	diagramCreator(p.FilesToCreate, HttpToFile)
+	diagramCreator(p.FilesToCreate, PlantumlJava)
 
 	wg.Wait()
+	PlantUMLDir(p.OutputDir)
 	progress.Finish()
 }
 

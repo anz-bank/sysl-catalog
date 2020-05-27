@@ -2,9 +2,11 @@
 package catalog
 
 import (
-	"fmt"
+	"bytes"
+	"io"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path"
 	"reflect"
 	"sort"
@@ -20,7 +22,6 @@ import (
 	"github.com/spf13/afero"
 
 	"github.com/anz-bank/sysl/pkg/cmdutils"
-	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/sequencediagram"
 	"github.com/hashicorp/go-retryablehttp"
 
@@ -219,11 +220,12 @@ func RetryHTTPRequest(url string) ([]byte, error) {
 
 // PlantUMLURL returns a PlantUML url
 func PlantUMLURL(plantumlService, contents string) (string, error) {
-	encoded, err := diagrams.DeflateAndEncode([]byte(contents))
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprint(plantumlService, "/", "svg", "/~1", encoded), nil
+	return contents, nil
+	//encoded, err := diagrams.DeflateAndEncode([]byte(contents))
+	//if err != nil {
+	//	return "", err
+	//}
+	//return fmt.Sprint(plantumlService, "/", "svg", "/~1", encoded), nil
 }
 
 func HttpToFile(fs afero.Fs, fileName, url string) error {
@@ -238,6 +240,75 @@ func HttpToFile(fs afero.Fs, fileName, url string) error {
 		return err
 	}
 	return nil
+}
+
+func PlantumlJava(fs afero.Fs, fileName, contents string) error {
+	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
+		return err
+	}
+	if err := afero.WriteFile(fs, strings.ReplaceAll(fileName, ".svg", ".puml"), []byte(contents), os.ModePerm); err != nil {
+		return err
+	}
+	return nil
+}
+
+func PlantUMLDir(dir string) {
+	dir = `"` + dir + `/**.puml"`
+	plantuml := exec.Command("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", dir)
+	err := plantuml.Run()
+	if err != nil {
+		panic(err)
+	}
+}
+
+//java -Djava.awt.headless=true -jar plantuml.jar -tsvg
+
+func ExecPlantUML(plantumlString string) ([]byte, error) {
+	//create command
+	echo := exec.Command("echo", `"`+plantumlString+`"`)
+	plantuml := exec.Command("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-p", "-tsvg")
+
+	//make a pipe
+	reader, writer := io.Pipe()
+	var buf bytes.Buffer
+
+	//set the output of "cat" command to pipe writer
+	echo.Stdout = writer
+	//set the input of the "wc" command pipe reader
+
+	plantuml.Stdin = reader
+
+	//cache the output of "wc" to memory
+	plantuml.Stdout = &buf
+
+	//start to execute "cat" command
+	if err := echo.Start(); err != nil {
+		return nil, err
+	}
+
+	//start to execute "wc" command
+	if err := plantuml.Start(); err != nil {
+		return nil, err
+	}
+
+	//waiting for "cat" command complete and close the writer
+	if err := echo.Wait(); err != nil {
+		return nil, err
+	}
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+
+	//waiting for the "wc" command complete and close the reader
+	if err := plantuml.Wait(); err != nil {
+		return nil, err
+	}
+	if err := reader.Close(); err != nil {
+		return nil, err
+	}
+	//copy the buf to the standard output
+	//io.Copy(os.Stdout, &buf)
+	return buf.Bytes(), nil
 }
 
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file

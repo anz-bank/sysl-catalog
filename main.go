@@ -11,8 +11,6 @@ import (
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 
-	"github.com/buger/goterm"
-
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
 	"github.com/anz-bank/sysl/pkg/parse"
@@ -73,11 +71,10 @@ func main() {
 		WithTemplateFs(fs, strings.Split(*templates, ",")...).
 		SetOptions(*noCSS, *noImages, *embed, *outputFileName).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
-	goterm.Clear()
-	PrintToPosition(1, "Serving on http://localhost"+*port)
+	fmt.Println("Serving on http://localhost" + *port)
 	logrus.SetOutput(ioutil.Discard)
 	go watcher.WatchFile(func(i interface{}) {
-		PrintToPosition(3, "Regenerating")
+		fmt.Println("Regenerating")
 		m, err := func() (m *sysl.Module, err error) {
 			defer func() {
 				if r := recover(); r != nil {
@@ -89,14 +86,12 @@ func main() {
 			return
 		}()
 		if err != nil {
-			PrintToPosition(4, err)
+			fmt.Println(err)
 		}
 		handler.Update(m, err)
 		livereload.ForceRefresh()
-		PrintToPosition(2, i)
-		PrintToPosition(4, goterm.RESET_LINE)
-		PrintToPosition(3, goterm.RESET_LINE)
-		PrintToPosition(3, "Done Regenerating")
+		fmt.Println(i)
+		fmt.Println("Done Regenerating")
 	}, path.Dir(*input))
 	livereload.Initialize()
 	http.HandleFunc("/livereload.js", livereload.ServeJS)
@@ -104,10 +99,4 @@ func main() {
 	http.Handle("/", handler)
 	log.Fatal(http.ListenAndServe(*port, nil))
 	select {}
-}
-
-func PrintToPosition(y int, i interface{}) {
-	goterm.MoveCursor(1, y)
-	goterm.Print(i)
-	goterm.Flush()
 }

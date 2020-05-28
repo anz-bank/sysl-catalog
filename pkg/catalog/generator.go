@@ -38,8 +38,6 @@ type Generator struct {
 	DisableImages        bool // used for omitting image creation
 	Mermaid              bool
 	Format               string // "html" or "markdown" or "" if custom
-	CurrentDir           string
-	TempDir              string
 	Ext                  string
 	OutputFileName       string
 	PlantumlService      string
@@ -49,10 +47,12 @@ type Generator struct {
 	Templates            []*template.Template
 	StartTemplateIndex   int
 	// All of these are used in markdown generation
-	Module    *sysl.Module
-	Title     string
-	OutputDir string
-	Links     map[string]string
+	CurrentDir string
+	TempDir    string
+	Module     *sysl.Module
+	Title      string
+	OutputDir  string
+	Links      map[string]string
 }
 
 type SourceCoder interface {
@@ -125,9 +125,10 @@ func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator 
 	return p.WithTemplateString(tmpls...)
 }
 
-func (p *Generator) SetOptions(disableCss, disableImages bool, readmeName string) *Generator {
+func (p *Generator) SetOptions(disableCss, disableImages, imageTags bool, readmeName string) *Generator {
 	p.DisableCss = disableCss
-	p.DisableImages = disableImages
+	p.DisableImages = disableImages || imageTags
+	p.ImageTags = imageTags
 	if readmeName != "" {
 		p.OutputFileName = readmeName
 	}
@@ -218,6 +219,8 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"ModulePackageName":        ModulePackageName,
 		"SortedKeys":               SortedKeys,
 		"Attribute":                Attribute,
+		"Fields":                   Fields,
+		"FieldType":                FieldType,
 		"SanitiseOutputName":       SanitiseOutputName,
 		"ToLower":                  strings.ToLower,
 		"ToCamel":                  strcase.ToCamel,

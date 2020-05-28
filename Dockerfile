@@ -11,7 +11,7 @@ ENV LANG en_US.UTF-8
 RUN \
   apk add --no-cache graphviz wget ca-certificates && \
   apk add --no-cache graphviz wget ca-certificates ttf-dejavu fontconfig && \
-  wget "http://downloads.sourceforge.net/project/plantuml/1.2019.11/plantuml.1.2019.11.jar" -O plantuml.jar && \
+  wget "http://downloads.sourceforge.net/project/plantuml/1.2020.10/plantuml.1.2020.10.jar" -O plantuml.jar && \
   apk del wget ca-certificates
 RUN ["java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-version"]
 RUN ["dot", "-version"]

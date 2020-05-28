@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 
@@ -55,10 +56,15 @@ func main() {
 		logrus.SetLevel(logrus.ErrorLevel)
 	}
 	if !*server {
+		fmt.Println("Parsing")
+		start := time.Now()
 		m, err := parse.NewParser().Parse(*input, fs)
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Println("Done")
+		elapsed := time.Since(start)
+		fmt.Println("Done, time elapsed: ", elapsed)
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
 			WithTemplateFs(fs, strings.Split(*templates, ",")...).
 			SetOptions(*noCSS, *noImages, *embed, *outputFileName).

@@ -3,6 +3,7 @@ package catalog
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -11,6 +12,7 @@ import (
 	"reflect"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 
@@ -242,23 +244,38 @@ func HttpToFile(fs afero.Fs, fileName, url string) error {
 	return nil
 }
 
-func PlantumlJava(fs afero.Fs, fileName, contents string) error {
+func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
+	fileName = strings.ReplaceAll(fileName, ".svg", ".puml")
 	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
 		return err
 	}
-	if err := afero.WriteFile(fs, strings.ReplaceAll(fileName, ".svg", ".puml"), []byte(contents), os.ModePerm); err != nil {
+	if err := afero.WriteFile(fs, fileName, []byte(contents), os.ModePerm); err != nil {
 		return err
 	}
 	return nil
 }
 
-func PlantUMLDir(dir string) {
-	dir = `"` + dir + `/**.puml"`
-	plantuml := exec.Command("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", dir)
+//bash -c java -Djava.awt.headless=true -jar plantuml.jar -tsvg "this**.puml" --o /var/folders/pm/hvp4j8p54cg6p5j5svmk8tn00000gn/T/tmp.XcWfMrwL
+
+func PlantUMLDir(input string) {
+	indir := `"` + input + `*/**.puml"`
+	defer func() {
+		plantuml := exec.Command("bash", "-c", "find "+input+" -type f -name '*.puml' -delete") //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+		err := plantuml.Run()
+		if err != nil {
+			panic(err)
+		}
+	}()
+	start := time.Now()
+	fmt.Println("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+	plantuml := exec.Command("bash", "-c", "java -Djava.awt.headless=true -jar plantuml.jar -tsvg "+indir) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
 	err := plantuml.Run()
 	if err != nil {
 		panic(err)
 	}
+	elapsed := time.Since(start)
+	fmt.Println("elapsed:", elapsed)
+
 }
 
 //java -Djava.awt.headless=true -jar plantuml.jar -tsvg

@@ -28,6 +28,7 @@ var typeMaps = map[string]string{"md": "README.md", "markdown": "README.md", "ht
 // Generator is the contextual object that is used in the markdown generation
 type Generator struct {
 	FilesToCreate        map[string]string
+	DirsToCreate         map[string]struct{} // This is for using diagrams with cli plantuml
 	MermaidFilesToCreate map[string]string
 	SourceFileName       string
 	ProjectTitle         string

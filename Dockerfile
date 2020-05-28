@@ -4,7 +4,6 @@
 #RUN go build -o sysl-catalog .
 
 FROM openjdk:14-jdk-alpine3.10
-MAINTAINER think@hotmail.de
 WORKDIR /usr/src
 ENV PLANTUML_VERSION=1.2019.11
 COPY sysl-catalog .
@@ -15,6 +14,7 @@ RUN \
   wget "http://downloads.sourceforge.net/project/plantuml/1.2020.10/plantuml.1.2020.10.jar" -O plantuml.jar && \
   apk del wget ca-certificates
 RUN apk add bash
+RUN apt-get update && apt-get install -y --no-install-recommends graphviz fonts-wqy-zenhei && rm -rf /var/lib/apt/lists/*
 #RUN apk add ls
 RUN ["java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-version"]
 RUN ["dot", "-version"]

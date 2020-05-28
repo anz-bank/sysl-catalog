@@ -16,7 +16,7 @@ import (
 
 // Update loads another Sysl module into a project and runs
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
-	p.Fs = afero.NewMemMapFs()
+	//p.Fs = afero.NewMemMapFs()
 	p.RootModule = m
 	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
@@ -41,6 +41,18 @@ func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Gene
 	p.LiveReload = liveReload
 	p.ImageTags = imageTags
 	p.OutputDir = "/"
+	if p.PlantumlService == "java" {
+		p.Fs = afero.NewOsFs()
+		p.DirsToCreate = map[string]struct{}{}
+		randDir := exec.Command("mktemp", "-d")
+		rDir, err := randDir.CombinedOutput()
+		if err != nil {
+			p.errs = append(p.errs, err)
+			p.Log.Info(err)
+		}
+		p.OutputDir = strings.ReplaceAll(string(rDir), "\n", "")
+		//p.OutputDir = "this"
+	}
 	return p
 }
 
@@ -62,7 +74,6 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 	request := r.RequestURI
-
 	if p.RootModule == nil && path.Ext(request) != ".ico" {
 		bytes = convertToHTML(`<img class="blink-image" src="favicon.ico">` + flashing)
 		return
@@ -70,7 +81,6 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if p.Fs == nil && path.Ext(request) != ".ico" {
 		p.Update(p.RootModule)
 	}
-
 	switch request {
 	case "/plantuml", "/plantuml/":
 		p.Mermaid = false
@@ -85,27 +95,16 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch path.Ext(request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
-		request = strings.ReplaceAll(request, ".svg", ".puml")
-		bytes, err = afero.ReadFile(p.Fs, request)
-		if err != nil {
-			p.errs = append(p.errs, err)
-			p.Log.Info(err)
+		bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
+		if err != nil { // plantuml diagrams haven't been generated for this directory yet
+			if _, ok := p.DirsToCreate[path.Dir(request)]; !ok && p.PlantumlService == "java" {
+				p.DirsToCreate[path.Dir(request)] = struct{}{}
+				puml := strings.ReplaceAll(request, ".svg", ".puml")
+				PlantUMLDir(path.Dir(path.Join(p.OutputDir, puml)))
+				bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
+			}
 		}
 		p.errs = []error{}
-		//returned
-		if p.PlantumlService == "java" {
-
-			defer func() {
-				//cmd := fmt.Sprintf("echo %s  | java -jar plantuml.jar -pipe -tsvg", string(bytes))
-				//fmt.Println("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-				plantuml := exec.Command("bash", "-c", fmt.Sprintf("echo \"%s\"  | java -jar plantuml.jar -pipe -tsvg", string(bytes))) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-				bytes, err = plantuml.CombinedOutput()
-				//if err != nil {
-				//	panic(err)
-				//}
-			}()
-
-		}
 		return
 
 	case ".ico":
@@ -118,7 +117,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "":
 		request += "index.html"
 	}
-	bytes, err = afero.ReadFile(p.Fs, request)
+	bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
 	if err != nil {
 		if len(p.errs) > 0 && p.errs[len(p.errs)-1].Error() == err.Error() {
 			return

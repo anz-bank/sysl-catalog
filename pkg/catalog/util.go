@@ -259,14 +259,14 @@ func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
 //bash -c java -Djava.awt.headless=true -jar plantuml.jar -tsvg "this**.puml" --o /var/folders/pm/hvp4j8p54cg6p5j5svmk8tn00000gn/T/tmp.XcWfMrwL
 
 func PlantUMLDir(input string) {
-	indir := `"` + input + `**.puml"`
-	defer func() {
-		plantuml := exec.Command("bash", "-c", "find "+input+" -type f -name '*.puml' -delete") //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-		err := plantuml.Run()
-		if err != nil {
-			panic(err)
-		}
-	}()
+	indir := `"` + input + `/*.puml"`
+	//defer func() {
+	//	plantuml := exec.Command("bash", "-c", "find "+input+" -type f -name '*.puml' -delete") //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+	//	err := plantuml.Run()
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//}()
 	start := time.Now()
 	fmt.Println("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
 	plantuml := exec.Command("bash", "-c", "java -Djava.awt.headless=true -jar plantuml.jar -tsvg "+indir) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)

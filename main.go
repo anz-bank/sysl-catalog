@@ -9,11 +9,11 @@ import (
 	"path"
 	"strings"
 
+	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/sysl"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
-	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/gohugoio/hugo/livereload"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
@@ -55,7 +55,7 @@ func main() {
 		logrus.SetLevel(logrus.ErrorLevel)
 	}
 	if !*server {
-		m, err := parse.NewParser().Parse(*input, fs)
+		m, _, err := loader.LoadSyslModule(".", *input, fs, log)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -82,7 +82,7 @@ func main() {
 					err = fmt.Errorf("%s", r)
 				}
 			}()
-			m, err = parse.NewParser().Parse(*input, fs)
+			m, _, err = loader.LoadSyslModule("", *input, fs, log)
 			return
 		}()
 		if err != nil {

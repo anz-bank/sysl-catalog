@@ -253,13 +253,14 @@ func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
 	if err := afero.WriteFile(fs, fileName, []byte(contents), os.ModePerm); err != nil {
 		return err
 	}
+	PlantUMLDir(fileName)
 	return nil
 }
 
 //bash -c java -Djava.awt.headless=true -jar plantuml.jar -tsvg "this**.puml" --o /var/folders/pm/hvp4j8p54cg6p5j5svmk8tn00000gn/T/tmp.XcWfMrwL
 
 func PlantUMLDir(input string) {
-	indir := `"` + input + `/*.puml"`
+	indir := `"` + input + `"`
 	//defer func() {
 	//	plantuml := exec.Command("bash", "-c", "find "+input+" -type f -name '*.puml' -delete") //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
 	//	err := plantuml.Run()
@@ -270,10 +271,10 @@ func PlantUMLDir(input string) {
 	start := time.Now()
 	fmt.Println("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
 	plantuml := exec.Command("bash", "-c", "java -Djava.awt.headless=true -jar plantuml.jar -tsvg "+indir) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-	err := plantuml.Run()
-	if err != nil {
-		panic(err)
-	}
+	_ = plantuml.Run()
+	//if err != nil {
+	//	panic(err)
+	//}
 	elapsed := time.Since(start)
 	fmt.Println("elapsed:", elapsed)
 

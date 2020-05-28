@@ -51,7 +51,6 @@ func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Gene
 			p.Log.Info(err)
 		}
 		p.OutputDir = strings.ReplaceAll(string(rDir), "\n", "")
-		//p.OutputDir = "this"
 	}
 	return p
 }
@@ -97,10 +96,11 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
 		bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
 		if err != nil { // plantuml diagrams haven't been generated for this directory yet
-			if _, ok := p.DirsToCreate[path.Dir(request)]; !ok && p.PlantumlService == "java" {
+			//if _, ok := p.DirsToCreate[path.Dir(request)]; !ok &&
+			if p.PlantumlService == "java" {
 				p.DirsToCreate[path.Dir(request)] = struct{}{}
 				puml := strings.ReplaceAll(request, ".svg", ".puml")
-				PlantUMLDir(path.Dir(path.Join(p.OutputDir, puml)))
+				PlantUMLDir(path.Join(p.OutputDir, puml))
 				bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
 			}
 		}

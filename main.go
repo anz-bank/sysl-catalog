@@ -41,11 +41,11 @@ var (
 func main() {
 	kingpin.Parse()
 	plantumlService := os.Getenv("SYSL_PLANTUML")
-	if plantumlService == "" {
-		log.Fatal("Error: Set SYSL_PLANTUML env variable")
-	}
 	if *plantUMLoption != "" {
 		plantumlService = *plantUMLoption
+	}
+	if plantumlService == "" {
+		log.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
 	}
 	fs := afero.NewOsFs()
 	log := logrus.New()

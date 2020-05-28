@@ -166,18 +166,23 @@ func (p *Generator) Run() {
 		fmt.Println("Generating Mermaid diagrams:")
 		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
 	}
-	if p.ImageTags || p.DisableImages {
+	if (p.ImageTags || p.DisableImages) && p.PlantumlService != "java" {
 		logrus.Info("Skipping Image creation")
 		return
 	}
 	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
 	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
-	diagramCreator(p.FilesToCreate, p.PlantumlJava)
+	if p.PlantumlService == "java" {
+		diagramCreator(p.FilesToCreate, p.PlantumlJava)
+	} else {
+		diagramCreator(p.FilesToCreate, HttpToFile)
+	}
 
 	wg.Wait()
 	progress.Finish()
-	PlantUMLDir(p.OutputDir)
+
+	//PlantUMLDir(p.OutputDir)
 
 }
 

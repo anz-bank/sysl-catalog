@@ -14,6 +14,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/anz-bank/sysl/pkg/diagrams"
+
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 
 	"github.com/anz-bank/sysl/pkg/syslutil"
@@ -222,12 +224,11 @@ func RetryHTTPRequest(url string) ([]byte, error) {
 
 // PlantUMLURL returns a PlantUML url
 func PlantUMLURL(plantumlService, contents string) (string, error) {
-	return contents, nil
-	//encoded, err := diagrams.DeflateAndEncode([]byte(contents))
-	//if err != nil {
-	//	return "", err
-	//}
-	//return fmt.Sprint(plantumlService, "/", "svg", "/~1", encoded), nil
+	encoded, err := diagrams.DeflateAndEncode([]byte(contents))
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprint(plantumlService, "/", "svg", "/~1", encoded), nil
 }
 
 func HttpToFile(fs afero.Fs, fileName, url string) error {

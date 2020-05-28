@@ -260,15 +260,17 @@ func CreateFileName(dir string, elems ...string) (string, string) {
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFile(contents string, diagramType int, elems ...string) string {
 	absFilePath, currentDir := CreateFileName(p.CurrentDir, elems...)
-	var fileContents string
+	//var fileContents string
 	var targetMap map[string]string
 	var err error
+	//fileContents = contents
 	switch diagramType {
 	case plantuml:
-		fileContents, err = PlantUMLURL(p.PlantumlService, contents)
+		if p.PlantumlService != "java" {
+			contents, err = PlantUMLURL(p.PlantumlService, contents)
+		}
 		targetMap = p.FilesToCreate
 	case mermaidjs:
-		fileContents = contents
 		targetMap = p.MermaidFilesToCreate
 	default:
 		panic("Wrong diagram type specified")
@@ -279,17 +281,17 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	}
 	newFileName := absFilePath
 	for i := 0; ; i++ {
-		if diagram, ok := targetMap[newFileName]; !ok || diagram == fileContents {
+		if diagram, ok := targetMap[newFileName]; !ok || diagram == contents {
 			break
 		}
 		newFileName = strings.ReplaceAll(absFilePath, p.Ext, strconv.Itoa(i)+p.Ext)
 	}
 	absFilePath = newFileName
 	// if p.ImageTags: return image tag from plantUML service
-	if p.ImageTags && diagramType == plantuml {
-		return fileContents
+	if p.ImageTags && diagramType == plantuml && p.PlantumlService != "java" {
+		return contents
 	}
-	targetMap[absFilePath] = fileContents
+	targetMap[absFilePath] = contents
 	return strings.Replace(absFilePath, currentDir, "", 1)
 }
 

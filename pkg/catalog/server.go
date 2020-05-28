@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"html"
 	"net/http"
+	"os/exec"
 	"path"
+	"strings"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/spf13/afero"
@@ -83,13 +85,29 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch path.Ext(request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
+		request = strings.ReplaceAll(request, ".svg", ".puml")
 		bytes, err = afero.ReadFile(p.Fs, request)
 		if err != nil {
 			p.errs = append(p.errs, err)
 			p.Log.Info(err)
 		}
 		p.errs = []error{}
+		//returned
+		if p.PlantumlService == "java" {
+
+			defer func() {
+				//cmd := fmt.Sprintf("echo %s  | java -jar plantuml.jar -pipe -tsvg", string(bytes))
+				//fmt.Println("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+				plantuml := exec.Command("bash", "-c", fmt.Sprintf("echo \"%s\"  | java -jar plantuml.jar -pipe -tsvg", string(bytes))) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+				bytes, err = plantuml.CombinedOutput()
+				//if err != nil {
+				//	panic(err)
+				//}
+			}()
+
+		}
 		return
+
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)
 		if err != nil {

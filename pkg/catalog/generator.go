@@ -161,7 +161,6 @@ func (p *Generator) Run() {
 			}(fileName, contents)
 		}
 	}
-
 	if p.Mermaid {
 		progress = pb.StartNew(len(p.MermaidFilesToCreate))
 		fmt.Println("Generating Mermaid diagrams:")

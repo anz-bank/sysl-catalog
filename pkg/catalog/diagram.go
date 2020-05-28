@@ -4,6 +4,7 @@ package catalog
 import (
 	"bytes"
 	"fmt"
+	"github.com/anz-bank/sysl/pkg/mermaid/datamodeldiagram"
 	"os"
 	"path"
 	"regexp"
@@ -94,7 +95,7 @@ func (p *Generator) CreateIntegrationDiagramMermaid(m *sysl.Module, EPA bool) st
 			return ""
 		}
 	} else {
-		result, err = integration.GenerateIntegrationDiagram(m, "")
+		result, err = integration.GenerateFullIntegrationDiagram(m)
 	}
 	output := "integration" + TernaryOperator(EPA, "EPA", "").(string)
 	return p.CreateFile(result, mermaidjs, output+p.Ext)
@@ -258,21 +259,28 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 // It handles recursively getting the related types, or for primitives, just returns the
 func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.Type, recursive bool) string {
 	m := p.RootModule
-	var plantumlString string
-	if recursive {
-		relatedTypes := catalogdiagrams.RecursivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, m)
-		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
-		if _, ok := p.RootModule.GetApps()[appName]; !ok {
-			return ""
+	if !p.Mermaid {
+		var plantumlString string
+		if recursive {
+			relatedTypes := catalogdiagrams.RecursivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, m)
+			plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
+			if _, ok := p.RootModule.GetApps()[appName]; !ok {
+				return ""
+			}
+			// Handle Empty
+			if len(relatedTypes) == 0 {
+				return ""
+			}
+		} else {
+			plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
 		}
-		// Handle Empty
-		if len(relatedTypes) == 0 {
-			return ""
-		}
-	} else {
-		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
+		return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
 	}
-	return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
+	mermaidString, err := datamodeldiagram.GenerateDataDiagramWithAppAndType(m, appName, appName+typeName+p.Ext)
+	if err!=nil {
+		return ""
+	}
+	return p.CreateFile(mermaidString, mermaidjs, appName, typeName)
 }
 
 // CreateFileName returns the absolute and relative filepaths

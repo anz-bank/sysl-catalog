@@ -177,8 +177,9 @@ func (p *Generator) Run() {
 	diagramCreator(p.FilesToCreate, p.PlantumlJava)
 
 	wg.Wait()
-	PlantUMLDir(p.OutputDir)
 	progress.Finish()
+	PlantUMLDir(p.OutputDir)
+
 }
 
 func markdownName(s, candidate string) string {

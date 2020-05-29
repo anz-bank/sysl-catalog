@@ -3,6 +3,7 @@ package catalog
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -28,6 +29,7 @@ var typeMaps = map[string]string{"md": "README.md", "markdown": "README.md", "ht
 // Generator is the contextual object that is used in the markdown generation
 type Generator struct {
 	FilesToCreate        map[string]string
+	DirsToCreate         map[string]struct{} // This is for using diagrams with cli plantuml
 	MermaidFilesToCreate map[string]string
 	SourceFileName       string
 	ProjectTitle         string
@@ -53,6 +55,7 @@ type Generator struct {
 	Title      string
 	OutputDir  string
 	Links      map[string]string
+	Server     bool
 }
 
 type SourceCoder interface {
@@ -85,9 +88,16 @@ func NewProject(
 		RootModule:      module,
 		PlantumlService: plantumlService,
 		FilesToCreate:   make(map[string]string),
+		DirsToCreate:    make(map[string]struct{}),
 		Fs:              fs,
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
+	}
+	if strings.Contains(p.PlantumlService, ".jar") {
+		_, err := os.Open(p.PlantumlService)
+		if err != nil {
+			p.Log.Error("Error adding plantumlenv:", err)
+		}
 	}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
@@ -149,6 +159,9 @@ func (p *Generator) Run() {
 	var completedDiagrams int64
 	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
 		for fileName, contents := range inMap {
+			if _, ok := p.DirsToCreate[path.Dir(path.Join(p.OutputDir, fileName))]; !ok {
+				p.DirsToCreate[path.Dir(path.Join(p.OutputDir, fileName))] = struct{}{}
+			}
 			wg.Add(1)
 			go func(fileName, contents string) {
 				var err = f(p.Fs, path.Join(p.OutputDir, fileName), contents)
@@ -161,7 +174,6 @@ func (p *Generator) Run() {
 			}(fileName, contents)
 		}
 	}
-
 	if p.Mermaid {
 		progress = pb.StartNew(len(p.MermaidFilesToCreate))
 		fmt.Println("Generating Mermaid diagrams:")
@@ -174,12 +186,40 @@ func (p *Generator) Run() {
 	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
 	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
-	diagramCreator(p.FilesToCreate, HttpToFile)
-
+	if strings.Contains(p.PlantumlService, ".jar") {
+		diagramCreator(p.FilesToCreate, p.PlantumlJava)
+		if !p.Server {
+			wg.Wait()
+			progress.Finish()
+			fmt.Println("This might take a while...")
+			err, removepuml := PlantUMLCLI(p.PlantumlService, p.OutputDir, "/**/*.puml")
+			if err != nil {
+				p.Log.Error("Error creating plantuml files:", err)
+			}
+			removepuml()
+		}
+	} else {
+		diagramCreator(p.FilesToCreate, HttpToFile)
+	}
 	wg.Wait()
+
 	progress.Finish()
+
 }
 
+//func JavaDirsToSvg(dirs map[string]struct{}) {
+//	var wg sync.WaitGroup
+//	for fileName, _ := range dirs {
+//		wg.Add(1)
+//		go func(fileName string) {
+//			PlantUMLCLI(path.Join(fileName, "*.puml"))
+//			//progress.Increment()
+//			wg.Done()
+//			//completedDiagrams++
+//		}(fileName)
+//	}
+//	wg.Wait()
+//}
 func markdownName(s, candidate string) string {
 	if strings.Contains(s, "{{.Title}}") {
 		candidate = SanitiseOutputName(candidate)

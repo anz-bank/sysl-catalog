@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path"
 	"reflect"
 	"sort"
 	"strings"
+
+	"github.com/anz-bank/sysl/pkg/diagrams"
 
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 
@@ -20,7 +23,6 @@ import (
 	"github.com/spf13/afero"
 
 	"github.com/anz-bank/sysl/pkg/cmdutils"
-	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/sequencediagram"
 	"github.com/hashicorp/go-retryablehttp"
 
@@ -238,6 +240,34 @@ func HttpToFile(fs afero.Fs, fileName, url string) error {
 		return err
 	}
 	return nil
+}
+
+func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
+	fileName = strings.ReplaceAll(fileName, ".svg", ".puml")
+	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
+		return err
+	}
+	if err := afero.WriteFile(fs, fileName, []byte(contents), os.ModePerm); err != nil {
+		return err
+	}
+	return nil
+}
+
+func PlantUMLCLI(service, dir, wildcard string) (err error, cleanup func()) {
+	dir = strings.TrimRight(dir, "/")
+	indir := dir + wildcard
+	javaCommand := fmt.Sprintf(`java -Djava.awt.headless=true -jar %s -tsvg '%s'`, service, indir)
+	//javaCommand := `java -Djava.awt.headless=true -jar plantuml.jar --version`
+	fmt.Println(javaCommand)
+	fmt.Println("bash", "-c", javaCommand)
+	plantuml := exec.Command("bash", "-c", javaCommand) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+	out, err := plantuml.CombinedOutput()
+	fmt.Println(string(out))
+	cleanUp := fmt.Sprintf("find %s  -type f -name '*.puml' -delete", dir)
+	return err, func() {
+		plantuml := exec.Command("bash", "-c", cleanUp) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+		err = plantuml.Run()
+	}
 }
 
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file

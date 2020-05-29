@@ -99,15 +99,25 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
 		bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
 		if err != nil { // plantuml diagrams haven't been generated for this directory yet
-			if _, ok := p.DirsToCreate[path.Dir(p.OutputDir)]; !ok && p.PlantumlService == "java" {
-				p.DirsToCreate[path.Dir(p.OutputDir)] = struct{}{}
-				//puml := strings.ReplaceAll(request, ".svg", ".puml")
+			fullPath := path.Join(p.OutputDir, request)
+			if _, ok := p.DirsToCreate[fullPath]; !ok && p.PlantumlService == "java" {
+				p.DirsToCreate[fullPath] = struct{}{}
 				start := time.Now()
-				PlantUMLDir(p.OutputDir, "*/**.puml")
-				bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
+				PlantUMLDir(path.Dir(fullPath), "*/*.puml")
+				bytes, err = afero.ReadFile(p.Fs, fullPath)
 				fmt.Println(time.Since(start))
+			} else {
+				for i := 0; i < 10; i++ {
+					time.Sleep(1)
+					bytes, err = afero.ReadFile(p.Fs, fullPath)
+					if err != nil {
+						p.Log.Error(err)
+					}
+					if bytes != nil {
+						return
+					}
+				}
 			}
-			//}
 		}
 		p.errs = []error{}
 		return

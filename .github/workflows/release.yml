@@ -8,17 +8,20 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  release-sysl:
+  release-sysl-catalog:
     name: Release Sysl-Catalog
     runs-on: ubuntu-latest
     steps:
-      - name: Build and push docker image
-        uses: docker/build-push-action@v1
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build :latest
+        run: docker build -t anzbank/sysl-catalog:latest .
+
+      - name: Push to docker hub :latest
+        uses: actions-hub/docker@master
         with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
-          repository: docker.io/anzbank/sysl-catalog
-          tag_with_ref: true
-          add_git_labels: true
-          tags: latest
-          labels: org.opencontainers.image.revision=${{ github.sha }},org.opencontainers.image.url=https://sysl.io
+          args: push docker.io/anzbank/sysl-catalog:latest

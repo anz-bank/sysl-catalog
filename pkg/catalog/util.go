@@ -2,9 +2,7 @@
 package catalog
 
 import (
-	"bytes"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -255,63 +253,21 @@ func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
 	return nil
 }
 
-func PlantUMLDir(dir, wildcard string) (err error, cleanup func()) {
-	indir := `"` + dir + wildcard + `"`
-	fmt.Println("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-	plantuml := exec.Command("bash", "-c", "java -Djava.awt.headless=true -jar plantuml.jar -tsvg "+indir) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-	err = plantuml.Run()
+func PlantUMLCLI(service, dir, wildcard string) (err error, cleanup func()) {
+	dir = strings.TrimRight(dir, "/")
+	indir := dir + wildcard
+	javaCommand := fmt.Sprintf(`java -Djava.awt.headless=true -jar %s -tsvg '%s'`, service, indir)
+	//javaCommand := `java -Djava.awt.headless=true -jar plantuml.jar --version`
+	fmt.Println(javaCommand)
+	fmt.Println("bash", "-c", javaCommand)
+	plantuml := exec.Command("bash", "-c", javaCommand) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+	out, err := plantuml.CombinedOutput()
+	fmt.Println(string(out))
+	cleanUp := fmt.Sprintf("find %s  -type f -name '*.puml' -delete", dir)
 	return err, func() {
-		plantuml := exec.Command("bash", "-c", "find "+dir+" -type f -name '*.puml' -delete") //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+		plantuml := exec.Command("bash", "-c", cleanUp) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
 		err = plantuml.Run()
 	}
-}
-
-func ExecPlantUML(plantumlString string) ([]byte, error) {
-	//create command
-	echo := exec.Command("echo", `"`+plantumlString+`"`)
-	plantuml := exec.Command("java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-p", "-tsvg")
-
-	//make a pipe
-	reader, writer := io.Pipe()
-	var buf bytes.Buffer
-
-	//set the output of "cat" command to pipe writer
-	echo.Stdout = writer
-	//set the input of the "wc" command pipe reader
-
-	plantuml.Stdin = reader
-
-	//cache the output of "wc" to memory
-	plantuml.Stdout = &buf
-
-	//start to execute "cat" command
-	if err := echo.Start(); err != nil {
-		return nil, err
-	}
-
-	//start to execute "wc" command
-	if err := plantuml.Start(); err != nil {
-		return nil, err
-	}
-
-	//waiting for "cat" command complete and close the writer
-	if err := echo.Wait(); err != nil {
-		return nil, err
-	}
-	if err := writer.Close(); err != nil {
-		return nil, err
-	}
-
-	//waiting for the "wc" command complete and close the reader
-	if err := plantuml.Wait(); err != nil {
-		return nil, err
-	}
-	if err := reader.Close(); err != nil {
-		return nil, err
-	}
-	//copy the buf to the standard output
-	//io.Copy(os.Stdout, &buf)
-	return buf.Bytes(), nil
 }
 
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file

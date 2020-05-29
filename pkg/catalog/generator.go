@@ -3,6 +3,7 @@ package catalog
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -92,6 +93,12 @@ func NewProject(
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
 	}
+	if strings.Contains(p.PlantumlService, ".jar") {
+		_, err := os.Open(p.PlantumlService)
+		if err != nil {
+			p.Log.Error("Error adding plantumlenv:", err)
+		}
+	}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	}
@@ -179,13 +186,13 @@ func (p *Generator) Run() {
 	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
 	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
-	if p.PlantumlService == "java" {
+	if strings.Contains(p.PlantumlService, ".jar") {
 		diagramCreator(p.FilesToCreate, p.PlantumlJava)
 		if !p.Server {
 			wg.Wait()
 			progress.Finish()
 			fmt.Println("This might take a while...")
-			err, removepuml := PlantUMLDir(p.OutputDir, "*/**.puml")
+			err, removepuml := PlantUMLCLI(p.PlantumlService, p.OutputDir, "/**/*.puml")
 			if err != nil {
 				p.Log.Error("Error creating plantuml files:", err)
 			}
@@ -194,11 +201,9 @@ func (p *Generator) Run() {
 	} else {
 		diagramCreator(p.FilesToCreate, HttpToFile)
 	}
-
 	wg.Wait()
 
 	progress.Finish()
-	//PlantUMLDir(p.OutputDir)
 
 }
 
@@ -207,7 +212,7 @@ func (p *Generator) Run() {
 //	for fileName, _ := range dirs {
 //		wg.Add(1)
 //		go func(fileName string) {
-//			PlantUMLDir(path.Join(fileName, "*.puml"))
+//			PlantUMLCLI(path.Join(fileName, "*.puml"))
 //			//progress.Increment()
 //			wg.Done()
 //			//completedDiagrams++

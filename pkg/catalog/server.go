@@ -43,7 +43,7 @@ func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Gene
 	p.ImageTags = imageTags
 	p.OutputDir = "/"
 	p.Server = true
-	if p.PlantumlService == "java" {
+	if strings.Contains(p.PlantumlService, ".jar") {
 		p.ImageTags = false
 		p.Fs = afero.NewOsFs()
 		p.DirsToCreate = map[string]struct{}{}
@@ -54,6 +54,8 @@ func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Gene
 			p.Log.Info(err)
 		}
 		p.OutputDir = strings.ReplaceAll(string(rDir), "\n", "")
+	} else {
+		p.Fs = afero.NewMemMapFs()
 	}
 	return p
 }
@@ -100,10 +102,10 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
 		if err != nil { // plantuml diagrams haven't been generated for this directory yet
 			fullPath := path.Join(p.OutputDir, request)
-			if _, ok := p.DirsToCreate[fullPath]; !ok && p.PlantumlService == "java" {
+			if _, ok := p.DirsToCreate[fullPath]; !ok && strings.Contains(p.PlantumlService, ".jar") {
 				p.DirsToCreate[fullPath] = struct{}{}
 				start := time.Now()
-				PlantUMLDir(path.Dir(fullPath), "*/*.puml")
+				PlantUMLCLI(p.PlantumlService, path.Dir(fullPath), "*/*.puml")
 				bytes, err = afero.ReadFile(p.Fs, fullPath)
 				fmt.Println(time.Since(start))
 			} else {

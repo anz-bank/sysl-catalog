@@ -266,7 +266,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	//fileContents = contents
 	switch diagramType {
 	case plantuml:
-		if p.PlantumlService != "java" {
+		if !strings.Contains(p.PlantumlService, ".jar") {
 			contents, err = PlantUMLURL(p.PlantumlService, contents)
 		}
 		targetMap = p.FilesToCreate
@@ -288,7 +288,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	}
 	absFilePath = newFileName
 	// if p.ImageTags: return image tag from plantUML service
-	if p.ImageTags && diagramType == plantuml && p.PlantumlService != "java" {
+	if p.ImageTags && diagramType == plantuml && !strings.Contains(p.PlantumlService, ".jar") {
 		return contents
 	}
 	targetMap[absFilePath] = contents

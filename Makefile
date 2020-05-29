@@ -10,7 +10,7 @@ build:
 docker: build
 	docker build -t sysl-catalog .
 docker-run: docker
-	docker run -v $$(pwd)/this:/out:rw -v $$(pwd)/demo:/usr/src/demo:ro sysl-catalog
+	docker run -v $$(pwd)/this:/out:rw -v $$(pwd)/demo:/usr/src/demo:ro sysl-catalog demo/simple2.sysl
 docs: docker
 	(PLANTUML_IMAGE=plantuml/plantuml-server:jetty docker-compose run docs)
 

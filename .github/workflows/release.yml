@@ -12,6 +12,8 @@ jobs:
     name: Release Sysl-Catalog
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@master
       - name: Login to docker hub
         uses: actions-hub/docker/login@master
         env:

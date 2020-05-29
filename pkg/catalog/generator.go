@@ -85,6 +85,7 @@ func NewProject(
 		RootModule:      module,
 		PlantumlService: plantumlService,
 		FilesToCreate:   make(map[string]string),
+		MermaidFilesToCreate: make(map[string]string),
 		Fs:              fs,
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,

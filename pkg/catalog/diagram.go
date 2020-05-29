@@ -145,7 +145,7 @@ func (p *Generator) CreateSequenceDiagramMermaid(appName string, endpoint *sysl.
 
 // CreateSequenceDiagram creates an sequence diagram and returns the filename
 func (p *Generator) CreateSequenceDiagramPlantuml(appName string, endpoint *sysl.Endpoint) string {
-	m := p.Module
+	m := p.RootModule
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.GetName())
 	plantumlString, err := CreateSequenceDiagram(m, call)
 	if err != nil {

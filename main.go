@@ -10,11 +10,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/sysl"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
-	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/gohugoio/hugo/livereload"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
@@ -58,7 +58,7 @@ func main() {
 	if !*server {
 		fmt.Println("Parsing")
 		start := time.Now()
-		m, err := parse.NewParser().Parse(*input, fs)
+		m, _, err := loader.LoadSyslModule(".", *input, fs, log)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -89,7 +89,7 @@ func main() {
 				}
 			}()
 			fmt.Println("Parsing")
-			m, err = parse.NewParser().Parse(*input, fs)
+			m, _, err = loader.LoadSyslModule("", *input, fs, log)
 			fmt.Println("Done Parsing")
 			return
 		}()

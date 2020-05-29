@@ -6,7 +6,7 @@
 # foo
 
 ## Integration Diagram
-![](integration.svg)
+![](https://plantuml.com/plantuml/svg/~1UDgCZZ5Bn40GHllv5PzLgYj44SlB9QlON40YraioNfRixeJP2IhYVnU9MEULynx3L-s6gWgx-4lhbxvxT6VtNFUkHTEr3eS3sWxdheThd_gh_tJtrzrRwLZCgwqfaWMBZ3SHciB8ACRAOfyBKnbyP2J_WUkxc_jRJ1mkar6PGrwy-eH1qYAPi-6BW9CVvelAciT6eYWUegYFhrCm_hMY8-jcJj4FCm6rghnlfqP3AfBfcuwSnpN5dm000F__dZnQaG00)
 
 
 
@@ -46,7 +46,7 @@ foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../de
 <details>
 <summary>Sequence Diagram</summary>
 
-![](foo/whatever.svg)
+![](https://plantuml.com/plantuml/svg/~1UDgCZa5Bn30GHk_v5PzxwIbG12zYP1SJn8CRq7ZoK8Psgi6saMIiug-NWgXuohlDy9XvJJMgQL35jtfu2FxQ7TtT8JYBAsyTj8RrEFe0Ps_2oOzQVRMwLUsBK9QtUL9zMYId2RinfHsee6jLUOdBAsMQCTF7BPT2JtmVFncdPwsIA1DZJ0aN6k_F9BnoLiRyNy4OzQWlknRdlnhr4bSIthuC_7VQyp9iFLy1003__sErLGa0)
 </details>
 
 <details>

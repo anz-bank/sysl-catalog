@@ -15,8 +15,8 @@ jobs:
       - name: Login to docker hub
         uses: actions-hub/docker/login@master
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASS }}
 
       - name: Build :latest
         run: docker build -t anzbank/sysl-catalog:latest .

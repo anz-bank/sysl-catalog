@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/spf13/afero"
@@ -41,7 +42,9 @@ func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Gene
 	p.LiveReload = liveReload
 	p.ImageTags = imageTags
 	p.OutputDir = "/"
+	p.Server = true
 	if p.PlantumlService == "java" {
+		p.ImageTags = false
 		p.Fs = afero.NewOsFs()
 		p.DirsToCreate = map[string]struct{}{}
 		randDir := exec.Command("mktemp", "-d")
@@ -96,13 +99,15 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
 		bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
 		if err != nil { // plantuml diagrams haven't been generated for this directory yet
-			//if _, ok := p.DirsToCreate[path.Dir(request)]; !ok &&
-			if p.PlantumlService == "java" {
-				p.DirsToCreate[path.Dir(request)] = struct{}{}
-				puml := strings.ReplaceAll(request, ".svg", ".puml")
-				PlantUMLDir(path.Join(p.OutputDir, puml))
+			if _, ok := p.DirsToCreate[path.Dir(p.OutputDir)]; !ok && p.PlantumlService == "java" {
+				p.DirsToCreate[path.Dir(p.OutputDir)] = struct{}{}
+				//puml := strings.ReplaceAll(request, ".svg", ".puml")
+				start := time.Now()
+				PlantUMLDir(p.OutputDir, "*/**.puml")
 				bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
+				fmt.Println(time.Since(start))
 			}
+			//}
 		}
 		p.errs = []error{}
 		return

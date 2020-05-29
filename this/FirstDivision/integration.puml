@@ -13,9 +13,9 @@ skinparam component {
   BorderColor Black
   ArrowColor Crimson
 }
-[MobileApp2] as _0 <<highlight>>
+[MobileApp] as _0 <<highlight>>
 [Server] as _1
 _0 --> _1
-[MobileApp] as _2 <<highlight>>
+[MobileApp2] as _2 <<highlight>>
 _2 --> _1
 @enduml

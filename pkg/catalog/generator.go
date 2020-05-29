@@ -54,6 +54,7 @@ type Generator struct {
 	Title      string
 	OutputDir  string
 	Links      map[string]string
+	Server     bool
 }
 
 type SourceCoder interface {
@@ -86,6 +87,7 @@ func NewProject(
 		RootModule:      module,
 		PlantumlService: plantumlService,
 		FilesToCreate:   make(map[string]string),
+		DirsToCreate:    make(map[string]struct{}),
 		Fs:              fs,
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
@@ -150,6 +152,9 @@ func (p *Generator) Run() {
 	var completedDiagrams int64
 	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
 		for fileName, contents := range inMap {
+			if _, ok := p.DirsToCreate[path.Dir(path.Join(p.OutputDir, fileName))]; !ok {
+				p.DirsToCreate[path.Dir(path.Join(p.OutputDir, fileName))] = struct{}{}
+			}
 			wg.Add(1)
 			go func(fileName, contents string) {
 				var err = f(p.Fs, path.Join(p.OutputDir, fileName), contents)
@@ -167,7 +172,7 @@ func (p *Generator) Run() {
 		fmt.Println("Generating Mermaid diagrams:")
 		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
 	}
-	if (p.ImageTags || p.DisableImages) && p.PlantumlService != "java" {
+	if p.ImageTags || p.DisableImages {
 		logrus.Info("Skipping Image creation")
 		return
 	}
@@ -176,17 +181,40 @@ func (p *Generator) Run() {
 	fmt.Println("Generating diagrams:")
 	if p.PlantumlService == "java" {
 		diagramCreator(p.FilesToCreate, p.PlantumlJava)
+		if !p.Server {
+			wg.Wait()
+			progress.Finish()
+			fmt.Println("This might take a while...")
+			err, removepuml := PlantUMLDir(p.OutputDir, "*/**.puml")
+			if err != nil {
+				p.Log.Error("Error creating plantuml files:", err)
+			}
+			removepuml()
+		}
 	} else {
 		diagramCreator(p.FilesToCreate, HttpToFile)
 	}
 
 	wg.Wait()
-	progress.Finish()
 
+	progress.Finish()
 	//PlantUMLDir(p.OutputDir)
 
 }
 
+//func JavaDirsToSvg(dirs map[string]struct{}) {
+//	var wg sync.WaitGroup
+//	for fileName, _ := range dirs {
+//		wg.Add(1)
+//		go func(fileName string) {
+//			PlantUMLDir(path.Join(fileName, "*.puml"))
+//			//progress.Increment()
+//			wg.Done()
+//			//completedDiagrams++
+//		}(fileName)
+//	}
+//	wg.Wait()
+//}
 func markdownName(s, candidate string) string {
 	if strings.Contains(s, "{{.Title}}") {
 		candidate = SanitiseOutputName(candidate)

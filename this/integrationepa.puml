@@ -5,7 +5,7 @@
 ''''''''''''''''''''''''''''''''''''''''''
 
 @startuml
-title SecondDivision
+title ThirdDivision
 left to right direction
 scale max 16384 height
 hide empty description
@@ -14,13 +14,19 @@ skinparam state {
   BorderColor Black
   ArrowColor Crimson
 }
-state "that" as X_0 {
-  state "this" as _0
-  state "this client" as _1
+state "MobileApp" as X_0 {
+  state "Authenticate client" as _0
+  state "Login" as _1
 }
-state "this" as X_1 <<highlight>> {
-  state "this" as _2 <<highlight>>
+state "MobileApp2" as X_1 {
+  state "Authenticate client" as _2
+  state "SecondEndpoint" as _3
 }
-_0 -[#silver]-> _1
-_1 -[#black]> _2
+state "Server" as X_2 <<highlight>> {
+  state "Authenticate" as _4 <<highlight>>
+}
+_1 -[#silver]-> _0
+_0 -[#black]> _4
+_3 -[#silver]-> _2
+_2 -[#black]> _4
 @enduml

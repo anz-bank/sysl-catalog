@@ -134,7 +134,7 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 }
 
 func (p *Generator) CreateSequenceDiagramMermaid(appName string, endpoint *sysl.Endpoint) string {
-	m := p.Module
+	m := p.RootModule
 	result, error := sequencediagram.GenerateSequenceDiagram(m, appName, endpoint.GetName())
 	if error != nil {
 		p.Log.Error(error)
@@ -255,32 +255,41 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 	return p.CreateTypeDiagram(appName, typeName, typeref, getRecursive)
 }
 
-// CreateTypeDiagram creates a data model diagram and returns the filename
-// It handles recursively getting the related types, or for primitives, just returns the
 func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.Type, recursive bool) string {
-	m := p.RootModule
-	if !p.Mermaid {
-		var plantumlString string
-		if recursive {
-			relatedTypes := catalogdiagrams.RecursivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, m)
-			plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
-			if _, ok := p.RootModule.GetApps()[appName]; !ok {
-				return ""
-			}
-			// Handle Empty
-			if len(relatedTypes) == 0 {
-				return ""
-			}
-		} else {
-			plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
-		}
-		return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
+	if p.Mermaid {
+		return p.CreateTypeDiagramMermaid(appName, typeName)
 	}
+	return p.CreateTypeDiagramPlantuml(appName, typeName, t, recursive)
+}
+
+func (p *Generator) CreateTypeDiagramMermaid(appName string, typeName string) string {
+	m := p.RootModule
 	mermaidString, err := datamodeldiagram.GenerateDataDiagramWithAppAndType(m, appName, appName+typeName+p.Ext)
 	if err!=nil {
 		return ""
 	}
 	return p.CreateFile(mermaidString, mermaidjs, appName, typeName)
+}
+
+// CreateTypeDiagram creates a data model diagram and returns the filename
+// It handles recursively getting the related types, or for primitives, just returns the
+func (p *Generator) CreateTypeDiagramPlantuml(appName string, typeName string, t *sysl.Type, recursive bool) string {
+	m := p.RootModule
+	var plantumlString string
+	if recursive {
+		relatedTypes := catalogdiagrams.RecursivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, m)
+		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
+		if _, ok := p.RootModule.GetApps()[appName]; !ok {
+				return ""
+			}
+		// Handle Empty
+		if len(relatedTypes) == 0 {
+			return ""
+		}
+	} else {
+		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
+	}
+	return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
 }
 
 // CreateFileName returns the absolute and relative filepaths

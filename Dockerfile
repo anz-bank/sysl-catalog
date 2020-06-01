@@ -16,8 +16,7 @@ RUN wget "http://downloads.sourceforge.net/project/plantuml/${PLANTUML_VERSION}/
 RUN wget https://github.com/facebook/nailgun/releases/download/nailgun-all-v1.0.0/nailgun-server-1.0.0-SNAPSHOT.jar
 RUN apk add bash
 COPY scripts/ /usr/scripts
-RUN ./scripts/install.sh
 COPY --from=builder /usr/src/sysl-catalog .
 RUN mkdir -p /out
 ENV SYSL_PLANTUML=plantuml.jar
-ENTRYPOINT ["./sysl-catalog", "-o", "/out/"]
+ENTRYPOINT ["./scripts/nailgun.sh"]

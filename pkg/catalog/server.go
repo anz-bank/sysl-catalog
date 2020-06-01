@@ -6,10 +6,8 @@ import (
 	"fmt"
 	"html"
 	"net/http"
-	"os/exec"
 	"path"
 	"strings"
-	"time"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/spf13/afero"
@@ -40,23 +38,10 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Generator {
 	p.DisableCss = disableCSS
 	p.LiveReload = liveReload
-	p.ImageTags = imageTags
+	p.ImageTags = imageTags || !strings.Contains(p.PlantumlService, ".jar")
 	p.OutputDir = "/"
 	p.Server = true
-	if strings.Contains(p.PlantumlService, ".jar") {
-		p.ImageTags = false
-		p.Fs = afero.NewOsFs()
-		p.DirsToCreate = map[string]struct{}{}
-		randDir := exec.Command("mktemp", "-d")
-		rDir, err := randDir.CombinedOutput()
-		if err != nil {
-			p.errs = append(p.errs, err)
-			p.Log.Info(err)
-		}
-		p.OutputDir = strings.ReplaceAll(string(rDir), "\n", "")
-	} else {
-		p.Fs = afero.NewMemMapFs()
-	}
+	p.Fs = afero.NewMemMapFs()
 	return p
 }
 
@@ -99,31 +84,12 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch path.Ext(request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
-		bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
-		if err != nil { // plantuml diagrams haven't been generated for this directory yet
-			fullPath := path.Join(p.OutputDir, request)
-			if _, ok := p.DirsToCreate[fullPath]; !ok && strings.Contains(p.PlantumlService, ".jar") {
-				p.DirsToCreate[fullPath] = struct{}{}
-				start := time.Now()
-				PlantUMLCLI(p.PlantumlService, path.Dir(fullPath), "*/*.puml")
-				bytes, err = afero.ReadFile(p.Fs, fullPath)
-				fmt.Println(time.Since(start))
-			} else {
-				for i := 0; i < 10; i++ {
-					time.Sleep(1)
-					bytes, err = afero.ReadFile(p.Fs, fullPath)
-					if err != nil {
-						p.Log.Error(err)
-					}
-					if bytes != nil {
-						return
-					}
-				}
-			}
-		}
+		bytes, err = PlantumlNailGun(p.FilesToCreate[strings.TrimLeft(request, "/")])
 		p.errs = []error{}
+		if err != nil {
+			p.errs = append(p.errs, err)
+		}
 		return
-
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)
 		if err != nil {

@@ -2,14 +2,17 @@
 package catalog
 
 import (
+	"bytes"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/exec"
 	"path"
 	"reflect"
 	"sort"
 	"strings"
+
+	"github.com/anz-bank/sysl-catalog/pkg/nailgun"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
 
@@ -243,32 +246,64 @@ func HttpToFile(fs afero.Fs, fileName, url string) error {
 }
 
 func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
-	fileName = strings.ReplaceAll(fileName, ".svg", ".puml")
 	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
 		return err
 	}
-	if err := afero.WriteFile(fs, fileName, []byte(contents), os.ModePerm); err != nil {
+	out, err := PlantumlNailGun(contents)
+	if err != nil {
+
+	}
+	if err := afero.WriteFile(fs, fileName, out, os.ModePerm); err != nil {
 		return err
 	}
 	return nil
 }
 
-func PlantUMLCLI(service, dir, wildcard string) (err error, cleanup func()) {
-	dir = strings.TrimRight(dir, "/")
-	indir := dir + wildcard
-	javaCommand := fmt.Sprintf(`java -Djava.awt.headless=true -jar %s -tsvg '%s'`, service, indir)
-	//javaCommand := `java -Djava.awt.headless=true -jar plantuml.jar --version`
-	fmt.Println(javaCommand)
-	fmt.Println("bash", "-c", javaCommand)
-	plantuml := exec.Command("bash", "-c", javaCommand) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-	out, err := plantuml.CombinedOutput()
-	fmt.Println(string(out))
-	cleanUp := fmt.Sprintf("find %s  -type f -name '*.puml' -delete", dir)
-	return err, func() {
-		plantuml := exec.Command("bash", "-c", cleanUp) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-		err = plantuml.Run()
+func PlantumlNailGun(contents string) ([]byte, error) {
+	//c1 := exec.Command("echo", fmt.Sprintf(`"""%s"""`, contents))
+	//c2 := exec.Command("ng", "net.sourceforge.plantuml.Run", "-tsvg", "-p")
+	//r, w := io.Pipe()
+	//c1.Stdout = w
+	//c2.Stdin = r
+	//
+	//var b2 bytes.Buffer
+	//c2.Stdout = &b2
+	//c1.Start()
+	//c2.Start()
+	//c1.Wait()
+	//w.Close()
+	//c2.Wait()
+	strings.NewReader(contents)
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	nailgun.Run(
+		[]string{"ng", "net.sourceforge.plantuml.Run", "-tsvg", "-p"},
+		[]string{},
+		strings.NewReader(contents),
+		&stdout,
+		&stderr,
+	)
+	if stderr.Len() == 0 {
+		return stdout.Bytes(), nil
 	}
+	return nil, errors.New(stderr.String())
 }
+
+//func PlantUMLCLI(service, dir, wildcard string) (err error, cleanup func()) {
+//	dir = strings.TrimRight(dir, "/")
+//	indir := dir + wildcard
+//	javaCommand := fmt.Sprintf(`java -Djava.awt.headless=true -jar %s -tsvg '%s'`, service, indir)
+//	fmt.Println(javaCommand)
+//	fmt.Println("bash", "-c", javaCommand)
+//	plantuml := exec.Command("bash", "-c", javaCommand) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+//	out, err := plantuml.CombinedOutput()
+//	fmt.Println(string(out))
+//	cleanUp := fmt.Sprintf("find %s  -type f -name '*.puml' -delete", dir)
+//	return err, func() {
+//		plantuml := exec.Command("bash", "-c", cleanUp) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
+//		err = plantuml.Run()
+//	}
+//}
 
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file
 func GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {

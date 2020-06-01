@@ -10,8 +10,8 @@
 [MegaDatabase](MegaDatabase/README.md)|
 
 ## Integration Diagram
-<img src="https://plantuml.com/plantuml/svg/~1UDgCZarByq0KXVVtLvntrLMWvHLnKKhR98gR1ZJYGYGCoIKpP6Pkc9duWVZV9KHSv-pEFG-NPxCwjDbWLNxHqrDTtPMNyk5KbmNogYYHPIWgNAeQPN5V__j3LtzTxKh7c5H8axEKJBACHsx5TuLvCz689sqwHamSMDBdo1HRPHbEVM1t_V_c2ffDhnF5mVXH1UNGYXl5iq_u8k2isg4FClak5oi1jrQ2ii_Q99vN2Hs7PJbRrGu4d4AGz-MK1-EYUFgcbwHLUeMAQBPpCN4fE-ptslJQpXA70pLRPDa1pOwExBl9sPy0003__-lfRUy0">
+<img src="integration.svg">
 
 ## End Point Analysis Integration Diagram
-<img src="https://plantuml.com/plantuml/svg/~1UDgCZqzhup0GH-_w5B_D7d8onDbbsKCm-MEtz193wz902KQrf_4GsGhI96qf-Ux5SGWDz60TtxnvQ8QzdneEqUkTrTbZbjuco-H-bYKn5ccS80WGfrYc6PBuBljrKNjNU_zLJRre9_lQA64nX0SgR5F6V63Fjb66NWLYuNXJ2KfsL4ZBVQ4DeTRl2F_z-VyN5RM2ghWaKBsJ3vJa2yUxpjvoizDEr_2YXV2fWBakjXjdzqsviCOwt1Zhj7cgMAYTMbUIwoPpeukj0cREsRSEBHpNtZRggBhWG2ej0sYFLJuwvI-S_Oddesk8mZ0rtKuUVW-T5rPvYCcauarbsjEYwEVi-5fIHvMF43p_zcmEvDP1rDRpi4KlxHth2FbOJQafzxNv2W00__-wVw1B">
+<img src="integrationepa.svg">
 

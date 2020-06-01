@@ -10,16 +10,14 @@ ENV LANG en_US.UTF-8
 RUN \
   apk add --no-cache graphviz wget ca-certificates && \
   apk add --no-cache graphviz wget ca-certificates ttf-dejavu fontconfig && \
-  wget "http://downloads.sourceforge.net/project/plantuml/${PLANTUML_VERSION}/plantuml.${PLANTUML_VERSION}.jar" -O plantuml.jar && \
+  apk add readline && \
   apk del wget ca-certificates
+RUN wget "http://downloads.sourceforge.net/project/plantuml/${PLANTUML_VERSION}/plantuml.${PLANTUML_VERSION}.jar" -O plantuml.jar
+RUN wget https://github.com/facebook/nailgun/releases/download/nailgun-all-v1.0.0/nailgun-server-1.0.0-SNAPSHOT.jar
 RUN apk add bash
-#COPY sysl-catalog .
-#COPY plantuml.jar .
-RUN ["java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-version"]
-RUN ["dot", "-version"]
-RUN mkdir -p /out
-
+COPY scripts/ /usr/scripts
+RUN ./scripts/install.sh
 COPY --from=builder /usr/src/sysl-catalog .
+RUN mkdir -p /out
 ENV SYSL_PLANTUML=plantuml.jar
 ENTRYPOINT ["./sysl-catalog", "-o", "/out/"]
-#ENTRYPOINT ls -a

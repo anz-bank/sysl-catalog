@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="728px" preserveAspectRatio="none" style="width:820px;height:728px;" version="1.1" viewBox="0 0 820 728" width="820px" zoomAndPan="magnify"><defs><filter height="300%" id="fmsrdf44d2m8c" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[f77682fd75c3e1fc6a82f566c0814d0f]
+class _0--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="164.5957" id="_0" style="stroke: #A80036; stroke-width: 1.5;" width="309" x="30.5" y="8"/><ellipse cx="145.75" cy="24" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M144.8359,20.3149 L144.8359,28.292 L145.5,28.292 Q146.9443,28.292 147.5586,27.3831 Q148.1729,26.4741 148.1729,24.291 Q148.1729,22.1245 147.5586,21.2197 Q146.9443,20.3149 145.5,20.3149 Z M142.3872,18.1069 L145.0103,18.1069 Q148.0483,18.1069 149.3848,19.5554 Q150.7212,21.0039 150.7212,24.291 Q150.7212,27.5864 149.3848,29.0432 Q148.0483,30.5 145.0103,30.5 L142.3872,30.5 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="70" x="166.25" y="28.5352">audio_guide</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="31.5" x2="338.5" y1="40" y2="40"/><ellipse cx="41.5" cy="51" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="113" x="50.5" y="54.6348">activation_date : date</text><ellipse cx="41.5" cy="63.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="105" x="50.5" y="67.5898">audio_guide_id : int</text><ellipse cx="41.5" cy="76.9102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="68" x="50.5" y="80.5449">issue_point :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="110" x="121.5" y="80.5449">location.location_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="234.5" y="80.5449">«FK»</text><ellipse cx="41.5" cy="89.8652" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="82" x="50.5" y="93.5">language : float</text><ellipse cx="41.5" cy="102.8203" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="91" x="50.5" y="106.4551">listen_time : float</text><ellipse cx="41.5" cy="115.7754" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="52" x="50.5" y="119.4102">payment :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="200" x="105.5" y="119.4102">payment_details.payment_details_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="308.5" y="119.4102">«FK»</text><ellipse cx="41.5" cy="128.7305" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="74" x="50.5" y="132.3652">return_point :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="110" x="127.5" y="132.3652">location.location_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="240.5" y="132.3652">«FK»</text><ellipse cx="41.5" cy="141.6855" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="51" x="50.5" y="145.3203">ticket_id :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="82" x="104.5" y="145.3203">ticket.ticket_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="189.5" y="145.3203">«FK»</text><ellipse cx="41.5" cy="154.6406" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="56" x="50.5" y="158.2754">type : float</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="31.5" x2="338.5" y1="164.5957" y2="164.5957"/><!--MD5=[5598b231efb7df47efa6733795d42804]
+class _4--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="125.7305" id="_4" style="stroke: #A80036; stroke-width: 1.5;" width="185" x="464.5" y="592"/><ellipse cx="511.75" cy="608" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M510.8359,604.3149 L510.8359,612.292 L511.5,612.292 Q512.9443,612.292 513.5586,611.3831 Q514.1729,610.4741 514.1729,608.291 Q514.1729,606.1245 513.5586,605.2197 Q512.9443,604.3149 511.5,604.3149 Z M508.3872,602.1069 L511.0103,602.1069 Q514.0483,602.1069 515.3848,603.5554 Q516.7212,605.0039 516.7212,608.291 Q516.7212,611.5864 515.3848,613.0432 Q514.0483,614.5 511.0103,614.5 L508.3872,614.5 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="82" x="532.25" y="612.5352">card_payment</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="465.5" x2="648.5" y1="624" y2="624"/><ellipse cx="475.5" cy="635" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="102" x="484.5" y="638.6348">bank_name : string</text><ellipse cx="475.5" cy="647.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="137" x="484.5" y="651.5898">bank_short_name : string</text><ellipse cx="475.5" cy="660.9102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="79" x="484.5" y="664.5449">branch : string</text><ellipse cx="475.5" cy="673.8652" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="159" x="484.5" y="677.5">card_number_snippet : string</text><ellipse cx="475.5" cy="686.8203" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="75" x="484.5" y="690.4551">expiry : string</text><ellipse cx="475.5" cy="699.7754" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="484.5" y="703.4102">id : int</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="465.5" x2="648.5" y1="709.7305" y2="709.7305"/><!--MD5=[9f3b5866fc3516bb7b126afd03fd81f9]
+class _5--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="99.8203" id="_5" style="stroke: #A80036; stroke-width: 1.5;" width="124" x="685" y="605"/><ellipse cx="704.5" cy="621" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M703.5859,617.3149 L703.5859,625.292 L704.25,625.292 Q705.6943,625.292 706.3086,624.3831 Q706.9229,623.4741 706.9229,621.291 Q706.9229,619.1245 706.3086,618.2197 Q705.6943,617.3149 704.25,617.3149 Z M701.1372,615.1069 L703.7603,615.1069 Q706.7983,615.1069 708.1348,616.5554 Q709.4712,618.0039 709.4712,621.291 Q709.4712,624.5864 708.1348,626.0432 Q706.7983,627.5 703.7603,627.5 L701.1372,627.5 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="82" x="719.5" y="625.5352">cash_payment</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="686" x2="808" y1="637" y2="637"/><ellipse cx="696" cy="648" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="60" x="705" y="651.6348">city : string</text><ellipse cx="696" cy="660.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="83" x="705" y="664.5898">country : string</text><ellipse cx="696" cy="673.9102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="98" x="705" y="677.5449">first_name : string</text><ellipse cx="696" cy="686.8652" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="705" y="690.5">id : int</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="686" x2="808" y1="696.8203" y2="696.8203"/><!--MD5=[6a3af1c95ca99f945e9d9cfb177ddaa5]
+class _6--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="73.9102" id="_6" style="stroke: #A80036; stroke-width: 1.5;" width="216" x="130" y="432"/><ellipse cx="180.25" cy="448" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M179.3359,444.3149 L179.3359,452.292 L180,452.292 Q181.4443,452.292 182.0586,451.3831 Q182.6729,450.4741 182.6729,448.291 Q182.6729,446.1245 182.0586,445.2197 Q181.4443,444.3149 180,444.3149 Z M176.8872,442.1069 L179.5103,442.1069 Q182.5483,442.1069 183.8848,443.5554 Q185.2212,445.0039 185.2212,448.291 Q185.2212,451.5864 183.8848,453.0432 Q182.5483,454.5 179.5103,454.5 L176.8872,454.5 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="107" x="200.75" y="452.5352">checkpoint_lookup</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="131" x2="345" y1="464" y2="464"/><ellipse cx="141" cy="475" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="141" x="150" y="478.6348">checkpoint_lookup_id : int</text><ellipse cx="141" cy="487.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="49" x="150" y="491.5898">location :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="110" x="202" y="491.5898">location.location_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="315" y="491.5898">«FK»</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="131" x2="345" y1="497.9102" y2="497.9102"/><!--MD5=[de0bfa585452079efdc6062f86f7fa4a]
+class _7--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="86.8652" id="_7" style="stroke: #A80036; stroke-width: 1.5;" width="119" x="381.5" y="425.5"/><ellipse cx="410.45" cy="441.5" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M409.5359,437.8149 L409.5359,445.792 L410.2,445.792 Q411.6443,445.792 412.2586,444.8831 Q412.8729,443.9741 412.8729,441.791 Q412.8729,439.6245 412.2586,438.7197 Q411.6443,437.8149 410.2,437.8149 Z M407.0872,435.6069 L409.7103,435.6069 Q412.7483,435.6069 414.0848,437.0554 Q415.4212,438.5039 415.4212,441.791 Q415.4212,445.0864 414.0848,446.5432 Q412.7483,448 409.7103,448 L407.0872,448 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="56" x="427.55" y="446.0352">exhibition</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="382.5" x2="499.5" y1="457.5" y2="457.5"/><ellipse cx="392.5" cy="468.5" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="67" x="401.5" y="472.1348">capacity : int</text><ellipse cx="392.5" cy="481.4551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="93" x="401.5" y="485.0898">exhibition_id : int</text><ellipse cx="392.5" cy="494.4102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="78" x="401.5" y="498.0449">time : datetime</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="382.5" x2="499.5" y1="504.3652" y2="504.3652"/><!--MD5=[37d6e5304215b5e345f427169db70937]
+class _1--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="99.8203" id="_1" style="stroke: #A80036; stroke-width: 1.5;" width="108" x="6" y="605"/><ellipse cx="35.4" cy="621" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M34.4859,617.3149 L34.4859,625.292 L35.15,625.292 Q36.5943,625.292 37.2086,624.3831 Q37.8229,623.4741 37.8229,621.291 Q37.8229,619.1245 37.2086,618.2197 Q36.5943,617.3149 35.15,617.3149 Z M32.0372,615.1069 L34.6603,615.1069 Q37.6983,615.1069 39.0348,616.5554 Q40.3712,618.0039 40.3712,621.291 Q40.3712,624.5864 39.0348,626.0432 Q37.6983,627.5 34.6603,627.5 L32.0372,627.5 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="44" x="52.6" y="625.5352">location</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="113" y1="637" y2="637"/><ellipse cx="17" cy="648" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="82" x="26" y="651.6348">location_id : int</text><ellipse cx="17" cy="660.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="62" x="26" y="664.5898">name : float</text><ellipse cx="17" cy="673.9102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="78" x="26" y="677.5449">time : datetime</text><ellipse cx="17" cy="686.8652" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="56" x="26" y="690.5">type : float</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="113" y1="696.8203" y2="696.8203"/><!--MD5=[95d1cea1cd7f69d371fe62aa72675e9c]
+class _2--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="125.7305" id="_2" style="stroke: #A80036; stroke-width: 1.5;" width="232" x="536" y="406"/><ellipse cx="600.75" cy="422" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M599.8359,418.3149 L599.8359,426.292 L600.5,426.292 Q601.9443,426.292 602.5586,425.3831 Q603.1729,424.4741 603.1729,422.291 Q603.1729,420.1245 602.5586,419.2197 Q601.9443,418.3149 600.5,418.3149 Z M597.3872,416.1069 L600.0103,416.1069 Q603.0483,416.1069 604.3848,417.5554 Q605.7212,419.0039 605.7212,422.291 Q605.7212,425.5864 604.3848,427.0432 Q603.0483,428.5 600.0103,428.5 L597.3872,428.5 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="94" x="621.25" y="426.5352">payment_details</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="537" x2="767" y1="438" y2="438"/><ellipse cx="547" cy="449" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="66" x="556" y="452.6348">online : bool</text><ellipse cx="547" cy="461.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="82" x="556" y="465.5898">payment_card :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="91" x="641" y="465.5898">card_payment.id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="735" y="465.5898">«FK»</text><ellipse cx="547" cy="474.9102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="83" x="556" y="478.5449">payment_cash :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="92" x="642" y="478.5449">cash_payment.id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="737" y="478.5449">«FK»</text><ellipse cx="547" cy="487.8652" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="556" y="491.5">payment_details_id : int</text><ellipse cx="547" cy="500.8203" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="556" y="504.4551">price : decimal</text><ellipse cx="547" cy="513.7754" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="56" x="556" y="517.4102">type : float</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="537" x2="767" y1="523.7305" y2="523.7305"/><!--MD5=[4df2e88eba431a2a56d213b7bca710d9]
+class _3--><rect fill="#FEFECE" filter="url(#fmsrdf44d2m8c)" height="112.7754" id="_3" style="stroke: #A80036; stroke-width: 1.5;" width="360" x="184" y="233"/><ellipse cx="344.25" cy="249" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M343.3359,245.3149 L343.3359,253.292 L344,253.292 Q345.4443,253.292 346.0586,252.3831 Q346.6729,251.4741 346.6729,249.291 Q346.6729,247.1245 346.0586,246.2197 Q345.4443,245.3149 344,245.3149 Z M340.8872,243.1069 L343.5103,243.1069 Q346.5483,243.1069 347.8848,244.5554 Q349.2212,246.0039 349.2212,249.291 Q349.2212,252.5864 347.8848,254.0432 Q346.5483,255.5 343.5103,255.5 L340.8872,255.5 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="31" x="364.75" y="253.5352">ticket</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="185" x2="543" y1="265" y2="265"/><ellipse cx="195" cy="276" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="124" x="204" y="279.6348">arrival_transport : float</text><ellipse cx="195" cy="288.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="71" x="204" y="292.5898">checkpoints :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="232" x="278" y="292.5898">checkpoint_lookup.checkpoint_lookup_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="513" y="292.5898">«FK»</text><ellipse cx="195" cy="301.9102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="60" x="204" y="305.5449">exhibition :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="132" x="267" y="305.5449">exhibition.exhibition_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="402" y="305.5449">«FK»</text><ellipse cx="195" cy="314.8652" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="52" x="204" y="318.5">payment :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="200" x="259" y="318.5">payment_details.payment_details_id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="25" x="462" y="318.5">«FK»</text><ellipse cx="195" cy="327.8203" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="68" x="204" y="331.4551">ticket_id : int</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="185" x2="543" y1="337.7754" y2="337.7754"/><!--MD5=[bde1413f829cc278731640fabc810278]
+reverse link _0 to _1--><path d="M149.37,181.11 C131.83,243.97 111.78,330.02 95,406 C79.77,474.95 63.2,554.92 57.14,605 " fill="none" id="_0&lt;-_1" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="149.4349" x2="143.9114" y1="180.8686" y2="173.17"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="149.4349" x2="159.3086" y1="180.8686" y2="173.17"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="149.4349" x2="151.61" y1="180.8686" y2="173.17"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="56.4262" y="594.159"/><!--MD5=[bde1413f829cc278731640fabc810278]
+reverse link _0 to _1--><path d="M178.79,181.11 C166.83,243.97 146.78,330.02 130,406 C114.77,474.95 98.2,554.92 83.52,605 " fill="none" id="_0&lt;-_1-1" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="178.8074" x2="172.4167" y1="181.0333" y2="173.17"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="178.8074" x2="188.1433" y1="181.0333" y2="173.17"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="178.8074" x2="180.28" y1="181.0333" y2="173.17"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="86.6807" y="594.159"/><!--MD5=[eed656a2cfbc263ae3905a2379d727ae]
+reverse link _0 to _2--><path d="M347.81,120.75 C421.29,141.28 504.33,175.72 562,233 C608.96,279.65 631.86,353.38 642.73,405.81 " fill="none" id="_0&lt;-_2" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="347.5355" x2="339.82" y1="120.6746" y2="126.2755"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="347.5355" x2="339.82" y1="120.6746" y2="110.8445"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="347.5355" x2="339.82" y1="120.6746" y2="118.56"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="641.4269" y="395.2384"/><!--MD5=[ea448699c80579924a53b8b5046cae45]
+reverse link _0 to _3--><path d="M264.69,179.2 C281.24,197.42 298.24,216.13 313.4,232.81 " fill="none" id="_0&lt;-_3" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="264.4785" x2="253.1779" y1="178.9721" y2="173.05"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="264.4785" x2="265.0221" y1="178.9721" y2="173.05"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="264.4785" x2="259.1" y1="178.9721" y2="173.05"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="306.6606" y="222.1883"/><!--MD5=[68addd6110fd42dc811da417aeccbe4e]
+reverse link _2 to _4--><path d="M616.19,539.36 C607.27,556.63 597.77,575.03 589.05,591.92 " fill="none" id="_2&lt;-_4" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="616.3012" x2="612.8608" y1="539.1492" y2="532.04"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="616.3012" x2="627.0792" y1="539.1492" y2="532.04"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="616.3012" x2="619.97" y1="539.1492" y2="532.04"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="592.5245" y="581.3611"/><!--MD5=[6d4ebb2bb2edf03631fc8b5de109183a]
+reverse link _2 to _5--><path d="M687.8,539.34 C699.03,561.09 711.19,584.65 721.55,604.72 " fill="none" id="_2&lt;-_5" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="687.6988" x2="676.9208" y1="539.1492" y2="532.04"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="687.6988" x2="691.1392" y1="539.1492" y2="532.04"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="687.6988" x2="684.03" y1="539.1492" y2="532.04"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="717.6898" y="594.1975"/><!--MD5=[e6e008698320a9f27e8a0afb4bfaa138]
+reverse link _3 to _2--><path d="M461.25,350.43 C490.22,368.29 522.02,387.89 551.21,405.88 " fill="none" id="_3&lt;-_2" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="461.1467" x2="450.1428" y1="350.3672" y2="346.18"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="461.1467" x2="458.5172" y1="350.3672" y2="346.18"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="461.1467" x2="454.33" y1="350.3672" y2="346.18"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="539.3249" y="395.3165"/><!--MD5=[510df503d95d0230a43042b22d704e04]
+reverse link _3 to _6--><path d="M319.77,352.82 C301,379.25 279.79,409.13 263.68,431.83 " fill="none" id="_3&lt;-_6" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="319.8531" x2="317.9538" y1="352.7062" y2="346.18"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="319.8531" x2="331.0062" y1="352.7062" y2="346.18"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="319.8531" x2="324.48" y1="352.7062" y2="346.18"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="268.046" y="421.1992"/><!--MD5=[302fddd2497c975672137639babeaac0]
+reverse link _3 to _7--><path d="M391.46,353.79 C401.78,377.58 413.25,404.03 422.56,425.48 " fill="none" id="_3&lt;-_7" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="391.3393" x2="380.8132" y1="353.5168" y2="346.18"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="391.3393" x2="395.4868" y1="353.5168" y2="346.18"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="391.3393" x2="388.15" y1="353.5168" y2="346.18"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="419.1746" y="414.635"/><!--MD5=[299d30f220ef4c56106067915d61f792]
+reverse link _6 to _1--><path d="M197.27,512.11 C170.56,539.71 135.55,575.91 107.56,604.83 " fill="none" id="_6&lt;-_1" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="197.2669" x2="197.081" y1="512.099" y2="506.35"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="197.2669" x2="208.579" y1="512.099" y2="506.35"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="197.2669" x2="202.83" y1="512.099" y2="506.35"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="113.9669" y="594.323"/><!--MD5=[c9421d925395a29d2672eb62080e83f7]
+@startuml
+''''''''''''''''''''''''''''''''''''''''''
+''                                      ''
+''  AUTOGENERATED CODE - - DO NOT EDIT!  ''
+''                                      ''
+''''''''''''''''''''''''''''''''''''''''''
+
+class "audio_guide" as _0 << (D,orchid) >> {
++ activation_date : date
++ audio_guide_id : int
++ issue_point : **location.location_id** <<FK>>
++ language : float
++ listen_time : float
++ payment : **payment_details.payment_details_id** <<FK>>
++ return_point : **location.location_id** <<FK>>
++ ticket_id : **ticket.ticket_id** <<FK>>
++ type : float
+}
+class "card_payment" as _4 << (D,orchid) >> {
++ bank_name : string
++ bank_short_name : string
++ branch : string
++ card_number_snippet : string
++ expiry : string
++ id : int
+}
+class "cash_payment" as _5 << (D,orchid) >> {
++ city : string
++ country : string
++ first_name : string
++ id : int
+}
+class "checkpoint_lookup" as _6 << (D,orchid) >> {
++ checkpoint_lookup_id : int
++ location : **location.location_id** <<FK>>
+}
+class "exhibition" as _7 << (D,orchid) >> {
++ capacity : int
++ exhibition_id : int
++ time : datetime
+}
+class "location" as _1 << (D,orchid) >> {
++ location_id : int
++ name : float
++ time : datetime
++ type : float
+}
+class "payment_details" as _2 << (D,orchid) >> {
++ online : bool
++ payment_card : **card_payment.id** <<FK>>
++ payment_cash : **cash_payment.id** <<FK>>
++ payment_details_id : int
++ price : decimal
++ type : float
+}
+class "ticket" as _3 << (D,orchid) >> {
++ arrival_transport : float
++ checkpoints : **checkpoint_lookup.checkpoint_lookup_id** <<FK>>
++ exhibition : **exhibition.exhibition_id** <<FK>>
++ payment : **payment_details.payment_details_id** <<FK>>
++ ticket_id : int
+}
+_0 }- - " " _1
+_0 }- - " " _1
+_0 }- - " " _2
+_0 }- - " " _3
+_2 }- - " " _4
+_2 }- - " " _5
+_3 }- - " " _2
+_3 }- - " " _6
+_3 }- - " " _7
+_6 }- - " " _1
+@enduml
+
+@startuml
+
+class "audio_guide" as _0 << (D,orchid) >> {
++ activation_date : date
++ audio_guide_id : int
++ issue_point : **location.location_id** <<FK>>
++ language : float
++ listen_time : float
++ payment : **payment_details.payment_details_id** <<FK>>
++ return_point : **location.location_id** <<FK>>
++ ticket_id : **ticket.ticket_id** <<FK>>
++ type : float
+}
+class "card_payment" as _4 << (D,orchid) >> {
++ bank_name : string
++ bank_short_name : string
++ branch : string
++ card_number_snippet : string
++ expiry : string
++ id : int
+}
+class "cash_payment" as _5 << (D,orchid) >> {
++ city : string
++ country : string
++ first_name : string
++ id : int
+}
+class "checkpoint_lookup" as _6 << (D,orchid) >> {
++ checkpoint_lookup_id : int
++ location : **location.location_id** <<FK>>
+}
+class "exhibition" as _7 << (D,orchid) >> {
++ capacity : int
++ exhibition_id : int
++ time : datetime
+}
+class "location" as _1 << (D,orchid) >> {
++ location_id : int
++ name : float
++ time : datetime
++ type : float
+}
+class "payment_details" as _2 << (D,orchid) >> {
++ online : bool
++ payment_card : **card_payment.id** <<FK>>
++ payment_cash : **cash_payment.id** <<FK>>
++ payment_details_id : int
++ price : decimal
++ type : float
+}
+class "ticket" as _3 << (D,orchid) >> {
++ arrival_transport : float
++ checkpoints : **checkpoint_lookup.checkpoint_lookup_id** <<FK>>
++ exhibition : **exhibition.exhibition_id** <<FK>>
++ payment : **payment_details.payment_details_id** <<FK>>
++ ticket_id : int
+}
+_0 }- - " " _1
+_0 }- - " " _1
+_0 }- - " " _2
+_0 }- - " " _3
+_2 }- - " " _4
+_2 }- - " " _5
+_3 }- - " " _2
+_3 }- - " " _6
+_3 }- - " " _7
+_6 }- - " " _1
+@enduml
+
+PlantUML version 1.2020.10(Sun May 17 19:35:57 AEST 2020)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 13.0.1+9
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: en
+Country: AU
+--></g></svg>

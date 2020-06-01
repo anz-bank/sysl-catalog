@@ -2,7 +2,9 @@
 package catalog
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -243,21 +245,44 @@ func HttpToFile(fs afero.Fs, fileName, url string) error {
 }
 
 func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
-	fileName = strings.ReplaceAll(fileName, ".svg", ".puml")
+	var out []byte
 	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
 		return err
 	}
-	if err := afero.WriteFile(fs, fileName, []byte(contents), os.ModePerm); err != nil {
+
+	switch p.Ext {
+	case ".svg":
+		out = PlantumlNailGun(contents)
+	case ".puml":
+		out = []byte(contents)
+	}
+	if err := afero.WriteFile(fs, fileName, out, os.ModePerm); err != nil {
 		return err
 	}
 	return nil
+}
+
+func PlantumlNailGun(contents string) []byte {
+	c1 := exec.Command("echo", fmt.Sprintf(`"""%s"""`, contents))
+	c2 := exec.Command("ng", "net.sourceforge.plantuml.Run", "-tsvg", "-p")
+	r, w := io.Pipe()
+	c1.Stdout = w
+	c2.Stdin = r
+
+	var b2 bytes.Buffer
+	c2.Stdout = &b2
+	c1.Start()
+	c2.Start()
+	c1.Wait()
+	w.Close()
+	c2.Wait()
+	return b2.Bytes()
 }
 
 func PlantUMLCLI(service, dir, wildcard string) (err error, cleanup func()) {
 	dir = strings.TrimRight(dir, "/")
 	indir := dir + wildcard
 	javaCommand := fmt.Sprintf(`java -Djava.awt.headless=true -jar %s -tsvg '%s'`, service, indir)
-	//javaCommand := `java -Djava.awt.headless=true -jar plantuml.jar --version`
 	fmt.Println(javaCommand)
 	fmt.Println("bash", "-c", javaCommand)
 	plantuml := exec.Command("bash", "-c", javaCommand) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)

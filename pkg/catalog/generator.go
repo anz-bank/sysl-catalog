@@ -3,7 +3,6 @@ package catalog
 
 import (
 	"fmt"
-	"os"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -93,12 +92,12 @@ func NewProject(
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
 	}
-	if strings.Contains(p.PlantumlService, ".jar") {
-		_, err := os.Open(p.PlantumlService)
-		if err != nil {
-			p.Log.Error("Error adding plantumlenv:", err)
-		}
-	}
+	//if strings.Contains(p.PlantumlService, ".jar") {
+	//	_, err := os.Open(p.PlantumlService)
+	//	if err != nil {
+	//		p.Log.Error("Error adding plantumlenv:", err)
+	//	}
+	//}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	}
@@ -187,16 +186,8 @@ func (p *Generator) Run() {
 	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
 	if strings.Contains(p.PlantumlService, ".jar") {
-		diagramCreator(p.FilesToCreate, p.PlantumlJava)
 		if !p.Server {
-			wg.Wait()
-			progress.Finish()
-			fmt.Println("This might take a while...")
-			err, removepuml := PlantUMLCLI(p.PlantumlService, p.OutputDir, "/**/*.puml")
-			if err != nil {
-				p.Log.Error("Error creating plantuml files:", err)
-			}
-			removepuml()
+			diagramCreator(p.FilesToCreate, p.PlantumlJava)
 		}
 	} else {
 		diagramCreator(p.FilesToCreate, HttpToFile)
@@ -207,19 +198,6 @@ func (p *Generator) Run() {
 
 }
 
-//func JavaDirsToSvg(dirs map[string]struct{}) {
-//	var wg sync.WaitGroup
-//	for fileName, _ := range dirs {
-//		wg.Add(1)
-//		go func(fileName string) {
-//			PlantUMLCLI(path.Join(fileName, "*.puml"))
-//			//progress.Increment()
-//			wg.Done()
-//			//completedDiagrams++
-//		}(fileName)
-//	}
-//	wg.Wait()
-//}
 func markdownName(s, candidate string) string {
 	if strings.Contains(s, "{{.Title}}") {
 		candidate = SanitiseOutputName(candidate)

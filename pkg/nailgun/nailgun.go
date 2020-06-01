@@ -94,7 +94,7 @@ func (self *NailgunConnection) sendWorkingDirectory() (err error) {
 }
 
 func (self *NailgunConnection) sendCommand(args []string) (err error) {
-	command := args[0]
+	command := args[1]
 
 	err = self.sendChunk('C', []byte(command))
 	if err != nil {
@@ -146,7 +146,7 @@ func (self *NailgunConnection) readFully(buffer []byte) (err error) {
 	return nil
 }
 
-func (self *NailgunConnection) readFromServer(dest io.Writer) (exitCode int, err error) {
+func (self *NailgunConnection) readFromServer(stdout io.Writer, stderr io.Writer) (exitCode int, err error) {
 	N := 8192
 	header := make([]byte, 5, 5)
 	buffer := make([]byte, N, N)
@@ -167,12 +167,12 @@ func (self *NailgunConnection) readFromServer(dest io.Writer) (exitCode int, err
 		payloadType := header[4]
 
 		//log.Printf("Chunk %v %v %v\n", header, payloadLength, payloadType)
-
+		var dest io.Writer
 		switch payloadType {
 		case '1':
-			dest = os.Stdout
+			dest = stdout
 		case '2':
-			dest = os.Stderr
+			dest = stderr
 
 		case 'S':
 			// Undocumented chunk type "start input"
@@ -258,12 +258,7 @@ func runCommand(argv []string) {
 	}
 }
 
-func Run(args []string, env []string, stdin io.Reader, stdout io.Writer) {
-	// if len(os.Args) <= 2 {
-	// 	log.Printf("Must pass (at least) command/class to run")
-	// 	os.Exit(2)
-	// }
-
+func Run(args []string, env []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) error {
 	port := findEnvironmentVariable("NAILGUN_PORT")
 	if port == "" {
 		port = "2113"
@@ -316,15 +311,7 @@ func Run(args []string, env []string, stdin io.Reader, stdout io.Writer) {
 		}
 	}()
 
-	exitCode, err := ng.readFromServer(stdout)
+	_, err = ng.readFromServer(stdout, stderr)
 	ng.close()
-
-	if err != nil {
-		if err != io.EOF {
-			log.Printf("Error communicating with background process: %v\n", err)
-			os.Exit(2)
-		}
-	}
-
-	os.Exit(exitCode)
+	return err
 }

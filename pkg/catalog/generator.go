@@ -28,7 +28,6 @@ var typeMaps = map[string]string{"md": "README.md", "markdown": "README.md", "ht
 // Generator is the contextual object that is used in the markdown generation
 type Generator struct {
 	FilesToCreate        map[string]string
-	DirsToCreate         map[string]struct{} // This is for using diagrams with cli plantuml
 	MermaidFilesToCreate map[string]string
 	SourceFileName       string
 	ProjectTitle         string
@@ -87,7 +86,6 @@ func NewProject(
 		RootModule:      module,
 		PlantumlService: plantumlService,
 		FilesToCreate:   make(map[string]string),
-		DirsToCreate:    make(map[string]struct{}),
 		Fs:              fs,
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
@@ -158,9 +156,6 @@ func (p *Generator) Run() {
 	var completedDiagrams int64
 	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
 		for fileName, contents := range inMap {
-			if _, ok := p.DirsToCreate[path.Dir(path.Join(p.OutputDir, fileName))]; !ok {
-				p.DirsToCreate[path.Dir(path.Join(p.OutputDir, fileName))] = struct{}{}
-			}
 			wg.Add(1)
 			go func(fileName, contents string) {
 				var err = f(p.Fs, path.Join(p.OutputDir, fileName), contents)

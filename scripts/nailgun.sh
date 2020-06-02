@@ -1,10 +1,24 @@
-#!/bin/bash
+#!/bin/sh
 
-trap "exit" INT TERM ERR
 trap "kill 0" EXIT
 
-java -cp plantuml.jar:nailgun-server-1.0.0-SNAPSHOT.jar -server com.facebook.nailgun.NGServer &
+java -cp plantuml.jar:nailgun-server-1.0.0-SNAPSHOT.jar -server com.facebook.nailgun.NGServer>/dev/null 2>/tmp/stderr &
+server=0
 
-/usr/sysl-catalog -o /out/ $@
+for i in "$@"
+do
+case $i in
+    -s|--serve)
+        ./sysl-catalog -o /out/ $@ &
+        server=1
+        wait
+        echo "Done"
+        
+esac
+done
 
-wait
+if [ $server -eq 0 ]
+then
+./sysl-catalog -o /out/ $@
+fi
+

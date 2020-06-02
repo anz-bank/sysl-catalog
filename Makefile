@@ -8,7 +8,7 @@ build:
 docker: build
 	docker build -t sysl-catalog .
 docker-run: docker
-	docker run -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog
+	docker run -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog demo/simple2.sysl
 .PHONY: test
 test:
 	go test ./...

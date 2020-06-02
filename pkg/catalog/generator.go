@@ -188,9 +188,7 @@ func (p *Generator) Run() {
 		diagramCreator(p.FilesToCreate, HttpToFile)
 	}
 	wg.Wait()
-
 	progress.Finish()
-
 }
 
 func markdownName(s, candidate string) string {

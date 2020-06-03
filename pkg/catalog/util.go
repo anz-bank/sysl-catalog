@@ -315,6 +315,16 @@ func GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) e
 	return nil
 }
 
+// GenerateRedoc creates a redoc html file
+func GenerateAndWriteRedoc(fs afero.Fs, fileName string, specURL string) error {
+	redoc := BuildRedoc(specURL)
+	err := afero.WriteFile(fs, fileName, redoc, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // CreateSequenceDiagram creates an sequence diagram and returns the sequence diagram string and any errors
 func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 	l := &cmdutils.Labeler{}

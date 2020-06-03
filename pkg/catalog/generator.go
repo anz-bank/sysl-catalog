@@ -53,6 +53,7 @@ type Generator struct {
 	Title      string
 	OutputDir  string
 	Links      map[string]string
+	Server     bool
 }
 
 type SourceCoder interface {
@@ -90,6 +91,12 @@ func NewProject(
 		Ext:             ".svg",
 		Mermaid:         mermaidEnabled,
 	}
+	//if strings.Contains(p.PlantumlService, ".jar") {
+	//	_, err := os.Open(p.PlantumlService)
+	//	if err != nil {
+	//		p.Log.Error("Error adding plantumlenv:", err)
+	//	}
+	//}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	}
@@ -162,7 +169,6 @@ func (p *Generator) Run() {
 			}(fileName, contents)
 		}
 	}
-
 	if p.Mermaid {
 		progress = pb.StartNew(len(p.MermaidFilesToCreate))
 		fmt.Println("Generating Mermaid diagrams:")
@@ -175,8 +181,13 @@ func (p *Generator) Run() {
 	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
 	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
-	diagramCreator(p.FilesToCreate, HttpToFile)
-
+	if strings.Contains(p.PlantumlService, ".jar") {
+		if !p.Server {
+			diagramCreator(p.FilesToCreate, p.PlantumlJava)
+		}
+	} else {
+		diagramCreator(p.FilesToCreate, HttpToFile)
+	}
 	wg.Wait()
 	progress.Finish()
 }

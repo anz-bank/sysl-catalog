@@ -11,6 +11,8 @@ require (
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
 	github.com/joshcarp/mermaid-go v0.0.0-20200403052241-d6fecd5216de
 	github.com/radovskyb/watcher v1.0.7
+	github.com/shurcooL/go v0.0.0-20200502201357-93f07166e636 // indirect
+	github.com/shurcooL/go-goon v0.0.0-20170922171312-37c2f522c041 // indirect
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/afero v1.2.2
 	github.com/stretchr/testify v1.5.1

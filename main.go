@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -40,11 +41,11 @@ var (
 func main() {
 	kingpin.Parse()
 	plantumlService := os.Getenv("SYSL_PLANTUML")
-	if plantumlService == "" {
-		log.Fatal("Error: Set SYSL_PLANTUML env variable")
-	}
 	if *plantUMLoption != "" {
 		plantumlService = *plantUMLoption
+	}
+	if plantumlService == "" {
+		log.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
 	}
 	fs := afero.NewOsFs()
 	log := logrus.New()
@@ -55,10 +56,15 @@ func main() {
 		logrus.SetLevel(logrus.ErrorLevel)
 	}
 	if !*server {
+		fmt.Println("Parsing")
+		start := time.Now()
 		m, _, err := loader.LoadSyslModule(".", *input, fs, log)
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Println("Done")
+		elapsed := time.Since(start)
+		fmt.Println("Done, time elapsed: ", elapsed)
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
 			WithTemplateFs(fs, strings.Split(*templates, ",")...).
 			SetOptions(*noCSS, *noImages, *embed, *outputFileName).
@@ -82,7 +88,9 @@ func main() {
 					err = fmt.Errorf("%s", r)
 				}
 			}()
+			fmt.Println("Parsing")
 			m, _, err = loader.LoadSyslModule("", *input, fs, log)
+			fmt.Println("Done Parsing")
 			return
 		}()
 		if err != nil {

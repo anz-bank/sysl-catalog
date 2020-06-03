@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/anz-bank/protoc-gen-sysl v0.0.4
-	github.com/anz-bank/sysl v0.99.0
+	github.com/anz-bank/sysl v0.103.0
 	github.com/cheggaaa/pb/v3 v3.0.4
 	github.com/gohugoio/hugo v0.71.0
 	github.com/hashicorp/go-retryablehttp v0.6.6

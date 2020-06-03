@@ -7,6 +7,7 @@ import (
 	"html"
 	"net/http"
 	"path"
+	"strings"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/spf13/afero"
@@ -14,7 +15,7 @@ import (
 
 // Update loads another Sysl module into a project and runs
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
-	p.Fs = afero.NewMemMapFs()
+	//p.Fs = afero.NewMemMapFs()
 	p.RootModule = m
 	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
@@ -37,8 +38,10 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Generator {
 	p.DisableCss = disableCSS
 	p.LiveReload = liveReload
-	p.ImageTags = imageTags
+	p.ImageTags = imageTags || !strings.Contains(p.PlantumlService, ".jar")
 	p.OutputDir = "/"
+	p.Server = true
+	p.Fs = afero.NewMemMapFs()
 	return p
 }
 
@@ -60,7 +63,6 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 	request := r.RequestURI
-
 	if p.RootModule == nil && path.Ext(request) != ".ico" {
 		bytes = convertToHTML(`<img class="blink-image" src="favicon.ico">` + flashing)
 		return
@@ -68,7 +70,6 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if p.Fs == nil && path.Ext(request) != ".ico" {
 		p.Update(p.RootModule)
 	}
-
 	switch request {
 	case "/plantuml", "/plantuml/":
 		p.Mermaid = false
@@ -83,12 +84,11 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch path.Ext(request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
-		bytes, err = afero.ReadFile(p.Fs, request)
+		bytes, err = PlantumlNailGun(p.FilesToCreate[strings.TrimLeft(request, "/")])
+		p.errs = []error{}
 		if err != nil {
 			p.errs = append(p.errs, err)
-			p.Log.Info(err)
 		}
-		p.errs = []error{}
 		return
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)
@@ -100,7 +100,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "":
 		request += "index.html"
 	}
-	bytes, err = afero.ReadFile(p.Fs, request)
+	bytes, err = afero.ReadFile(p.Fs, path.Join(p.OutputDir, request))
 	if err != nil {
 		if len(p.errs) > 0 && p.errs[len(p.errs)-1].Error() == err.Error() {
 			return

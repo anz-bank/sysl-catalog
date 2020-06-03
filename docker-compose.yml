@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  plantuml-server:
+    image: ${PLANTUML_IMAGE}
+    ports:
+      - 8080:8080
+  docs:
+    build:
+      context: build
+      args:
+        - GOPROXY=${GOPROXY}
+        - REGISTRY=${REGISTRY}
+    image: sysl-catalog:latest
+    volumes:
+      - ./demo/:/demo/
+      - ./docs/:/docs/
+      - ./build.sh:/build.sh
+    environment:
+      - SYSL_PLANTUML=http://plantuml-server:8080
+    ports:
+      - 6900:6900
+    entrypoint:
+      - bash
+      - build.sh
+    depends_on:
+      - plantuml-server
+
+

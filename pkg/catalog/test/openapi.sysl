@@ -1,0 +1,4 @@
+import simple.yaml as Simple
+
+Simple:
+    ...

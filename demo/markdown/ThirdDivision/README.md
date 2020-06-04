@@ -9,6 +9,7 @@
 ----|
 [ServerPackage](ServerPackage/README.md)|
 [foo](foo/README.md)|
+[simpleredoc](simpleredoc/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

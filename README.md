@@ -85,6 +85,10 @@ ThisAppShouldShow[~ignore]:
 `sysl-catalog --serve filename.sysl`
 ![server mode](resources/server.png)
 
+#### Generate Redoc files
+`sysl-catalog --redoc filename.sysl`
+This generates a [Redoc](https://github.com/Redocly/redoc) page that serves the original .json or .yaml OpenAPI spec on Github. Currently only supports spec files located in the same repo, and must be run in a git repo (so that the remote url can be retrieved using `git`).
+
 #### Run in server mode without css/rendered images
 - good for rendering raw markdown
 

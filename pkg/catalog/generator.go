@@ -170,7 +170,9 @@ func (p *Generator) Run() {
 					p.Log.Error("Error generating file:", err)
 					os.Exit(1)
 				}
-				progress.Increment()
+				if progress != nil {
+					progress.Increment()
+				}
 				wg.Done()
 				completedDiagrams++
 			}(fileName, contents)
@@ -190,8 +192,6 @@ func (p *Generator) Run() {
 		logrus.Info("Skipping Image creation")
 		return
 	}
-	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate) + len(p.RedocFilesToCreate))
-	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
 	if strings.Contains(p.PlantumlService, ".jar") {
 		if !p.Server {
@@ -204,11 +204,15 @@ func (p *Generator) Run() {
 			fmt.Println("Generating took ", elapsed)
 		}
 	} else {
+		progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate) + len(p.RedocFilesToCreate))
+		progress.SetCurrent(completedDiagrams)
 		diagramCreator(p.FilesToCreate, HttpToFile)
 	}
 	wg.Wait()
 	fmt.Println(p.OutputDir)
-	progress.Finish()
+	if progress != nil {
+		progress.Finish()
+	}
 }
 
 func markdownName(s, candidate string) string {

@@ -11,6 +11,8 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/pkg/errors"
+
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/renderer/html"
@@ -59,7 +61,7 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 			),
 		)
 		if err := md.Convert(out, &converted); err != nil {
-			p.Log.Error("Error converting markdown to html:", err)
+			return errors.Wrap(err, "Error converting markdown to html:")
 		}
 		raw := string(converted.Bytes())
 		raw = strings.ReplaceAll(raw, "README.md", p.OutputFileName)
@@ -101,6 +103,7 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.RootModule, logrus.New())
 	if err != nil {
 		p.Log.Error("Error creating integration diagram:", err)
+		os.Exit(1)
 		return ""
 	}
 	plantumlString := result[integration.Output]
@@ -114,6 +117,7 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 	plantumlString, err := CreateSequenceDiagram(m, call)
 	if err != nil {
 		p.Log.Error("Error creating sequence diagram:", err)
+		os.Exit(1)
 		return ""
 	}
 	return p.CreateFile(plantumlString, plantuml, appName, endpoint.GetName()+p.Ext)
@@ -260,10 +264,8 @@ func CreateFileName(dir string, elems ...string) (string, string) {
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFile(contents string, diagramType int, elems ...string) string {
 	absFilePath, currentDir := CreateFileName(p.CurrentDir, elems...)
-	//var fileContents string
 	var targetMap map[string]string
 	var err error
-	//fileContents = contents
 	switch diagramType {
 	case plantuml:
 		if !strings.Contains(p.PlantumlService, ".jar") {
@@ -277,6 +279,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	}
 	if err != nil {
 		p.Log.Error("Error creating file:", err)
+		os.Exit(1)
 		return ""
 	}
 	newFileName := absFilePath
@@ -382,6 +385,7 @@ func (p *Generator) MacroPackages(module *sysl.Module) []string {
 		err := p.CreateMarkdown(p.Templates[1], macroPackageFileName, p)
 		if err != nil {
 			p.Log.Error("Error generating project table:", err)
+			os.Exit(1)
 		}
 	}
 	return SortedKeys(MacroPackages)

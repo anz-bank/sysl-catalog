@@ -3,6 +3,7 @@ package catalog
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -10,12 +11,11 @@ import (
 	"strings"
 	"sync"
 	"text/template"
+	"time"
 
 	"github.com/iancoleman/strcase"
 
 	"github.com/anz-bank/sysl/pkg/syslutil"
-
-	"github.com/cheggaaa/pb/v3"
 
 	"github.com/sirupsen/logrus"
 
@@ -124,6 +124,7 @@ func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator 
 		bytes, err := afero.ReadFile(fs, e)
 		if err != nil {
 			p.Log.Error("Error opening template file:", p)
+			os.Exit(1)
 		}
 		tmpls = append(tmpls, string(bytes))
 	}
@@ -152,7 +153,7 @@ func (p *Generator) Run() {
 		p.Log.Error("Error creating project markdown:", err)
 	}
 	var wg sync.WaitGroup
-	var progress *pb.ProgressBar
+	//var progress *pb.ProgressBar
 	var completedDiagrams int64
 	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
 		for fileName, contents := range inMap {
@@ -161,15 +162,16 @@ func (p *Generator) Run() {
 				var err = f(p.Fs, path.Join(p.OutputDir, fileName), contents)
 				if err != nil {
 					p.Log.Error("Error generating file:", err)
+					os.Exit(1)
 				}
-				progress.Increment()
+				//progress.Increment()
 				wg.Done()
 				completedDiagrams++
 			}(fileName, contents)
 		}
 	}
 	if p.Mermaid {
-		progress = pb.StartNew(len(p.MermaidFilesToCreate))
+		//progress = pb.StartNew(len(p.MermaidFilesToCreate))
 		fmt.Println("Generating Mermaid diagrams:")
 		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
 	}
@@ -177,18 +179,25 @@ func (p *Generator) Run() {
 		logrus.Info("Skipping Image creation")
 		return
 	}
-	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
-	progress.SetCurrent(completedDiagrams)
+	//progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
+	//progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
 	if strings.Contains(p.PlantumlService, ".jar") {
 		if !p.Server {
-			diagramCreator(p.FilesToCreate, p.PlantumlJava)
+			diagramCreator(p.FilesToCreate, p.PUMLFile)
+			start := time.Now()
+			if err := PlantUMLJava(p.PlantumlService, p.OutputDir); err != nil {
+				p.Log.Error(err)
+			}
+			elapsed := time.Since(start)
+			fmt.Println("Generating took ", elapsed)
 		}
 	} else {
 		diagramCreator(p.FilesToCreate, HttpToFile)
 	}
-	wg.Wait()
-	progress.Finish()
+	//wg.Wait()
+	fmt.Println(p.OutputDir)
+	//progress.Finish()
 }
 
 func markdownName(s, candidate string) string {

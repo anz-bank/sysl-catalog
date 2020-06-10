@@ -12,6 +12,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.6.6
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
 	github.com/joshcarp/mermaid-go v0.0.0-20200403052241-d6fecd5216de
+	github.com/pkg/errors v0.9.1
 	github.com/radovskyb/watcher v1.0.7
 	github.com/shurcooL/go v0.0.0-20200502201357-93f07166e636 // indirect
 	github.com/shurcooL/go-goon v0.0.0-20170922171312-37c2f522c041 // indirect

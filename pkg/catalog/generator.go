@@ -13,6 +13,8 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/cheggaaa/pb"
+
 	"github.com/iancoleman/strcase"
 
 	"github.com/anz-bank/sysl/pkg/syslutil"
@@ -153,7 +155,7 @@ func (p *Generator) Run() {
 		p.Log.Error("Error creating project markdown:", err)
 	}
 	var wg sync.WaitGroup
-	//var progress *pb.ProgressBar
+	var progress *pb.ProgressBar
 	var completedDiagrams int64
 	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
 		for fileName, contents := range inMap {
@@ -164,14 +166,14 @@ func (p *Generator) Run() {
 					p.Log.Error("Error generating file:", err)
 					os.Exit(1)
 				}
-				//progress.Increment()
+				progress.Increment()
 				wg.Done()
 				completedDiagrams++
 			}(fileName, contents)
 		}
 	}
 	if p.Mermaid {
-		//progress = pb.StartNew(len(p.MermaidFilesToCreate))
+		progress = pb.StartNew(len(p.MermaidFilesToCreate))
 		fmt.Println("Generating Mermaid diagrams:")
 		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
 	}
@@ -179,8 +181,8 @@ func (p *Generator) Run() {
 		logrus.Info("Skipping Image creation")
 		return
 	}
-	//progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
-	//progress.SetCurrent(completedDiagrams)
+	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
+	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
 	if strings.Contains(p.PlantumlService, ".jar") {
 		if !p.Server {
@@ -195,9 +197,9 @@ func (p *Generator) Run() {
 	} else {
 		diagramCreator(p.FilesToCreate, HttpToFile)
 	}
-	//wg.Wait()
+	wg.Wait()
 	fmt.Println(p.OutputDir)
-	//progress.Finish()
+	progress.Finish()
 }
 
 func markdownName(s, candidate string) string {

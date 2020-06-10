@@ -1,5 +1,5 @@
 # This project tells our integration diagram what apps to include
-
+import simple.yaml as simpleredoc
 # This app specifies the projects to include, it is optional and can be left out
 simple2[~project]:
     FirstDivision:
@@ -10,6 +10,7 @@ simple2[~project]:
     ThirdDivision:
         ServerPackage
         foo
+        simpleredoc
 
 foo:
     @package="foo"

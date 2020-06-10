@@ -77,3 +77,23 @@ func TestNewProjectWithParser(t *testing.T) {
 		})
 	}
 }
+
+func TestGenerateDocsWithRedoc(t *testing.T) {
+	filePath := "test/openapi.sysl"
+	outputDir := "docs"
+	fs := afero.NewMemMapFs()
+	logger := logrus.New()
+	m, _, err := loader.LoadSyslModule(".", filePath, afero.NewOsFs(), logger)
+	if err != nil {
+		log.Fatal(err)
+	}
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p.SetOptions(false, false, false, true, "")
+	p.Run()
+	// Assert the right files exist
+	testFile := outputDir + "/Simple/simple.redoc.html"
+	_, err = fs.Open(testFile)
+	assert.NoError(t, err)
+	_, err = afero.ReadFile(fs, testFile)
+	assert.NoError(t, err)
+}

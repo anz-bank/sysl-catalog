@@ -261,6 +261,17 @@ func CreateFileName(dir string, elems ...string) (string, string) {
 	return path.Join(dir, absolutefilePath), dir
 }
 
+// CreateRedoc registers a file that needs to be created when the input source context has extension .json or .yaml
+func (p *Generator) CreateRedoc(sourceContext *sysl.SourceContext, appName string) string {
+	if !IsOpenAPIFile(sourceContext) || !p.Redoc {
+		return ""
+	}
+	absPath, _ := CreateFileName(p.CurrentDir, appName+".redoc.html")
+	p.RedocFilesToCreate[absPath] = BuildSpecURL(sourceContext)
+	link, _ := CreateFileName("", appName+".redoc.html")
+	return link
+}
+
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFile(contents string, diagramType int, elems ...string) string {
 	absFilePath, currentDir := CreateFileName(p.CurrentDir, elems...)

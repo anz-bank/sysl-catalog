@@ -31,6 +31,7 @@ var typeMaps = map[string]string{"md": "README.md", "markdown": "README.md", "ht
 type Generator struct {
 	FilesToCreate        map[string]string
 	MermaidFilesToCreate map[string]string
+	RedocFilesToCreate   map[string]string
 	SourceFileName       string
 	ProjectTitle         string
 	RootModule           *sysl.Module
@@ -39,6 +40,7 @@ type Generator struct {
 	DisableCss           bool // used for rendering raw markdown
 	DisableImages        bool // used for omitting image creation
 	Mermaid              bool
+	Redoc                bool   // used for generating redoc for openapi specs
 	Format               string // "html" or "markdown" or "" if custom
 	Ext                  string
 	OutputFileName       string
@@ -79,18 +81,19 @@ func NewProject(
 	module *sysl.Module,
 	fs afero.Fs, outputDir string, mermaidEnabled bool) *Generator {
 	p := Generator{
-		ProjectTitle:    titleAndFileName,
-		SourceFileName:  titleAndFileName,
-		OutputDir:       outputDir,
-		OutputFileName:  typeMaps[strings.ToLower(outputType)],
-		Format:          strings.ToLower(outputType),
-		Log:             log,
-		RootModule:      module,
-		PlantumlService: plantumlService,
-		FilesToCreate:   make(map[string]string),
-		Fs:              fs,
-		Ext:             ".svg",
-		Mermaid:         mermaidEnabled,
+		ProjectTitle:       titleAndFileName,
+		SourceFileName:     titleAndFileName,
+		OutputDir:          outputDir,
+		OutputFileName:     typeMaps[strings.ToLower(outputType)],
+		Format:             strings.ToLower(outputType),
+		Log:                log,
+		RootModule:         module,
+		PlantumlService:    plantumlService,
+		FilesToCreate:      make(map[string]string),
+		RedocFilesToCreate: make(map[string]string),
+		Fs:                 fs,
+		Ext:                ".svg",
+		Mermaid:            mermaidEnabled,
 	}
 	//if strings.Contains(p.PlantumlService, ".jar") {
 	//	_, err := os.Open(p.PlantumlService)
@@ -135,7 +138,8 @@ func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator 
 	return p.WithTemplateString(tmpls...)
 }
 
-func (p *Generator) SetOptions(disableCss, disableImages, imageTags bool, readmeName string) *Generator {
+func (p *Generator) SetOptions(disableCss, disableImages, imageTags, redoc bool, readmeName string) *Generator {
+	p.Redoc = redoc
 	p.DisableCss = disableCss
 	p.DisableImages = disableImages || imageTags
 	p.ImageTags = imageTags
@@ -177,11 +181,16 @@ func (p *Generator) Run() {
 		fmt.Println("Generating Mermaid diagrams:")
 		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
 	}
-	if p.ImageTags || p.DisableImages {
+	if p.Redoc {
+		progress = pb.StartNew(len(p.RedocFilesToCreate))
+		logrus.Info("Generating Redoc files")
+		diagramCreator(p.RedocFilesToCreate, GenerateAndWriteRedoc)
+	}
+	if (p.ImageTags || p.DisableImages) && !p.Redoc {
 		logrus.Info("Skipping Image creation")
 		return
 	}
-	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate))
+	progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate) + len(p.RedocFilesToCreate))
 	progress.SetCurrent(completedDiagrams)
 	fmt.Println("Generating diagrams:")
 	if strings.Contains(p.PlantumlService, ".jar") {
@@ -230,6 +239,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"CreateParamDataModel":     p.CreateParamDataModel,
 		"CreateReturnDataModel":    p.CreateReturnDataModel,
 		"CreateTypeDiagram":        p.CreateTypeDiagram,
+		"CreateRedoc":              p.CreateRedoc,
 		"GenerateDataModel":        p.GenerateDataModel,
 		"GetParamType":             p.GetParamType,
 		"GetReturnType":            p.GetReturnType,

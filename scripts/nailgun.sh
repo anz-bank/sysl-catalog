@@ -15,6 +15,9 @@ case $i in
 esac
 done
 
-./sysl-catalog -o /out/ $@
+./sysl-catalog -o /out/ $@ &
+wait
+echo "Done"
+exit 0
 
 

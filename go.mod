@@ -7,6 +7,7 @@ require (
 	github.com/anz-bank/protoc-gen-sysl v0.0.4
 	github.com/anz-bank/sysl v0.98.0
 	github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129
+	github.com/cheggaaa/pb v2.0.7+incompatible
 	github.com/cheggaaa/pb/v3 v3.0.4
 	github.com/gohugoio/hugo v0.71.0
 	github.com/hashicorp/go-retryablehttp v0.6.6
@@ -22,4 +23,8 @@ require (
 	github.com/yuin/goldmark v1.1.30
 	golang.org/x/sys v0.0.0-20200519105757-fe76b779f299 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
+	gopkg.in/fatih/color.v1 v1.7.0 // indirect
+	gopkg.in/mattn/go-colorable.v0 v0.1.0 // indirect
+	gopkg.in/mattn/go-isatty.v0 v0.0.4 // indirect
+	gopkg.in/mattn/go-runewidth.v0 v0.0.4 // indirect
 )

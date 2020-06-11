@@ -7,7 +7,7 @@ do
 case $i in
     -s|--serve)
         java -cp plantuml.jar:nailgun-server-1.0.0-SNAPSHOT.jar -server com.facebook.nailgun.NGServer&
-        ./sysl-catalog $@ &
+        sysl-catalog $@ &
         wait
         echo "Done"
         exit 0
@@ -15,7 +15,7 @@ case $i in
 esac
 done
 
-./sysl-catalog -o /out/ $@ &
+sysl-catalog -o /out/ $@ &
 wait
 echo "Done"
 exit 0

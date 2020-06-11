@@ -15,7 +15,7 @@ ENV LANG en_US.UTF-8
 ADD java/plantuml.jar .
 ADD java/nailgun-server-1.0.0-SNAPSHOT.jar .
 COPY --from=nailgun /usr/ng .
-COPY --from=builder /src/sysl-catalog .
+COPY --from=builder /src/sysl-catalog /bin/
 COPY scripts/nailgun.sh .
 
 RUN apk add --no-cache graphviz wget ca-certificates && \

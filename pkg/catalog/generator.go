@@ -13,7 +13,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/cheggaaa/pb"
+	"github.com/cheggaaa/pb/v3"
 
 	"github.com/iancoleman/strcase"
 

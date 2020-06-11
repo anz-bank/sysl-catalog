@@ -29,7 +29,7 @@ App2:
 `)
 	assert.Nil(t, err)
 
-	gen := &Generator{RootModule: m, Fs: afero.NewMemMapFs(), FilesToCreate: map[string]string{}}
+	gen := &Generator{RootModule: m, Fs: afero.NewMemMapFs(), FilesToCreate: map[string]string{}, Log: logrus.New()}
 	filename := gen.CreateIntegrationDiagramPlantuml(m, "", false)
 	contents := gen.FilesToCreate[filename]
 	assert.Equal(t,

@@ -161,8 +161,12 @@ func RecursivelyGetTypesHelper(appName string, t *sysl.Type, m *sysl.Module, cum
 			continue
 		}
 		ret[appName+"."+typeName] = newType
+		cummulative[appName+"."+typeName] = newType
+		for index, element := range ret {
+			cummulative[index] = element
+		}
 
-		for key, v := range RecursivelyGetTypesHelper(appName, ret[appName+"."+typeName], m, ret) {
+		for key, v := range RecursivelyGetTypesHelper(appName, ret[appName+"."+typeName], m, cummulative) {
 			if _, ok := cummulative[key]; ok {
 				continue
 			}

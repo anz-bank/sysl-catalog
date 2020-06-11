@@ -1,11 +1,9 @@
-App:
-    endpoint(req <: foo):
-         return <: foo
-    !type foo:
-        content <: bar
-    !type bar:
-        content <: foo
-
-sequence[~ignore]:
- _[~ignore]:
-     App
+validate:
+    @package = "validate"
+    !type FieldRules:
+        map <: MapRules
+    !type MapRules:
+        keys <: FieldRules
+        values <: FieldRules
+    !type RepeatedRules:
+        items <: FieldRules

@@ -25,8 +25,6 @@ import (
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
 	"github.com/anz-bank/sysl/pkg/syslwrapper"
-
-	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -100,11 +98,10 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	integration.Title = title
 	integration.EPA = EPA
 	integration.Clustered = true
-	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.RootModule, logrus.New())
+	result, err := integrationdiagram.GenerateIntegrations(&integration.CmdContextParamIntgen, p.RootModule, p.Log)
 	if err != nil {
 		p.Log.Error("Error creating integration diagram:", err)
 		os.Exit(1)
-		return ""
 	}
 	plantumlString := result[integration.Output]
 	return p.CreateFile(plantumlString, plantuml, integration.Output+p.Ext)
@@ -324,7 +321,7 @@ func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string
 		SortedKeys(m.Apps),
 		func(i string) bool {
 			return syslutil.HasPattern(m.GetApps()[i].GetAttrs(), "project") &&
-				m.GetApps()[i].SourceContext.File == p.SourceFileName
+				m.GetApps()[i].SourceContext.File == path.Base(p.SourceFileName)
 		},
 	)
 	if len(includedProjects) > 0 {

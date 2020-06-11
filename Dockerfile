@@ -5,6 +5,7 @@ RUN cd /src && go build -o sysl-catalog
 FROM alpine:3.10 AS nailgun
 WORKDIR /usr
 RUN apk add build-base
+RUN apk add bash
 ADD https://raw.githubusercontent.com/facebook/nailgun/master/nailgun-client/c/ng.c .
 RUN gcc -Wall ng.c -o ng
 

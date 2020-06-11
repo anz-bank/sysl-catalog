@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path"
 	"reflect"
 	"sort"
 	"strings"
-
-	"github.com/anz-bank/sysl-catalog/pkg/nailgun"
 
 	"github.com/anz-bank/sysl/pkg/diagrams"
 
@@ -232,26 +231,12 @@ func PlantUMLURL(plantumlService, contents string) (string, error) {
 }
 
 func HttpToFile(fs afero.Fs, fileName, url string) error {
-	if err := fs.MkdirAll(path.Dir(string(fileName)), os.ModePerm); err != nil {
-		return err
-	}
-	out, err := RetryHTTPRequest(string(url))
-	if err != nil {
-		return err
-	}
-	if err := afero.WriteFile(fs, string(fileName), out, os.ModePerm); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
 	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
 		return err
 	}
-	out, err := PlantumlNailGun(contents)
+	out, err := RetryHTTPRequest(url)
 	if err != nil {
-
+		return err
 	}
 	if err := afero.WriteFile(fs, fileName, out, os.ModePerm); err != nil {
 		return err
@@ -259,56 +244,58 @@ func (p *Generator) PlantumlJava(fs afero.Fs, fileName, contents string) error {
 	return nil
 }
 
-func PlantumlNailGun(contents string) ([]byte, error) {
-	//c1 := exec.Command("echo", fmt.Sprintf(`"""%s"""`, contents))
-	//c2 := exec.Command("ng", "net.sourceforge.plantuml.Run", "-tsvg", "-p")
-	//r, w := io.Pipe()
-	//c1.Stdout = w
-	//c2.Stdin = r
-	//
-	//var b2 bytes.Buffer
-	//c2.Stdout = &b2
-	//c1.Start()
-	//c2.Start()
-	//c1.Wait()
-	//w.Close()
-	//c2.Wait()
-	strings.NewReader(contents)
-	var stdout bytes.Buffer
-	var stderr bytes.Buffer
-	nailgun.Run(
-		[]string{"ng", "net.sourceforge.plantuml.Run", "-tsvg", "-p"},
-		[]string{},
-		strings.NewReader(contents),
-		&stdout,
-		&stderr,
-	)
-	if stderr.Len() == 0 {
-		return stdout.Bytes(), nil
+func (p *Generator) PUMLFile(fs afero.Fs, fileName, contents string) error {
+	fileName = strings.ReplaceAll(fileName, ".svg", ".puml")
+	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
+		return err
 	}
-	return nil, errors.New(stderr.String())
+	if err := afero.WriteFile(fs, fileName, []byte(contents), os.ModePerm); err != nil {
+		return err
+	}
+	return nil
 }
 
-//func PlantUMLCLI(service, dir, wildcard string) (err error, cleanup func()) {
-//	dir = strings.TrimRight(dir, "/")
-//	indir := dir + wildcard
-//	javaCommand := fmt.Sprintf(`java -Djava.awt.headless=true -jar %s -tsvg '%s'`, service, indir)
-//	fmt.Println(javaCommand)
-//	fmt.Println("bash", "-c", javaCommand)
-//	plantuml := exec.Command("bash", "-c", javaCommand) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-//	out, err := plantuml.CombinedOutput()
-//	fmt.Println(string(out))
-//	cleanUp := fmt.Sprintf("find %s  -type f -name '*.puml' -delete", dir)
-//	return err, func() {
-//		plantuml := exec.Command("bash", "-c", cleanUp) //"java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-tsvg", indir)
-//		err = plantuml.Run()
-//	}
-//}
+func PlantUMLJava(service, out string) error {
+	out = strings.TrimRight(out, "/")
+	cleanup := exec.Command("find", out, "-type", "f", "-name", "*.puml", "-delete")
+	defer cleanup.Run()
+	command := []string{"java", "-Xms256m", "-Xmx512m", "-Djava.security.egd=file:/dev/./urandom", "-XX:+UnlockExperimentalVMOptions", "-Djava.awt.headless=true", "-jar", service, "-tsvg", `"` + out + `*/**.puml"`}
+	c2 := exec.Command("sh", "-c", strings.Join(command, " "))
+	return c2.Run()
+}
+
+func PlantUMLNailGun(contents string) ([]byte, error) {
+	c2 := exec.Command("./ng", "net.sourceforge.plantuml.Run", "-tsvg", "-p")
+	c2.Stdin = strings.NewReader(contents)
+	var stdout, stderr bytes.Buffer
+	c2.Stdout = &stdout
+	c2.Stderr = &stderr
+	if err := c2.Run(); err != nil {
+		panic(fmt.Sprint(err, stderr.String()))
+		return nil, err
+	}
+	if len(stderr.Bytes()) != 0 {
+		return nil, errors.New(stderr.String())
+	}
+	plantuml := strings.TrimLeft(stdout.String(), "\n")
+	plantuml = strings.TrimRight(plantuml, "\n")
+	return []byte(plantuml), nil
+}
 
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file
 func GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
 	mermaidSvg := []byte(mermaid.Execute(data) + "\n")
 	var err = afero.WriteFile(fs, fileName, mermaidSvg, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// GenerateRedoc creates a redoc html file
+func GenerateAndWriteRedoc(fs afero.Fs, fileName string, specURL string) error {
+	redoc := BuildRedoc(specURL)
+	err := afero.WriteFile(fs, fileName, redoc, os.ModePerm)
 	if err != nil {
 		return err
 	}

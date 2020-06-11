@@ -5,6 +5,7 @@ import (
 
 	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
@@ -28,7 +29,7 @@ App2:
 `)
 	assert.Nil(t, err)
 
-	gen := &Generator{RootModule: m, Fs: afero.NewMemMapFs(), FilesToCreate: map[string]string{}}
+	gen := &Generator{RootModule: m, Fs: afero.NewMemMapFs(), FilesToCreate: map[string]string{}, Log: logrus.New()}
 	filename := gen.CreateIntegrationDiagramPlantuml(m, "", false)
 	contents := gen.FilesToCreate[filename]
 	assert.Equal(t,
@@ -182,4 +183,33 @@ func TestCreateTypeMermaid(t *testing.T) {
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, true)
 	mermaidString := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
 	assert.NotNil(t, mermaidString)
+}
+
+func TestCreateRedoc(t *testing.T) {
+	appName := "myAppName"
+	fileName := "myfile.yaml"
+	sourceContext := &sysl.SourceContext{File: fileName}
+	gen := Generator{
+		CurrentDir:         "myAppName",
+		RedocFilesToCreate: make(map[string]string),
+		Redoc:              true,
+	}
+	link := gen.CreateRedoc(sourceContext, appName)
+	t.Log(gen.RedocFilesToCreate)
+	registeredFile, ok := gen.RedocFilesToCreate["myAppName/myappname.redoc.html"]
+	assert.True(t, ok)
+	assert.Equal(t, "https://raw.githubusercontent.com/anz-bank/sysl-catalog/master/myfile.yaml", registeredFile)
+	assert.Equal(t, "myappname.redoc.html", link)
+}
+
+func TestCreateRedocFlagFalse(t *testing.T) {
+	appName := "myAppName"
+	fileName := "myfile.yaml"
+	sourceContext := &sysl.SourceContext{File: fileName}
+	gen := Generator{
+		RedocFilesToCreate: make(map[string]string),
+		Redoc:              false,
+	}
+	link := gen.CreateRedoc(sourceContext, appName)
+	assert.Equal(t, "", link)
 }

@@ -5,7 +5,6 @@ RUN cd /src && go build -o sysl-catalog
 FROM alpine:3.10 AS nailgun
 WORKDIR /usr
 RUN apk add build-base
-RUN apk add bash
 ADD https://raw.githubusercontent.com/facebook/nailgun/master/nailgun-client/c/ng.c .
 RUN gcc -Wall ng.c -o ng
 
@@ -18,7 +17,7 @@ ADD java/nailgun-server-1.0.0-SNAPSHOT.jar .
 COPY --from=nailgun /usr/ng .
 COPY --from=builder /src/sysl-catalog /bin/
 COPY scripts/nailgun.sh .
-
+RUN apk add --no-cache --upgrade bash
 RUN apk add --no-cache graphviz wget ca-certificates && \
       apk add --no-cache graphviz wget ca-certificates ttf-dejavu fontconfig
 RUN mkdir -p /out

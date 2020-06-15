@@ -21,6 +21,6 @@ jobs:
       if: ${{ github.ref == 'refs/heads/master' }}
       run: |
         curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
-        bin/hub pull-request -b master -l automerge --no-edit -m "Update docs" -m ":crown:  Automated PR to update documentation"
+        bin/hub pull-request -b master -h master -l automerge --no-edit -m "Update docs" -m ":crown:  Automated PR to update documentation"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

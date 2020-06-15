@@ -316,7 +316,6 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	if p.ImageDest != "" {
 		absFilePath = path.Join(p.ImageDest, strings.ReplaceAll(absFilePath, "/", "-"))
 		targetMap[absFilePath] = contents
-		println(currentDir)
 		return path.Join(root(currentDir), absFilePath)
 	}
 	targetMap[path.Join(p.OutputDir, absFilePath)] = contents

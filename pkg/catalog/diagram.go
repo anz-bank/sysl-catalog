@@ -264,14 +264,25 @@ func (p *Generator) CreateRedoc(sourceContext *sysl.SourceContext, appName strin
 		return ""
 	}
 	absPath, _ := CreateFileName(p.CurrentDir, appName+".redoc.html")
+	absPath = path.Join(p.OutputDir, absPath)
 	p.RedocFilesToCreate[absPath] = BuildSpecURL(sourceContext)
 	link, _ := CreateFileName("", appName+".redoc.html")
 	return link
 }
 
+func root(p string) string {
+	this := strings.Split(p, "/")
+	ret := ""
+	for _ = range this {
+		ret += "../"
+	}
+	return ret
+}
+
 // CreateFile registers a file that needs to be created in p, or returns the embedded img tag if in server mode
 func (p *Generator) CreateFile(contents string, diagramType int, elems ...string) string {
-	absFilePath, currentDir := CreateFileName(p.CurrentDir, elems...)
+	var absFilePath, currentDir string
+	absFilePath, currentDir = CreateFileName(p.CurrentDir, elems...)
 	var targetMap map[string]string
 	var err error
 	switch diagramType {
@@ -302,8 +313,14 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	if p.ImageTags && diagramType == plantuml && !strings.Contains(p.PlantumlService, ".jar") {
 		return contents
 	}
-	targetMap[absFilePath] = contents
-	return strings.Replace(absFilePath, currentDir, "", 1)
+	if p.ImageDest != "" {
+		absFilePath = path.Join(p.ImageDest, strings.ReplaceAll(absFilePath, "/", "-"))
+		targetMap[absFilePath] = contents
+		println(currentDir)
+		return path.Join(root(currentDir), absFilePath)
+	}
+	targetMap[path.Join(p.OutputDir, absFilePath)] = contents
+	return path.Join(p.OutputDir, strings.Replace(absFilePath, currentDir, "", 1))
 }
 
 // GenerateDataModel generates a data model for all of the types in app

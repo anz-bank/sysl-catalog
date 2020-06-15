@@ -41,6 +41,7 @@ type Generator struct {
 	DisableImages        bool // used for omitting image creation
 	Mermaid              bool
 	Redoc                bool   // used for generating redoc for openapi specs
+	ImageDest            string // Output all images into this folder is set
 	Format               string // "html" or "markdown" or "" if custom
 	Ext                  string
 	OutputFileName       string
@@ -138,11 +139,12 @@ func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator 
 	return p.WithTemplateString(tmpls...)
 }
 
-func (p *Generator) SetOptions(disableCss, disableImages, imageTags, redoc bool, readmeName string) *Generator {
+func (p *Generator) SetOptions(disableCss, disableImages, imageTags, redoc bool, readmeName string, ImageDest string) *Generator {
 	p.Redoc = redoc
 	p.DisableCss = disableCss
 	p.DisableImages = disableImages || imageTags
 	p.ImageTags = imageTags
+	p.ImageDest = ImageDest
 	if readmeName != "" {
 		p.OutputFileName = readmeName
 	}
@@ -165,7 +167,7 @@ func (p *Generator) Run() {
 		for fileName, contents := range inMap {
 			wg.Add(1)
 			go func(fileName, contents string) {
-				var err = f(p.Fs, path.Join(p.OutputDir, fileName), contents)
+				var err = f(p.Fs, fileName, contents)
 				if err != nil {
 					p.Log.Error("Error generating file:", err)
 					os.Exit(1)

@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/anz-bank/protoc-gen-sysl v0.0.4
-	github.com/anz-bank/sysl v0.103.0
+	github.com/anz-bank/sysl v0.108.0
 	github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129
 	github.com/cheggaaa/pb v2.0.7+incompatible
 	github.com/cheggaaa/pb/v3 v3.0.4

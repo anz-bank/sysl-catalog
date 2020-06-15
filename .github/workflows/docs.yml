@@ -18,5 +18,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         message: "Update docs [skip-ci]"
-    - name: Push
-      run: git push
+    - name: Create Pull Request
+    - uses: peter-evans/create-pull-request@v2
+      with:
+        title: "Update docs [skip-ci]"
+
+          

@@ -8,7 +8,7 @@ git rm -rf docs/* || true
 make install || true
 
 sysl-catalog -o demo/markdown demo/simple2.sysl
-sysl-catalog --type=html --embed -o demo/html demo/simple2.sysl --redoc
+sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml --embed -o demo/html demo/simple2.sysl --redoc
 mkdir -p docs
 cp -r demo/html/* docs
 

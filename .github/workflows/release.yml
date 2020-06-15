@@ -2,7 +2,8 @@ name: Release
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - 'v*.*.*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -14,16 +15,15 @@ jobs:
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@master
-      - name: Login to docker hub
-        uses: actions-hub/docker/login@master
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USER }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASS }}
-
       - name: Build :latest
         run: docker build -t anzbank/sysl-catalog:latest .
-
       - name: Push to docker hub :latest
-        uses: actions-hub/docker@master
+        uses: docker/build-push-action@v1
         with:
-          args: push docker.io/anzbank/sysl-catalog:latest
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+          repository: anzbank/sysl-catalog
+          tag_with_ref: true
+          add_git_labels: true
+          tags: latest
+          labels: org.opencontainers.image.revision=${{ github.sha }},org.opencontainers.image.url=https://sysl.io

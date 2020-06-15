@@ -11,13 +11,6 @@ jobs:
       uses: actions/checkout@v2
     - name: Gen Docs
       run: make docker-compose
-    - name: Commit docs
-      uses: EndBug/add-and-commit@v4
-      if: ${{ github.ref == 'refs/heads/master' }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        message: "Update docs [skip-ci]"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v2
       with:

@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:8080
   sysl-catalog:
-    image: sysl-catalog:latest
+    image: anzbank/sysl-catalog:latest
     volumes:
       - ./:/usr/docs
     environment:

@@ -1,0 +1,26 @@
+name: Build Docs
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  gen-docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Gen Docs
+      run: make docker-compose
+    - name: Commit docs
+      uses: EndBug/add-and-commit@v4
+      if: ${{ github.ref == 'refs/heads/master' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: pull-request
+      shell: bash
+      if: ${{ github.ref == 'refs/heads/master' }}
+      run: |
+        curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+        bin/hub pull-request -b master -l automerge --no-edit -m "Update docs" -m ":crown:  Automated PR to update documentation"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -5,20 +5,14 @@ services:
     image: plantuml/plantuml-server
     ports:
       - 8080:8080
-  docs:
-    image: sysl-docs
+  sysl-catalog:
+    image: sysl-catalog:latest
     volumes:
-      - ./demo:/usr/demo
-      - ./docs:/usr/docs
-      - ./build.sh:/usr/build.sh
-
+      - ./:/usr/docs
     environment:
       - SYSL_PLANTUML=http://plantuml-server:8080
-      - OUTPUT_DIR=${OUTPUT_DIR}
-    working_dir: /usr/
-    entrypoint:
-      - ./build.sh
+    working_dir: /usr/docs
+    entrypoint: ["./build.sh"]
     depends_on:
       - plantuml-server
-
 

@@ -20,6 +20,8 @@ COPY scripts/nailgun.sh .
 RUN apk add --no-cache --upgrade bash
 RUN apk add --no-cache graphviz wget ca-certificates && \
       apk add --no-cache graphviz wget ca-certificates ttf-dejavu fontconfig
+RUN apk add git
 RUN mkdir -p /out
+RUN apk add --no-cache --upgrade git
 ENV SYSL_PLANTUML=plantuml.jar
 ENTRYPOINT ["./nailgun.sh"]

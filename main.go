@@ -37,6 +37,7 @@ var (
 	embed             = kingpin.Flag("embed", "Embed images instead of creating svgs").Default("false").Bool()
 	enableMermaid     = kingpin.Flag("mermaid", "use mermaid diagrams where possible").Default("false").Bool()
 	enableRedoc       = kingpin.Flag("redoc", "generate redoc for specs imported from openapi. Must be run on a git repo.").Default("false").Bool()
+	imageDest         = kingpin.Flag("imageDest", "Optional image directory destination (can be outside output)").Default("false").String()
 )
 
 func main() {
@@ -67,7 +68,7 @@ func main() {
 		elapsed := time.Since(start)
 		fmt.Println("Done, time elapsed: ", elapsed)
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
-			SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *outputFileName).
+			SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *outputFileName, *imageDest).
 			WithTemplateFs(fs, strings.Split(*templates, ",")...).
 			Run()
 		return
@@ -75,7 +76,7 @@ func main() {
 
 	handler := catalog.
 		NewProject(*input, plantumlService, "html", log, nil, nil, "", *enableMermaid).
-		SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *outputFileName).
+		SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *outputFileName, *imageDest).
 		WithTemplateFs(fs, strings.Split(*templates, ",")...).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 	fmt.Println("Serving on http://localhost" + *port)

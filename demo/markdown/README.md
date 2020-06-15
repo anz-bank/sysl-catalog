@@ -1,12 +1,16 @@
 
 
+
 # simple2.sysl
 
 | Package |
 ----|
-[FirstDivision](FirstDivision/README.md)|
-[SecondDivision](SecondDivision/README.md)|
-[ThirdDivision](ThirdDivision/README.md)|
+[ApplicationPackage](ApplicationPackage/README.md)|
+[MegaDatabase](MegaDatabase/README.md)|
+[ServerPackage](ServerPackage/README.md)|
+[foo](foo/README.md)|
+[simpleredoc](simpleredoc/README.md)|
+[that](that/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

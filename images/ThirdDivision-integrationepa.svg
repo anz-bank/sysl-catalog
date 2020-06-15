@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="374px" preserveAspectRatio="none" style="width:389px;height:374px;" version="1.1" viewBox="0 0 389 374" width="389px" zoomAndPan="magnify"><defs><filter height="300%" id="futi05fps9k2a" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="121" x="125" y="16.708">ThirdDivision</text><!--MD5=[758d88821a0e741df1f73accbabae398]
+cluster X_0--><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="331.5" x="45.5" y="272.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="325.5" x="48.5" y="302.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="45.5" x2="377" y1="299.25" y2="299.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="78" x="172.25" y="289.9482">MobileApp</text><!--MD5=[cecb9a85ae19b9003f4441b135e71cd6]
+cluster X_1--><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="371" x="6" y="26.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="365" x="9" y="56.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="6" x2="377" y1="53.25" y2="53.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="86" x="148.5" y="43.9482">MobileApp2</text><!--MD5=[51e8d94a944361a156a1f52e5c4894ba]
+cluster X_2--><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="107" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="137" x="217.5" y="141.9531"/><rect fill="#FFFFFF" height="74.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="131" x="220.5" y="171.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="217.5" x2="354.5" y1="168.25" y2="168.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="47" x="246" y="158.9482">Server</text><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="150" x="211" y="307.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="140" x="216" y="332.7998">Authenticate client</text><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="61.5" y="307.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="67" y="332.7998">Login</text><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="150" x="211" y="61.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="140" x="216" y="86.7998">Authenticate client</text><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="129" x="22" y="61.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="119" x="27" y="86.7998">SecondEndpoint</text><rect fill="#FFFAF0" filter="url(#futi05fps9k2a)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="105" x="233.5" y="192.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="95" x="238.5" y="217.7998">Authenticate</text><!--MD5=[b4e3d399786c33682cf7201d5a7381ec]
+link _1 to _0--><path d="M111.717,327.9531 C135.085,327.9531 171.766,327.9531 205.373,327.9531 " fill="none" id="_1-&gt;_0" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="210.738,327.9531,201.738,323.9531,205.738,327.9531,201.738,331.9531,210.738,327.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[66d2e95ee2e3e1b5b59548f8bdae5bf2]
+link _0 to _4--><path d="M286,307.7383 C286,284.6754 286,261.6131 286,238.5501 " fill="none" id="_0-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="286,233.3171,282,242.3171,286,238.3171,290,242.3171,286,233.3171" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[450ea2f654882f822490fe83b2b538b8]
+link _3 to _2--><path d="M151.077,81.9531 C168.497,81.9531 187.596,81.9531 205.776,81.9531 " fill="none" id="_3-&gt;_2" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="210.877,81.9531,201.877,77.9531,205.877,81.9531,201.877,85.9531,210.877,81.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[7147dd2715d95ef75e19400737a46bd1]
+link _2 to _4--><path d="M286,102.2931 C286,130.6751 286,159.0581 286,187.4401 " fill="none" id="_2-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="286,192.7401,290,183.7401,286,187.7401,282,183.7401,286,192.7401" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[c40bb8e6c96422fc27153c0c3b884d4a]
+@startuml
+''''''''''''''''''''''''''''''''''''''''''
+''                                      ''
+''  AUTOGENERATED CODE - - DO NOT EDIT!  ''
+''                                      ''
+''''''''''''''''''''''''''''''''''''''''''
+
+
+title ThirdDivision
+left to right direction
+scale max 16384 height
+hide empty description
+skinparam state {
+  BackgroundColor FloralWhite
+  BorderColor Black
+  ArrowColor Crimson
+}
+state "MobileApp" as X_0 {
+  state "Authenticate client" as _0
+  state "Login" as _1
+}
+state "MobileApp2" as X_1 {
+  state "Authenticate client" as _2
+  state "SecondEndpoint" as _3
+}
+state "Server" as X_2 <<highlight>> {
+  state "Authenticate" as _4 <<highlight>>
+}
+_1 -[#silver]-> _0
+_0 -[#black]> _4
+_3 -[#silver]-> _2
+_2 -[#black]> _4
+@enduml
+
+@startuml
+
+
+title ThirdDivision
+left to right direction
+scale max 16384 height
+hide empty description
+skinparam state {
+  BackgroundColor FloralWhite
+  BorderColor Black
+  ArrowColor Crimson
+}
+state "MobileApp" as X_0 {
+  state "Authenticate client" as _0
+  state "Login" as _1
+}
+state "MobileApp2" as X_1 {
+  state "Authenticate client" as _2
+  state "SecondEndpoint" as _3
+}
+state "Server" as X_2 <<highlight>> {
+  state "Authenticate" as _4 <<highlight>>
+}
+_1 -[#silver]-> _0
+_0 -[#black]> _4
+_3 -[#silver]-> _2
+_2 -[#black]> _4
+@enduml
+
+PlantUML version 1.2020.12(Sat Jun 06 10:54:15 UTC 2020)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

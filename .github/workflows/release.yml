@@ -24,5 +24,4 @@ jobs:
           repository: anzbank/sysl-catalog
           tag_with_ref: true
           add_git_labels: true
-          tags: latest
           labels: org.opencontainers.image.revision=${{ github.sha }},org.opencontainers.image.url=https://sysl.io

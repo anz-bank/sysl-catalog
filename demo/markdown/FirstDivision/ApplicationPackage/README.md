@@ -6,7 +6,7 @@
 # ApplicationPackage
 
 ## Integration Diagram
-![](integration.svg)
+![](demo/markdown/integration.svg)
 
 
 
@@ -51,7 +51,7 @@ hello, world
 <details>
 <summary>Sequence Diagram</summary>
 
-![](MobileApp/another.svg)
+![](demo/markdown/MobileApp/another.svg)
 </details>
 
 <details>
@@ -76,7 +76,7 @@ No Request types
 
 Response Response Response
 
-![](Server/response.svg)
+![](demo/markdown/Server/response.svg)
 
 
 
@@ -94,7 +94,7 @@ hello, gamers
 <details>
 <summary>Sequence Diagram</summary>
 
-![](MobileApp/login.svg)
+![](demo/markdown/MobileApp/login.svg)
 </details>
 
 <details>
@@ -106,7 +106,7 @@ hello, gamers
 
 
 
-![](Server/request.svg)
+![](demo/markdown/Server/request.svg)
 
 
 
@@ -121,7 +121,7 @@ hello, gamers
 
 Empty Empty Empty
 
-![](MegaDatabase/empty.svg)
+![](demo/markdown/MegaDatabase/empty.svg)
 
 
 
@@ -150,7 +150,7 @@ SecondEndpoint, comment
 <details>
 <summary>Sequence Diagram</summary>
 
-![](MobileApp2/secondendpoint.svg)
+![](demo/markdown/MobileApp2/secondendpoint.svg)
 </details>
 
 <details>
@@ -162,7 +162,7 @@ SecondEndpoint, comment
 
 
 
-![](Server/request.svg)
+![](demo/markdown/Server/request.svg)
 
 
 
@@ -177,7 +177,7 @@ SecondEndpoint, comment
 
 Empty Empty Empty
 
-![](MegaDatabase/empty.svg)
+![](demo/markdown/MegaDatabase/empty.svg)
 
 
 
@@ -195,7 +195,7 @@ ThirdEndpoint comment
 <details>
 <summary>Sequence Diagram</summary>
 
-![](MobileApp2/thirdendpoint.svg)
+![](demo/markdown/MobileApp2/thirdendpoint.svg)
 </details>
 
 <details>
@@ -220,7 +220,7 @@ No Request types
 
 Response Response Response
 
-![](Server/response.svg)
+![](demo/markdown/Server/response.svg)
 
 
 

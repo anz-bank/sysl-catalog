@@ -6,7 +6,7 @@
 # simpleredoc
 
 ## Integration Diagram
-![](integration.svg)
+![](demo/markdown/integration.svg)
 
 
 
@@ -50,7 +50,7 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.y
 <details>
 <summary>Sequence Diagram</summary>
 
-![](simpleredoc/gettest.svg)
+![](demo/markdown/simpleredoc/gettest.svg)
 </details>
 
 <details>
@@ -74,7 +74,7 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.y
 
 
 
-![](simpleredoc/simpleobj.svg)
+![](demo/markdown/simpleredoc/simpleobj.svg)
 
 
 
@@ -97,9 +97,9 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.y
 
 - 
 
-![](simpleredoc/simpleobjsimple.svg)
+![](demo/markdown/simpleredoc/simpleobjsimple.svg)
 
-[Full Diagram](simpleredoc/simpleobj.svg)
+[Full Diagram](demo/markdown/simpleredoc/simpleobj.svg)
 
 #### Fields
 
@@ -115,9 +115,9 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.y
 
 - 
 
-![](simpleredoc/simpleobj2simple.svg)
+![](demo/markdown/simpleredoc/simpleobj2simple.svg)
 
-[Full Diagram](simpleredoc/simpleobj2.svg)
+[Full Diagram](demo/markdown/simpleredoc/simpleobj2.svg)
 
 #### Fields
 

@@ -14,6 +14,8 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v2
       with:
+        commit-message: "Update docs [skip-ci]"
         title: "Update docs [skip-ci]"
+        branch-suffix: random
 
           

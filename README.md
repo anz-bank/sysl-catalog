@@ -51,23 +51,33 @@ go get -u -v github.com/anz-bank/sysl-catalog
 docker run --rm -p 6900:6900 -v $(pwd):/usr/:ro anzbank/sysl-catalog:latest input.sysl --serve
 ```
 #### docker-compose
+- see (demos)[demo/protos] for full example that includes .proto files
 ```yaml
 version: '3.8'
+
 services:
   plantuml-server:
     image: plantuml/plantuml-server:tomcat-v1.2020.13
     ports:
       - 8080:8080
+  protoc-gen-sysl:
+    image: anzbank/protoc-gen-sysl:latest
+    volumes:
+      - ./:/usr/files
+    working_dir: /usr/
+    entrypoint: ["protoc", "--sysl_out=.", "files/simple.proto"]
   sysl-catalog:
     image: anzbank/sysl-catalog:latest
     volumes:
-    - ./:/usr/
+      - ./:/usr/
     environment:
-    - SYSL_PLANTUML=http://plantuml-server:8080
-    entrypoint: ["sysl-catalog -o docs/ input.sysl"]
+      - SYSL_PLANTUML=http://plantuml-server:8080
+    entrypoint: ["sysl-catalog", "-o", "docs", "project.sysl", "--imageDest", "docs/images"]
     depends_on:
-    - plantuml-server
+      - plantuml-server
+      - protoc-gen-sysl
 ```
+
 
 ## How to use
 1. Set up environment

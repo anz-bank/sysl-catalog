@@ -1,0 +1,46 @@
+
+Bar:
+    @description =:
+        | This is a comment before Bar
+    @package = "grpc_testing"
+    @source_path = "simple.proto"
+    AnotherEndpoint(input <: grpc_testing.Request)[~grpc, ~GRPC]:
+        @description =:
+            | this is a comment before Bar.AnotherEndpoint
+        @source_path = "simple.proto"
+        return ok <: grpc_testing.Response
+
+Foo:
+    @description =:
+        | This is a comment before Foo
+    @package = "grpc_testing"
+    @source_path = "simple.proto"
+    thisEndpoint(input <: grpc_testing.Request)[~grpc, ~GRPC]:
+        @description = ""
+        @source_path = "simple.proto"
+        return ok <: grpc_testing.Response
+
+grpc_testing:
+    @package = "grpc_testing"
+    !type Money:
+        @description = ""
+        @source_path = "simple.proto"
+        nanos <: int:
+            @json_tag = "nanos"
+            @rpcId = "3"
+        units <: int:
+            @json_tag = "units"
+            @rpcId = "2"
+    !type Request:
+        @description = ""
+        @source_path = "simple.proto"
+        query <: string:
+            @json_tag = "query"
+            @rpcId = "1"
+    !type Response:
+        @description = ""
+        @source_path = "simple.proto"
+        query <: string:
+            @json_tag = "query"
+            @rpcId = "1"
+

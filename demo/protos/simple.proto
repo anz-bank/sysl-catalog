@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package grpc.testing;
+option go_package = "tests/simple;whatever";
+
+message Request {
+    string query = 1;
+}
+
+message Response {
+    string query = 1;
+}
+
+message Money {
+    int64 units = 2;
+    int32 nanos = 3;
+}
+
+// This is a comment before Foo
+service Foo{
+    rpc thisEndpoint(Request) returns(Response){};
+}
+
+// This is a comment before Bar
+service Bar{
+    // this is a comment before Bar.AnotherEndpoint
+    rpc AnotherEndpoint(Request) returns(Response);
+}

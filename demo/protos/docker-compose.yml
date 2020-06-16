@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  plantuml-server:
+    image: plantuml/plantuml-server:tomcat-v1.2020.13
+    ports:
+      - 8080:8080
+  protoc-gen-sysl:
+    image: anzbank/protoc-gen-sysl:latest
+    volumes:
+      - ./:/usr/files
+    working_dir: /usr/
+    entrypoint: ["protoc", "--sysl_out=.", "files/simple.proto"]
+  sysl-catalog:
+    image: anzbank/sysl-catalog:latest
+    volumes:
+      - ./:/usr/
+    environment:
+      - SYSL_PLANTUML=http://plantuml-server:8080
+    entrypoint: ["sysl-catalog", "-o", "docs", "project.sysl", "--imageDest", "docs/images"]
+    depends_on:
+      - plantuml-server
+      - protoc-gen-sysl

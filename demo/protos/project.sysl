@@ -1,0 +1,6 @@
+import index.sysl
+
+# Here add behaviour into foo that it's endpoint calls Bar AnotherEndpoint
+Foo:
+    thisEndpoint:
+        Bar <- AnotherEndpoint

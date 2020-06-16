@@ -1,11 +1,68 @@
 # sysl-catalog
 
 A markdown/html + Diagram generator for sysl specifications
+## Objective
+The objective of sysl-catalog is to create the most seamless experience for developers to document their API behaviour, as well as creating a standardised way multiple teams can create documentation whilst gaining mutual benefit from already existing documentation.
+
+## Background
+Let’s say that a team wants some diagrams to represent how their services interact with other services. First, the team needs to choose what format to use, then the team needs to decide on where the docs are going to be hosted, and how often they should be updated.
+
+Let’s say that this team (Team A) chooses plantuml to create sequence, data model, and integration diagrams for their service. They choose to generate to a docs directory on their single repository and use some proto plugins to automate their markdown generation: 
+Protoc-gen-doc to generate a digest of what how their protos are structured
+Protoc-gen-uml to generate plantuml diagrams to generate diagrams for the needed diagrams
+Manually written markdown to describe how their services interact with different services
+Manually written sequence diagrams to describe which dependencies are called
+This works fine; the team has somewhat automated their documentation workflow, with some manual parts. 
+A couple of months pass and now there’s another team which relies on team A’s service heavily. They are releasing soon and need to create release documentation; so they decide to use the same method that Team A is using. 
+Now there’s a problem; there are two teams with two separate sets of documentation. Some of it is manual and some of it is automated. This can cause problems for multiple reasons;
+Manually written parts might need to be repeated and might fall out of sync across the two sources
+If manually written documentation isn't repeated then the representation of their dependency is limited by a hyperlink to Team  A's documentation without fully integrating
+The decoupling of documentation and code means that the documentation is most likely going to fall out of date
+Because there’s no persistence between team A’s documentation and Team B; if team A make a very specific change it likely won’t show in team B’s documentation
+This is what sysl-catalog is trying to solve
+
+sysl-catalog uses the sysl language as an intermediary between different formats to be able to generate different views of how services work
+
+What is sysl?
+Sysl is a “system specification language”; think of it like swagger or protos, but a much higher level, and with the ability to represent not only types, applications and endpoints, but interactions between those applications and endpoints; it plans to define what the code does itself.
+
+What does sysl-catalog do?
+
+Sysl-catalog is just a static site generator.
+
+Sysl-catalog parses a sysl file (with the .sysl extension) and represents it in a visual form;
+It can represent endpoints (in sequence diagrams) request/response types or database tables, as well as integration diagrams. 
+
+It uses go's `text/template` to do this, and if any addition is needed to be made, custom templates can be used (see `templates` for examples)
 
 ## Installation
 
+#### go
 ```bash
 go get -u -v github.com/anz-bank/sysl-catalog
+```
+#### docker
+- only recommended for `--serve` mode
+```bash
+docker run --rm -p 6900:6900 -v $(pwd):/usr/:ro anzbank/sysl-catalog:latest input.sysl --serve
+```
+#### docker-compose
+```yaml
+version: '3.8'
+services:
+  plantuml-server:
+    image: plantuml/plantuml-server:tomcat-v1.2020.13
+    ports:
+      - 8080:8080
+  sysl-catalog:
+    image: anzbank/sysl-catalog:latest
+    volumes:
+    - ./:/usr/
+    environment:
+    - SYSL_PLANTUML=http://plantuml-server:8080
+    entrypoint: ["sysl-catalog -o docs/ input.sysl"]
+    depends_on:
+    - plantuml-server
 ```
 
 ## How to use

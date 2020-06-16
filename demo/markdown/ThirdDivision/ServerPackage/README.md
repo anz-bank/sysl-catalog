@@ -6,7 +6,7 @@
 # ServerPackage
 
 ## Integration Diagram
-![](demo/markdown/integration.svg)
+![](integration.svg)
 
 
 
@@ -48,7 +48,7 @@ Server | [Response](#Server.Response) | [../../../../demo/simple2.sysl](../../..
 <summary>Database RelModel</summary>
 
 
-![](demo/markdown/RelModel/types.svg)
+![](RelModel/types.svg)
 </details>
 
 
@@ -78,7 +78,7 @@ this is a description of Authenticate
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/Server/authenticate.svg)
+![](Server/authenticate.svg)
 </details>
 
 <details>
@@ -90,7 +90,7 @@ this is a description of Authenticate
 
 
 
-![](demo/markdown/Server/request.svg)
+![](Server/request.svg)
 
 
 
@@ -104,7 +104,7 @@ this is a description of Authenticate
 
 
 
-![](demo/markdown/Server/response.svg)
+![](Server/response.svg)
 
 
 
@@ -122,7 +122,7 @@ this is a description of Authenticate
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/Server/gettestrestpathparamprimitive{primitiveid}.svg)
+![](Server/gettestrestpathparamprimitive{primitiveid}.svg)
 </details>
 
 <details>
@@ -139,7 +139,7 @@ this is a description of Authenticate
 
 #### Path Parameter
 
-![](demo/markdown/primitive/stringsimple.svg)
+![](primitive/stringsimple.svg)
 
 
 
@@ -153,7 +153,7 @@ this is a description of Authenticate
 
 
 
-![](demo/markdown/Server/response.svg)
+![](Server/response.svg)
 
 
 
@@ -171,7 +171,7 @@ this is a description of Authenticate
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/Server/gettestrestqueryparam.svg)
+![](Server/gettestrestqueryparam.svg)
 </details>
 
 <details>
@@ -190,13 +190,13 @@ this is a description of Authenticate
 
 #### Query Parameter
 
-![](demo/markdown/Server/request.svg)
+![](Server/request.svg)
 
 
 
 #### Query Parameter
 
-![](demo/markdown/Server/request.svg)
+![](Server/request.svg)
 
 </details>
 <details>
@@ -208,7 +208,7 @@ this is a description of Authenticate
 
 
 
-![](demo/markdown/Server/response.svg)
+![](Server/response.svg)
 
 
 
@@ -226,7 +226,7 @@ this is a description of Authenticate
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/Server/gettestrestqueryparamprimitive.svg)
+![](Server/gettestrestqueryparamprimitive.svg)
 </details>
 
 <details>
@@ -245,7 +245,7 @@ this is a description of Authenticate
 
 #### Query Parameter
 
-![](demo/markdown/primitive/stringsimple.svg)
+![](primitive/stringsimple.svg)
 
 </details>
 <details>
@@ -257,7 +257,7 @@ this is a description of Authenticate
 
 
 
-![](demo/markdown/Server/response.svg)
+![](Server/response.svg)
 
 
 
@@ -275,7 +275,7 @@ this is a description of Authenticate
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/Server/gettestresturlparam{id}.svg)
+![](Server/gettestresturlparam{id}.svg)
 </details>
 
 <details>
@@ -292,7 +292,7 @@ this is a description of Authenticate
 
 #### Path Parameter
 
-![](demo/markdown/Server/request.svg)
+![](Server/request.svg)
 
 
 
@@ -306,7 +306,7 @@ this is a description of Authenticate
 
 
 
-![](demo/markdown/Server/response.svg)
+![](Server/response.svg)
 
 
 
@@ -324,7 +324,7 @@ this is a description of Authenticate
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/Server/gettestreturnnil.svg)
+![](Server/gettestreturnnil.svg)
 </details>
 
 <details>
@@ -369,9 +369,9 @@ No Response Types
 
 - Empty Empty Empty
 
-![](demo/markdown/Server/emptysimple.svg)
+![](Server/emptysimple.svg)
 
-[Full Diagram](demo/markdown/Server/empty.svg)
+[Full Diagram](Server/empty.svg)
 
 #### Fields
 
@@ -386,9 +386,9 @@ No Response Types
 
 - Request Request Request
 
-![](demo/markdown/Server/requestsimple.svg)
+![](Server/requestsimple.svg)
 
-[Full Diagram](demo/markdown/Server/request.svg)
+[Full Diagram](Server/request.svg)
 
 #### Fields
 
@@ -404,9 +404,9 @@ No Response Types
 
 - Response Response Response
 
-![](demo/markdown/Server/responsesimple.svg)
+![](Server/responsesimple.svg)
 
-[Full Diagram](demo/markdown/Server/response.svg)
+[Full Diagram](Server/response.svg)
 
 #### Fields
 

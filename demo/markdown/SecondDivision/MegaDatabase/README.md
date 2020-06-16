@@ -6,7 +6,7 @@
 # MegaDatabase
 
 ## Integration Diagram
-![](demo/markdown/integration.svg)
+![](integration.svg)
 
 
 
@@ -53,7 +53,7 @@ MegaDatabase | [Money](#MegaDatabase.Money) | [../../../../demo/simple2.sysl](..
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/this/this.svg)
+![](this/this.svg)
 </details>
 
 <details>
@@ -97,9 +97,9 @@ No Response Types
 
 - Empty Empty Empty
 
-![](demo/markdown/MegaDatabase/emptysimple.svg)
+![](MegaDatabase/emptysimple.svg)
 
-[Full Diagram](demo/markdown/MegaDatabase/empty.svg)
+[Full Diagram](MegaDatabase/empty.svg)
 
 #### Fields
 
@@ -114,9 +114,9 @@ No Response Types
 
 - Money Money Money
 
-![](demo/markdown/MegaDatabase/moneysimple.svg)
+![](MegaDatabase/moneysimple.svg)
 
-[Full Diagram](demo/markdown/MegaDatabase/money.svg)
+[Full Diagram](MegaDatabase/money.svg)
 
 #### Fields
 

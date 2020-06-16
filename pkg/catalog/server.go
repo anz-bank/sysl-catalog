@@ -84,14 +84,12 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	switch path.Ext(request) {
 	case ".svg":
-		u, _ := url.Parse(r.Header.Get("Referer"))
-		base := path.Dir(u.Path)
 		w.Header().Set("Content-Type", "image/svg+xml")
 		unescapedPath, err := url.PathUnescape(request)
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
-		bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(base, unescapedPath)])
+		bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
 		p.errs = []error{}
 		if err != nil {
 			p.errs = append(p.errs, err)

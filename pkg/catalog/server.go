@@ -85,7 +85,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch path.Ext(request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
-		path, err := url.PathUnescape(strings.TrimLeft(request, "/"))
+		path, err := url.PathUnescape(request)
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}

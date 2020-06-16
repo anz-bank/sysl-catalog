@@ -271,7 +271,6 @@ func PlantUMLNailGun(contents string) ([]byte, error) {
 	c2.Stdout = &stdout
 	c2.Stderr = &stderr
 	if err := c2.Run(); err != nil {
-		panic(fmt.Sprint(err, stderr.String()))
 		return nil, err
 	}
 	if len(stderr.Bytes()) != 0 {

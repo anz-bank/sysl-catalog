@@ -13,6 +13,8 @@ jobs:
     name: Release Sysl-Catalog
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@master
       - name: Build and push docker image
         uses: docker/build-push-action@v1
         with:

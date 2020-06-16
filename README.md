@@ -8,17 +8,21 @@ The objective of sysl-catalog is to create the most seamless experience for deve
 Let’s say that a team wants some diagrams to represent how their services interact with other services. First, the team needs to choose what format to use, then the team needs to decide on where the docs are going to be hosted, and how often they should be updated.
 
 Let’s say that this team (Team A) chooses plantuml to create sequence, data model, and integration diagrams for their service. They choose to generate to a docs directory on their single repository and use some proto plugins to automate their markdown generation: 
-Protoc-gen-doc to generate a digest of what how their protos are structured
-Protoc-gen-uml to generate plantuml diagrams to generate diagrams for the needed diagrams
-Manually written markdown to describe how their services interact with different services
-Manually written sequence diagrams to describe which dependencies are called
+- Protoc-gen-doc to generate a digest of what how their protos are structured
+- Protoc-gen-uml to generate plantuml diagrams to generate diagrams for the needed diagrams
+- Manually written markdown to describe how their services interact with different services
+- Manually written sequence diagrams to describe which dependencies are called
+
 This works fine; the team has somewhat automated their documentation workflow, with some manual parts. 
+
 A couple of months pass and now there’s another team which relies on team A’s service heavily. They are releasing soon and need to create release documentation; so they decide to use the same method that Team A is using. 
+
 Now there’s a problem; there are two teams with two separate sets of documentation. Some of it is manual and some of it is automated. This can cause problems for multiple reasons;
-Manually written parts might need to be repeated and might fall out of sync across the two sources
-If manually written documentation isn't repeated then the representation of their dependency is limited by a hyperlink to Team  A's documentation without fully integrating
-The decoupling of documentation and code means that the documentation is most likely going to fall out of date
-Because there’s no persistence between team A’s documentation and Team B; if team A make a very specific change it likely won’t show in team B’s documentation
+1. Manually written parts might need to be repeated and might fall out of sync across the two sources
+2. If manually written documentation isn't repeated then the representation of their dependency is limited by a hyperlink to Team  A's documentation without fully integrating
+3. The decoupling of documentation and code means that the documentation is most likely going to fall out of date
+4. Because there’s no persistence between team A’s documentation and Team B; if team A make a very specific change it likely won’t show in team B’s documentation
+
 This is what sysl-catalog is trying to solve
 
 sysl-catalog uses the sysl language as an intermediary between different formats to be able to generate different views of how services work

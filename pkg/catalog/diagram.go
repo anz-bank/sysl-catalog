@@ -319,7 +319,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 		return path.Join(root(currentDir), absFilePath)
 	}
 	targetMap[path.Join(p.OutputDir, absFilePath)] = contents
-	return path.Join(p.OutputDir, strings.Replace(absFilePath, currentDir, "", 1))
+	return strings.Replace(absFilePath, currentDir, "", 1)
 }
 
 // GenerateDataModel generates a data model for all of the types in app

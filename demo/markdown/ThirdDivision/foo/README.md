@@ -6,7 +6,7 @@
 # foo
 
 ## Integration Diagram
-![](demo/markdown/integration.svg)
+![](integration.svg)
 
 
 
@@ -48,7 +48,7 @@ foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../de
 <details>
 <summary>Sequence Diagram</summary>
 
-![](demo/markdown/foo/whatever.svg)
+![](foo/whatever.svg)
 </details>
 
 <details>

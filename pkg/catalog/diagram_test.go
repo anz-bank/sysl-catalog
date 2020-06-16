@@ -1,6 +1,7 @@
 package catalog
 
 import (
+	"path"
 	"testing"
 
 	"github.com/anz-bank/sysl/pkg/loader"
@@ -47,8 +48,8 @@ func TestCreateQueryParamDataModelWithPrimitive(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
 	file := p.CreateParamDataModel(m.Apps["Bar"], m.Apps["Bar"].Endpoints["GET /address"].RestParams.QueryParam[0])
-	assert.Equal(t, "test/primitive/stringsimple.svg", file)
-	assert.Equal(t, stringSVG, p.FilesToCreate[file])
+	assert.Equal(t, "primitive/stringsimple.svg", file)
+	assert.Equal(t, stringSVG, p.FilesToCreate[path.Join(outputDir, file)])
 }
 
 func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
@@ -62,8 +63,8 @@ func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testRestQueryParam/{id}"].RestParams.QueryParam[0])
-	assert.Equal(t, "test/App/foo.svg", file)
-	assert.Equal(t, appSVG, p.FilesToCreate[file])
+	assert.Equal(t, "App/foo.svg", file)
+	assert.Equal(t, appSVG, p.FilesToCreate[path.Join(outputDir, file)])
 }
 
 func TestCreatePathParamDataModelWithPrimitive(t *testing.T) {
@@ -77,8 +78,8 @@ func TestCreatePathParamDataModelWithPrimitive(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamPrimitive/{id}"].RestParams.UrlParam[0])
-	assert.Equal(t, "test/primitive/stringsimple.svg", file)
-	assert.Equal(t, stringSVG, p.FilesToCreate[file])
+	assert.Equal(t, "primitive/stringsimple.svg", file)
+	assert.Equal(t, stringSVG, p.FilesToCreate[path.Join(outputDir, file)])
 }
 
 func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
@@ -92,8 +93,8 @@ func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamRef/{id}"].RestParams.UrlParam[0])
-	assert.Equal(t, "test/App/foo.svg", file)
-	assert.Equal(t, appSVG, p.FilesToCreate[file])
+	assert.Equal(t, "App/foo.svg", file)
+	assert.Equal(t, appSVG, p.FilesToCreate[path.Join(outputDir, file)])
 }
 
 func TestCreateParamDataModel(t *testing.T) {
@@ -107,8 +108,8 @@ func TestCreateParamDataModel(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
 	file := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
-	assert.Equal(t, "test/GrpcTesting/request.svg", file)
-	assert.Equal(t, requestSVG, p.FilesToCreate[file])
+	assert.Equal(t, "GrpcTesting/request.svg", file)
+	assert.Equal(t, requestSVG, p.FilesToCreate[path.Join(outputDir, file)])
 }
 
 func TestCreateReturnDataModelWithSequence(t *testing.T) {
@@ -123,10 +124,10 @@ func TestCreateReturnDataModelWithSequence(t *testing.T) {
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
 	fileStringSequenceRef := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["somefoo"].Stmt[0], m.Apps["App"].Endpoints["somefoo"])
 	fileStringSequencePrimitive := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["someprimitivefoo"].Stmt[0], m.Apps["App"].Endpoints["someprimitivefoo"])
-	assert.Equal(t, "test/App/foo.svg", fileStringSequenceRef)
-	assert.Equal(t, "test/App/stringsimple.svg", fileStringSequencePrimitive)
-	assert.Equal(t, retSeqRefSVG, p.FilesToCreate[fileStringSequenceRef])
-	assert.Equal(t, retSeqPrimSVG, p.FilesToCreate[fileStringSequencePrimitive])
+	assert.Equal(t, "App/foo.svg", fileStringSequenceRef)
+	assert.Equal(t, "App/stringsimple.svg", fileStringSequencePrimitive)
+	assert.Equal(t, retSeqRefSVG, p.FilesToCreate[path.Join(outputDir, fileStringSequenceRef)])
+	assert.Equal(t, retSeqPrimSVG, p.FilesToCreate[path.Join(outputDir, fileStringSequencePrimitive)])
 }
 
 func TestCreateReturnDataModelWithEmpty(t *testing.T) {

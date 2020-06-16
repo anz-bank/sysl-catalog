@@ -9,8 +9,8 @@
 [ThirdDivision](ThirdDivision/README.md)|
 
 ## Integration Diagram
-<img src="integration.svg">
+<img src="demo/markdown/integration.svg">
 
 ## End Point Analysis Integration Diagram
-<img src="integrationepa.svg">
+<img src="demo/markdown/integrationepa.svg">
 

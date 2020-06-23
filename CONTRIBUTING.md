@@ -8,9 +8,9 @@
 ├── .github/workflows         GitHub Actions configurations
 ├── main.go                   command entry
 ├── pkg
-│   ├── catalog
-│   ├── catalogdiagrams
-│   └── watcher
+│   ├── catalog               core logic to generate catalog files and serve service
+│   ├── catalogdiagrams       functions to generate diagrams
+│   └── watcher               watcher to auto-update live server
 ├── templates                 pre-defined custom template examples, used in flag --templates
 ├── demo
 │   ├── html                  demo on generating HTML files from sysl files

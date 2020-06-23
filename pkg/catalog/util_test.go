@@ -41,6 +41,11 @@ boo:
 	@Lifecycle = "1"
 	@Random = "2"
 	@Repo.URL = "3"
+
+ree:
+	@lifecycle = "1"
+	@oWnEr.EMaIL = "2"
+    @REPO.URL = "3"
 `,
 	)
 	require.NoError(t, err)
@@ -63,6 +68,11 @@ boo:
 		}),
 		"boo": createRes([]string{
 			"Repo.URL: 3",
+			"Lifecycle: 1",
+		}),
+		"ree": createRes([]string{
+			"Repo.URL: 3",
+			"Owner.Email: 2",
 			"Lifecycle: 1",
 		}),
 	}

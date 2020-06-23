@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us]() | [New bug or feature request]()
 
 
 # simpleredoc
@@ -37,6 +37,8 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.y
 ## Application simpleredoc
 
 - No description.
+
+
 
 
 

@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us]() | [New bug or feature request]()
 
 
 # ApplicationPackage
@@ -38,6 +38,8 @@ MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [../../../../demo/simp
 ## Application MobileApp
 
 - this is a comment for MobileApp
+
+
 
 
 
@@ -137,6 +139,8 @@ Empty Empty Empty
 ## Application MobileApp2
 
 - this is a comment for MobileApp
+
+
 
 
 

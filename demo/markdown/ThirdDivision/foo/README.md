@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us]() | [New bug or feature request]()
 
 
 # foo
@@ -35,6 +35,8 @@ foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../de
 ## Application foo
 
 - 
+
+
 
 
 

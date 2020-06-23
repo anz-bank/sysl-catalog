@@ -125,6 +125,24 @@ func Attribute(a Attr, query string) string {
 	return ""
 }
 
+func ServiceMetadata(a Attr) string {
+	metadata := strings.Builder{}
+	queries := []string{
+		"Repo.URL",
+		"Owner.Email",
+		"Owner.Slack",
+		"Server.Prod.URL",
+		"Server.UAT.URL",
+		"Lifecycle",
+	}
+	for _, q := range queries {
+		if val := Attribute(a, q); val != "" {
+			metadata.WriteString(fmt.Sprintf("%s: %s\n\n", q, val))
+		}
+	}
+	return metadata.String()
+}
+
 func Fields(t *sysl.Type) map[string]*sysl.Type {
 	if tuple := t.GetTuple(); tuple != nil {
 		return tuple.GetAttrDefs()

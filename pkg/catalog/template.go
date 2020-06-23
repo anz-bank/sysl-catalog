@@ -94,6 +94,8 @@ const NewPackageTemplate = `
 
 - {{Attribute $app "description"}}
 
+{{ServiceMetadata $app}}
+
 {{with CreateRedoc $app.SourceContext $appName}}
 [View OpenAPI Specs in Redoc]({{CreateRedoc $app.SourceContext $appName}})
 {{end}}

@@ -8,10 +8,10 @@ services:
   sysl-catalog:
     image: anzbank/sysl-catalog:latest
     volumes:
-      - ./:/usr/docs
+      - ./:/usr/demo/html
     environment:
       - SYSL_PLANTUML=http://plantuml-server:8080
-    working_dir: /usr/docs
+    working_dir: /usr/demo/html
     entrypoint: ["./build.sh"]
     depends_on:
       - plantuml-server

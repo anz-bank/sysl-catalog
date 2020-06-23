@@ -1,3 +1,4 @@
+# It is the GitHub Action to publish sysl-catalog docker image to https://hub.docker.com/r/anzbank/sysl-catalog
 name: Docker
 
 on:

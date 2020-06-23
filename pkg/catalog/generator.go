@@ -163,7 +163,7 @@ func (p *Generator) Run() {
 	var wg sync.WaitGroup
 	var progress *pb.ProgressBar
 	var completedDiagrams int64
-	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error) {
+	var diagramCreator = func(inMap map[string]string, f func(fs afero.Fs, filename string, data string) error, progress *pb.ProgressBar) {
 		for fileName, contents := range inMap {
 			wg.Add(1)
 			go func(fileName, contents string) {
@@ -181,14 +181,14 @@ func (p *Generator) Run() {
 		}
 	}
 	if p.Mermaid {
-		progress = pb.StartNew(len(p.MermaidFilesToCreate))
+		progress = pb.Full.Start(len(p.MermaidFilesToCreate))
 		fmt.Println("Generating Mermaid diagrams:")
-		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram)
+		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram, progress)
 	}
 	if p.Redoc {
-		progress = pb.StartNew(len(p.RedocFilesToCreate))
+		progress = pb.Full.Start(len(p.RedocFilesToCreate))
 		logrus.Info("Generating Redoc files")
-		diagramCreator(p.RedocFilesToCreate, GenerateAndWriteRedoc)
+		diagramCreator(p.RedocFilesToCreate, GenerateAndWriteRedoc, progress)
 	}
 	if (p.ImageTags || p.DisableImages) && !p.Redoc {
 		logrus.Info("Skipping Image creation")
@@ -197,7 +197,7 @@ func (p *Generator) Run() {
 	fmt.Println("Generating diagrams:")
 	if strings.Contains(p.PlantumlService, ".jar") {
 		if !p.Server {
-			diagramCreator(p.FilesToCreate, p.PUMLFile)
+			diagramCreator(p.FilesToCreate, p.PUMLFile, progress)
 			start := time.Now()
 			if err := PlantUMLJava(p.PlantumlService, p.OutputDir); err != nil {
 				p.Log.Error(err)
@@ -206,15 +206,14 @@ func (p *Generator) Run() {
 			fmt.Println("Generating took ", elapsed)
 		}
 	} else {
-		progress = pb.StartNew(len(p.FilesToCreate) + len(p.MermaidFilesToCreate) + len(p.RedocFilesToCreate))
-		progress.SetCurrent(completedDiagrams)
-		diagramCreator(p.FilesToCreate, HttpToFile)
+		progress = pb.Full.Start(len(p.FilesToCreate) + len(p.MermaidFilesToCreate) + len(p.RedocFilesToCreate))
+		diagramCreator(p.FilesToCreate, HttpToFile, progress)
 	}
 	wg.Wait()
-	fmt.Println(p.OutputDir)
 	if progress != nil {
 		progress.Finish()
 	}
+	fmt.Printf("The generated files are output to folder `%s`\n", p.OutputDir)
 }
 
 func markdownName(s, candidate string) string {

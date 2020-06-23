@@ -404,7 +404,9 @@ func (p *Generator) MacroPackages(module *sysl.Module) []string {
 		p.CurrentDir = macroPackageName
 		p.TempDir = macroPackageName // this is for p.Packages()
 		p.Title = macroPackageName
-		p.Links = map[string]string{"Back": "../" + p.OutputFileName}
+		p.Links = map[string]string{
+			"Back": "../" + p.OutputFileName,
+		}
 		p.Module = macroPackage
 		err := p.CreateMarkdown(p.Templates[1], macroPackageFileName, p)
 		if err != nil {

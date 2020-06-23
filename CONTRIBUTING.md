@@ -1,0 +1,25 @@
+## Project Layout
+```
+.
+├── README.md
+├── resources                 README images
+├── Makefile
+├── build.sh
+├── .github/workflows         GitHub Actions configurations
+├── main.go                   command entry
+├── pkg
+│   ├── catalog
+│   ├── catalogdiagrams
+│   └── watcher
+├── templates                 pre-defined custom template examples, used in flag --templates
+├── demo
+│   ├── html                  demo on generating HTML files from sysl files
+│   ├── markdown              demo on generating Markdown files from sysl files
+│   ├── protos                demo on generating Markdown files from proto files
+│   ├── simple.yaml
+│   └── simple2.sysl
+├── docs                      duplicated with demo/html, as GitHub Pages publishing source
+├── scripts                   Docker build PlantUML dependancy, can be removed once PlantUML is removed
+├── java                      Docker build PlantUML dependancy, can be removed once PlantUML is removed
+└── tests
+```

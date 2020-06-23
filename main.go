@@ -42,6 +42,7 @@ var (
 
 func main() {
 	kingpin.Parse()
+
 	plantumlService := os.Getenv("SYSL_PLANTUML")
 	if *plantUMLoption != "" {
 		plantumlService = *plantUMLoption
@@ -49,29 +50,36 @@ func main() {
 	if plantumlService == "" {
 		log.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
 	}
+
 	fs := afero.NewOsFs()
+
 	log := logrus.New()
 	if *verbose {
 		log.SetLevel(logrus.InfoLevel)
 	} else {
-		log.SetLevel(logrus.ErrorLevel)
-		logrus.SetLevel(logrus.ErrorLevel)
+		log.SetLevel(logrus.WarnLevel)
+		logrus.SetLevel(logrus.WarnLevel)
 	}
+
 	if !*server {
-		fmt.Println("Parsing")
+		log.Info("Parsing")
 		start := time.Now()
 		m, _, err := loader.LoadSyslModule(".", *input, fs, log)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println("Done")
 		elapsed := time.Since(start)
-		fmt.Println("Done, time elapsed: ", elapsed)
+		log.Info("Done, time elapsed: ", elapsed)
+
 		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
 			SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *outputFileName, *imageDest).
 			WithTemplateFs(fs, strings.Split(*templates, ",")...).
 			Run()
 		return
+	}
+
+	if *outputType == "markdown" {
+		log.Warn("Server mode uses html as output type by default")
 	}
 
 	handler := catalog.
@@ -80,9 +88,11 @@ func main() {
 		WithTemplateFs(fs, strings.Split(*templates, ",")...).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 	fmt.Println("Serving on http://localhost" + *port)
+
 	logrus.SetOutput(ioutil.Discard)
+
 	go watcher.WatchFile(func(i interface{}) {
-		fmt.Println("Regenerating")
+		log.Info("Regenerating")
 		m, err := func() (m *sysl.Module, err error) {
 			defer func() {
 				if r := recover(); r != nil {
@@ -90,9 +100,9 @@ func main() {
 					err = fmt.Errorf("%s", r)
 				}
 			}()
-			fmt.Println("Parsing")
+			log.Info("Parsing")
 			m, _, err = loader.LoadSyslModule("", *input, fs, log)
-			fmt.Println("Done Parsing")
+			log.Info("Done Parsing")
 			return
 		}()
 		if err != nil {
@@ -100,9 +110,10 @@ func main() {
 		}
 		handler.Update(m, err)
 		livereload.ForceRefresh()
-		fmt.Println(i)
-		fmt.Println("Done Regenerating")
+		log.Info(i)
+		log.Info("Done Regenerating")
 	}, path.Dir(*input))
+
 	livereload.Initialize()
 	http.HandleFunc("/livereload.js", livereload.ServeJS)
 	http.HandleFunc("/livereload", livereload.Handler)

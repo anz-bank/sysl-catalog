@@ -7,7 +7,7 @@ The objective of sysl-catalog is to create the most seamless experience for deve
 ## Background
 Let’s say that a team wants some diagrams to represent how their services interact with other services. First, the team needs to choose what format to use, then the team needs to decide on where the docs are going to be hosted, and how often they should be updated.
 
-Let’s say that this team (Team A) chooses plantuml to create sequence, data model, and integration diagrams for their service. They choose to generate to a docs directory on their single repository and use some proto plugins to automate their markdown generation: 
+Let’s say that this team (Team A) chooses plantuml to create sequence, data model, and integration diagrams for their service. They choose to generate to a `docs` directory on their single repository and use some proto plugins to automate their markdown generation: 
 - Protoc-gen-doc to generate a digest of what how their protos are structured
 - Protoc-gen-uml to generate plantuml diagrams to generate diagrams for the needed diagrams
 - Manually written markdown to describe how their services interact with different services
@@ -27,10 +27,10 @@ This is what sysl-catalog is trying to solve
 
 sysl-catalog uses the sysl language as an intermediary between different formats to be able to generate different views of how services work
 
-What is sysl?
-Sysl is a “system specification language”; think of it like swagger or protos, but a much higher level, and with the ability to represent not only types, applications and endpoints, but interactions between those applications and endpoints; it plans to define what the code does itself.
+### What is sysl?
+[Sysl](http://sysl.io/) is a “system specification language”; think of it like swagger or protos, but a much higher level, and with the ability to represent not only types, applications and endpoints, but interactions between those applications and endpoints; it plans to define what the code does itself.
 
-What does sysl-catalog do?
+### What does sysl-catalog do?
 
 Sysl-catalog is just a static site generator.
 
@@ -45,11 +45,13 @@ It uses go's `text/template` to do this, and if any addition is needed to be mad
 ```bash
 go get -u -v github.com/anz-bank/sysl-catalog
 ```
+
 #### docker
 - only recommended for `--serve` mode
 ```bash
 docker run --rm -p 6900:6900 -v $(pwd):/usr/:ro anzbank/sysl-catalog:latest input.sysl --serve
 ```
+
 #### docker-compose
 - see (demos)[demo/protos] for full example that includes .proto files
 ```yaml
@@ -165,12 +167,40 @@ This generates a [Redoc](https://github.com/Redocly/redoc) page that serves the 
 
 `sysl-catalog --serve --noCSS filename.sysl`
 ![server mode raw](resources/standard-template.png)
+
 #### Run server with custom template
 `sysl-catalog --serve --templates=<fileName.tmpl>,<filename.tmpl> filename.sysl`
 
 ![server mode raw](resources/custom-template.png)
 
 - See templates/ for custom template examples
+
+## Command Details
+```bash
+$ sysl-catalog --help
+usage: sysl-catalog [<flags>] <input>
+
+Flags:
+      --help                 Show context-sensitive help (also try --help-long and --help-man).
+      --plantuml=PLANTUML    plantuml service to use
+  -p, --port=":6900"         Port to serve on
+      --type="markdown"      Type of output
+  -o, --output=OUTPUT        OutputDir directory to generate to
+  -v, --verbose              Verbose logs
+      --templates=TEMPLATES  custom templates to use, separated by a comma
+      --outputFileName=""    output file name for pages; {{.Title}}
+      --serve                Start a http server and preview documentation
+      --noCSS                disable adding css to served html
+      --disableLiveReload    diable live reload
+      --noImages             don't create images
+      --embed                Embed images instead of creating svgs
+      --mermaid              use mermaid diagrams where possible
+      --redoc                generate redoc for specs imported from openapi. Must be run on a git repo.
+      --imageDest=IMAGEDEST  Optional image directory destination (can be outside output)
+
+Args:
+  <input>  input sysl file to generate documentation for
+```
 
 ## Screenshots
 ![resources/project_view.png](resources/project_view.png)

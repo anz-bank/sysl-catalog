@@ -256,6 +256,7 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"ModulePackageName":        ModulePackageName,
 		"SortedKeys":               SortedKeys,
 		"Attribute":                Attribute,
+		"ServiceMetadata":			ServiceMetadata,
 		"Fields":                   Fields,
 		"FieldType":                FieldType,
 		"SanitiseOutputName":       SanitiseOutputName,

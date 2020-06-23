@@ -125,6 +125,35 @@ func Attribute(a Attr, query string) string {
 	return ""
 }
 
+func ServiceMetadata(a Attr) string {
+	queries := []string{
+		"Repo.URL",
+		"Owner.Email",
+		"Owner.Slack",
+		"Server.Prod.URL",
+		"Server.UAT.URL",
+		"Lifecycle",
+	}
+	queryMap := make(map[string]string)
+	for _, q := range queries {
+		queryMap[strings.ToLower(q)] = ""
+	}
+	for attrName := range a.GetAttrs() {
+		q := strings.ToLower(attrName)
+		if _, exists := queryMap[q]; exists {
+			queryMap[q] = Attribute(a, attrName)
+		}
+	}
+
+	metadata := strings.Builder{}
+	for _, q := range queries {
+		if val := queryMap[strings.ToLower(q)]; val != "" {
+			metadata.WriteString(fmt.Sprintf("%s: %s\n\n", q, val))
+		}
+	}
+	return metadata.String()
+}
+
 func Fields(t *sysl.Type) map[string]*sysl.Type {
 	if tuple := t.GetTuple(); tuple != nil {
 		return tuple.GetAttrDefs()

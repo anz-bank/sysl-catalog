@@ -1,22 +1,21 @@
-name: Build Demo
-on:
-  push:
-    branches: [ master ]
+name: Build and Deploy Demo
+on: [push]
 
 jobs:
-  gen-demo:
+  build-and-deploy-demo:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Gen Demo
-      run: make docker-compose
-    - name: Create Pull Request
-      if: "!contains(github.event.head_commit.message, 'skip ci')"
-      uses: peter-evans/create-pull-request@v2
-      with:
-        commit-message: "Update demo [skip-ci]"
-        title: "Update demo [skip-ci]"
-        branch-suffix: random
+      - name: Checkout
+        uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        with:
+          persist-credentials: false
 
-          
+      - name: Gen Demo
+        run: make docker-compose
+
+      - name: Deploy Demo
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: demo/html # The folder the action should deploy.

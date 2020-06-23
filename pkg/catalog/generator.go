@@ -25,7 +25,11 @@ import (
 	"github.com/spf13/afero"
 )
 
-var outputFileNames = map[string]string{"md": "README.md", "markdown": "README.md", "html": "index.html"}
+var outputFileNames = map[string]string{
+	"md":       "README.md",
+	"markdown": "README.md",
+	"html":     "index.html",
+}
 
 // Generator is the contextual object that is used in the markdown generation
 type Generator struct {
@@ -55,13 +59,15 @@ type Generator struct {
 	errs []error // Any errors that stop from rendering will be output to the browser
 
 	// All of these are used in markdown generation
-	CurrentDir string
-	TempDir    string
-	Module     *sysl.Module
-	Title      string
-	OutputDir  string
-	Links      map[string]string
-	Server     bool
+	Module       *sysl.Module
+	CurrentDir   string
+	TempDir      string
+	Title        string
+	OutputDir    string
+	FeedbackLink string
+	ChatLink     string
+	Links        map[string]string
+	Server       bool
 }
 
 type SourceCoder interface {
@@ -80,7 +86,7 @@ func (p *Generator) SourcePath(a SourceCoder) string {
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.
 func NewProject(
-	titleAndFileName, plantumlService, outputType string,
+	titleAndFileName, plantumlService, outputType, feedbackLink, chatLink string,
 	logger *logrus.Logger,
 	module *sysl.Module,
 	fs afero.Fs, outputDir string) *Generator {
@@ -97,6 +103,8 @@ func NewProject(
 		RedocFilesToCreate: make(map[string]string),
 		Fs:                 fs,
 		Ext:                ".svg",
+		FeedbackLink:       feedbackLink,
+		ChatLink:           chatLink,
 	}
 	//if strings.Contains(p.PlantumlService, ".jar") {
 	//	_, err := os.Open(p.PlantumlService)

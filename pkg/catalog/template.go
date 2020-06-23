@@ -103,7 +103,7 @@ const NewPackageTemplate = `
 {{if eq (hasPattern $e.Attrs "ignore") false}}
 
 
-### {{$appName}} {{SanitiseOutputName $e.Name}}
+### {{$appName}} {{$e.Name}}
 {{Attribute $e "description"}}
 
 <details>

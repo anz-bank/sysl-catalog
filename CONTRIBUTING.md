@@ -10,7 +10,7 @@
 ├── pkg
 │   ├── catalog               core logic to generate catalog files and serve service
 │   ├── catalogdiagrams       functions to generate diagrams
-│   └── watcher               watcher to auto-update live server
+│   └── watcher               functions to watch for file changes in server mode
 ├── templates                 pre-defined custom template examples, used in flag --templates
 ├── demo
 │   ├── html                  demo on generating HTML files from sysl files

@@ -39,7 +39,7 @@ var (
 	enableRedoc       = kingpin.Flag("redoc", "generate redoc for specs imported from openapi. Must be run on a git repo.").Default("false").Bool()
 	imageDest         = kingpin.Flag("imageDest", "Optional image directory destination (can be outside output)").String()
 	feedbackLink      = kingpin.Flag("feedback", "").Default("https://github.com/anz-bank/sysl-catalog/issues/new").String()
-	chatLink          = kingpin.Flag("chat", "").String()
+	chatLink          = kingpin.Flag("chat", "").Default("https://anzoss.slack.com/messages/sysl-catalog/").String()
 )
 
 func main() {
@@ -67,7 +67,7 @@ func main() {
 		logger.Warn("Server mode uses html as output type by default")
 	}
 	if *outputDir != "" {
-		logger.Warn("OutputDir is ignored under server mode")
+		logger.Warn("OutputDir is ignored in server mode")
 	}
 
 	handler := catalog.NewProject(*input, plantUMLService, "html", *feedbackLink, *chatLink, logger, nil, nil, "").

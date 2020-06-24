@@ -23,3 +23,28 @@
 ├── java                      Docker build PlantUML dependancy, can be removed once PlantUML is removed
 └── tests
 ```
+
+## Generator Template
+pkg/catalog/template.go:
+```
+ProjectTemplate
+	# Optional
+    MacroPackage
+        NewPackageTemplate
+    MacroPackage
+        NewPackageTemplate
+    MacroPackage
+```
+demo/simple2.sysl:
+```
+simple2[~project]:
+    FirstDivision:
+        # you can specify packages to include
+        ApplicationPackage
+    SecondDivision:
+        MegaDatabase
+    ThirdDivision:
+        ServerPackage
+        foo
+        simpleredoc
+```

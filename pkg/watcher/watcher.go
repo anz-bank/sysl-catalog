@@ -23,7 +23,7 @@ func WatchFile(action func(i interface{}), files ...string) {
 			}
 		}
 	}()
-	//// Watch test_folder recursively for changes.
+	// Watch test_folder recursively for changes.
 	for _, file := range files {
 		if err := w.AddRecursive(file); err != nil {
 			log.Fatalln(err)
@@ -33,7 +33,7 @@ func WatchFile(action func(i interface{}), files ...string) {
 		w.Wait()
 		w.TriggerEvent(watcher.Write, nil)
 	}()
-	//// Start the watching process - it'll check for changes every 100ms.
+	// Start the watching process - it'll check for changes every 100ms.
 	if err := w.Start(time.Millisecond * 100); err != nil {
 		log.Fatalln(err)
 	}

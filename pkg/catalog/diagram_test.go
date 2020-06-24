@@ -46,7 +46,7 @@ func TestCreateQueryParamDataModelWithPrimitive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["Bar"], m.Apps["Bar"].Endpoints["GET /address"].RestParams.QueryParam[0])
 	assert.Equal(t, "primitive/stringsimple.svg", file)
 	assert.Equal(t, stringSVG, p.FilesToCreate[path.Join(outputDir, file)])
@@ -61,7 +61,7 @@ func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testRestQueryParam/{id}"].RestParams.QueryParam[0])
 	assert.Equal(t, "App/foo.svg", file)
 	assert.Equal(t, appSVG, p.FilesToCreate[path.Join(outputDir, file)])
@@ -76,7 +76,7 @@ func TestCreatePathParamDataModelWithPrimitive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamPrimitive/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t, "primitive/stringsimple.svg", file)
 	assert.Equal(t, stringSVG, p.FilesToCreate[path.Join(outputDir, file)])
@@ -91,7 +91,7 @@ func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamRef/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t, "App/foo.svg", file)
 	assert.Equal(t, appSVG, p.FilesToCreate[path.Join(outputDir, file)])
@@ -106,7 +106,7 @@ func TestCreateParamDataModel(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
 	assert.Equal(t, "GrpcTesting/request.svg", file)
 	assert.Equal(t, requestSVG, p.FilesToCreate[path.Join(outputDir, file)])
@@ -121,7 +121,7 @@ func TestCreateReturnDataModelWithSequence(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	fileStringSequenceRef := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["somefoo"].Stmt[0], m.Apps["App"].Endpoints["somefoo"])
 	fileStringSequencePrimitive := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["someprimitivefoo"].Stmt[0], m.Apps["App"].Endpoints["someprimitivefoo"])
 	assert.Equal(t, "App/foo.svg", fileStringSequenceRef)
@@ -139,7 +139,7 @@ func TestCreateReturnDataModelWithEmpty(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir, false)
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	fileStringEmpty := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["GET /testReturnNil"].Stmt[0], m.Apps["App"].Endpoints["GET /testReturnNil"])
 	assert.Equal(t, "", fileStringEmpty)
 }

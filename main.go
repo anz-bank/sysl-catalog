@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"path"
@@ -17,6 +16,7 @@ import (
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
 	"github.com/gohugoio/hugo/livereload"
 	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
@@ -32,67 +32,53 @@ var (
 	outputFileName    = kingpin.Flag("outputFileName", "output file name for pages; {{.Title}}").Default("").String()
 	server            = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
 	noCSS             = kingpin.Flag("noCSS", "disable adding css to served html").Bool()
-	disableLiveReload = kingpin.Flag("disableLiveReload", "diable live reload").Default("false").Bool()
+	disableLiveReload = kingpin.Flag("disableLiveReload", "disable live reload").Default("false").Bool()
 	noImages          = kingpin.Flag("noImages", "don't create images").Default("false").Bool()
 	embed             = kingpin.Flag("embed", "Embed images instead of creating svgs").Default("false").Bool()
 	enableMermaid     = kingpin.Flag("mermaid", "use mermaid diagrams where possible").Default("false").Bool()
 	enableRedoc       = kingpin.Flag("redoc", "generate redoc for specs imported from openapi. Must be run on a git repo.").Default("false").Bool()
 	imageDest         = kingpin.Flag("imageDest", "Optional image directory destination (can be outside output)").String()
+	feedbackLink      = kingpin.Flag("feedback", "").Default("https://github.com/anz-bank/sysl-catalog/issues/new").String()
+	chatLink          = kingpin.Flag("chat", "").Default("https://anzoss.slack.com/messages/sysl-catalog/").String()
 )
 
 func main() {
 	kingpin.Parse()
 
-	plantumlService := os.Getenv("SYSL_PLANTUML")
-	if *plantUMLoption != "" {
-		plantumlService = *plantUMLoption
-	}
-	if plantumlService == "" {
-		log.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
-	}
-
+	logger := setupLogger()
+	plantUMLService := plantUMLService()
 	fs := afero.NewOsFs()
 
-	log := logrus.New()
-	if *verbose {
-		log.SetLevel(logrus.InfoLevel)
-	} else {
-		log.SetLevel(logrus.WarnLevel)
-		logrus.SetLevel(logrus.WarnLevel)
-	}
-
 	if !*server {
-		log.Info("Parsing")
-		start := time.Now()
-		m, _, err := loader.LoadSyslModule(".", *input, fs, log)
+		m, err := parseSyslFile(".", *input, fs, logger)
 		if err != nil {
-			log.Fatal(err)
+			logger.Fatal(err)
 		}
-		elapsed := time.Since(start)
-		log.Info("Done, time elapsed: ", elapsed)
 
-		catalog.NewProject(*input, plantumlService, *outputType, log, m, fs, *outputDir, *enableMermaid).
-			SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *outputFileName, *imageDest).
+		catalog.NewProject(*input, plantUMLService, *outputType, *feedbackLink, *chatLink, logger, m, fs, *outputDir).
+			SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *enableMermaid, *outputFileName, *imageDest).
 			WithTemplateFs(fs, strings.Split(*templates, ",")...).
 			Run()
+
 		return
 	}
 
 	if *outputType == "markdown" {
-		log.Warn("Server mode uses html as output type by default")
+		logger.Warn("Server mode uses html as output type by default")
+	}
+	if *outputDir != "" {
+		logger.Warn("OutputDir is ignored in server mode")
 	}
 
-	handler := catalog.
-		NewProject(*input, plantumlService, "html", log, nil, nil, "", *enableMermaid).
-		SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *outputFileName, *imageDest).
+	handler := catalog.NewProject(*input, plantUMLService, "html", *feedbackLink, *chatLink, logger, nil, nil, "").
+		SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *enableMermaid, *outputFileName, *imageDest).
 		WithTemplateFs(fs, strings.Split(*templates, ",")...).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
-	fmt.Println("Serving on http://localhost" + *port)
 
 	logrus.SetOutput(ioutil.Discard)
 
 	go watcher.WatchFile(func(i interface{}) {
-		log.Info("Regenerating")
+		logger.Info("Regenerating...")
 		m, err := func() (m *sysl.Module, err error) {
 			defer func() {
 				if r := recover(); r != nil {
@@ -100,9 +86,7 @@ func main() {
 					err = fmt.Errorf("%s", r)
 				}
 			}()
-			log.Info("Parsing")
-			m, _, err = loader.LoadSyslModule("", *input, fs, log)
-			log.Info("Done Parsing")
+			m, err = parseSyslFile("", *input, fs, logger)
 			return
 		}()
 		if err != nil {
@@ -110,14 +94,45 @@ func main() {
 		}
 		handler.Update(m, err)
 		livereload.ForceRefresh()
-		log.Info(i)
-		log.Info("Done Regenerating")
+		logger.Info(i)
+		logger.Info("Done Regenerating")
 	}, path.Dir(*input))
 
+	http.Handle("/", handler)
 	livereload.Initialize()
 	http.HandleFunc("/livereload.js", livereload.ServeJS)
 	http.HandleFunc("/livereload", livereload.Handler)
-	http.Handle("/", handler)
-	log.Fatal(http.ListenAndServe(*port, nil))
-	select {}
+	fmt.Println("Serving on http://localhost" + *port)
+	logger.Fatal(http.ListenAndServe(*port, nil))
+}
+
+func plantUMLService() string {
+	plantUMLService := os.Getenv("SYSL_PLANTUML")
+	if *plantUMLoption != "" {
+		plantUMLService = *plantUMLoption
+	}
+	if plantUMLService == "" {
+		log.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
+	}
+	return plantUMLService
+}
+
+func setupLogger() *logrus.Logger {
+	logger := logrus.New()
+	if *verbose {
+		logger.SetLevel(logrus.InfoLevel)
+	} else {
+		logger.SetLevel(logrus.WarnLevel)
+		logrus.SetLevel(logrus.WarnLevel)
+	}
+	return logger
+}
+
+func parseSyslFile(root string, filename string, fs afero.Fs, logger *logrus.Logger) (*sysl.Module, error) {
+	logger.Info("Parsing...")
+	start := time.Now()
+	m, _, err := loader.LoadSyslModule(root, filename, fs, logger)
+	elapsed := time.Since(start)
+	logger.Info("Done, time elapsed: ", elapsed)
+	return m, err
 }

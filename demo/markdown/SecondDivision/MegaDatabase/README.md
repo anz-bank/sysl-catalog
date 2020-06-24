@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us]() | [New bug or feature request]()
 
 
 # MegaDatabase
@@ -47,7 +47,9 @@ MegaDatabase | [Money](#MegaDatabase.Money) | [../../../../demo/simple2.sysl](..
 
 
 
-### this this
+
+
+### <a name=this-this></a>this this
 
 
 <details>

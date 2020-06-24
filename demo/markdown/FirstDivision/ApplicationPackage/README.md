@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us]() | [New bug or feature request]()
 
 
 # ApplicationPackage
@@ -45,7 +45,9 @@ MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [../../../../demo/simp
 
 
 
-### MobileApp Another
+
+
+### <a name=MobileApp-Another></a>MobileApp Another
 hello, world
 
 <details>
@@ -88,7 +90,7 @@ Response Response Response
 
 
 
-### MobileApp Login
+### <a name=MobileApp-Login></a>MobileApp Login
 hello, gamers
 
 <details>
@@ -144,7 +146,9 @@ Empty Empty Empty
 
 
 
-### MobileApp2 SecondEndpoint
+
+
+### <a name=MobileApp2-SecondEndpoint></a>MobileApp2 SecondEndpoint
 SecondEndpoint, comment
 
 <details>
@@ -189,7 +193,7 @@ Empty Empty Empty
 
 
 
-### MobileApp2 ThirdEndpoint
+### <a name=MobileApp2-ThirdEndpoint></a>MobileApp2 ThirdEndpoint
 ThirdEndpoint comment
 
 <details>

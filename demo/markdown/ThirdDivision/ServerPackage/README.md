@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us]() | [New bug or feature request]()
 
 
 # ServerPackage
@@ -72,7 +72,9 @@ Server | [Response](#Server.Response) | [../../../../demo/simple2.sysl](../../..
 
 
 
-### Server Authenticate
+
+
+### <a name=Server-Authenticate></a>Server Authenticate
 this is a description of Authenticate
 
 <details>
@@ -116,7 +118,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestPathParamPrimitive{primitiveID}
+### <a name=Server-GETtestRestPathParamPrimitive{primitiveID}></a>Server GET /testRestPathParamPrimitive/{primitiveID}
 
 
 <details>
@@ -165,7 +167,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestQueryParam
+### <a name=Server-GETtestRestQueryParam></a>Server GET /testRestQueryParam
 
 
 <details>
@@ -220,7 +222,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestQueryParamPrimitive
+### <a name=Server-GETtestRestQueryParamPrimitive></a>Server GET /testRestQueryParamPrimitive
 
 
 <details>
@@ -269,7 +271,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestURLParam{id}
+### <a name=Server-GETtestRestURLParam{id}></a>Server GET /testRestURLParam/{id}
 
 
 <details>
@@ -318,7 +320,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestReturnNil
+### <a name=Server-GETtestReturnNil></a>Server GET /testReturnNil
 
 
 <details>

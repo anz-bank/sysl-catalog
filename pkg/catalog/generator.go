@@ -227,6 +227,14 @@ func (p *Generator) Run() {
 	wg.Wait()
 }
 
+func (p *Generator) GetFeedbackLink() string {
+	return p.FeedbackLink
+}
+
+func (p *Generator) GetChatLink() string {
+	return p.ChatLink
+}
+
 // GetFuncMap returns the funcs that are used in diagram generation.
 func (p *Generator) GetFuncMap() template.FuncMap {
 	return template.FuncMap{
@@ -257,6 +265,8 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"ToTitle":                  strings.ToTitle,
 		"Base":                     filepath.Base,
 		"Last":                     Last,
+		"FeedbackLink":             p.GetFeedbackLink,
+		"ChatLink":                 p.GetChatLink,
 	}
 }
 

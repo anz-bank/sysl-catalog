@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us](https://anzoss.slack.com/messages/sysl-catalog/) | [New bug or feature request](https://github.com/anz-bank/sysl-catalog/issues/new)
 
 
 # simpleredoc
@@ -44,7 +44,9 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.y
 
 
 
-### simpleredoc GETtest
+
+
+### <a name=simpleredoc-GETtest></a>simpleredoc GET /test
 
 
 <details>

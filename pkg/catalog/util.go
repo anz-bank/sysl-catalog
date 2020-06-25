@@ -260,7 +260,6 @@ func PlantUMLURL(plantumlService, contents string) (string, error) {
 }
 
 func HttpToFile(fs afero.Fs, fileName, url string) error {
-	fmt.Println("Generating diagrams...")
 	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
 		return err
 	}
@@ -275,7 +274,6 @@ func HttpToFile(fs afero.Fs, fileName, url string) error {
 }
 
 func (p *Generator) PUMLFile(fs afero.Fs, fileName, contents string) error {
-	fmt.Println("Generating diagrams...")
 	fileName = strings.ReplaceAll(fileName, ".svg", ".puml")
 	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
 		return err

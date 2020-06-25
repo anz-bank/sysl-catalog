@@ -65,3 +65,14 @@ func BuildGithubRawURL(repoURL string) (gitURL string) {
 	}
 	return gitURL
 }
+
+// BuildGithubBlobURL creates a root URL for github blob
+// it will not work for non github links.
+func BuildGithubBlobURL(repoURL string) string {
+	url, err := url.Parse(repoURL)
+	if err != nil {
+		panic(err)
+	}
+	url.Path = path.Join(url.Path, "/blob/master/")
+	return url.String()
+}

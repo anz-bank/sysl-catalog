@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us]() | [New bug or feature request]()
 
 
 # ServerPackage
@@ -18,25 +18,25 @@
 ## Database Index
 | Database Application Name  | Source Location |
 ----|----
-[RelModel](#Database-RelModel) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+[RelModel](#Database-RelModel) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 
 ## Application Index
 | Application Name | Method | Source Location |
 ----|----|----
-Server | [Authenticate](#Server-Authenticate) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
-Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
-Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
-Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
-Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
-Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+Server | [Authenticate](#Server-Authenticate) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 ## Type Index
 | Application Name | Type Name | Source Location |
 ----|----|----
-Server | [Empty](#Server.Empty) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
-Server | [Request](#Server.Request) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
-Server | [Response](#Server.Response) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
+Server | [Empty](#Server.Empty) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+Server | [Request](#Server.Request) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+Server | [Response](#Server.Response) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
 
 
 
@@ -72,7 +72,9 @@ Server | [Response](#Server.Response) | [../../../../demo/simple2.sysl](../../..
 
 
 
-### Server Authenticate
+
+
+### <a name=Server-Authenticate></a>Server Authenticate
 this is a description of Authenticate
 
 <details>
@@ -116,7 +118,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestPathParamPrimitive{primitiveID}
+### <a name=Server-GETtestRestPathParamPrimitive{primitiveID}></a>Server GET /testRestPathParamPrimitive/{primitiveID}
 
 
 <details>
@@ -165,7 +167,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestQueryParam
+### <a name=Server-GETtestRestQueryParam></a>Server GET /testRestQueryParam
 
 
 <details>
@@ -220,7 +222,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestQueryParamPrimitive
+### <a name=Server-GETtestRestQueryParamPrimitive></a>Server GET /testRestQueryParamPrimitive
 
 
 <details>
@@ -269,7 +271,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestRestURLParam{id}
+### <a name=Server-GETtestRestURLParam{id}></a>Server GET /testRestURLParam/{id}
 
 
 <details>
@@ -318,7 +320,7 @@ this is a description of Authenticate
 
 
 
-### Server GETtestReturnNil
+### <a name=Server-GETtestReturnNil></a>Server GET /testReturnNil
 
 
 <details>

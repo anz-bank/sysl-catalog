@@ -97,3 +97,27 @@ func TestGenerateDocsWithRedoc(t *testing.T) {
 	_, err = afero.ReadFile(fs, testFile)
 	assert.NoError(t, err)
 }
+
+func TestHandleSourceURL(t *testing.T) {
+	t.Parallel()
+	assert.Equal(t,
+		"https:/github.com/anz-bank/sysl-catalog/blob/master/random.sysl",
+		handleSourceURL("random.sysl"),
+	)
+	assert.Equal(t,
+		"https:/github.com/anz-bank/sysl-catalog/blob/master/random/random/random.sysl",
+		handleSourceURL("random/random/random.sysl"),
+	)
+	assert.Equal(t,
+		"https:/github.com/user/repo/blob/master/sysl/file",
+		handleSourceURL("github.com/user/repo/sysl/file"),
+	)
+	assert.Equal(t,
+		"https:/github.com/anz-bank/sysl-catalog/blob/master/github/fake",
+		handleSourceURL("github/fake"),
+	)
+	assert.Equal(t,
+		"https:/github.com/anz-bank/sysl-catalog/blob/master/github.com/invalid/path",
+		handleSourceURL("github.com/invalid/path"),
+	)
+}

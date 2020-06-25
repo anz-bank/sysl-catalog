@@ -3,6 +3,7 @@ package catalog
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -77,11 +78,35 @@ type SourceCoder interface {
 
 // RootPath appends CurrentDir to output
 func (p *Generator) SourcePath(a SourceCoder) string {
-	rootDir := rootDirectory(path.Join(p.OutputDir, p.CurrentDir))
 	if source_path := Attribute(a, "source_path"); source_path != "" {
-		return rootDir + Attribute(a, "source_path")
+		return rootDirectory(path.Join(p.OutputDir, p.CurrentDir)) + Attribute(a, "source_path")
 	}
-	return path.Join(rootDir, a.GetSourceContext().File)
+
+	return handleSourceURL(a.GetSourceContext().File)
+}
+
+func handleSourceURL(importPath string) string {
+	//FIXME: does not work with external sysl import modules
+	//FIXME: does not work with absolute import in sysl
+	//FIXME: only handles github
+	if strings.HasPrefix(importPath, "github") {
+		urlPath, err := url.Parse("https://" + importPath)
+		if err == nil {
+			if strings.Contains(urlPath.Host, "github.") {
+				paths := strings.Split(urlPath.Path, "/")
+				// minimum length must be 3 to be a default external import
+                // user/repo/file
+				if len(paths) > 3 {
+					file := path.Join(paths[3:]...)
+
+					urlPath.Path = path.Join(paths[:3]...)
+					return path.Join(BuildGithubBlobURL(urlPath.String()), file)
+				}
+			}
+		}
+	}
+
+	return path.Join(BuildGithubBlobURL(GetRemoteFromGit()), importPath)
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.

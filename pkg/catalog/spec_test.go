@@ -68,3 +68,11 @@ func TestBuildGitURLGithubEnterprise(t *testing.T) {
 	result := BuildGithubRawURL(repoPath)
 	assert.Equal(t, "https://github.myorg.com/raw/anz-bank/sysl-catalog/master/", result)
 }
+
+func TestBuildGithubBlobURL(t *testing.T) {
+	t.Parallel()
+	assert.Equal(t,
+		"github.com/user/repo/blob/master",
+		BuildGithubBlobURL("github.com/user/repo"),
+	)
+}

@@ -122,8 +122,8 @@ func setupLogger() *logrus.Logger {
 	if *verbose {
 		logger.SetLevel(logrus.InfoLevel)
 	} else {
-		logger.SetLevel(logrus.WarnLevel)
-		logrus.SetLevel(logrus.WarnLevel)
+		logger.SetLevel(logrus.ErrorLevel)
+		logrus.SetLevel(logrus.ErrorLevel)
 	}
 	return logger
 }

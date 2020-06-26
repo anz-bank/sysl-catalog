@@ -36,6 +36,8 @@ const (
 	mermaidjs
 )
 
+// All the Create* functions not really create a file other than registering a filepath into "to be created" map list.
+
 // CreateMarkdown is a wrapper function that also converts output markdown to html if in server mode
 func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, i interface{}) error {
 	var buf bytes.Buffer

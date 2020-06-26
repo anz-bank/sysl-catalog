@@ -18,25 +18,25 @@
 ## Database Index
 | Database Application Name  | Source Location |
 ----|----
-[RelModel](#Database-RelModel) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+[RelModel](#Database-RelModel) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
 
 ## Application Index
 | Application Name | Method | Source Location |
 ----|----|----
-Server | [Authenticate](#Server-Authenticate) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+Server | [Authenticate](#Server-Authenticate) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
 ## Type Index
 | Application Name | Type Name | Source Location |
 ----|----|----
-Server | [Empty](#Server.Empty) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
-Server | [Request](#Server.Request) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
-Server | [Response](#Server.Response) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+Server | [Empty](#Server.Empty) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
+Server | [Request](#Server.Request) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
+Server | [Response](#Server.Response) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|
 
 
 

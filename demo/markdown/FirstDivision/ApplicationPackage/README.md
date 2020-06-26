@@ -17,10 +17,10 @@
 ## Application Index
 | Application Name | Method | Source Location |
 ----|----|----
-MobileApp | [Another](#MobileApp-Another) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-MobileApp | [Login](#MobileApp-Login) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+MobileApp | [Another](#MobileApp-Another) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+MobileApp | [Login](#MobileApp-Login) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
 
 ## Type Index
 | Application Name | Type Name | Source Location |

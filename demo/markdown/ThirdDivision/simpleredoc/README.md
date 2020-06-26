@@ -17,13 +17,13 @@
 ## Application Index
 | Application Name | Method | Source Location |
 ----|----|----
-simpleredoc | [GET /test](#simpleredoc-GETtest) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|  
+simpleredoc | [GET /test](#simpleredoc-GETtest) | [../../../../demo/simple.yaml](../../../../demo/simple.yaml)|  
 
 ## Type Index
 | Application Name | Type Name | Source Location |
 ----|----|----
-simpleredoc | [SimpleObj](#simpleredoc.SimpleObj) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
-simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
+simpleredoc | [SimpleObj](#simpleredoc.SimpleObj) | [../../../../demo/simple.yaml](../../../../demo/simple.yaml)|
+simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.yaml](../../../../demo/simple.yaml)|
 
 
 

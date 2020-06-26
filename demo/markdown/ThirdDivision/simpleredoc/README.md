@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us](https://anzoss.slack.com/messages/sysl-catalog/) | [New bug or feature request](https://github.com/anz-bank/sysl-catalog/issues/new)
 
 
 # simpleredoc
@@ -17,13 +17,13 @@
 ## Application Index
 | Application Name | Method | Source Location |
 ----|----|----
-simpleredoc | [GET /test](#simpleredoc-GETtest) | [../../../../demo/simple.yaml](../../../../demo/simple.yaml)|  
+simpleredoc | [GET /test](#simpleredoc-GETtest) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|  
 
 ## Type Index
 | Application Name | Type Name | Source Location |
 ----|----|----
-simpleredoc | [SimpleObj](#simpleredoc.SimpleObj) | [../../../../demo/simple.yaml](../../../../demo/simple.yaml)|
-simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.yaml](../../../../demo/simple.yaml)|
+simpleredoc | [SimpleObj](#simpleredoc.SimpleObj) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
+simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
 
 
 
@@ -44,7 +44,9 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [../../../../demo/simple.y
 
 
 
-### simpleredoc GETtest
+
+
+### <a name=simpleredoc-GETtest></a>simpleredoc GET /test
 
 
 <details>

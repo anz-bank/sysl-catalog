@@ -1,6 +1,6 @@
 
 
-[Back](../README.md)
+[Back](../README.md) | [Chat with us](https://anzoss.slack.com/messages/sysl-catalog/) | [New bug or feature request](https://github.com/anz-bank/sysl-catalog/issues/new)
 
 
 # foo
@@ -17,7 +17,7 @@
 ## Application Index
 | Application Name | Method | Source Location |
 ----|----|----
-foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../demo/simple2.sysl)|  
+foo | [whatever](#foo-whatever) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 ## Type Index
 | Application Name | Type Name | Source Location |
@@ -42,7 +42,9 @@ foo | [whatever](#foo-whatever) | [../../../../demo/simple2.sysl](../../../../de
 
 
 
-### foo whatever
+
+
+### <a name=foo-whatever></a>foo whatever
 
 
 <details>

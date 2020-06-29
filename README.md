@@ -83,7 +83,11 @@ services:
 
 ## How to use
 1. Set up environment
+
 `export SYSL_PLANTUML=http://www.plantuml.com/plantuml`
+
+On macOS, if your `launchctl limit maxfiles` output is too low (such as 256), or you encountered "too many open files" error, set the current session to higher limitation like:
+`sudo launchctl limit maxfiles 65536 200000`
 
 2. Run 
 

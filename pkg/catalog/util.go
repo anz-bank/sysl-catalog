@@ -312,7 +312,6 @@ func PlantUMLNailGun(contents string) ([]byte, error) {
 
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file
 func GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
-	fmt.Println("Generating Mermaid diagrams...")
 	mermaidSvg := []byte(mermaid.Execute(data) + "\n")
 	var err = afero.WriteFile(fs, fileName, mermaidSvg, os.ModePerm)
 	if err != nil {
@@ -323,7 +322,6 @@ func GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) e
 
 // GenerateRedoc creates a redoc html file
 func GenerateAndWriteRedoc(fs afero.Fs, fileName string, specURL string) error {
-	logrus.Info("Generating Redoc files...")
 	redoc := BuildRedoc(specURL)
 	err := afero.WriteFile(fs, fileName, redoc, os.ModePerm)
 	if err != nil {

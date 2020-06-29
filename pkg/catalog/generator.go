@@ -95,7 +95,7 @@ func handleSourceURL(importPath string) string {
 			if strings.Contains(urlPath.Host, "github.") {
 				paths := strings.Split(urlPath.Path, "/")
 				// minimum length must be 3 to be a default external import
-                // user/repo/file
+				// user/repo/file
 				if len(paths) > 3 {
 					file := path.Join(paths[3:]...)
 
@@ -189,6 +189,9 @@ func (p *Generator) SetOptions(
 	return p
 }
 
+var maxCreatorCount = 65500
+var maxCreators = make(chan struct{}, maxCreatorCount)
+
 // Run Executes a project and generates markdown and diagrams to a given filesystem.
 func (p *Generator) Run() {
 	p.Title = p.ProjectTitle
@@ -200,7 +203,7 @@ func (p *Generator) Run() {
 
 	var progress *pb.ProgressBar
 	defer func() {
-		if progress != nil {
+		if progress != nil && progress.IsStarted() {
 			progress.Finish()
 			fmt.Printf("The generated files are output to folder `%s`\n", p.OutputDir)
 		}
@@ -211,6 +214,9 @@ func (p *Generator) Run() {
 		for fileName, contents := range inMap {
 			wg.Add(1)
 			go func(fileName, contents string) {
+				maxCreators <- struct{}{}
+				defer func() { <-maxCreators }()
+
 				var err = f(p.Fs, fileName, contents)
 				if err != nil {
 					p.Log.Error("Error generating file:", err)
@@ -223,32 +229,41 @@ func (p *Generator) Run() {
 			}(fileName, contents)
 		}
 	}
+
 	if p.Mermaid {
 		progress = pb.Full.Start(len(p.MermaidFilesToCreate))
 		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram, progress)
+	} else {
+		if strings.Contains(p.PlantumlService, ".jar") {
+			if !p.Server {
+				diagramCreator(p.FilesToCreate, p.PUMLFile, progress)
+				start := time.Now()
+				if err := PlantUMLJava(p.PlantumlService, p.OutputDir); err != nil {
+					p.Log.Error(err)
+				}
+				elapsed := time.Since(start)
+				fmt.Println("Generating took ", elapsed)
+			}
+		} else {
+			progress = pb.Full.Start(len(p.FilesToCreate))
+			diagramCreator(p.FilesToCreate, HttpToFile, progress)
+		}
 	}
+
 	if p.Redoc {
-		progress = pb.Full.Start(len(p.RedocFilesToCreate))
+		if progress.IsStarted() {
+			progress.SetTotal(progress.Total() + int64(len(p.RedocFilesToCreate)))
+		} else {
+			progress = pb.Full.Start(len(p.RedocFilesToCreate))
+		}
 		diagramCreator(p.RedocFilesToCreate, GenerateAndWriteRedoc, progress)
 	}
+
 	if (p.ImageTags || p.DisableImages) && !p.Redoc {
 		logrus.Info("Skipping Image creation")
 		return
 	}
-	if strings.Contains(p.PlantumlService, ".jar") {
-		if !p.Server {
-			diagramCreator(p.FilesToCreate, p.PUMLFile, progress)
-			start := time.Now()
-			if err := PlantUMLJava(p.PlantumlService, p.OutputDir); err != nil {
-				p.Log.Error(err)
-			}
-			elapsed := time.Since(start)
-			fmt.Println("Generating took ", elapsed)
-		}
-	} else {
-		progress = pb.Full.Start(len(p.FilesToCreate) + len(p.MermaidFilesToCreate) + len(p.RedocFilesToCreate))
-		diagramCreator(p.FilesToCreate, HttpToFile, progress)
-	}
+
 	wg.Wait()
 }
 

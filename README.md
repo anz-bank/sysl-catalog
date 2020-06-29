@@ -86,7 +86,9 @@ services:
 
 `export SYSL_PLANTUML=http://www.plantuml.com/plantuml`
 
-On macOS, if your `launchctl limit maxfiles` output is too low (such as 256), or you encountered "too many open files" error, set the current session to higher limitation like:
+On macOS, if your `launchctl limit maxfiles` setting is too low (e.g 256) you might see the error message "too many open files" when running make. 
+
+You can set the current session limit higher with:
 `sudo launchctl limit maxfiles 65536 200000`
 
 2. Run 

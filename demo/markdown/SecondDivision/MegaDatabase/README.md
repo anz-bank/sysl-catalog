@@ -92,7 +92,7 @@ No Response Types
 
 
 
-<details>
+<a name=MegaDatabase.Empty></a><details>
 <summary>MegaDatabase.Empty</summary>
 
 ### MegaDatabase.Empty
@@ -109,7 +109,7 @@ No Response Types
 |----|----|----|
 
 </details>
-<details>
+<a name=MegaDatabase.Money></a><details>
 <summary>MegaDatabase.Money</summary>
 
 ### MegaDatabase.Money

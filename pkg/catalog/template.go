@@ -189,7 +189,6 @@ const NewPackageTemplate = `
 
 {{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
 {{$anytypes = true}}
-<details>
 <a name={{$appName}}.{{$typeName}}></a><details>
 <summary>{{$appName}}.{{$typeName}}</summary>
 

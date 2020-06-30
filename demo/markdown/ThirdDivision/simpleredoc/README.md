@@ -92,7 +92,7 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 
 
 
-<details>
+<a name=simpleredoc.SimpleObj></a><details>
 <summary>simpleredoc.SimpleObj</summary>
 
 ### simpleredoc.SimpleObj
@@ -110,7 +110,7 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 | name | string | |
 
 </details>
-<details>
+<a name=simpleredoc.SimpleObj2></a><details>
 <summary>simpleredoc.SimpleObj2</summary>
 
 ### simpleredoc.SimpleObj2

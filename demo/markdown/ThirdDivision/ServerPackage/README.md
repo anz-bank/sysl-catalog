@@ -364,7 +364,7 @@ No Response Types
 
 
 
-<details>
+<a name=Server.Empty></a><details>
 <summary>Server.Empty</summary>
 
 ### Server.Empty
@@ -381,7 +381,7 @@ No Response Types
 |----|----|----|
 
 </details>
-<details>
+<a name=Server.Request></a><details>
 <summary>Server.Request</summary>
 
 ### Server.Request
@@ -399,7 +399,7 @@ No Response Types
 | query | sequence of Response | |
 
 </details>
-<details>
+<a name=Server.Response></a><details>
 <summary>Server.Response</summary>
 
 ### Server.Response

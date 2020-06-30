@@ -173,7 +173,7 @@ No Response Types
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
 {{if ne (hasPattern $app.Attrs "db") true}}
 {{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
-<details>
+<a name={{$appName}}.{{$typeName}}></a><details>
 <summary>{{$appName}}.{{$typeName}}</summary>
 
 ### {{$appName}}.{{$typeName}}

@@ -78,9 +78,10 @@ type SourceCoder interface {
 
 // RootPath appends CurrentDir to output
 func (p *Generator) SourcePath(a SourceCoder) string {
-	if source_path := Attribute(a, "source_path"); source_path != "" {
-		return rootDirectory(path.Join(p.OutputDir, p.CurrentDir)) + Attribute(a, "source_path")
-	}
+	//FIXME: handle source_path attr
+	// if source_path := Attribute(a, "source_path"); source_path != "" {
+	// 	return rootDirectory(path.Join(p.OutputDir, p.CurrentDir)) + Attribute(a, "source_path")
+	// }
 
 	return handleSourceURL(a.GetSourceContext().File)
 }

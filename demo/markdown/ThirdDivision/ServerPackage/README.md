@@ -32,11 +32,15 @@ Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [https:
 Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 ## Type Index
+
+
 | Application Name | Type Name | Source Location |
-----|----|----
-Server | [Empty](#Server.Empty) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
-Server | [Request](#Server.Request) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
-Server | [Response](#Server.Response) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+|----|----|----|
+| Server | [Empty](#Server.Empty) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+| Server | [Request](#Server.Request) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+| Server | [Response](#Server.Response) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+
+
 
 
 
@@ -64,7 +68,10 @@ Server | [Response](#Server.Response) | [https:/github.com/anz-bank/sysl-catalog
 
 ## Application Server
 
+
+
 - this is a comment for Server
+
 
 
 
@@ -86,7 +93,7 @@ this is a description of Authenticate
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
 
 
 
@@ -97,16 +104,17 @@ this is a description of Authenticate
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
 
 
 ![](Server/response.svg)
+
 
 
 
@@ -130,7 +138,7 @@ this is a description of Authenticate
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
 
 
 
@@ -146,16 +154,17 @@ this is a description of Authenticate
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
 
 
 ![](Server/response.svg)
+
 
 
 
@@ -179,7 +188,9 @@ this is a description of Authenticate
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
+
+<span style="color:grey">No Request types</span>
 
 
 
@@ -201,16 +212,17 @@ this is a description of Authenticate
 ![](Server/request.svg)
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
 
 
 ![](Server/response.svg)
+
 
 
 
@@ -234,7 +246,9 @@ this is a description of Authenticate
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
+
+<span style="color:grey">No Request types</span>
 
 
 
@@ -250,16 +264,17 @@ this is a description of Authenticate
 ![](primitive/stringsimple.svg)
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
 
 
 ![](Server/response.svg)
+
 
 
 
@@ -283,7 +298,7 @@ this is a description of Authenticate
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
 
 
 
@@ -299,16 +314,17 @@ this is a description of Authenticate
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
 
 
 ![](Server/response.svg)
+
 
 
 
@@ -332,7 +348,9 @@ this is a description of Authenticate
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
+
+<span style="color:grey">No Request types</span>
 
 
 
@@ -341,15 +359,15 @@ this is a description of Authenticate
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
-No Response Types
 
+<span style="color:grey">No Response Types</span>
 
 </details>
 
@@ -359,6 +377,11 @@ No Response Types
 
 
 # Types
+
+
+
+
+
 
 
 
@@ -377,10 +400,14 @@ No Response Types
 
 #### Fields
 
-| Field name | Type | Description |
-|----|----|----|
+
+
+
+<span style="color:grey">No Fields</span>
+
 
 </details>
+
 <a name=Server.Request></a><details>
 <summary>Server.Request</summary>
 
@@ -398,7 +425,10 @@ No Response Types
 |----|----|----|
 | query | sequence of Response | |
 
+
+
 </details>
+
 <a name=Server.Response></a><details>
 <summary>Server.Response</summary>
 
@@ -417,7 +447,11 @@ No Response Types
 | balance | MegaDatabase.Empty | |
 | query | MegaDatabase.Money | |
 
+
+
 </details>
+
+
 
 <div class="footer">
 

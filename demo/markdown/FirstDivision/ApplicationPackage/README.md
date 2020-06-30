@@ -23,8 +23,13 @@ MobileApp2 | [SecondEndpoint](#MobileApp2-SecondEndpoint) | [https:/github.com/a
 MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 ## Type Index
-| Application Name | Type Name | Source Location |
-----|----|----
+
+
+
+
+
+<span style="color:grey">No Types Defined</span>
+
 
 
 
@@ -37,7 +42,10 @@ MobileApp2 | [ThirdEndpoint](#MobileApp2-ThirdEndpoint) | [https:/github.com/anz
 
 ## Application MobileApp
 
+
+
 - this is a comment for MobileApp
+
 
 
 
@@ -59,19 +67,19 @@ hello, world
 <details>
 <summary>Request types</summary>
 
-#### Request types
 
-No Request types
+<span style="color:grey">No Request types</span>
+
 
 
 
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
@@ -79,6 +87,7 @@ No Request types
 Response Response Response
 
 ![](Server/response.svg)
+
 
 
 
@@ -102,7 +111,7 @@ hello, gamers
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
 
 
 
@@ -113,10 +122,10 @@ hello, gamers
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
@@ -124,6 +133,7 @@ hello, gamers
 Empty Empty Empty
 
 ![](MegaDatabase/empty.svg)
+
 
 
 
@@ -138,7 +148,10 @@ Empty Empty Empty
 
 ## Application MobileApp2
 
+
+
 - this is a comment for MobileApp
+
 
 
 
@@ -160,7 +173,7 @@ SecondEndpoint, comment
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
 
 
 
@@ -171,10 +184,10 @@ SecondEndpoint, comment
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
@@ -182,6 +195,7 @@ SecondEndpoint, comment
 Empty Empty Empty
 
 ![](MegaDatabase/empty.svg)
+
 
 
 
@@ -205,19 +219,19 @@ ThirdEndpoint comment
 <details>
 <summary>Request types</summary>
 
-#### Request types
 
-No Request types
+<span style="color:grey">No Request types</span>
+
 
 
 
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
@@ -225,6 +239,7 @@ No Request types
 Response Response Response
 
 ![](Server/response.svg)
+
 
 
 
@@ -241,6 +256,16 @@ Response Response Response
 
 
 
+
+
+
+
+
+
+
+
+
+<span style="color:grey">No Types Defined</span>
 
 
 <div class="footer">

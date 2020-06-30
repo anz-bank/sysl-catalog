@@ -84,16 +84,25 @@ services:
 ## How to use
 1. Set up environment
 
-`export SYSL_PLANTUML=http://www.plantuml.com/plantuml`
+```bash
+export SYSL_PLANTUML=http://www.plantuml.com/plantuml`
+```
 
 On macOS, if your `launchctl limit maxfiles` setting is too low (e.g 256) you might see the error message "too many open files" when running make. 
 
 You can set the current session limit higher with:
-`sudo launchctl limit maxfiles 65536 200000`
+```bash
+sudo launchctl limit maxfiles 65536 200000
+```
+
+And add the following line to your `.bash_profile` or analogous file:
+```bash
+ulimit -n 65536 200000
+```
 
 2. Run 
 
-```bashs
+```bash
 sysl-catalog -o <output directory> <input.sysl>
 ```
 - You can optionally specify the `--type=html` if you want to generate html instead of markdown, which is useful for use with github pages, which you can see a demo of with this repo [here](https://anz-bank.github.io/sysl-catalog/)

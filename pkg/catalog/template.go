@@ -64,9 +64,15 @@ const NewPackageTemplate = `
 {{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}{{end}}{{end}}
 
 ## Type Index
-| Application Name | Type Name | Source Location |
-----|----|----{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}{{if ne (hasPattern $app.Attrs "db") true}}{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
-{{$appName}} | [{{$typeName}}](#{{$appName}}.{{$typeName}}) | [{{SourcePath $type}}]({{SourcePath $type}})|{{end}}{{end}}{{end}}
+{{$typeIndexHeader := false}}
+
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}{{if ne (hasPattern $app.Attrs "db") true}}{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}{{if not $typeIndexHeader}}| Application Name | Type Name | Source Location |
+|----|----|----|{{$typeIndexHeader = true}}{{end}}
+| {{$appName}} | [{{$typeName}}](#{{$appName}}.{{$typeName}}) | [{{SourcePath $type}}]({{SourcePath $type}})|{{end}}{{end}}{{end}}
+
+{{if not $typeIndexHeader}}
+<span style="color:grey">No Types Defined</span>
+{{end}}
 
 
 {{if $databases}}
@@ -91,7 +97,10 @@ const NewPackageTemplate = `
 
 ## Application {{$appName}}
 
-- {{Attribute $app "description"}}
+{{$desc := Attribute $app "description"}}
+{{if $desc}}
+- {{$desc}}
+{{end}}
 
 {{ServiceMetadata $app}}
 
@@ -115,10 +124,12 @@ const NewPackageTemplate = `
 <details>
 <summary>Request types</summary>
 
-#### Request types
-{{if and (eq (len $e.Param) 0) (not $e.RestParams) }}
-No Request types
+{{if and (not $e.Param) (not $e.RestParams) }}
+<span style="color:grey">No Request types</span>
 {{end}}
+{{if not $e.Param}}{{if $e.RestParams }}{{if not $e.RestParams.UrlParam}}
+<span style="color:grey">No Request types</span>
+{{end}}{{end}}{{end}}
 
 {{range $param := $e.Param}}
 {{Attribute $param.Type "description"}}
@@ -144,10 +155,10 @@ No Request types
 ![]({{$queryDataModel}})
 {{end}}{{end}}{{end}}{{end}}
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 {{$responses := false}}
 {{range $s := $e.Stmt}}{{$diagram := CreateReturnDataModel  $appName $s $e}}{{if ne $diagram ""}}
 {{$responses = true}}
@@ -157,9 +168,9 @@ No Request types
 ![]({{$diagram}})
 
 {{end}}{{end}}
-{{if eq $responses false}}
-No Response Types
 
+{{if not $responses}}
+<span style="color:grey">No Response Types</span>
 {{end}}
 </details>
 
@@ -170,27 +181,40 @@ No Response Types
 
 # Types
 
+{{$anytypes := false}}
+
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
 {{if ne (hasPattern $app.Attrs "db") true}}
+
+
 {{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
+{{$anytypes = true}}
 <a name={{$appName}}.{{$typeName}}></a><details>
 <summary>{{$appName}}.{{$typeName}}</summary>
 
 ### {{$appName}}.{{$typeName}}
 {{$typedesc := (Attribute $type "description")}}
-- {{if ne  $typedesc ""}}{{$typedesc}}{{end}}
+{{if ne $typedesc ""}}- {{$typedesc}}{{end}}
 
-![]({{CreateTypeDiagram  $appName $typeName $type false}})
+![]({{CreateTypeDiagram $appName $typeName $type false}})
 
-[Full Diagram]({{CreateTypeDiagram  $appName $typeName $type true}})
+[Full Diagram]({{CreateTypeDiagram $appName $typeName $type true}})
 
 #### Fields
-
-| Field name | Type | Description |
-|----|----|----|{{$fieldMap := Fields $type}}{{range $fieldName := SortedKeys $fieldMap}}{{$field := index $fieldMap $fieldName}}
+{{$fieldHeader := false}}
+{{$fieldMap := Fields $type}}{{range $fieldName := SortedKeys $fieldMap}}{{$field := index $fieldMap $fieldName}}{{if not $fieldHeader}}| Field name | Type | Description |
+|----|----|----|{{$fieldHeader = true}}{{end}}
 | {{$fieldName}} | {{FieldType $field}} | {{$desc := Attribute $field "description"}}{{if ne $desc $typedesc}}{{$desc}}{{end}}|{{end}}
 
+{{if not $fieldHeader}}
+<span style="color:grey">No Fields</span>
+{{end}}
+
 </details>{{end}}{{end}}{{end}}
+
+{{if not $anytypes}}
+<span style="color:grey">No Types Defined</span>
+{{end}}
 
 <div class="footer">
 

@@ -20,10 +20,14 @@
 this | [this](#this-this) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 ## Type Index
+
+
 | Application Name | Type Name | Source Location |
-----|----|----
-MegaDatabase | [Empty](#MegaDatabase.Empty) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
-MegaDatabase | [Money](#MegaDatabase.Money) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+|----|----|----|
+| MegaDatabase | [Empty](#MegaDatabase.Empty) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+| MegaDatabase | [Money](#MegaDatabase.Money) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+
+
 
 
 
@@ -39,7 +43,8 @@ MegaDatabase | [Money](#MegaDatabase.Money) | [https:/github.com/anz-bank/sysl-c
 
 ## Application this
 
-- 
+
+
 
 
 
@@ -61,24 +66,24 @@ MegaDatabase | [Money](#MegaDatabase.Money) | [https:/github.com/anz-bank/sysl-c
 <details>
 <summary>Request types</summary>
 
-#### Request types
 
-No Request types
+<span style="color:grey">No Request types</span>
+
 
 
 
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
-No Response Types
 
+<span style="color:grey">No Response Types</span>
 
 </details>
 
@@ -88,6 +93,11 @@ No Response Types
 
 
 # Types
+
+
+
+
+
 
 
 
@@ -105,10 +115,14 @@ No Response Types
 
 #### Fields
 
-| Field name | Type | Description |
-|----|----|----|
+
+
+
+<span style="color:grey">No Fields</span>
+
 
 </details>
+
 <a name=MegaDatabase.Money></a><details>
 <summary>MegaDatabase.Money</summary>
 
@@ -126,7 +140,13 @@ No Response Types
 |----|----|----|
 | amount | int | |
 
+
+
 </details>
+
+
+
+
 
 
 

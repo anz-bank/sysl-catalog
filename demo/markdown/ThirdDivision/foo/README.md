@@ -20,8 +20,13 @@
 foo | [whatever](#foo-whatever) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 ## Type Index
-| Application Name | Type Name | Source Location |
-----|----|----
+
+
+
+
+
+<span style="color:grey">No Types Defined</span>
+
 
 
 
@@ -34,7 +39,8 @@ foo | [whatever](#foo-whatever) | [https:/github.com/anz-bank/sysl-catalog/blob/
 
 ## Application foo
 
-- 
+
+
 
 
 
@@ -56,24 +62,24 @@ foo | [whatever](#foo-whatever) | [https:/github.com/anz-bank/sysl-catalog/blob/
 <details>
 <summary>Request types</summary>
 
-#### Request types
 
-No Request types
+<span style="color:grey">No Request types</span>
+
 
 
 
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
-No Response Types
 
+<span style="color:grey">No Response Types</span>
 
 </details>
 
@@ -86,6 +92,14 @@ No Response Types
 
 
 
+
+
+
+
+
+
+
+<span style="color:grey">No Types Defined</span>
 
 
 <div class="footer">

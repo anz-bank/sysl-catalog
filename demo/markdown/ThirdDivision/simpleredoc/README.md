@@ -20,10 +20,14 @@
 simpleredoc | [GET /test](#simpleredoc-GETtest) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|  
 
 ## Type Index
+
+
 | Application Name | Type Name | Source Location |
-----|----|----
-simpleredoc | [SimpleObj](#simpleredoc.SimpleObj) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
-simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
+|----|----|----|
+| simpleredoc | [SimpleObj](#simpleredoc.SimpleObj) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
+| simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
+
+
 
 
 
@@ -36,7 +40,10 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 
 ## Application simpleredoc
 
+
+
 - No description.
+
 
 
 
@@ -58,7 +65,9 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 <details>
 <summary>Request types</summary>
 
-#### Request types
+
+
+<span style="color:grey">No Request types</span>
 
 
 
@@ -67,16 +76,17 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 
 
 </details>
+
 <details>
 <summary>Response types</summary>
 
-#### Response types
 
 
 
 
 
 ![](simpleredoc/simpleobj.svg)
+
 
 
 
@@ -92,12 +102,17 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 
 
 
+
+
+
+
+
 <a name=simpleredoc.SimpleObj></a><details>
 <summary>simpleredoc.SimpleObj</summary>
 
 ### simpleredoc.SimpleObj
 
-- 
+
 
 ![](simpleredoc/simpleobjsimple.svg)
 
@@ -109,13 +124,16 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 |----|----|----|
 | name | string | |
 
+
+
 </details>
+
 <a name=simpleredoc.SimpleObj2></a><details>
 <summary>simpleredoc.SimpleObj2</summary>
 
 ### simpleredoc.SimpleObj2
 
-- 
+
 
 ![](simpleredoc/simpleobj2simple.svg)
 
@@ -127,7 +145,11 @@ simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https:/github.com/anz-ban
 |----|----|----|
 | name | SimpleObj | |
 
+
+
 </details>
+
+
 
 <div class="footer">
 

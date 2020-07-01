@@ -398,12 +398,6 @@ this is a description of Authenticate
 
 [Full Diagram](Server/empty.svg)
 
-#### Fields
-
-
-
-
-<span style="color:grey">No Fields</span>
 
 
 </details>
@@ -419,12 +413,12 @@ this is a description of Authenticate
 
 [Full Diagram](Server/request.svg)
 
+
 #### Fields
 
 | Field name | Type | Description |
 |----|----|----|
 | query | sequence of Response | |
-
 
 
 </details>
@@ -440,13 +434,13 @@ this is a description of Authenticate
 
 [Full Diagram](Server/response.svg)
 
+
 #### Fields
 
 | Field name | Type | Description |
 |----|----|----|
 | balance | MegaDatabase.Empty | |
 | query | MegaDatabase.Money | |
-
 
 
 </details>

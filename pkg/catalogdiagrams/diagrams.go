@@ -77,7 +77,7 @@ func (v *DataModelView) GenerateDataView(dataParam *DataModelParam, appName stri
 			}
 			v.DrawPrimitive(viewParam, pe.String(), relationshipMap)
 		} else if seq := entityType.GetSequence(); seq != nil {
-
+			// TODO: Support sequences (issue#6)
 		} else if syslutil.HasPattern(entityType.Attrs, "empty") {
 			if len(strings.Split(entityName, ".")) == 1 {
 				entityName = appName + entityName

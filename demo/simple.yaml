@@ -26,6 +26,9 @@ components:
       properties:
         name:
           type: SimpleObj
+    AustralianState:
+      type: string
+      enum: [act, nsw, nt, qld, sa, tas, vic, wa]
   responses:
     500Response:
       description: Internal Server Error

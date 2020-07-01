@@ -17,6 +17,10 @@ foo:
     @package="foo"
     whatever:
         ...
+
+    !alias FooRequest:
+        string
+
 bar:
     @package="bar"
 this:

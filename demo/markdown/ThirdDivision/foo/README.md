@@ -22,10 +22,10 @@ foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob
 ## Type Index
 
 
+| Application Name | Type Name | Source Location |
+|----|----|----|
+| foo | [FooRequest](#foo.FooRequest) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
 
-
-
-<span style="color:grey">No Types Defined</span>
 
 
 
@@ -98,8 +98,21 @@ foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob
 
 
 
+<a name=foo.FooRequest></a><details>
+<summary>foo.FooRequest</summary>
 
-<span style="color:grey">No Types Defined</span>
+### foo.FooRequest
+
+
+
+![](foo/foorequestsimple.svg)
+
+[Full Diagram](foo/foorequest.svg)
+
+
+
+</details>
+
 
 
 <div class="footer">

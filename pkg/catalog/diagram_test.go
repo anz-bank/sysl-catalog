@@ -171,3 +171,15 @@ func TestCreateRedocFlagFalse(t *testing.T) {
 	link := gen.CreateRedoc(sourceContext, appName)
 	assert.Equal(t, "", link)
 }
+
+func TestCreateRedocFromImportRemote(t *testing.T) {
+	appName := "myAppName"
+	fileName := "github.com/myorg/myrepo/specs/myfile.yaml"
+	sourceContext := &sysl.SourceContext{File: fileName}
+	gen := Generator{
+		RedocFilesToCreate: make(map[string]string),
+		Redoc:              true,
+	}
+	link := gen.CreateRedoc(sourceContext, appName)
+	assert.Equal(t, "", link)
+}

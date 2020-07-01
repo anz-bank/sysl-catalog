@@ -59,18 +59,25 @@ const NewPackageTemplate = `
 {{end}}
 
 ## Application Index
-| Application Name | Method | Source Location |
-----|----|----{{$Apps := .Apps}}{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if eq (hasPattern $app.Attrs "ignore") false}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := SortedKeys $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}{{if eq (hasPattern $endpoint.Attrs "ignore") false}}
-{{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}{{end}}{{end}}
+{{$anyApps := false}}
+
+{{$Apps := .Apps}}{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if eq (hasPattern $app.Attrs "ignore") false}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := SortedKeys $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}{{if eq (hasPattern $endpoint.Attrs "ignore") false}}{{if not $anyApps}}| Application Name | Method | Source Location |
+|----|----|----|{{$anyApps = true}}{{end}}
+| {{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}{{end}}{{end}}
+
+{{if not $anyApps}}
+<span style="color:grey">No Applications Defined</span>
+{{end}}
+
 
 ## Type Index
-{{$typeIndexHeader := false}}
+{{$anyTypes := false}}
 
-{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}{{if ne (hasPattern $app.Attrs "db") true}}{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}{{if not $typeIndexHeader}}| Application Name | Type Name | Source Location |
-|----|----|----|{{$typeIndexHeader = true}}{{end}}
+{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}{{if ne (hasPattern $app.Attrs "db") true}}{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}{{if not $anyTypes}}| Application Name | Type Name | Source Location |
+|----|----|----|{{$anyTypes = true}}{{end}}
 | {{$appName}} | [{{$typeName}}](#{{$appName}}.{{$typeName}}) | [{{SourcePath $type}}]({{SourcePath $type}})|{{end}}{{end}}{{end}}
 
-{{if not $typeIndexHeader}}
+{{if not $anyTypes}}
 <span style="color:grey">No Types Defined</span>
 {{end}}
 
@@ -89,6 +96,8 @@ const NewPackageTemplate = `
 {{end}}{{end}}
 {{end}}
 
+
+{{if $anyApps}}
 # Applications
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if eq (hasPattern $app.Attrs "ignore") false}}
@@ -173,22 +182,22 @@ const NewPackageTemplate = `
 <span style="color:grey">No Response Types</span>
 {{end}}
 </details>
+{{end}}
 
 ---
 
 {{end}}{{end}}{{end}}{{end}}{{end}}{{end}}
 
 
+{{if $anyTypes}}
 # Types
 
-{{$anytypes := false}}
 
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}
 {{if ne (hasPattern $app.Attrs "db") true}}
 
 
 {{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
-{{$anytypes = true}}
 <a name={{$appName}}.{{$typeName}}></a><details>
 <summary>{{$appName}}.{{$typeName}}</summary>
 
@@ -209,9 +218,6 @@ const NewPackageTemplate = `
 {{end}}
 
 </details>{{end}}{{end}}{{end}}
-
-{{if not $anytypes}}
-<span style="color:grey">No Types Defined</span>
 {{end}}
 
 <div class="footer">

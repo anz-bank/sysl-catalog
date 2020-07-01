@@ -101,13 +101,23 @@ func handleSourceURL(importPath string) string {
 					file := path.Join(paths[3:]...)
 
 					urlPath.Path = path.Join(paths[:3]...)
-					return path.Join(BuildGithubBlobURL(urlPath.String()), file)
+					urlPath, err = url.Parse(BuildGithubBlobURL(urlPath.String()))
+					if err != nil {
+						panic(err)
+					}
+					urlPath.Path = path.Join(urlPath.Path, file)
+					return urlPath.String()
 				}
 			}
 		}
 	}
 
-	return path.Join(BuildGithubBlobURL(GetRemoteFromGit()), importPath)
+	urlPath, err := url.Parse(BuildGithubBlobURL(GetRemoteFromGit()))
+	if err != nil {
+		panic(err)
+	}
+	urlPath.Path = path.Join(urlPath.Path, importPath)
+	return urlPath.String()
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.

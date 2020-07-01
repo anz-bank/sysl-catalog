@@ -17,7 +17,7 @@
 ## Application Index
 | Application Name | Method | Source Location |
 ----|----|----
-foo | [whatever](#foo-whatever) | [https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https:/github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
 
 ## Type Index
 

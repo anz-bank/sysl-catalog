@@ -22,14 +22,19 @@
 
 
 ## Application Index
+
+
 | Application Name | Method | Source Location |
-----|----|----
-Server | [Authenticate](#Server-Authenticate) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+|----|----|----|
+| Server | [Authenticate](#Server-Authenticate) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+
+
+
 
 ## Type Index
 
@@ -54,6 +59,8 @@ Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https://github.com/an
 
 ![](RelModel/types.svg)
 </details>
+
+
 
 
 
@@ -120,6 +127,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -169,6 +177,7 @@ this is a description of Authenticate
 
 
 </details>
+
 
 ---
 
@@ -228,6 +237,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -280,6 +290,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -330,6 +341,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -371,14 +383,14 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
 
 
+
 # Types
-
-
 
 
 
@@ -398,10 +410,15 @@ this is a description of Authenticate
 
 [Full Diagram](Server/empty.svg)
 
+#### Fields
+
+
+
+
+<span style="color:grey">No Fields</span>
 
 
 </details>
-
 <a name=Server.Request></a><details>
 <summary>Server.Request</summary>
 
@@ -413,7 +430,6 @@ this is a description of Authenticate
 
 [Full Diagram](Server/request.svg)
 
-
 #### Fields
 
 | Field name | Type | Description |
@@ -421,8 +437,8 @@ this is a description of Authenticate
 | query | sequence of Response | |
 
 
-</details>
 
+</details>
 <a name=Server.Response></a><details>
 <summary>Server.Response</summary>
 
@@ -434,7 +450,6 @@ this is a description of Authenticate
 
 [Full Diagram](Server/response.svg)
 
-
 #### Fields
 
 | Field name | Type | Description |
@@ -443,8 +458,8 @@ this is a description of Authenticate
 | query | MegaDatabase.Money | |
 
 
-</details>
 
+</details>
 
 
 <div class="footer">

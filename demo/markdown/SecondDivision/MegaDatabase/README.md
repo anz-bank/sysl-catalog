@@ -15,9 +15,14 @@
 
 
 ## Application Index
+
+
 | Application Name | Method | Source Location |
-----|----|----
-this | [this](#this-this) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+|----|----|----|
+| this | [this](#this-this) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+
+
+
 
 ## Type Index
 
@@ -26,6 +31,8 @@ this | [this](#this-this) | [https://github.com/anz-bank/sysl-catalog/blob/maste
 |----|----|----|
 | MegaDatabase | [Empty](#MegaDatabase.Empty) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
 | MegaDatabase | [Money](#MegaDatabase.Money) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+
+
 
 
 
@@ -87,14 +94,14 @@ this | [this](#this-this) | [https://github.com/anz-bank/sysl-catalog/blob/maste
 
 </details>
 
+
 ---
 
 
 
 
+
 # Types
-
-
 
 
 
@@ -113,10 +120,15 @@ this | [this](#this-this) | [https://github.com/anz-bank/sysl-catalog/blob/maste
 
 [Full Diagram](MegaDatabase/empty.svg)
 
+#### Fields
+
+
+
+
+<span style="color:grey">No Fields</span>
 
 
 </details>
-
 <a name=MegaDatabase.Money></a><details>
 <summary>MegaDatabase.Money</summary>
 
@@ -128,7 +140,6 @@ this | [this](#this-this) | [https://github.com/anz-bank/sysl-catalog/blob/maste
 
 [Full Diagram](MegaDatabase/money.svg)
 
-
 #### Fields
 
 | Field name | Type | Description |
@@ -136,8 +147,8 @@ this | [this](#this-this) | [https://github.com/anz-bank/sysl-catalog/blob/maste
 | amount | int | |
 
 
-</details>
 
+</details>
 
 
 

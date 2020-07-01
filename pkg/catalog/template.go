@@ -200,14 +200,12 @@ const NewPackageTemplate = `
 
 [Full Diagram]({{CreateTypeDiagram $appName $typeName $type true}})
 
+{{if Fields $type}}
 #### Fields
 {{$fieldHeader := false}}
 {{$fieldMap := Fields $type}}{{range $fieldName := SortedKeys $fieldMap}}{{$field := index $fieldMap $fieldName}}{{if not $fieldHeader}}| Field name | Type | Description |
 |----|----|----|{{$fieldHeader = true}}{{end}}
 | {{$fieldName}} | {{FieldType $field}} | {{$desc := Attribute $field "description"}}{{if ne $desc $typedesc}}{{$desc}}{{end}}|{{end}}
-
-{{if not $fieldHeader}}
-<span style="color:grey">No Fields</span>
 {{end}}
 
 </details>{{end}}{{end}}{{end}}

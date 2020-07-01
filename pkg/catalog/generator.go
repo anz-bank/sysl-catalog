@@ -90,6 +90,15 @@ func handleSourceURL(importPath string) string {
 	//FIXME: does not work with external sysl import modules
 	//FIXME: does not work with absolute import in sysl
 	//FIXME: only handles github
+	buildLink := func(base, file string) string {
+		urlPath, err := url.Parse(BuildGithubBlobURL(base))
+		if err != nil {
+			panic(err)
+		}
+		urlPath.Path = path.Join(urlPath.Path, file)
+		return urlPath.String()
+	}
+
 	if strings.HasPrefix(importPath, "github") {
 		urlPath, err := url.Parse("https://" + importPath)
 		if err == nil {
@@ -101,23 +110,12 @@ func handleSourceURL(importPath string) string {
 					file := path.Join(paths[3:]...)
 
 					urlPath.Path = path.Join(paths[:3]...)
-					urlPath, err = url.Parse(BuildGithubBlobURL(urlPath.String()))
-					if err != nil {
-						panic(err)
-					}
-					urlPath.Path = path.Join(urlPath.Path, file)
-					return urlPath.String()
+					return buildLink(urlPath.String(), file)
 				}
 			}
 		}
 	}
-
-	urlPath, err := url.Parse(BuildGithubBlobURL(GetRemoteFromGit()))
-	if err != nil {
-		panic(err)
-	}
-	urlPath.Path = path.Join(urlPath.Path, importPath)
-	return urlPath.String()
+	return buildLink(GetRemoteFromGit(), importPath)
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.

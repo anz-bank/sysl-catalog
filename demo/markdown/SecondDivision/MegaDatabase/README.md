@@ -113,12 +113,6 @@ this | [this](#this-this) | [https:/github.com/anz-bank/sysl-catalog/blob/master
 
 [Full Diagram](MegaDatabase/empty.svg)
 
-#### Fields
-
-
-
-
-<span style="color:grey">No Fields</span>
 
 
 </details>
@@ -134,12 +128,12 @@ this | [this](#this-this) | [https:/github.com/anz-bank/sysl-catalog/blob/master
 
 [Full Diagram](MegaDatabase/money.svg)
 
+
 #### Fields
 
 | Field name | Type | Description |
 |----|----|----|
 | amount | int | |
-
 
 
 </details>

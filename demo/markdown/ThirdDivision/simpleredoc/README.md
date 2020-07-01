@@ -118,12 +118,12 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https:/github.com/anz-bank/sy
 
 [Full Diagram](simpleredoc/simpleobj.svg)
 
+
 #### Fields
 
 | Field name | Type | Description |
 |----|----|----|
 | name | string | |
-
 
 
 </details>
@@ -139,12 +139,12 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https:/github.com/anz-bank/sy
 
 [Full Diagram](simpleredoc/simpleobj2.svg)
 
+
 #### Fields
 
 | Field name | Type | Description |
 |----|----|----|
 | name | SimpleObj | |
-
 
 
 </details>

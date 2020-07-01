@@ -10,12 +10,18 @@ simple2[~project]:
     ThirdDivision:
         ServerPackage
         foo
+        bar
         simpleredoc
 
 foo:
     @package="foo"
     whatever:
         ...
+
+    !alias FooRequest:
+        string
+bar:
+    @package="bar"
 this:
     @package="MegaDatabase"
     this:

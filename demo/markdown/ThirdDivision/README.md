@@ -6,6 +6,7 @@
 | Package |
 ----|
 [ServerPackage](ServerPackage/README.md)|
+[bar](bar/README.md)|
 [foo](foo/README.md)|
 [simpleredoc](simpleredoc/README.md)|
 

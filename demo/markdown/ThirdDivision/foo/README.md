@@ -15,9 +15,14 @@
 
 
 ## Application Index
+
+
 | Application Name | Method | Source Location |
-----|----|----
-foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+|----|----|----|
+| foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+
+
+
 
 ## Type Index
 
@@ -25,6 +30,8 @@ foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob
 | Application Name | Type Name | Source Location |
 |----|----|----|
 | foo | [FooRequest](#foo.FooRequest) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+
+
 
 
 
@@ -83,14 +90,14 @@ foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob
 
 </details>
 
+
 ---
 
 
 
 
+
 # Types
-
-
 
 
 
@@ -112,7 +119,6 @@ foo | [whatever](#foo-whatever) | [https://github.com/anz-bank/sysl-catalog/blob
 
 
 </details>
-
 
 
 <div class="footer">

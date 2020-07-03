@@ -159,7 +159,7 @@ this is a description of Authenticate
 
 #### Path Parameter
 
-![](primitive/stringprimitiveid.svg)
+![](primitive/stringsimple.svg)
 
 
 
@@ -273,7 +273,7 @@ this is a description of Authenticate
 
 #### Query Parameter
 
-![](primitive/stringqueryprimitivestring.svg)
+![](primitive/stringsimple.svg)
 
 </details>
 

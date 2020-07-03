@@ -422,7 +422,6 @@ this is a description of Authenticate
 
 - # This is a formatted description
 
-
 Something
 
 Something else
@@ -445,10 +444,7 @@ Something else
 
 ### Server.LongDescriptionNoExtraLines
 
-- # This is a formatted description
- Something
- Something else
-
+- # This is a formatted description Something Something else
 
 ![](Server/longdescriptionnoextralinessimple.svg)
 

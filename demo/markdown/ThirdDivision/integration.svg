@@ -3,7 +3,7 @@ entity _0--><rect fill="#FFFAF0" filter="url(#f1m9n6ah2kayw7)" height="46.2969" 
 entity _1--><rect fill="#FFFAF0" filter="url(#f1m9n6ah2kayw7)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="84" x="97" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="161" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="159" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="159" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="44" x="112" y="166.9482">Server</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
 entity _2--><rect fill="#FFFAF0" filter="url(#f1m9n6ah2kayw7)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="121" x="154.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="255.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="253.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="253.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="169.5" y="60.9482">MobileApp2</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
 link _0 to _1--><path d="M79.4909,73.9535 C91.1622,90.232 106.87,112.1402 119.2168,129.3607 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="122.2789,133.6315,120.2855,123.9865,119.3654,129.5681,113.7839,128.648,122.2789,133.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[797b2ad59651ef14175f94513191e355]
-link _2 to _1--><path d="M198.5091,73.9535 C186.8378,90.232 171.13,112.1402 158.7832,129.3607 " fill="none" id="_2-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="155.7211,133.6315,164.2161,128.648,158.6346,129.5681,157.7145,123.9865,155.7211,133.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[fb7b0e325de23c964989b339407c9cef]
+link _2 to _1--><path d="M198.5091,73.9535 C186.8378,90.232 171.13,112.1402 158.7832,129.3607 " fill="none" id="_2-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="155.7211,133.6315,164.2161,128.648,158.6346,129.5681,157.7145,123.9865,155.7211,133.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[c382348af5ddfbc91d606ffafeebea08]
 @startuml
 ''''''''''''''''''''''''''''''''''''''''''
 ''                                      ''
@@ -45,7 +45,7 @@ _0 - -> _1
 _2 - -> _1
 @enduml
 
-PlantUML version 1.2020.14(Sat Jun 20 14:14:34 UTC 2020)
+PlantUML version 1.2020.15(Sun Jun 28 11:39:45 UTC 2020)
 (GPL source distribution)
 Java Runtime: OpenJDK Runtime Environment
 JVM: OpenJDK 64-Bit Server VM

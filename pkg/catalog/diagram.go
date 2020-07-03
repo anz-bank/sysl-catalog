@@ -263,7 +263,10 @@ func (p *Generator) CreateAliasedTypeDiagram(appName, typeName, typeAlias string
 	}
 	return p.CreateFile(
 		plantumlString, plantuml, appName,
-		typeName+TernaryOperator(recursive, "", TernaryOperator(typeAlias == typeName, "simple", typeAlias)).(string)+p.Ext)
+		typeName+TernaryOperator(
+			recursive,
+			TernaryOperator(typeAlias == typeName, "", typeAlias),
+			TernaryOperator(typeAlias == typeName, "simple", typeAlias)).(string)+p.Ext)
 }
 
 // CreateFileName returns the absolute and relative filepaths

@@ -108,7 +108,7 @@ this is a description of Authenticate
 
 
 
-![](Server/request.svg)
+![](Server/requestinput.svg)
 
 
 
@@ -214,13 +214,13 @@ this is a description of Authenticate
 
 #### Query Parameter
 
-![](Server/request.svg)
+![](Server/requestquerystring.svg)
 
 
 
 #### Query Parameter
 
-![](Server/request.svg)
+![](Server/requestsecondquerystring.svg)
 
 </details>
 
@@ -322,7 +322,7 @@ this is a description of Authenticate
 
 #### Path Parameter
 
-![](Server/request.svg)
+![](Server/requestid.svg)
 
 
 

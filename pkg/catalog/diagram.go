@@ -122,11 +122,20 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 	return p.CreateFile(plantumlString, plantuml, appName, endpoint.GetName()+p.Ext)
 }
 
+type Param interface {
+	Typer
+	GetName() string
+}
+
 // CreateParamDataModel creates a parameter data model and returns a filename
-func (p *Generator) CreateParamDataModel(app *sysl.Application, param Typer) string {
-	var appName, typeName string
+func (p *Generator) CreateParamDataModel(app *sysl.Application, param Param) string {
+	var appName, typeName, aliasTypeName string
 	var getRecursive bool
+	aliasTypeName = param.GetName()
 	appName, typeName = GetAppTypeName(param)
+	if aliasTypeName == "" {
+		aliasTypeName = typeName
+	}
 	if appName == "" {
 		appName = path.Join(app.GetName().GetPart()...)
 	}
@@ -135,7 +144,7 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param Typer) str
 	} else {
 		getRecursive = true
 	}
-	return p.CreateTypeDiagram(appName, typeName, param.GetType(), getRecursive)
+	return p.CreateAliasedTypeDiagram(appName, typeName, aliasTypeName, param.GetType(), getRecursive)
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
@@ -225,10 +234,19 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 // CreateTypeDiagram creates a data model diagram and returns the filename
 // It handles recursively getting the related types, or for primitives, just returns the
 func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.Type, recursive bool) string {
+	return p.CreateAliasedTypeDiagram(appName, typeName, typeName, t, recursive)
+}
+
+func (p *Generator) CreateAliasedTypeDiagram(appName, typeName, typeAlias string, t *sysl.Type, recursive bool) string {
 	m := p.RootModule
 	var plantumlString string
 	if recursive {
-		relatedTypes := catalogdiagrams.RecursivelyGetTypes(appName, map[string]*sysl.Type{typeName: NewTypeRef(appName, typeName)}, m)
+		relatedTypes := catalogdiagrams.RecursivelyGetTypes(
+			appName,
+			map[string]*catalogdiagrams.TypeData{
+				typeAlias: catalogdiagrams.NewTypeData(typeAlias, NewTypeRef(appName, typeName)),
+			}, m,
+		)
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
 		if _, ok := p.RootModule.GetApps()[appName]; !ok {
 			return ""
@@ -238,9 +256,14 @@ func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.T
 			return ""
 		}
 	} else {
-		plantumlString = catalogdiagrams.GenerateDataModel(appName, map[string]*sysl.Type{typeName: t})
+		plantumlString = catalogdiagrams.GenerateDataModel(
+			appName,
+			map[string]*catalogdiagrams.TypeData{typeAlias: catalogdiagrams.NewTypeData(typeAlias, t)},
+		)
 	}
-	return p.CreateFile(plantumlString, plantuml, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
+	return p.CreateFile(
+		plantumlString, plantuml, appName,
+		typeName+TernaryOperator(recursive, "", TernaryOperator(typeAlias == typeName, "simple", typeAlias)).(string)+p.Ext)
 }
 
 // CreateFileName returns the absolute and relative filepaths
@@ -327,7 +350,7 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 // GenerateDataModel generates a data model for all of the types in app
 func (p *Generator) GenerateDataModel(app *sysl.Application) string {
 	appName := strings.Join(app.GetName().GetPart(), "")
-	plantumlString := catalogdiagrams.GenerateDataModel(appName, app.GetTypes())
+	plantumlString := catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.FromSyslTypeMap(appName, app.GetTypes()))
 	if _, ok := p.RootModule.GetApps()[appName]; !ok {
 		return ""
 	}

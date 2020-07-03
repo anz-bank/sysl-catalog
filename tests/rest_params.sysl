@@ -1,0 +1,11 @@
+App:
+    /endpoint:
+        GET(primitiveParam <: string, complex <: Complex, very_complex <: VeryComplex):
+            ...
+
+    !type Complex:
+        simple <: string
+
+    !type VeryComplex:
+        complex <: Complex
+        simple <: string

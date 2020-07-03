@@ -29,7 +29,7 @@ var testFiles = []string{
 	"test/App/integration.svg",
 	"test/App/README.md",
 	"test/App/integration.svg",
-	"test/App/primitive/stringsimple.svg",
+	"test/App/primitive/stringid.svg",
 	"test/README.md",
 	"test/integration.svg",
 	"test/integrationepa.svg",

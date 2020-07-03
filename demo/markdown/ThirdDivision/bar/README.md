@@ -15,8 +15,14 @@
 
 
 ## Application Index
-| Application Name | Method | Source Location |
-----|----|----
+
+
+
+
+
+<span style="color:grey">No Applications Defined</span>
+
+
 
 ## Type Index
 
@@ -30,25 +36,10 @@
 
 
 
-# Applications
 
 
 
 
-
-
-# Types
-
-
-
-
-
-
-
-
-
-
-<span style="color:grey">No Types Defined</span>
 
 
 <div class="footer">

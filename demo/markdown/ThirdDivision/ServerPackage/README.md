@@ -22,14 +22,19 @@
 
 
 ## Application Index
+
+
 | Application Name | Method | Source Location |
-----|----|----
-Server | [Authenticate](#Server-Authenticate) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
-Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+|----|----|----|
+| Server | [Authenticate](#Server-Authenticate) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestPathParamPrimitive/{primitiveID}](#Server-GETtestRestPathParamPrimitive{primitiveID}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestQueryParam](#Server-GETtestRestQueryParam) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestQueryParamPrimitive](#Server-GETtestRestQueryParamPrimitive) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testRestURLParam/{id}](#Server-GETtestRestURLParam{id}) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+| Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+
+
+
 
 ## Type Index
 
@@ -37,6 +42,8 @@ Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https://github.com/an
 | Application Name | Type Name | Source Location |
 |----|----|----|
 | Server | [Empty](#Server.Empty) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+| Server | [LongDescription](#Server.LongDescription) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
+| Server | [LongDescriptionNoExtraLines](#Server.LongDescriptionNoExtraLines) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
 | Server | [Request](#Server.Request) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
 | Server | [Response](#Server.Response) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|
 
@@ -54,6 +61,8 @@ Server | [GET /testReturnNil](#Server-GETtestReturnNil) | [https://github.com/an
 
 ![](RelModel/types.svg)
 </details>
+
+
 
 
 
@@ -120,6 +129,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -169,6 +179,7 @@ this is a description of Authenticate
 
 
 </details>
+
 
 ---
 
@@ -228,6 +239,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -280,6 +292,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -330,6 +343,7 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
@@ -371,14 +385,14 @@ this is a description of Authenticate
 
 </details>
 
+
 ---
 
 
 
 
+
 # Types
-
-
 
 
 
@@ -401,7 +415,54 @@ this is a description of Authenticate
 
 
 </details>
+<a name=Server.LongDescription></a><details>
+<summary>Server.LongDescription</summary>
 
+### Server.LongDescription
+
+- # This is a formatted description
+
+
+Something
+
+Something else
+
+![](Server/longdescriptionsimple.svg)
+
+[Full Diagram](Server/longdescription.svg)
+
+
+#### Fields
+
+| Field name | Type | Description |
+|----|----|----|
+| field | string | |
+
+
+</details>
+<a name=Server.LongDescriptionNoExtraLines></a><details>
+<summary>Server.LongDescriptionNoExtraLines</summary>
+
+### Server.LongDescriptionNoExtraLines
+
+- # This is a formatted description
+ Something
+ Something else
+
+
+![](Server/longdescriptionnoextralinessimple.svg)
+
+[Full Diagram](Server/longdescriptionnoextralines.svg)
+
+
+#### Fields
+
+| Field name | Type | Description |
+|----|----|----|
+| field | string | |
+
+
+</details>
 <a name=Server.Request></a><details>
 <summary>Server.Request</summary>
 
@@ -422,7 +483,6 @@ this is a description of Authenticate
 
 
 </details>
-
 <a name=Server.Response></a><details>
 <summary>Server.Response</summary>
 
@@ -444,7 +504,6 @@ this is a description of Authenticate
 
 
 </details>
-
 
 
 <div class="footer">

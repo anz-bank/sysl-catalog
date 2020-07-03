@@ -15,9 +15,14 @@
 
 
 ## Application Index
+
+
 | Application Name | Method | Source Location |
-----|----|----
-simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|  
+|----|----|----|
+| simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|  
+
+
+
 
 ## Type Index
 
@@ -27,6 +32,8 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/s
 | simpleredoc | [AustralianState](#simpleredoc.AustralianState) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
 | simpleredoc | [SimpleObj](#simpleredoc.SimpleObj) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
 | simpleredoc | [SimpleObj2](#simpleredoc.SimpleObj2) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
+
+
 
 
 
@@ -44,6 +51,7 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/s
 
 
 - No description.
+
 
 
 
@@ -93,14 +101,14 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/s
 
 </details>
 
+
 ---
 
 
 
 
+
 # Types
-
-
 
 
 
@@ -122,7 +130,6 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/s
 
 
 </details>
-
 <a name=simpleredoc.SimpleObj></a><details>
 <summary>simpleredoc.SimpleObj</summary>
 
@@ -143,7 +150,6 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/s
 
 
 </details>
-
 <a name=simpleredoc.SimpleObj2></a><details>
 <summary>simpleredoc.SimpleObj2</summary>
 
@@ -164,7 +170,6 @@ simpleredoc | [GET /test](#simpleredoc-GETtest) | [https://github.com/anz-bank/s
 
 
 </details>
-
 
 
 <div class="footer">

@@ -125,7 +125,7 @@ hello, gamers
 
 
 
-![](Server/requestinput.svg)
+![](Server/request.svg)
 
 
 
@@ -188,7 +188,7 @@ SecondEndpoint, comment
 
 
 
-![](Server/requestinput.svg)
+![](Server/request.svg)
 
 
 

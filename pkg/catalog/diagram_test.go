@@ -66,7 +66,7 @@ func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testRestQueryParam/{id}"].RestParams.QueryParam[0])
-	assert.Equal(t, "App/foo.svg", file)
+	assert.Equal(t, "App/fooquerystring.svg", file)
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5PQc5bK6bnHbvgKhAIGMAyGRADZOA6YuwEGN9MTafcWgE1OKwANbvolOsIbKSsahb6Ha5YjOAHI3TN3LSZcavgM0WWaG003__nwmFcy0",
 		p.FilesToCreate[path.Join(outputDir, file)],
@@ -102,7 +102,7 @@ func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamRef/{id}"].RestParams.UrlParam[0])
-	assert.Equal(t, "App/foo.svg", file)
+	assert.Equal(t, "App/fooid.svg", file)
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oiePQOeAIGMAyGRADZOA6YuwEGN9MTafcWgE1OKwANbvolOsIbKSsahb6Ha5YjOAHIN56NcfNFLSZcavgM0GWSG003__x99Eey0",
 		p.FilesToCreate[path.Join(outputDir, file)],
@@ -120,7 +120,7 @@ func TestCreateParamDataModel(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
-	assert.Equal(t, "GrpcTesting/request.svg", file)
+	assert.Equal(t, "GrpcTesting/requestinput.svg", file)
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDgCa47BWa0KHVVlLzpFZL-KqJf4b6QGDWx8j0xHeGPiCjzp5Vtt2ABrdFNXSZabIpVBSXifZORI555yrUfaJQqRtLPMAnoCqiWoA8F6M6Xrj7y_DNer-YlrOyUCn8TfaGGTuxn3dkDVRUvpV_N32lKyzTQn-73PjkwnE1OK1PwqXX-mXmz2BofT63wTtW400F__Kli-gG00",
 		p.FilesToCreate[path.Join(outputDir, file)],
@@ -147,11 +147,11 @@ func TestCreateParamDataModelWithRestParam(t *testing.T) {
 			"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5HHbvcQMP9Qb1YGM9UOgAIGMAyGRADZOA6YuwEGN9MTafcWg59SKPUQbAzZPALHprN8vfEQbW0864000___cfpfo",
 		},
 		{
-			"App/complex.svg",
+			"App/complexcomplex.svg",
 			"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie9UVd5kIaLYWf91Ohn1iesDWeQBZev1SbPsIcQ2eu5XJeEKCKADZPALHpQIiKPuAu2bOAnIL5cNdfNBLS3gbvAQ200WG00F__YgG_8000",
 		},
 		{
-			"App/verycomplex.svg",
+			"App/verycomplexvery_complex.svg",
 			"http://plantuml.com/plantuml/svg/~1UDgCaKrBn30GXk_v5Q-vLACfc-koB2rD42yDIFGQIXkqq2-IAXRnlqkn2YuzvBqDyymp0vE5kVBpMz-H93eaIH2L3SsVZBvNfNhCZP8ej5JW75AZr0PAFfYhFpJQ6dqhgRig1D1wxAVEVL1K0VQ0qmdNycxqzMlRt22VfhJu0N0-uvFS8hHhYIF2xDlXXNpzYjwTN-m_czYnFJk_N1Yt6Hp1sDPYR7UJ5M2SWueq5Q2m1vAveLcVz1q00F__lLPaQ000",
 		},
 	}

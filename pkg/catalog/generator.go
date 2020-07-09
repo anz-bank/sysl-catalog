@@ -48,12 +48,13 @@ type Generator struct {
 	Templates            []*template.Template
 	StartTemplateIndex   int
 
-	LiveReload    bool // Add live reload javascript to html
-	ImageTags     bool // embedded plantuml img tags, or generated svgs
-	DisableCss    bool // used for rendering raw markdown
-	DisableImages bool // used for omitting image creation
-	Mermaid       bool
-	Redoc         bool // used for generating redoc for openapi specs
+	CustomTemplate bool
+	LiveReload     bool // Add live reload javascript to html
+	ImageTags      bool // embedded plantuml img tags, or generated svgs
+	DisableCss     bool // used for rendering raw markdown
+	DisableImages  bool // used for omitting image creation
+	Mermaid        bool
+	Redoc          bool // used for generating redoc for openapi specs
 
 	Log  *logrus.Logger
 	Fs   afero.Fs
@@ -180,6 +181,7 @@ func (p *Generator) WithTemplateFs(fs afero.Fs, fileNames ...string) *Generator 
 	}
 	p.Templates = make([]*template.Template, 0, 2)
 	p.StartTemplateIndex = 0
+	p.CustomTemplate = true
 	return p.WithTemplateString(tmpls...)
 }
 

@@ -139,7 +139,7 @@
 
 | Field name | Type | Description |
 |----|----|----|
-| amount | int | amount of the Money Money Money|
+| amount | int | |
 
 
 </details>

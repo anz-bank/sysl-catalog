@@ -80,15 +80,15 @@ Server:
             | Something
             | Something else
         field <: string
-
+        
     Authenticate(input <: Request):
         @description = "this is a description of Authenticate"
         return ok <: sequence of Response
-
+    
     /testRestURLParam/{id<:Request}:
         GET:
             return ok <: Response
-
+    
     /testRestQueryParam:
         GET ?queryString={Request}&secondQueryString={Request}:
             return ok <: Response
@@ -112,8 +112,7 @@ MegaDatabase:
         ...
     !type Money:
         @description="Money Money Money"
-        amount <: int:
-            @description="amount of the Money Money Money"
+        amount <: int
 RelModel[~db]:
     @package="ServerPackage"
     !table exhibition:

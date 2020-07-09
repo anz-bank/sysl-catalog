@@ -1,0 +1,10 @@
+App:
+    !type VeryComplex:
+        simpler <: sequence of complex
+
+    !type complex:
+        simple <: string
+
+App2:
+    !type KindaComplex:
+        lessComplex <: sequence of App.VeryComplex

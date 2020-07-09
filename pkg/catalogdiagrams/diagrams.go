@@ -225,8 +225,11 @@ func RecursivelyGetTypesHelper(appName string, t *TypeData, m *sysl.Module, cumm
 	return ret
 }
 
+// TypeFromRef take a type data and recursively traverse through TypeRefs and fetch the
+// actual type data.
 func TypeFromRef(mod *sysl.Module, appName string, t *TypeData) (string, string, *TypeData) {
 	var typeName string
+	//TODO: handle `set of`
 	// Handles empty types defined using ...
 	if t == nil {
 		return "", "", nil
@@ -245,16 +248,13 @@ func TypeFromRef(mod *sysl.Module, appName string, t *TypeData) (string, string,
 		if ref.Appname != nil {
 			appName = strings.Join(ref.Appname.Part, "")
 		}
-		typeName = strings.Join(ref.Path, ".")
 		if len(ref.Path) > 1 {
 			appName = ref.Path[0]
-			typeName = ref.Path[1]
 		}
 		if appName == "" {
 			return "", "", nil
 		}
-		return appName, typeName, &TypeData{t.alias, ty}
-
+		return TypeFromRef(mod, appName, &TypeData{t.alias, ty})
 	case *sysl.Type_TypeRef:
 		ref := t.t.GetTypeRef().GetRef()
 		if ref.Appname != nil {

@@ -184,6 +184,32 @@ func TestCreateReturnDataModelWithSequence(t *testing.T) {
 	assert.Equal(t, retSeqPrimSVG, p.FilesToCreate[path.Join(outputDir, fileStringSequencePrimitive)])
 }
 
+func TestCreateTypeDiagramWithRecursiveSequenceTypes(t *testing.T) {
+	//TODO: do sequence of aliased and non-aliased primitives, and sequence of self
+	filePath := "../../tests/seq_type.sysl"
+	outputDir := "test"
+	fs := afero.NewOsFs()
+	logger := logrus.New()
+	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	fileStringSequenceRef := p.CreateTypeDiagram("App", "VeryComplex", m.Apps["App"].Types["VeryComplex"], true)
+	assert.Equal(t, "App/verycomplex.svg", fileStringSequenceRef)
+	assert.Equal(t,
+		"http://plantuml.com/plantuml/svg/~1UDgCaK5Bn30GHk_pApvpgKPJkjUbb2sR85useD5hATcWXMwt9brGfFzTIglieOUysy3ZpS3imb3xuN9gAOc6aWHHB6hvQlIZEgZdqYY9lPOAGa1g7BI1aa_cvb-DhaRVIhQjGm1xS_vxVpxrhVjYg0Eg37cEM_bmzlQZETwXxFlqIa9Hu8Vk4PffzDY2ynVtUN6TTSZjB1MSq_YtOJ7d-cQbRjVAs28ClkdUQQGg0nS2B4jJpb1jQEUwu_IRtm000F__KVnXp000",
+		p.FilesToCreate[path.Join(outputDir, fileStringSequenceRef)],
+	)
+
+	fileStringSequenceRef = p.CreateTypeDiagram("App2", "KindaComplex", m.Apps["App2"].Types["KindaComplex"], true)
+	assert.Equal(t, "App2/kindacomplex.svg", fileStringSequenceRef)
+	assert.Equal(t,
+		"http://plantuml.com/plantuml/svg/~1UDgCaazBmp0OX-_v53zxgKPRkXv7AIjB415MqEgrb3He8SjgtWuKyRlBQAVxTyXxItXuyhoG1GsD6xPhmqBlOM48hvdGugKgx-LAFXML55YMGYAA84gioWfIF5HNVwYtrRkLATCG8J2QQBbPzqP_1cW8TO8imxMuspZrthKtAFe-VjNkQuAGv_Xcjw1kTtIOW_Dd_R7LLcbaQeHopjdF_eM97Esp2tProOmvQ72TVViNFNQsROvQqtDR6XzYU-V1bYV59-kDvNK27aK8aZZc0UePgzEZYuGjj6rtl-Ct003__xMAYOC0",
+		p.FilesToCreate[path.Join(outputDir, fileStringSequenceRef)],
+	)
+}
+
 func TestCreateReturnDataModelWithEmpty(t *testing.T) {
 	filePath := "../../tests/return.sysl"
 	outputDir := "test"

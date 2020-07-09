@@ -1,42 +1,49 @@
-<HTML><HEAD>
-<TITLE>Access Denied</TITLE>
-</HEAD>
-<BODY>
-<FONT face="Helvetica">
-<big><strong></strong></big><BR>
-</FONT>
-<blockquote>
-<TABLE border=0 cellPadding=1 width="80%">
-<TR><TD>
-<FONT face="Helvetica">
-<big>Access Denied (authentication_failed)</big>
-<BR>
-<BR>
-</FONT>
-</TD></TR>
-<TR><TD>
-<FONT face="Helvetica">
-Your credentials could not be authenticated: "The credentials provided are invalid.". You will not be permitted access until your credentials can be verified.
-</FONT>
-</TD></TR>
-<TR><TD>
-<FONT face="Helvetica">
-This is typically caused by an incorrect username and/or password, but could also be caused by network problems.
-</FONT>
-</TD></TR>
-<TR><TD>
-<BR>
-<FONT face="Helvetica">
-Transaction ID: fa50b83b796e5059-000000000211bbef-000000005efec37a
-</FONT>
-</TD></TR>
-<TR><TD>
-<FONT face="Helvetica" SIZE=2>
-<BR>
-For assistance, contact your network support team.
-</FONT>
-</TD></TR>
-</TABLE>
-</blockquote>
-</FONT>
-</BODY></HTML>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="232px" preserveAspectRatio="none" style="width:411px;height:232px;" version="1.1" viewBox="0 0 411 232" width="411px" zoomAndPan="magnify"><defs><filter height="300%" id="f1ifq9nxya23ne" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[f77682fd75c3e1fc6a82f566c0814d0f]
+class _0--><rect fill="#FEFECE" filter="url(#f1ifq9nxya23ne)" height="48" id="_0" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="7" y="156.5"/><ellipse cx="22" cy="172.5" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M21.5938,168.3125 L21.5938,176.2969 L22.25,176.2969 Q23.6875,176.2969 24.2969,175.3906 Q24.9219,174.4688 24.9219,172.2969 Q24.9219,170.125 24.2969,169.2188 Q23.6875,168.3125 22.25,168.3125 L21.5938,168.3125 Z M19.1406,166.1094 L21.7656,166.1094 Q24.7969,166.1094 26.125,167.5625 Q27.4688,169 27.4688,172.2969 Q27.4688,175.5938 26.125,177.0469 Q24.7969,178.5 21.7656,178.5 L19.1406,178.5 L19.1406,166.1094 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="137" x="36" y="176.6543">MegaDatabase.Empty</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="8" x2="175" y1="188.5" y2="188.5"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="8" x2="175" y1="196.5" y2="196.5"/><!--MD5=[37d6e5304215b5e345f427169db70937]
+class _1--><rect fill="#FEFECE" filter="url(#f1ifq9nxya23ne)" height="66.7422" id="_1" style="stroke: #A80036; stroke-width: 1.5;" width="181" x="211" y="147"/><ellipse cx="226" cy="165.9688" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M225.5938,161.7813 L225.5938,169.7656 L226.25,169.7656 Q227.6875,169.7656 228.2969,168.8594 Q228.9219,167.9375 228.9219,165.7656 Q228.9219,163.5938 228.2969,162.6875 Q227.6875,161.7813 226.25,161.7813 L225.5938,161.7813 Z M223.1406,159.5781 L225.7656,159.5781 Q228.7969,159.5781 230.125,161.0313 Q231.4688,162.4688 231.4688,165.7656 Q231.4688,169.0625 230.125,170.5156 Q228.7969,171.9688 225.7656,171.9688 L223.1406,171.9688 L223.1406,159.5781 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="153" x="238" y="163.1387">«MegaDatabase.Money»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="35" x="297" y="177.1074">query</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="212" x2="391" y1="184.9375" y2="184.9375"/><ellipse cx="222" cy="195.9375" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="69" x="231" y="199.1479">amount : int</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="212" x2="391" y1="205.7422" y2="205.7422"/><!--MD5=[95d1cea1cd7f69d371fe62aa72675e9c]
+class _2--><rect fill="#FEFECE" filter="url(#f1ifq9nxya23ne)" height="79.5469" id="_2" style="stroke: #A80036; stroke-width: 1.5;" width="221" x="86" y="7"/><ellipse cx="134.25" cy="25.9688" fill="#DA70D6" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M133.8438,21.7813 L133.8438,29.7656 L134.5,29.7656 Q135.9375,29.7656 136.5469,28.8594 Q137.1719,27.9375 137.1719,25.7656 Q137.1719,23.5938 136.5469,22.6875 Q135.9375,21.7813 134.5,21.7813 L133.8438,21.7813 Z M131.3906,19.5781 L134.0156,19.5781 Q137.0469,19.5781 138.375,21.0313 Q139.7188,22.4688 139.7188,25.7656 Q139.7188,29.0625 138.375,30.5156 Q137.0469,31.9688 134.0156,31.9688 L131.3906,31.9688 L131.3906,19.5781 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="120" x="152.75" y="23.1387">«Server.Response»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="181.75" y="37.1074">Response</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="87" x2="306" y1="44.9375" y2="44.9375"/><ellipse cx="97" cy="55.9375" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="52" x="106" y="59.1479">balance :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="139" x="162" y="59.1479">MegaDatabase.Empty</text><ellipse cx="97" cy="68.7422" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="106" y="71.9526">query :</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="142" x="150" y="71.9526">MegaDatabase.Money</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="87" x2="306" y1="78.5469" y2="78.5469"/><!--MD5=[59b725bd629d11771785352f69ebf978]
+reverse link _2 to _0--><path d="M156.8678,97.3895 C140.9667,117.6067 123.3872,139.9578 110.4672,156.3846 " fill="none" id="_2&lt;-_0" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="164.9965,87.0544,158.1432,89.2976,157.5779,96.4865,164.4312,94.2433,164.9965,87.0544" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="24" x="83.74" y="145.3671">1..1</text><!--MD5=[03837af55dfe97398128afec89a6c29c]
+reverse link _2 to _1--><path d="M236.3079,97.6129 C249.2389,114.0537 263.2626,131.8839 274.9786,146.78 " fill="none" id="_2&lt;-_1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="228.0035,87.0544,228.5688,94.2433,235.4221,96.4865,234.8568,89.2976,228.0035,87.0544" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="24" x="239.2542" y="136.0266">1..1</text><!--MD5=[32979d021d7b776217449ac31b883d1f]
+@startuml
+''''''''''''''''''''''''''''''''''''''''''
+''                                      ''
+''  AUTOGENERATED CODE - - DO NOT EDIT!  ''
+''                                      ''
+''''''''''''''''''''''''''''''''''''''''''
+
+class "MegaDatabase.Empty" as _0<< (D,orchid) >> {
+}
+class "query" as _1 << (D,orchid) MegaDatabase.Money >> {
++ amount : int
+}
+class "Response" as _2 << (D,orchid) Server.Response >> {
++ balance : **MegaDatabase.Empty**
++ query : **MegaDatabase.Money**
+}
+_2 *- - "1..1 " _0
+_2 *- - "1..1 " _1
+@enduml
+
+@startuml
+
+class "MegaDatabase.Empty" as _0<< (D,orchid) >> {
+}
+class "query" as _1 << (D,orchid) MegaDatabase.Money >> {
++ amount : int
+}
+class "Response" as _2 << (D,orchid) Server.Response >> {
++ balance : **MegaDatabase.Empty**
++ query : **MegaDatabase.Money**
+}
+_2 *- - "1..1 " _0
+_2 *- - "1..1 " _1
+@enduml
+
+PlantUML version 1.2020.15(Sun Jun 28 11:39:45 UTC 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

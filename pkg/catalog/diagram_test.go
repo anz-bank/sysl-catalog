@@ -46,7 +46,7 @@ func TestCreateQueryParamDataModelWithPrimitive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["Bar"], m.Apps["Bar"].Endpoints["GET /address"].RestParams.QueryParam[0])
 	assert.Equal(t, "primitive/stringstreet.svg", file)
 	assert.Equal(t,
@@ -64,7 +64,7 @@ func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testRestQueryParam/{id}"].RestParams.QueryParam[0])
 	assert.Equal(t, "App/fooquerystring.svg", file)
 	assert.Equal(t,
@@ -82,7 +82,7 @@ func TestCreatePathParamDataModelWithPrimitive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamPrimitive/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t, "primitive/stringid.svg", file)
 	assert.Equal(t,
@@ -100,7 +100,7 @@ func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamRef/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t, "App/fooid.svg", file)
 	assert.Equal(t,
@@ -118,7 +118,7 @@ func TestCreateParamDataModel(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	file := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
 	assert.Equal(t, "GrpcTesting/requestinput.svg", file)
 	assert.Equal(t,
@@ -136,7 +136,7 @@ func TestCreateParamDataModelWithRestParam(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 
 	type paramCase struct {
 		fileName, svg string
@@ -172,7 +172,7 @@ func TestCreateReturnDataModelWithSequence(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	fileStringSequenceRef := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["somefoo"].Stmt[0], m.Apps["App"].Endpoints["somefoo"])
 	fileStringSequencePrimitive := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["someprimitivefoo"].Stmt[0], m.Apps["App"].Endpoints["someprimitivefoo"])
 	assert.Equal(t, "App/foo.svg", fileStringSequenceRef)
@@ -219,7 +219,7 @@ func TestCreateReturnDataModelWithEmpty(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	fileStringEmpty := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["GET /testReturnNil"].Stmt[0], m.Apps["App"].Endpoints["GET /testReturnNil"])
 	assert.Equal(t, "", fileStringEmpty)
 }

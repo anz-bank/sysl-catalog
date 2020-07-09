@@ -87,7 +87,7 @@ const NewPackageTemplate = `
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if hasPattern $app.GetAttrs "db"}}
 
-<details>
+<a name=Database-{{$appName}}></a><details>
 <summary>Database {{$appName}}</summary>
 
 {{Attribute $app "description"}}

@@ -38,7 +38,7 @@ type Generator struct {
 	FilesToCreate        map[string]string
 	MermaidFilesToCreate map[string]string
 	RedocFilesToCreate   map[string]string
-	Files                map[string][]byte
+	GeneratedFiles       map[string][]byte
 	SourceFileName       string
 	ProjectTitle         string
 	ImageDest            string // Output all images into this folder is set
@@ -134,7 +134,7 @@ func NewProject(
 		RootModule:         module,
 		PlantumlService:    plantumlService,
 		FilesToCreate:      make(map[string]string),
-		Files:              make(map[string][]byte),
+		GeneratedFiles:     make(map[string][]byte),
 		RedocFilesToCreate: make(map[string]string),
 		Fs:                 fs,
 		Ext:                ".svg",

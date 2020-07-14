@@ -18,6 +18,7 @@ import (
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	//p.Fs = afero.NewMemMapFs()
 	p.RootModule = m
+	p.Files = make(map[string][]byte)
 	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 && !p.CustomTemplate {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	} else {

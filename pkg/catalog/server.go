@@ -18,6 +18,7 @@ import (
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	//p.Fs = afero.NewMemMapFs()
 	p.RootModule = m
+	p.GeneratedFiles = make(map[string][]byte)
 	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 && !p.CustomTemplate {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	} else {
@@ -89,11 +90,16 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
+		if svg, ok := p.GeneratedFiles[path.Join(unescapedPath)]; ok {
+			bytes = svg
+			return
+		}
 		bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
 		p.errs = []error{}
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
+		p.GeneratedFiles[path.Join(unescapedPath)] = bytes
 		return
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)

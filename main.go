@@ -38,8 +38,6 @@ var (
 	enableMermaid     = kingpin.Flag("mermaid", "use mermaid diagrams where possible").Default("false").Bool()
 	enableRedoc       = kingpin.Flag("redoc", "generate redoc for specs imported from openapi. Must be run on a git repo.").Default("false").Bool()
 	imageDest         = kingpin.Flag("imageDest", "Optional image directory destination (can be outside output)").String()
-	feedbackLink      = kingpin.Flag("feedback", "").Default("https://github.com/anz-bank/sysl-catalog/issues/new").String()
-	chatLink          = kingpin.Flag("chat", "").Default("https://anzoss.slack.com/messages/sysl-catalog/").String()
 )
 
 func main() {
@@ -55,7 +53,7 @@ func main() {
 			logger.Fatal(err)
 		}
 
-		catalog.NewProject(*input, plantUMLService, *outputType, *feedbackLink, *chatLink, logger, m, fs, *outputDir).
+		catalog.NewProject(*input, plantUMLService, *outputType, logger, m, fs, *outputDir).
 			SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *enableMermaid, *outputFileName, *imageDest).
 			WithTemplateFs(fs, strings.Split(*templates, ",")...).
 			Run()
@@ -70,7 +68,7 @@ func main() {
 		logger.Warn("OutputDir is ignored in server mode")
 	}
 
-	handler := catalog.NewProject(*input, plantUMLService, "html", *feedbackLink, *chatLink, logger, nil, nil, "").
+	handler := catalog.NewProject(*input, plantUMLService, "html", logger, nil, nil, "").
 		SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *enableMermaid, *outputFileName, *imageDest).
 		WithTemplateFs(fs, strings.Split(*templates, ",")...).
 		ServerSettings(*noCSS, !*disableLiveReload, true)

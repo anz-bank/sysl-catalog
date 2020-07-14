@@ -194,7 +194,7 @@ func TestCreateTypeDiagramWithRecursiveSequenceTypes(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", "", "", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	fileStringSequenceRef := p.CreateTypeDiagram("App", "VeryComplex", m.Apps["App"].Types["VeryComplex"], true)
 	assert.Equal(t, "App/verycomplex.svg", fileStringSequenceRef)
 	assert.Equal(t,

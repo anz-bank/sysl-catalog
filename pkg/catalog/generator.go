@@ -62,15 +62,13 @@ type Generator struct {
 	errs []error // Any errors that stop from rendering will be output to the browser
 
 	// All of these are used in markdown generation
-	Module       *sysl.Module
-	CurrentDir   string
-	TempDir      string
-	Title        string
-	OutputDir    string
-	FeedbackLink string
-	ChatLink     string
-	Links        map[string]string
-	Server       bool
+	Module     *sysl.Module
+	CurrentDir string
+	TempDir    string
+	Title      string
+	OutputDir  string
+	Links      map[string]string
+	Server     bool
 }
 
 type SourceCoder interface {
@@ -122,7 +120,7 @@ func handleSourceURL(importPath string) string {
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.
 func NewProject(
-	titleAndFileName, plantumlService, outputType, feedbackLink, chatLink string,
+	titleAndFileName, plantumlService, outputType string,
 	logger *logrus.Logger,
 	module *sysl.Module,
 	fs afero.Fs, outputDir string) *Generator {
@@ -140,8 +138,6 @@ func NewProject(
 		RedocFilesToCreate: make(map[string]string),
 		Fs:                 fs,
 		Ext:                ".svg",
-		FeedbackLink:       feedbackLink,
-		ChatLink:           chatLink,
 	}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
@@ -274,14 +270,6 @@ func (p *Generator) Run() {
 	wg.Wait()
 }
 
-func (p *Generator) GetFeedbackLink() string {
-	return p.FeedbackLink
-}
-
-func (p *Generator) GetChatLink() string {
-	return p.ChatLink
-}
-
 // GetFuncMap returns the funcs that are used in diagram generation.
 func (p *Generator) GetFuncMap() template.FuncMap {
 	return template.FuncMap{
@@ -312,8 +300,6 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"ToTitle":                  strings.ToTitle,
 		"Base":                     filepath.Base,
 		"Last":                     Last,
-		"FeedbackLink":             p.GetFeedbackLink,
-		"ChatLink":                 p.GetChatLink,
 	}
 }
 

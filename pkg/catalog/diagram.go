@@ -399,7 +399,7 @@ func (p *Generator) ModuleAsMacroPackage(m *sysl.Module) map[string]*sysl.Module
 	_, includedProjects := p.getProjectApp(m)
 	for _, key := range SortedKeys(m.GetApps()) {
 		app := m.GetApps()[key]
-		packageName := Attribute(app, "package")
+		packageName := GetPackageName(p.RootModule, app)
 		if packageName == "" {
 			packageName = key
 		}
@@ -471,13 +471,14 @@ func (p *Generator) ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 	_, includedProjects := p.getProjectApp(m)
 	for _, key := range SortedKeys(m.GetApps()) {
 		app := m.GetApps()[key]
-		packageName := Attribute(app, "package")
+		packageName, _ := GetAppPackageName(app)
 		if packageName == "" {
 			packageName = key
 		}
 		if _, ok := includedProjects[packageName]; len(includedProjects) > 0 && !ok {
 			continue
 		}
+		packageName = GetPackageName(p.RootModule, app)
 		if syslutil.HasPattern(app.GetAttrs(), "ignore") || syslutil.HasPattern(app.GetAttrs(), "project") {
 			continue
 		}

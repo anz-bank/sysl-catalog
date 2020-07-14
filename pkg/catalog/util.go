@@ -193,11 +193,20 @@ func GetAppPackageName(a Namer) (string, string) {
 	return packageName, appName
 }
 
+func GetPackageName(m *sysl.Module, a Namer) string {
+	packageName, _ := GetAppPackageName(a)
+	pkg := m.Apps[packageName]
+	if attr := pkg.GetAttrs()["package_alias"]; attr != nil {
+		return attr.GetS()
+	}
+	return packageName
+
+}
+
 func ModulePackageName(m *sysl.Module) string {
 	for _, key := range SortedKeys(m.GetApps()) {
 		app := m.Apps[key]
-		packageName, _ := GetAppPackageName(app)
-		return packageName
+		return GetPackageName(m, app)
 	}
 	return ""
 }

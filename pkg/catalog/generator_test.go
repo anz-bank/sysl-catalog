@@ -121,3 +121,28 @@ func TestHandleSourceURL(t *testing.T) {
 		handleSourceURL("github.com/invalid/path"),
 	)
 }
+
+func TestPrettyPackageNmes(t *testing.T) {
+	contents := `
+AppName:
+	@package = "whatever"
+whatever:
+	@package_alias = "renamed"
+`
+	outputDir := "docs"
+	fs := afero.NewMemMapFs()
+	logger := logrus.New()
+	m, err := parse.NewParser().ParseString(contents)
+	if err != nil {
+		log.Fatal(err)
+	}
+	p := NewProject("", plantumlService, "markdown", logger, m, fs, outputDir)
+	p.SetOptions(false, false, false, true, false, "", "")
+	p.Run()
+	// Assert the right files exist
+	testFile := outputDir + "/renamed/README.md"
+	_, err = fs.Open(testFile)
+	assert.NoError(t, err)
+	_, err = afero.ReadFile(fs, testFile)
+	assert.NoError(t, err)
+}

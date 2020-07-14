@@ -48,6 +48,7 @@ type Generator struct {
 	PlantumlService      string
 	Templates            []*template.Template
 	StartTemplateIndex   int
+	FilterPackage        []string // Filter these regex terms out of packagenames
 
 	CustomTemplate bool
 	LiveReload     bool // Add live reload javascript to html

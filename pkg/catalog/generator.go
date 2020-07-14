@@ -38,6 +38,7 @@ type Generator struct {
 	FilesToCreate        map[string]string
 	MermaidFilesToCreate map[string]string
 	RedocFilesToCreate   map[string]string
+	Files                map[string][]byte
 	SourceFileName       string
 	ProjectTitle         string
 	ImageDest            string // Output all images into this folder is set
@@ -135,18 +136,13 @@ func NewProject(
 		RootModule:         module,
 		PlantumlService:    plantumlService,
 		FilesToCreate:      make(map[string]string),
+		Files:              make(map[string][]byte),
 		RedocFilesToCreate: make(map[string]string),
 		Fs:                 fs,
 		Ext:                ".svg",
 		FeedbackLink:       feedbackLink,
 		ChatLink:           chatLink,
 	}
-	//if strings.Contains(p.PlantumlService, ".jar") {
-	//	_, err := os.Open(p.PlantumlService)
-	//	if err != nil {
-	//		p.Log.Error("Error adding plantumlenv:", err)
-	//	}
-	//}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	}

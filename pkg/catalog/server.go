@@ -89,11 +89,16 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
+		if svg, ok := p.Files[path.Join(unescapedPath)]; ok {
+			bytes = svg
+			return
+		}
 		bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
 		p.errs = []error{}
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
+		p.Files[path.Join(unescapedPath)] = bytes
 		return
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)

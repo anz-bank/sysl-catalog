@@ -196,7 +196,7 @@ func GetAppPackageName(a Namer) (string, string) {
 func GetPackageName(m *sysl.Module, a Namer) string {
 	packageName, _ := GetAppPackageName(a)
 	pkg := m.Apps[packageName]
-	if attr := pkg.GetAttrs()["pretty_package_name"]; attr != nil {
+	if attr := pkg.GetAttrs()["package_alias"]; attr != nil {
 		return attr.GetS()
 	}
 	return packageName

@@ -127,7 +127,7 @@ func TestPrettyPackageNmes(t *testing.T) {
 AppName:
 	@package = "whatever"
 whatever:
-	@pretty_package_name = "renamed"
+	@package_alias = "renamed"
 `
 	outputDir := "docs"
 	fs := afero.NewMemMapFs()

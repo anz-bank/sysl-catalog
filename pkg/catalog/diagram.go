@@ -293,7 +293,11 @@ func (p *Generator) CreateRedoc(sourceContext *sysl.SourceContext, appName strin
 	}
 	absPath, _ := CreateFileName(p.CurrentDir, appName+".redoc.html")
 	absPath = path.Join(p.OutputDir, absPath)
-	p.RedocFilesToCreate[absPath] = BuildSpecURL(sourceContext)
+	var err error
+	p.RedocFilesToCreate[absPath], err = BuildSpecURL(sourceContext)
+	if err != nil {
+		p.Log.Error(err)
+	}
 	link, _ := CreateFileName("", appName+".redoc.html")
 	return link
 }

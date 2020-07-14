@@ -83,11 +83,14 @@ func (p *Generator) SourcePath(a SourceCoder) string {
 	// if source_path := Attribute(a, "source_path"); source_path != "" {
 	// 	return rootDirectory(path.Join(p.OutputDir, p.CurrentDir)) + Attribute(a, "source_path")
 	// }
-
-	return handleSourceURL(a.GetSourceContext().File)
+	sourcePath, err := handleSourceURL(a.GetSourceContext().File)
+	if err != nil {
+		p.Log.Error(err)
+	}
+	return sourcePath
 }
 
-func handleSourceURL(importPath string) string {
+func handleSourceURL(importPath string) (string, error) {
 	//FIXME: does not work with external sysl import modules
 	//FIXME: does not work with absolute import in sysl
 	//FIXME: only handles github
@@ -111,12 +114,16 @@ func handleSourceURL(importPath string) string {
 					file := path.Join(paths[3:]...)
 
 					urlPath.Path = path.Join(paths[:3]...)
-					return buildLink(urlPath.String(), file)
+					return buildLink(urlPath.String(), file), nil
 				}
 			}
 		}
 	}
-	return buildLink(GetRemoteFromGit(), importPath)
+	remote, err := GetRemoteFromGit()
+	if err != nil {
+		return "", err
+	}
+	return buildLink(remote, importPath), nil
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.

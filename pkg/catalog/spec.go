@@ -21,21 +21,25 @@ func IsOpenAPIFile(source *sysl.SourceContext) bool {
 
 // BuildSpecURL takes a source context reference and builds an raw git URL for it
 // It handles sourceContext paths which are from remote repos as well as in the same repo
-func BuildSpecURL(source *sysl.SourceContext) string {
-	repoURL := GetRemoteFromGit()
+func BuildSpecURL(source *sysl.SourceContext) (string, error) {
+	repoURL, err := GetRemoteFromGit()
+	if err != nil {
+		return "", err
+	}
 	rawRepoURL := BuildGithubRawURL(repoURL)
-	return rawRepoURL + source.GetFile()
+	return rawRepoURL + source.GetFile(), nil
 }
 
 // GetRemoteFromGit gets the URL to the git remote
 // e.g github.com/myorg/somerepo/
-func GetRemoteFromGit() string {
+func GetRemoteFromGit() (string, error) {
 	cmd := exec.Command("git", "config", "--get", "remote.origin.url")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		panic(fmt.Errorf("error getting git remote: is sysl-catalog running in a git repo? %w", err))
+
+		return "", fmt.Errorf("error getting git remote: is sysl-catalog running in a git repo? %w", err)
 	}
-	return StripExtension(string(out))
+	return StripExtension(string(out)), nil
 }
 
 // StripExtension removes spaces and suffixes

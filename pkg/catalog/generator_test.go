@@ -100,25 +100,30 @@ func TestGenerateDocsWithRedoc(t *testing.T) {
 
 func TestHandleSourceURL(t *testing.T) {
 	t.Parallel()
+	u, _ := handleSourceURL("random.sysl")
 	assert.Equal(t,
 		"https://github.com/anz-bank/sysl-catalog/blob/master/random.sysl",
-		handleSourceURL("random.sysl"),
+		u,
 	)
+	u, _ = handleSourceURL("random/random/random.sysl")
 	assert.Equal(t,
 		"https://github.com/anz-bank/sysl-catalog/blob/master/random/random/random.sysl",
-		handleSourceURL("random/random/random.sysl"),
+		u,
 	)
+	u, _ = handleSourceURL("github.com/user/repo/sysl/file")
 	assert.Equal(t,
 		"https://github.com/user/repo/blob/master/sysl/file",
-		handleSourceURL("github.com/user/repo/sysl/file"),
+		u,
 	)
+	u, _ = handleSourceURL("github/fake")
 	assert.Equal(t,
 		"https://github.com/anz-bank/sysl-catalog/blob/master/github/fake",
-		handleSourceURL("github/fake"),
+		u,
 	)
+	u, _ = handleSourceURL("github.com/invalid/path")
 	assert.Equal(t,
 		"https://github.com/anz-bank/sysl-catalog/blob/master/github.com/invalid/path",
-		handleSourceURL("github.com/invalid/path"),
+		u,
 	)
 }
 

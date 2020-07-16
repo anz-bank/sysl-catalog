@@ -1,6 +1,5 @@
 
 
-[Chat with us](https://anzoss.slack.com/messages/sysl-catalog/) | [New bug or feature request](https://github.com/anz-bank/sysl-catalog/issues/new)
 # simple2.sysl
 
 | Package |

@@ -14,6 +14,8 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/Masterminds/sprig"
+
 	"github.com/cheggaaa/pb/v3"
 
 	"github.com/iancoleman/strcase"
@@ -280,7 +282,7 @@ func (p *Generator) Run() {
 
 // GetFuncMap returns the funcs that are used in diagram generation.
 func (p *Generator) GetFuncMap() template.FuncMap {
-	return template.FuncMap{
+	f := template.FuncMap{
 		"CreateIntegrationDiagram": p.CreateIntegrationDiagram,
 		"CreateSequenceDiagram":    p.CreateSequenceDiagram,
 		"CreateParamDataModel":     p.CreateParamDataModel,
@@ -309,6 +311,10 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"Base":                     filepath.Base,
 		"Last":                     Last,
 	}
+	for name, function := range sprig.FuncMap() {
+		f[name] = function
+	}
+	return f
 }
 
 func markdownName(s, candidate string) string {

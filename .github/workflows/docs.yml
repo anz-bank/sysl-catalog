@@ -9,14 +9,20 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Gen Docs
-      run: make docker-compose
-    - name: Create Pull Request
-      if: "!contains(github.event.head_commit.message, 'skip ci')"
-      uses: peter-evans/create-pull-request@v2
       with:
-        commit-message: "Update docs [skip-ci]"
-        title: "Update docs [skip-ci]"
-        branch-suffix: random
-
-          
+        persist-credentials: false
+        fetch-depth: 0
+    - name: Gen Docs
+      if: "!contains(github.event.head_commit.message, 'skip-ci')"
+      run: make docker-compose
+    - name: Commit files
+      run: |
+        git config --local user.email "syslbot@anz.com"
+        git config --local user.name "SyslBot"
+        git add .
+        git commit -m "Regenerate docs [skip-ci]" && echo ::set-env name=can_push::1 || echo "No changes to docs"
+    - name: Push changes
+      if: env.can_push == 1
+      uses: ad-m/github-push-action@v0.6
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

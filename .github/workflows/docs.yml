@@ -23,6 +23,6 @@ jobs:
         git commit -m "Regenerate docs [skip-ci]" && echo ::set-env name=can_push::1 || echo "No changes to docs"
     - name: Push changes
       if: env.can_push == 1
-      uses: ad-m/github-push-action@v0.6
+      uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

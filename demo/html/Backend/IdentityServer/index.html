@@ -1,0 +1,439 @@
+
+<!doctype html>
+<html lang="en"><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sysl Catalog</title>
+</head>
+<body>
+<div id='content'>
+<p><a href="../index.html">Back</a></p>
+<h1>IdentityServer</h1>
+<h2>Integration Diagram</h2>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZazBmq0GH-_pASPJJu6sYdWefNyIfGSRq4WFHSeq6R9Bzq-PdQf5_EvIKWHl-PsMVO_X3NeF1WFijQiwVwlAfs9TlCoh8iTbcHUOPPYNk2uhBF9LTVEdzhxQknLcIKdqv1seLSUuQZYerVChomSB6Dim9cNXgESZGwh9CNhwmj7zxSCT6hQjKKW76uuavB6E_XW31yLlG5nGVMWbdaApZ2uAFheev3R6Abzeb8Qb8mj7zG4GvoBni_jQYlKf1lY1xV-gTwI4ko5E9iQsnbqAfbFOFdDBEIdjAN6dZ60tn2oRNbxR3U-JrIiPmsxSaI7CE3Gdxtu3003__ulSV380" alt=""></p>
+<h2>Application Index</h2>
+<table>
+<thead>
+<tr>
+<th>Application Name</th>
+<th>Method</th>
+<th>Source Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-Authenticate">Authenticate</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-CustomerProfile">CustomerProfile</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-NewCustomer">NewCustomer</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-UpdatePassword">UpdatePassword</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Type Index</h2>
+<table>
+<thead>
+<tr>
+<th>Application Name</th>
+<th>Type Name</th>
+<th>Source Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer.Customer">Customer</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer.NewCustomerRequest">NewCustomerRequest</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer.UnauthorizedError">UnauthorizedError</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl</a></td>
+</tr>
+</tbody>
+</table>
+<h1>Applications</h1>
+<h2>Application IdentityServer</h2>
+<ul>
+<li>This server handles all the customer related endpoints
+including customer profile, password update,
+customer authentication, etc.</li>
+</ul>
+<h3><a name=IdentityServer-Authenticate></a>IdentityServer Authenticate</h3>
+<p>this is a description of Authenticate</p>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaB5kya0GXFjxYlrfQ7udLgGqaMr0yIcY04l1L1HeiLVEAUSxQs-D0ayV6P48gdZAcs_cHZiTBJMTmYXTqSMsBDxqMhylIft3Qv5hY2B82rWN9UXyMVxxHKUtZjwgva6GfM-jghmJzXOcovgS63bjY8_44y00-rY5J-CwP6oXnQyLXO0DRSoPuEavLcB44jm78ObWqSl7y5QXa4hJFmX8KxMBidqCB_T9hCGS1s0VAzy9u8rPAzWbKNG99PMtdk5WUyfMr62EWWSCzA3RJax9uyNE8Bbo3HEvRFOVPZzMfiZLgc7VTq0sq4ttrWs_UZPdgZMpvmjQq-ssERbwEELt0000__zvx9QC" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oiefUOcPkOeAIGMAyGRADZOA6YuwEGN9MTafcWg59SKPUQbAzZPALHprN8vfEQbWC834000__-sM3Qm" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5IGM5vVd5wKeAIGMAyGRADZOA6YuwEGN9MTafcWg59SKPUQbAzZPALHprN8vfEQbW8844000__zrBpWR" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><span style="color:grey">No Response Types</span></p>
+</details>
+<hr>
+<h3><a name=IdentityServer-CustomerProfile></a>IdentityServer CustomerProfile</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaCrAmq0KXVVtAOxTT3MG26vAKrgQ85sq4HDNNOHhSYr3yoCpjqLzUebMZRWmPpTytvmvp7HqQ3h5g5pKrKEUtYQxv7wL9p7MQPp06CGfTccE9DxaLz_gwDRHMsdfbPsUcfhAhbNNrPXiAcdLwcicxYnk0lOe0gfO-P6zOBAL0yUNqoSDoHzj-yoE6pJyiXNl-I2PVHDStmIaLcl1xrhC3TOdhrqZxivrJxOMYgB_9KGHxSsY233xSvzBjMTMwUUY2CoY23539hMK-kKIVgomj-R6V6ZTaL394EvxD7o7XZoWfRHL_t7l0G00__zObeuL" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie9PSMb-JdfXR5PwOeAIGMAyGRADZOA6YuwEGN9MTafcWgPEQLADZPALHprN8vfEQbW8844000__zwOpVw" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaC5gX30KHVVvYbitjbXBrqL4CQ6uCT2cQmcQra0IIn8BPPX_7mPc1XUpo5aU3e_7RKAKFcxMa3mPakT8ufAsNuA_iu5zj89HT9mob2Keny056Et5morDlfhyAvcC305PjuMuMkKpo83n5LM5H_gy-cdHynFwMRceu_-dyd_AlrnZr3KEf82oKXky8KIltGyfyArzYAEJLksjaNVaxxAwdJYIHhdvFFWf003__pM7M3e0" alt=""></p>
+</details>
+<hr>
+<h3><a name=IdentityServer-NewCustomer></a>IdentityServer NewCustomer</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCa4rhma0GXk_pAzxcajD2KkX5Z2Wcb1nCeAOd3s5g1Wdce-oEzkFNbxIIwaKoj-LvvjsNyISF-JucpKLTlHRvSv8bBwiYYR7EumJ68CwHvGMIE2qUHdLowkIkj7JALazjG_k-KzityD9AEgtrQolsBDO3EvG1LQpynaxWRUJ0yUNrHqDonxfxPyijMlxSY7Dya6tzBNXy2aXhRGItiPWRPFAnFZdjMx4KHVS5H17jpA8CCBlPuxtMPrOPAg8CpA8CCKFQER4wIlYtmi6Q6_EhzKT29TTmDw3XZt7tcWUqbAuQZlKJ003__nxaYJK0" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaSrA0q4G1k_p59-vh18ZdYM4XCmWkUn2NCzXoBPcO7vCTwz1n7SNGIH23bF7ecWQlgMePnrJD4qrfcbGnM-wUkwxHzUwxQft5klEEinci1tQheUpc_xgBws-MlshsKSlWWdJSG8lsDrZFiUrlIsyFuJX1fk1iWRzU29-9xvhwRGUHKiYtj9n954i5lWqKr3o8U81eXpogvdY9R3eBlj4vpRw2_BDYvmA3__SeUIpwCiiAGy_Itm7003__sUxOHm0" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaC5gX30KHVVvYbitjbXBrqL4CQ6uCT2cQmcQra0IIn8BPPX_7mPc1XUpo5aU3e_7RKAKFcxMa3mPakT8ufAsNuA_iu5zj89HT9mob2Keny056Et5morDlfhyAvcC305PjuMuMkKpo83n5LM5H_gy-cdHynFwMRceu_-dyd_AlrnZr3KEf82oKXky8KIltGyfyArzYAEJLksjaNVaxxAwdJYIHhdvFFWf003__pM7M3e0" alt=""></p>
+</details>
+<hr>
+<h3><a name=IdentityServer-UpdatePassword></a>IdentityServer UpdatePassword</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZpzB0q4GnVlv5CyqLoqSWeta9C5R98KvCPSgHHYoWoovsmsxO_ppwUL4H6tSryxl3RzN5OUg2aNvGfVRlhkpQ_kux6sBswwrC0PjXtNNmxQh_k8RBVvQx4gBh9pqUHpe48EcE62sSXBKwzj6qbdI39onhoaVVJXnuX4ZlzvBplma6_ykkBogIRqEWjz5p0ss9ySg3vppIqoEckPV1ar3EtEpht7zjyq7zMTMcMnsSsC-cNWa9pyl2mbkclCH003__v2ER4u0" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie9PSMb-JdfXR5PwOeAIGMAyGRADZOA6YuwEGN9MTafcWgPEQLADZPALHprN8vfEQbW8844000__zwOpVw" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oievUUaA2aa5Yl46oZOs2XekEZa5oLdPAPeAXIN56NcfIlOsIbKSzLoEQJcfO120n000F__GG4rvm00" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oievQMMAoaa5Yl46oZOs2XekEZa5oLdPAPeAXIN56NcfIlOsIbKSzLoEQJcfO120n000F__GkSryW00" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><span style="color:grey">No Response Types</span></p>
+</details>
+<hr>
+<h1>Types</h1>
+<p><a name=IdentityServer.Customer></a><details></p>
+<summary>IdentityServer.Customer</summary>
+<h3>IdentityServer.Customer</h3>
+<ul>
+<li>This contains all information relating to a customer</li>
+</ul>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCa46BWp0GHk_v5TzwSHTNsFCYefXGUZ5GqhC4JMiWYIM9fzB_NWfjyT13tl7DOnYc2L7wk5f3ycH8dYE9PzeU1T-ndXrQmIWwJXdA4fIZvmACxiNNEqtUcdmh6OqC0LctXhXOvJF8WE4FLOLl-hluSTRJ3rvJr3Mkf82oKXly8qIltPaKE6aVuk2aLLjhv0TvcHUt4JVIA3SzFdmF003__z7-Kai0" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCaC5gX30KHVVvYbitjbXBrqL4CQ6uCT2cQmcQra0IIn8BPPX_7mPc1XUpo5aU3e_7RKAKFcxMa3mPakT8ufAsNuA_iu5zj89HT9mob2Keny056Et5morDlfhyAvcC305PjuMuMkKpo83n5LM5H_gy-cdHynFwMRceu_-dyd_AlrnZr3KEf82oKXky8KIltGyfyArzYAEJLksjaNVaxxAwdJYIHhdvFFWf003__pM7M3e0">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=IdentityServer.NewCustomerRequest></a><details>
+<summary>IdentityServer.NewCustomerRequest</summary>
+<h3>IdentityServer.NewCustomerRequest</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaJzBnJ0KH_TyYfzlgV9yu2obj3H1N1eeSIwXZJQGFvgRqa7yxYA8L7J86G-7ouLVIrcdl7d7gc9OLQ68xxHxKl9136BibE3e9HUuNC0b1gaW-AEw-acBhnR_ocQdYN0QpDvlbACtQJHlcw5yWYPCTwXhNFFRcERLBZVusw5fyCxEC5vRXtjGJZQyi3EURQ8y1UtDqJhzZtpLH7jCoo-tnd28FbXhmlArn6S0003__wp-OKe0" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCaKzB0q4CH-_pANxsiagjU9PIMZg3zB8BTJsNeHljmFpH96iHyRkB85AnXtd7nqi8P2dgMSSKJLEDQHfKyPEk7llkthLkk-gTnRgp3hCPR8Usw-7ifh_uJQktLjzgzj6BODBISJsAbaIyfTUHH2VmWjqjvdDSskl2-qCOhh0PA6lGzmVYD-AR_sDOBF1Xfg3aGyGTH3daPpF5Ks3HNVQ9JctqP-IB5paM7lwuGyadqQTPKXw-7_CL003___-cPpa0">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=IdentityServer.UnauthorizedError></a><details>
+<summary>IdentityServer.UnauthorizedError</summary>
+<h3>IdentityServer.UnauthorizedError</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaC4AWa0OXE_x59CNYn8wXuZIBj75XLZFigYee2xy_tefUlSGeakN_Mu37yCmENjBVfqd4GSZuXX1VDMYClgcIlKeZ9AuQgcG990QfJPGycvsFpMuDNYhQ2RBZAXQxEe7H-EpQnMHemYMKP-HfjZBawDc6Di3_ZHa6LxYY6uBzSmzBc1FuzABjyYxfTs--mG00F__--L7Nm00" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCa45hX30KXE_v5LCljhIMdek8qeJYnK0Rpn9Cq816U8c5xhB_VH6MlUmbt-t1zuPXwX0rnNrTM9uCotCaSLERNiblqOcVHWcEBya5YW9SefCAWhVgwQucfoPtPUEYGq3MUxt7UIDtiaOGRPH11mmVA4iyyxUDnjcP5xJ6-kZY_w-bFqll3r-eAfpPA-nn36kOy8aGoVc9NLXjlJccl0O00F__W6HDJW00">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error_msg</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<div class="footer">
+
+<style type="text/css">
+
+
+body {
+  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #111;
+  background-color: #fdfdfd;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    padding: 5px;
+  }
+
+  body > #content {
+    padding: 0px 20px 20px 20px !important;
+  }
+}
+
+body > #content {
+  margin: 0px;
+  max-width: 900px;
+  border: 1px solid #e1e4e8;
+  padding: 10px 40px;
+  padding-bottom: 20px;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+hr {
+  color: #bbb;
+  background-color: #bbb;
+  height: 1px;
+  flex: 0 1 auto;
+  margin: 1em 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+ * Links
+ */
+a {
+  color: #0366d6;
+  text-decoration: none; }
+  a:visited {
+    color: #0366d6; }
+  a:hover {
+    color: #0366d6;
+    text-decoration: underline; }
+
+pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 16px;
+}
+
+/**
+  * Code blocks
+  */
+
+code {
+  background-color: rgba(27,31,35,.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  word-wrap: break-word;
+  padding: .2em .4em;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+}
+
+pre > code {
+  background-color: transparent;
+  border: 0;
+  display: inline;
+  line-height: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  word-wrap: normal;
+  font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+blockquote {
+  margin-left: 30px;
+  margin-top: 0px;
+  margin-bottom: 16px;
+  border-left-width: 3px;
+  padding: 0 1em;
+  color: #828282;
+  border-left: 4px solid #e8e8e8;
+  padding-left: 15px;
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-style: italic;
+}
+blockquote * {
+  font-style: normal !important;
+  letter-spacing: 0;
+  color: #6a737d !important;
+}
+
+/**
+ * Tables
+ */
+table {
+  border-spacing: 2px;
+  display: block;
+  font-size: 14px;
+  overflow: auto;
+  width: 100%;
+  margin-bottom: 16px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+th {
+  font-weight: 600;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+/**
+ * Others
+ */
+
+img {
+  max-width: 100%;
+}
+
+p {
+  line-height: 24px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #24292e; }
+
+ul {
+  margin-top: 0; }
+
+li {
+  color: #24292e;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5; }
+
+li + li {
+  margin-top: 0.25em; }
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: #24292e; }
+
+a:visited {
+  color: #0366d6; }
+
+h1, h2, h3 {
+  border-bottom: 1px solid #eaecef;
+  color: #111;
+  /* Darker */ }
+</style></div>
+</body>
+</html>

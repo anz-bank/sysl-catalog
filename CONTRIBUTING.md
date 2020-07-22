@@ -16,8 +16,8 @@
 │   ├── html                  demo on generating HTML files from sysl files
 │   ├── markdown              demo on generating Markdown files from sysl files
 │   ├── protos                demo on generating Markdown files from proto files
-│   ├── simple.yaml
-│   └── simple2.sysl
+│   ├── mastercard.yaml
+│   └── sizzle.sysl
 ├── docs                      duplicated with demo/html, as GitHub Pages publishing source
 ├── scripts                   Docker build PlantUML dependancy, can be removed once PlantUML is removed
 ├── java                      Docker build PlantUML dependancy, can be removed once PlantUML is removed
@@ -35,7 +35,7 @@ ProjectTemplate
         NewPackageTemplate
     MacroPackage
 ```
-demo/simple2.sysl:
+
 ```
 simple2[~project]:
     FirstDivision:

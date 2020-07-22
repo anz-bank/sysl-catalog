@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="305px" preserveAspectRatio="none" style="width:698px;height:305px;" version="1.1" viewBox="0 0 698 305" width="698px" zoomAndPan="magnify"><defs><filter height="300%" id="f1h5fl0zh0bhbx" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="103" x="288.5" y="16.708">Application</text><!--MD5=[834ef74a6aa73a899f9de7987f49a674]
+entity _0--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="88" x="70.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="138.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="136.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="136.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="85.5" y="166.9482">Mobile</text><!--MD5=[5793e68b51480d2da18d2edf8802f392]
+entity _1--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="143" x="7" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="130" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="128" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="128" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="103" x="22" y="272.9482">ProductServer</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
+entity _2--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="128" x="185.5" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="293.5" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="291.5" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="291.5" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="200.5" y="272.9482">OrderServer</text><!--MD5=[491502b257624c25ed563d7bf73ae0a0]
+entity _3--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="100" x="334.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="414.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="412.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="412.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="349.5" y="166.9482">Website</text><!--MD5=[e10aba13bcd25b8e2f2c6ecd09c6015a]
+entity _4--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="144" x="348.5" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="472.5" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="470.5" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="470.5" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="363.5" y="272.9482">IdentityServer</text><!--MD5=[9e283554f6c225a5c09d9b9f4b518823]
+entity _5--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="151" x="528" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="659" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="657" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="657" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="111" x="543" y="272.9482">PaymentServer</text><!--MD5=[91935b7652ee4fab4148391a7b11bd92]
+entity _6--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="166" x="31.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="177.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="175.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="175.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="126" x="46.5" y="60.9482">Dine-in Customer</text><!--MD5=[298d702d1872fc728c85faa77d789d69]
+entity _7--><rect fill="#FFFAF0" filter="url(#f1h5fl0zh0bhbx)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="160" x="304.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="444.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="442.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="442.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="120" x="319.5" y="60.9482">Online Customer</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
+link _0 to _1--><path d="M106.8653,180.0091 C101.3288,196.0034 93.8075,217.7316 87.9009,234.7949 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="86.1237,239.9292,92.8477,232.7328,87.7593,235.2043,85.2878,230.1159,86.1237,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[0fa3c531946f58762b8ab90cbdfa2c60]
+link _0 to _2--><path d="M143.13,180.0091 C164.698,196.6238 194.297,219.426 216.796,236.7591 " fill="none" id="_0-&gt;_2" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="220.911,239.9292,216.2224,231.268,216.9501,236.8778,211.3402,237.6055,220.911,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[93ef791431a7b6117d678d1cd8d8ef27]
+link _3 to _4--><path d="M392.135,180.0091 C397.671,196.0034 405.193,217.7316 411.099,234.7949 " fill="none" id="_3-&gt;_4" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="412.876,239.9292,413.7115,230.1159,411.2402,235.2044,406.1517,232.7331,412.876,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[37cfd5b081b6d21ad2c5815c40d55060]
+link _3 to _1--><path d="M334.313,175.0101 C283.703,192.211 205.158,218.906 148.451,238.1789 " fill="none" id="_3-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="143.378,239.9032,153.1866,240.7924,148.1117,238.2933,150.6108,233.2184,143.378,239.9032" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[450ea2f654882f822490fe83b2b538b8]
+link _3 to _2--><path d="M355.87,180.0091 C334.302,196.6238 304.703,219.426 282.204,236.7591 " fill="none" id="_3-&gt;_2" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="278.089,239.9292,287.6598,237.6055,282.0499,236.8778,282.7776,231.268,278.089,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[6d0ac5e9347bdb5725f48fc0bd3bd7ba]
+link _3 to _5--><path d="M430.944,180.0091 C466.512,196.8996 515.545,220.1846 552.255,237.6176 " fill="none" id="_3-&gt;_5" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="557.123,239.9292,550.7101,232.4543,552.6067,237.7837,547.2773,239.6803,557.123,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[9585cf7d1d21c22dd47359ade972c561]
+link _6 to _0--><path d="M114.5,74.0091 C114.5,90.0031 114.5,111.7311 114.5,128.7951 " fill="none" id="_6-&gt;_0" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="114.5,133.9291,118.5,124.9291,114.5,128.9291,110.5,124.9291,114.5,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[a305417ff70b0b26159d69c3ce20cf46]
+link _7 to _3--><path d="M384.5,74.0091 C384.5,90.0031 384.5,111.7311 384.5,128.7951 " fill="none" id="_7-&gt;_3" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="384.5,133.9291,388.5,124.9291,384.5,128.9291,380.5,124.9291,384.5,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[6b153d65a5f429312239ce0e783ba6cf]
+@startuml
+''''''''''''''''''''''''''''''''''''''''''
+''                                      ''
+''  AUTOGENERATED CODE - - DO NOT EDIT!  ''
+''                                      ''
+''''''''''''''''''''''''''''''''''''''''''
+
+
+title Application
+hide stereotype
+scale max 16384 height
+skinparam component {
+  BackgroundColor FloralWhite
+  BorderColor Black
+  ArrowColor Crimson
+}
+[Mobile] as _0 <<highlight>>
+[ProductServer] as _1
+_0 - -> _1
+[OrderServer] as _2
+_0 - -> _2
+[Website] as _3 <<highlight>>
+[IdentityServer] as _4
+_3 - -> _4
+_3 - -> _1
+_3 - -> _2
+[PaymentServer] as _5
+_3 - -> _5
+[Dine-in Customer] as _6
+_6 - -> _0
+[Online Customer] as _7
+_7 - -> _3
+@enduml
+
+@startuml
+
+
+title Application
+hide stereotype
+scale max 16384 height
+skinparam component {
+  BackgroundColor FloralWhite
+  BorderColor Black
+  ArrowColor Crimson
+}
+[Mobile] as _0 <<highlight>>
+[ProductServer] as _1
+_0 - -> _1
+[OrderServer] as _2
+_0 - -> _2
+[Website] as _3 <<highlight>>
+[IdentityServer] as _4
+_3 - -> _4
+_3 - -> _1
+_3 - -> _2
+[PaymentServer] as _5
+_3 - -> _5
+[Dine-in Customer] as _6
+_6 - -> _0
+[Online Customer] as _7
+_7 - -> _3
+@enduml
+
+PlantUML version 1.2020.16beta7(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

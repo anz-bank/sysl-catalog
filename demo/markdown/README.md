@@ -1,12 +1,11 @@
 
 
-# simple2.sysl
+# sizzle.sysl
 
 | Package |
 ----|
-[FirstDivision](FirstDivision/README.md)|
-[SecondDivision](SecondDivision/README.md)|
-[ThirdDivision](ThirdDivision/README.md)|
+[Backend](Backend/README.md)|
+[Frontend](Frontend/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

@@ -118,7 +118,7 @@ IdentityServer:
         | customer authentication, etc.
 
     NewCustomer(req <: NewCustomerRequest):
-        # TODO: DB insert
+        MegaDatabase <- InsertCustomer
         return ok <: Customer
 
     Authenticate(email <: string, password <: string):
@@ -130,7 +130,7 @@ IdentityServer:
           return 401 <: UnauthorizedError
 
     CustomerProfile(customer_id <: int):
-        # TODO: database interaction
+        MegaDatabase <- SelectCustomer
         return ok <: Customer
 
     UpdatePassword(customer_id <: int, old <: string, new <: string):
@@ -266,6 +266,16 @@ DeliveryServer:
 MegaDatabase[~db]:
     # ~db specifies a database
     @package="Database"
+
+    # A placeholder to represent DB operation
+    InsertCustomer:
+        ...
+        return ok
+
+    # A placeholder to represent DB operation
+    SelectCustomer:
+        ...
+        return ok
 
     !table customers:
         id <: int [~pk]

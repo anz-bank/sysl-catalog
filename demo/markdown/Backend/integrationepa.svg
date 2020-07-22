@@ -1,45 +1,50 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="2164px" preserveAspectRatio="none" style="width:628px;height:2164px;" version="1.1" viewBox="0 0 628 2164" width="628px" zoomAndPan="magnify"><defs><filter height="300%" id="f20woxdavrnd8" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="78" x="266" y="16.708">Backend</text><!--MD5=[758d88821a0e741df1f73accbabae398]
-cluster X_0--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="319" x="47" y="1850.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="313" x="50" y="1880.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="47" x2="366" y1="1877.25" y2="1877.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="77" x="168" y="1867.9482">Dashboard</text><!--MD5=[cecb9a85ae19b9003f4441b135e71cd6]
-cluster X_1--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="332" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="160" x="230" y="27.9531"/><rect fill="#FFFFFF" height="299.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="154" x="233" y="57.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="230" x2="390" y1="54.25" y2="54.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="258" y="44.9482">IdentityServer</text><!--MD5=[51e8d94a944361a156a1f52e5c4894ba]
-cluster X_2--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="115" x="473.5" y="1735.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="109" x="476.5" y="1765.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="473.5" x2="588.5" y1="1762.25" y2="1762.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="82" x="490" y="1752.9482">MasterCard</text><!--MD5=[52e5ef116ba828aa6123157a74d6ac2a]
-cluster X_3--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="316" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="395.5" x="27.5" y="1510.9531"/><rect fill="#FFFFFF" height="283.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="389.5" x="30.5" y="1540.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="27.5" x2="423" y1="1537.25" y2="1537.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="201.25" y="1527.9482">Mobile</text><!--MD5=[10c245466cf08064e9ba7704cd70265a]
-cluster X_4--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="257" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="181" x="219.5" y="1098.9531"/><rect fill="#FFFFFF" height="224.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="175" x="222.5" y="1128.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="219.5" x2="400.5" y1="1125.25" y2="1125.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="266" y="1115.9482">OrderServer</text><!--MD5=[dfe8839dc810cb7b6db420a1627d41ba]
-cluster X_5--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="182" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="342" x="269" y="1965.9531"/><rect fill="#FFFFFF" height="149.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="336" x="272" y="1995.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="269" x2="611" y1="1992.25" y2="1992.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="111" x="384.5" y="1982.9482">PaymentServer</text><!--MD5=[5077f028a0b9deb0e5bd5930e99c59be]
-cluster X_6--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="107" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="119" x="251" y="1379.9531"/><rect fill="#FFFFFF" height="74.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="113" x="254" y="1409.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="251" x2="370" y1="1406.25" y2="1406.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="103" x="259" y="1396.9482">ProductServer</text><!--MD5=[ec7116737ec83627e31da805d463bdc7]
-cluster X_7--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="82" x="490" y="1850.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="76" x="493" y="1880.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="490" x2="572" y1="1877.25" y2="1877.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="516.5" y="1867.9482">Visa</text><!--MD5=[e22d2d72662d7bf2b43e08230ff1cd21]
-cluster X_8--><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="691" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="416" x="7" y="383.9531"/><rect fill="#FFFFFF" height="658.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="410" x="10" y="413.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="7" x2="423" y1="410.25" y2="410.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="185" y="400.9482">Website</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="1885.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="75.5" y="1910.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="80" x="270" y="1885.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="275" y="1910.7998">Pay client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="105" x="257.5" y="153.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="95" x="262.5" y="178.7998">Authenticate</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="127" x="246.5" y="228.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="117" x="251.5" y="253.7998">CustomerProfile</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="110" x="255" y="303.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="260" y="328.7998">NewCustomer</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="128" x="246" y="78.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="118" x="251" y="103.7998">UpdatePassword</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="83" x="489.5" y="1770.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="73" x="494.5" y="1795.7998">POST /pay</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="1545.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="38" x="69" y="1570.7998">Menu</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="93" x="263.5" y="1545.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="83" x="268.5" y="1570.7998">Menu client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="51" x="62.5" y="1620.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="41" x="67.5" y="1645.7998">Order</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="96" x="262" y="1620.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="86" x="267" y="1645.7998">Order client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="89" x="43.5" y="1695.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="48.5" y="1720.7998">PlaceOrder</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="61" x="57.5" y="1770.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="62.5" y="1795.7998">Review</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="106" x="257" y="1770.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="96" x="262" y="1795.7998">Review client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="194" x="213" y="1695.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="184" x="218" y="1720.7998">UpdateOrderStatus client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="51" x="284.5" y="1149.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="41" x="289.5" y="1174.7998">Order</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="61" x="279.5" y="1299.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="284.5" y="1324.7998">Review</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="149" x="235.5" y="1224.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="139" x="240.5" y="1249.7998">UpdateOrderStatus</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="128" x="467" y="2016.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="118" x="472" y="2041.7998">POST /pay client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="285" y="2016.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="297.5" y="2041.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="80" x="491" y="2091.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="496" y="2116.7998">Pay client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="285" y="1430.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="38" x="291" y="1455.7998">Menu</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="506" y="1885.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="518.5" y="1910.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="150" x="235" y="493.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="140" x="240" y="518.7998">Authenticate client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="130" x="23" y="418.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="120" x="28" y="443.7998">ChangePassword</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="172" x="224" y="868.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="162" x="229" y="893.7998">CustomerProfile client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="493.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="68.5" y="518.7998">Login</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="568.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="38" x="69" y="593.7998">Menu</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="93" x="263.5" y="568.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="83" x="268.5" y="593.7998">Menu client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="155" x="232.5" y="1018.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="145" x="237.5" y="1043.7998">NewCustomer client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="51" x="62.5" y="643.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="41" x="67.5" y="668.7998">Order</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="96" x="262" y="643.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="86" x="267" y="668.7998">Order client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="718.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="75.5" y="743.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="80" x="270" y="718.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="275" y="743.7998">Pay client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="89" x="43.5" y="793.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="48.5" y="818.7998">PlaceOrder</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="57" x="59.5" y="868.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="47" x="64.5" y="893.7998">Profile</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="61" x="57.5" y="943.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="62.5" y="968.7998">Review</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="106" x="257" y="943.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="96" x="262" y="968.7998">Review client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="59" x="58.5" y="1018.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="49" x="63.5" y="1043.7998">Signup</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="194" x="213" y="793.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="184" x="218" y="818.7998">UpdateOrderStatus client</text><rect fill="#FFFAF0" filter="url(#f20woxdavrnd8)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="173" x="223.5" y="418.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="163" x="228.5" y="443.7998">UpdatePassword client</text><!--MD5=[ecdb503da5772746c825d83a9d55f1b1]
-link _19 to _20--><path d="M335.274,2045.2661 C371.592,2057.7041 440.645,2081.3522 485.999,2096.8841 " fill="none" id="_19-&gt;_20" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="490.859,2098.5487,483.6405,2091.8485,486.1287,2096.9287,481.0485,2099.417,490.859,2098.5487" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[c72ef1918601b6cbe9163144a0e0e5f4]
-link _20 to _22--><path d="M490.616,2097.4476 C473.52,2088.8371 455.82,2075.9161 448.25,2057.4531 C441.674,2041.4151 442.845,2034.9221 448.25,2018.4531 C459.637,1983.7531 486.272,1950.9411 506.269,1929.8071 " fill="none" id="_20-&gt;_22" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="509.92,1925.9991,500.8032,1929.7252,506.4588,1929.6075,506.5765,1935.2631,509.92,1925.9991" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[fd56f03b2415882e534d6f86f0738f86]
-link _19 to _18--><path d="M335.274,2036.9531 C365.559,2036.9531 418.608,2036.9531 461.694,2036.9531 " fill="none" id="_19-&gt;_18" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="466.897,2036.9531,457.897,2032.9531,461.897,2036.9531,457.897,2040.9531,466.897,2036.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[f7b811e9ad79a68d5e6ed59e15f8759a]
-link _18 to _6--><path d="M509.92,2016.9071 C489.646,1996.0431 460.346,1961.3121 448.25,1924.4531 C434.417,1882.3001 471.589,1839.8061 500.523,1814.4291 " fill="none" id="_18-&gt;_6" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="504.365,1811.1171,494.937,1813.9653,500.5784,1814.3824,500.1613,1820.0238,504.365,1811.1171" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[b84326987e98dcb917912705a3ef9c62]
-link _0 to _1--><path d="M113.384,1905.9531 C149.795,1905.9531 218.957,1905.9531 264.521,1905.9531 " fill="none" id="_0-&gt;_1" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="269.68,1905.9531,260.68,1901.9531,264.68,1905.9531,260.68,1909.9531,269.68,1905.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[fc96b6ea3151786a86395fc8123f3770]
-link _1 to _19--><path d="M310,1926.2931 C310,1954.6751 310,1983.0581 310,2011.4401 " fill="none" id="_1-&gt;_19" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="310,2016.7401,314,2007.7401,310,2011.7401,306,2007.7401,310,2016.7401" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[0fdfea4396fe66ad7b3bdce4e645d05b]
-link _7 to _8--><path d="M113.384,1565.9531 C148.179,1565.9531 212.883,1565.9531 258.32,1565.9531 " fill="none" id="_7-&gt;_8" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="263.485,1565.9531,254.485,1561.9531,258.485,1565.9531,254.485,1569.9531,263.485,1565.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[e4a075decbc49465367255d8e7d53591]
-link _8 to _21--><path d="M310,1545.7381 C310,1522.6751 310,1499.6131 310,1476.5501 " fill="none" id="_8-&gt;_21" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="310,1471.3171,306,1480.3171,310,1476.3171,314,1480.3171,310,1471.3171" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[031c8218566f6cb3c9f070988209e092]
-link _9 to _10--><path d="M113.809,1640.9531 C148.326,1640.9531 211.679,1640.9531 256.846,1640.9531 " fill="none" id="_9-&gt;_10" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="261.985,1640.9531,252.985,1636.9531,256.985,1640.9531,252.985,1644.9531,261.985,1640.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[82ff9f8e12ded9071f2fb00618296b7c]
-link _10 to _15--><path d="M261.796,1634.8411 C232.698,1628.2761 198.247,1614.6651 182.25,1586.4531 C162.465,1551.5611 162.465,1260.3451 182.25,1225.4531 C201.643,1191.2511 247.935,1178.1061 279.135,1173.0671 " fill="none" id="_10-&gt;_15" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="284.39,1172.2721,274.8926,1169.6645,279.4463,1173.0206,276.0902,1177.5743,284.39,1172.2721" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[8855d69d6a8cec53f3e1ef968e7d7f1b]
-link _11 to _14--><path d="M132.728,1715.9531 C154.226,1715.9531 181.109,1715.9531 207.354,1715.9531 " fill="none" id="_11-&gt;_14" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="212.593,1715.9531,203.593,1711.9531,207.593,1715.9531,203.593,1719.9531,212.593,1715.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[6d9a36ff48fd7bbfd94211f75377b529]
-link _14 to _17--><path d="M221.123,1695.8561 C205.244,1687.9271 190.992,1676.8701 182.25,1661.4531 C162.465,1626.5611 162.465,1335.3451 182.25,1300.4531 C192.696,1282.0311 210.946,1269.7181 230.437,1261.4901 " fill="none" id="_14-&gt;_17" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="235.416,1259.4851,225.5733,1259.1362,230.7779,1261.3527,228.5614,1266.5572,235.416,1259.4851" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[560ba62043296fdfb461b86460493295]
-link _12 to _13--><path d="M118.67,1790.9531 C152.594,1790.9531 208.931,1790.9531 251.531,1790.9531 " fill="none" id="_12-&gt;_13" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="256.656,1790.9531,247.656,1786.9531,251.656,1790.9531,247.656,1794.9531,256.656,1790.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[2f6d4b2c7d56411279b6b0b7bbdf080b]
-link _13 to _16--><path d="M256.883,1783.6761 C228.913,1776.7131 197.355,1763.0921 182.25,1736.4531 C148.928,1677.6871 154.433,1494.0161 182.25,1432.4531 C201.098,1390.7411 243.901,1358.3221 274.773,1339.2201 " fill="none" id="_13-&gt;_16" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="279.238,1336.4991,269.4714,1337.7695,274.9691,1339.1022,273.6364,1344.5998,279.238,1336.4991" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[34ad3b6a459d858b070993607fbe5758]
-link _24 to _40--><path d="M153.225,438.9531 C173.537,438.9531 196.385,438.9531 218.194,438.9531 " fill="none" id="_24-&gt;_40" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="223.417,438.9531,214.417,434.9531,218.417,438.9531,214.417,442.9531,223.417,438.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[2a0c51c6322305a31fe6ceb8df13d9e7]
-link _40 to _5--><path d="M265.764,418.9231 C236.173,402.8831 199.593,377.2931 182.25,342.4531 C163.532,304.8531 161.534,189.9931 182.25,153.4531 C194.52,131.8131 217.646,118.7631 240.886,110.8931 " fill="none" id="_40-&gt;_5" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="245.843,109.2931,236.0491,108.2541,241.0852,110.8305,238.5089,115.8666,245.843,109.2931" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[1cc8732c8e5f7d0b7e83975202049dec]
-link _26 to _23--><path d="M113.384,513.9531 C141.279,513.9531 188.396,513.9531 229.398,513.9531 " fill="none" id="_26-&gt;_23" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="234.623,513.9531,225.623,509.9531,229.623,513.9531,225.623,517.9531,234.623,513.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[e29f19012664cdbdd04c33266f42f1b8]
-link _23 to _2--><path d="M234.704,499.7831 C213.624,491.7531 193.43,479.1731 182.25,459.4531 C156.93,414.8031 156.93,273.1031 182.25,228.4531 C196.526,203.2731 225.498,189.7231 252.248,182.4331 " fill="none" id="_23-&gt;_2" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="257.213,181.1431,247.4967,179.5328,252.3734,182.3994,249.5068,187.2761,257.213,181.1431" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[8329874376bb8e8afe27c82507fdf786]
-link _27 to _28--><path d="M113.384,588.9531 C148.179,588.9531 212.883,588.9531 258.32,588.9531 " fill="none" id="_27-&gt;_28" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="263.485,588.9531,254.485,584.9531,258.485,588.9531,254.485,592.9531,263.485,588.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[707f3cb28228f924eabfcc0388fe8d40]
-link _28 to _21--><path d="M263.443,595.1031 C234.028,601.7631 198.591,615.6331 182.25,644.4531 C144.215,711.5331 150.498,1268.1831 182.25,1338.4531 C202.257,1382.7321 249.259,1416.5381 280.329,1435.0611 " fill="none" id="_28-&gt;_21" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="284.793,1437.6821,279.0572,1429.6759,280.4813,1435.1505,275.0066,1436.5746,284.793,1437.6821" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[d60252dbe7f2f6fb9b6d8ea872b98467]
-link _30 to _31--><path d="M113.809,663.9531 C148.326,663.9531 211.679,663.9531 256.846,663.9531 " fill="none" id="_30-&gt;_31" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="261.985,663.9531,252.985,659.9531,256.985,663.9531,252.985,667.9531,261.985,663.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[40baf8e3bf196593f1934467366be461]
-link _31 to _15--><path d="M261.827,670.4731 C232.741,677.2731 198.292,691.1631 182.25,719.4531 C145.202,784.7931 151.322,989.0031 182.25,1057.4531 C202.141,1101.4731 248.715,1135.1431 279.787,1153.7331 " fill="none" id="_31-&gt;_15" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="284.254,1156.3731,278.5257,1148.3615,279.9447,1153.8375,274.4687,1155.2564,284.254,1156.3731" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[d3a0d4f4b578e91368c331bafe7dd1cd]
-link _32 to _33--><path d="M113.384,738.9531 C149.795,738.9531 218.957,738.9531 264.521,738.9531 " fill="none" id="_32-&gt;_33" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="269.68,738.9531,260.68,734.9531,264.68,738.9531,260.68,742.9531,269.68,738.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[584ff804d9538af6bcee22d9b663d835]
-link _33 to _19--><path d="M269.779,743.7531 C239.303,749.8231 199.783,763.5331 182.25,794.4531 C151.285,849.0631 156.4,1867.2441 182.25,1924.4531 C202.257,1968.7321 249.259,2002.5381 280.329,2021.0611 " fill="none" id="_33-&gt;_19" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="284.793,2023.6821,279.0572,2015.6759,280.4813,2021.1505,275.0066,2022.5746,284.793,2023.6821" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[02660871e06703b3a7771931cdebe147]
-link _34 to _39--><path d="M132.728,813.9531 C154.226,813.9531 181.109,813.9531 207.354,813.9531 " fill="none" id="_34-&gt;_39" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="212.593,813.9531,203.593,809.9531,207.593,813.9531,203.593,817.9531,212.593,813.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[a353730f23a71834b27849ec80ea301d]
-link _39 to _17--><path d="M222.787,833.9731 C206.257,842.0831 191.315,853.4631 182.25,869.4531 C147.065,931.5031 147.065,1128.4031 182.25,1190.4531 C192.666,1208.8231 210.907,1221.0021 230.399,1229.0771 " fill="none" id="_39-&gt;_17" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="235.377,1231.0431,228.4764,1224.0159,230.7268,1229.2059,225.5368,1231.4563,235.377,1231.0431" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[bc72ac6a0b4503178c81ca26fc1d0ee5]
-link _35 to _25--><path d="M116.863,888.9531 C142.43,888.9531 181.752,888.9531 218.178,888.9531 " fill="none" id="_35-&gt;_25" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="223.529,888.9531,214.529,884.9531,218.529,888.9531,214.529,892.9531,223.529,888.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[3b65a40b7185483f2fd2c6480032a9e9]
-link _25 to _3--><path d="M223.729,870.1231 C206.812,862.1131 191.467,850.7131 182.25,834.4531 C153.148,783.1331 153.148,354.7731 182.25,303.4531 C194.575,281.7131 217.855,268.6431 241.202,260.7931 " fill="none" id="_25-&gt;_3" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="246.181,259.1931,236.3888,258.1381,241.4207,260.7227,238.8361,265.7546,246.181,259.1931" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[af37201a6cf1dcd2d5dc9261c43baf1d]
-link _36 to _37--><path d="M118.67,963.9531 C152.594,963.9531 208.931,963.9531 251.531,963.9531 " fill="none" id="_36-&gt;_37" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="256.656,963.9531,247.656,959.9531,251.656,963.9531,247.656,967.9531,256.656,963.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[764be7e9b2aeb13d73c90fefad743d67]
-link _37 to _16--><path d="M256.916,971.6731 C228.957,978.8731 197.398,992.7431 182.25,1019.4531 C155.286,1067.0031 155.286,1217.8991 182.25,1265.4531 C200.576,1297.7731 243.123,1310.9311 274.094,1316.2851 " fill="none" id="_37-&gt;_16" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="279.346,1317.1381,271.1052,1311.7447,274.4109,1316.3351,269.8204,1319.6408,279.346,1317.1381" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[42c2a166ce2919735b679a148f4cdce3]
-link _38 to _29--><path d="M117.761,1038.9531 C145.517,1038.9531 188.863,1038.9531 227.274,1038.9531 " fill="none" id="_38-&gt;_29" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="232.417,1038.9531,223.417,1034.9531,227.417,1038.9531,223.417,1042.9531,232.417,1038.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[f31c392c4ff10309e6f91dd0d7307359]
-link _29 to _4--><path d="M232.354,1023.8731 C212.132,1015.8131 193.014,1003.4331 182.25,984.4531 C151.34,929.9431 154.321,476.5531 182.25,420.4531 C198.712,387.3831 232.508,362.6431 261.205,346.5031 " fill="none" id="_29-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="265.764,343.9831,255.9511,344.8241,261.385,346.3966,259.8126,351.8305,265.764,343.9831" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[a8d902f35b743994af37c296c0799dba]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="2394px" preserveAspectRatio="none" style="width:671px;height:2394px;" version="1.1" viewBox="0 0 671 2394" width="671px" zoomAndPan="magnify"><defs><filter height="300%" id="f1g3yzpvghzn9n" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="78" x="287.5" y="16.708">Backend</text><!--MD5=[758d88821a0e741df1f73accbabae398]
+cluster X_0--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="319" x="47" y="1494.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="313" x="50" y="1524.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="47" x2="366" y1="1521.25" y2="1521.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="77" x="168" y="1511.9482">Dashboard</text><!--MD5=[cecb9a85ae19b9003f4441b135e71cd6]
+cluster X_1--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="332" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="424" x="230" y="1609.9531"/><rect fill="#FFFFFF" height="299.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="418" x="233" y="1639.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="230" x2="654" y1="1636.25" y2="1636.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="390" y="1626.9482">IdentityServer</text><!--MD5=[51e8d94a944361a156a1f52e5c4894ba]
+cluster X_2--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="115" x="495" y="1965.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="109" x="498" y="1995.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="495" x2="610" y1="1992.25" y2="1992.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="82" x="511.5" y="1982.9482">MasterCard</text><!--MD5=[52e5ef116ba828aa6123157a74d6ac2a]
+cluster X_3--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="182" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="158" x="473.5" y="1403.9531"/><rect fill="#FFFFFF" height="149.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="152" x="476.5" y="1433.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="473.5" x2="631.5" y1="1430.25" y2="1430.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="106" x="499.5" y="1420.9482">MegaDatabase</text><!--MD5=[10c245466cf08064e9ba7704cd70265a]
+cluster X_4--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="316" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="395.5" x="27.5" y="1154.9531"/><rect fill="#FFFFFF" height="283.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="389.5" x="30.5" y="1184.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="27.5" x2="423" y1="1181.25" y2="1181.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="201.25" y="1171.9482">Mobile</text><!--MD5=[dfe8839dc810cb7b6db420a1627d41ba]
+cluster X_5--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="257" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="181" x="219.5" y="742.9531"/><rect fill="#FFFFFF" height="224.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="175" x="222.5" y="772.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="219.5" x2="400.5" y1="769.25" y2="769.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="266" y="759.9482">OrderServer</text><!--MD5=[5077f028a0b9deb0e5bd5930e99c59be]
+cluster X_6--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="182" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="363.5" x="269" y="2195.9531"/><rect fill="#FFFFFF" height="149.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="357.5" x="272" y="2225.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="269" x2="632.5" y1="2222.25" y2="2222.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="111" x="395.25" y="2212.9482">PaymentServer</text><!--MD5=[ec7116737ec83627e31da805d463bdc7]
+cluster X_7--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="107" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="119" x="251" y="1023.9531"/><rect fill="#FFFFFF" height="74.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="113" x="254" y="1053.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="251" x2="370" y1="1050.25" y2="1050.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="103" x="259" y="1040.9482">ProductServer</text><!--MD5=[e22d2d72662d7bf2b43e08230ff1cd21]
+cluster X_8--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="82" x="511.5" y="2080.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="76" x="514.5" y="2110.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="511.5" x2="593.5" y1="2107.25" y2="2107.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="538" y="2097.9482">Visa</text><!--MD5=[48ae506470ddeeab1ca502d8fbec7331]
+cluster X_9--><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="691" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="416" x="7" y="27.9531"/><rect fill="#FFFFFF" height="658.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="410" x="10" y="57.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="7" x2="423" y1="54.25" y2="54.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="185" y="44.9482">Website</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="1529.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="75.5" y="1554.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="80" x="270" y="1529.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="275" y="1554.7998">Pay client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="105" x="257.5" y="1735.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="95" x="262.5" y="1760.7998">Authenticate</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="127" x="246.5" y="1810.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="117" x="251.5" y="1835.7998">CustomerProfile</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="167" x="469" y="1848.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="157" x="474" y="1873.7998">InsertCustomer client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="110" x="255" y="1885.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="260" y="1910.7998">NewCustomer</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="171" x="467" y="1698.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="161" x="472" y="1723.7998">SelectCustomer client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="128" x="246" y="1660.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="118" x="251" y="1685.7998">UpdatePassword</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="83" x="511" y="2000.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="73" x="516" y="2025.7998">POST /pay</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="122" x="491.5" y="1529.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="112" x="496.5" y="1554.7998">InsertCustomer</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="126" x="489.5" y="1454.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="116" x="494.5" y="1479.7998">SelectCustomer</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="1189.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="38" x="69" y="1214.7998">Menu</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="93" x="263.5" y="1189.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="83" x="268.5" y="1214.7998">Menu client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="51" x="62.5" y="1264.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="41" x="67.5" y="1289.7998">Order</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="96" x="262" y="1264.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="86" x="267" y="1289.7998">Order client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="89" x="43.5" y="1339.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="48.5" y="1364.7998">PlaceOrder</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="61" x="57.5" y="1414.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="62.5" y="1439.7998">Review</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="106" x="257" y="1414.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="96" x="262" y="1439.7998">Review client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="194" x="213" y="1339.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="184" x="218" y="1364.7998">UpdateOrderStatus client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="51" x="284.5" y="793.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="41" x="289.5" y="818.7998">Order</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="61" x="279.5" y="943.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="284.5" y="968.7998">Review</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="149" x="235.5" y="868.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="139" x="240.5" y="893.7998">UpdateOrderStatus</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="128" x="488.5" y="2246.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="118" x="493.5" y="2271.7998">POST /pay client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="285" y="2246.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="297.5" y="2271.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="80" x="512.5" y="2321.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="517.5" y="2346.7998">Pay client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="285" y="1074.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="38" x="291" y="1099.7998">Menu</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="527.5" y="2115.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="540" y="2140.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="150" x="235" y="137.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="140" x="240" y="162.7998">Authenticate client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="130" x="23" y="62.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="120" x="28" y="87.7998">ChangePassword</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="172" x="224" y="512.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="162" x="229" y="537.7998">CustomerProfile client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="137.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="68.5" y="162.7998">Login</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="212.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="38" x="69" y="237.7998">Menu</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="93" x="263.5" y="212.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="83" x="268.5" y="237.7998">Menu client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="155" x="232.5" y="662.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="145" x="237.5" y="687.7998">NewCustomer client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="51" x="62.5" y="287.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="41" x="67.5" y="312.7998">Order</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="96" x="262" y="287.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="86" x="267" y="312.7998">Order client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="63" y="362.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="75.5" y="387.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="80" x="270" y="362.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="275" y="387.7998">Pay client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="89" x="43.5" y="437.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="48.5" y="462.7998">PlaceOrder</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="57" x="59.5" y="512.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="47" x="64.5" y="537.7998">Profile</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="61" x="57.5" y="587.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="62.5" y="612.7998">Review</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="106" x="257" y="587.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="96" x="262" y="612.7998">Review client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="59" x="58.5" y="662.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="49" x="63.5" y="687.7998">Signup</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="194" x="213" y="437.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="184" x="218" y="462.7998">UpdateOrderStatus client</text><rect fill="#FFFAF0" filter="url(#f1g3yzpvghzn9n)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="173" x="223.5" y="62.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="163" x="228.5" y="87.7998">UpdatePassword client</text><!--MD5=[62ad056fd2ad6c1a7d9c7b17cd6e64c5]
+link _23 to _24--><path d="M335.384,2274.5571 C375.758,2287.1481 457.048,2312.4983 507.612,2328.2666 " fill="none" id="_23-&gt;_24" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="512.407,2329.7619,505.006,2323.2639,507.6337,2328.2734,502.6242,2330.9011,512.407,2329.7619" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[342f12d79725bf24ce09f1f5e1fb8089]
+link _24 to _26--><path d="M512.473,2334.2746 C487.762,2327.0284 458.825,2313.2466 448.25,2287.4531 C426.776,2235.0791 485.047,2182.5851 522.907,2155.2571 " fill="none" id="_24-&gt;_26" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="527.416,2152.0511,517.7637,2154.0091,523.3418,2154.9496,522.4013,2160.5277,527.416,2152.0511" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[4bab9894dcf906c1e84cd9b5623ff792]
+link _23 to _22--><path d="M335.384,2266.9531 C369.789,2266.9531 433.905,2266.9531 483.4,2266.9531 " fill="none" id="_23-&gt;_22" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="488.446,2266.9531,479.446,2262.9531,483.446,2266.9531,479.446,2270.9531,488.446,2266.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[4a53e0e6c9f010e9cc3a878cac968a5c]
+link _22 to _8--><path d="M524.147,2246.5691 C498.809,2226.4421 463.414,2193.1261 448.25,2154.4531 C430.92,2110.2561 476.905,2068.7121 513.242,2044.0511 " fill="none" id="_22-&gt;_8" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="517.62,2041.1281,507.9134,2042.7961,513.4608,2043.9033,512.3536,2049.4507,517.62,2041.1281" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[0ea368ddd915f2a407f414932c55ddae]
+link _3 to _6--><path d="M373.796,1814.9151 C392.569,1809.2411 412.95,1802.1861 431,1793.9531 C462.659,1779.5141 496.056,1758.1841 519.64,1741.9591 " fill="none" id="_3-&gt;_6" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="523.927,1738.9911,514.2502,1740.8242,519.8157,1741.8367,518.8032,1747.4022,523.927,1738.9911" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[4e29bfd3418fa57f132e402b8cdb03e3]
+link _6 to _10--><path d="M532.342,1698.7691 C506.979,1671.7971 464.747,1621.2411 448.25,1568.4531 C443.212,1552.3331 441.843,1546.0791 448.25,1530.4531 C452.393,1520.3481 456.5,1519.1391 465.5,1512.9531 C474.021,1507.0961 483.59,1501.8271 493.183,1497.2111 " fill="none" id="_6-&gt;_10" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="497.889,1494.9971,488.0424,1495.2091,493.3647,1497.1257,491.4481,1502.448,497.889,1494.9971" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[9bcbbfdf6afb1d4759bb95b02668f8b4]
+link _5 to _4--><path d="M365.273,1897.6031 C394.204,1893.1521 430.515,1887.5661 463.373,1882.5111 " fill="none" id="_5-&gt;_4" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="468.615,1881.7051,459.1117,1879.1193,463.6731,1882.465,460.3274,1887.0264,468.615,1881.7051" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[1efb5967f4c449dd56d6249280be653c]
+link _4 to _9--><path d="M528.811,1848.9451 C503.284,1825.6761 464.178,1784.6401 448.25,1739.4531 C436.873,1707.1771 435.757,1694.3141 448.25,1662.4531 C462.644,1625.7441 495.266,1593.8621 520.213,1573.5051 " fill="none" id="_4-&gt;_9" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="524.147,1570.3371,514.6284,1572.8661,520.2526,1573.473,519.6457,1579.0972,524.147,1570.3371" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[b84326987e98dcb917912705a3ef9c62]
+link _0 to _1--><path d="M113.384,1549.9531 C149.795,1549.9531 218.957,1549.9531 264.521,1549.9531 " fill="none" id="_0-&gt;_1" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="269.68,1549.9531,260.68,1545.9531,264.68,1549.9531,260.68,1553.9531,269.68,1549.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[bc83b3fabef1aeb733b8f0a42ce4fd6d]
+link _1 to _23--><path d="M273.34,1570.1111 C242.589,1589.3221 200.808,1621.3831 182.25,1662.4531 C134.302,1768.5671 161.574,1809.8591 182.25,1924.4531 C204.674,2048.7351 269.427,2186.7511 297.153,2242.0551 " fill="none" id="_1-&gt;_23" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="299.56,2246.8341,299.0851,2236.9967,297.3114,2242.3683,291.9398,2240.5945,299.56,2246.8341" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[7a2cb289c35b92a5a43b54d75e95b057]
+link _11 to _12--><path d="M113.384,1209.9531 C148.179,1209.9531 212.883,1209.9531 258.32,1209.9531 " fill="none" id="_11-&gt;_12" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="263.485,1209.9531,254.485,1205.9531,258.485,1209.9531,254.485,1213.9531,263.485,1209.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[8ca65a405ba64f544febfbdb2153c782]
+link _12 to _25--><path d="M310,1189.7431 C310,1166.6731 310,1143.6131 310,1120.5531 " fill="none" id="_12-&gt;_25" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="310,1115.3131,306,1124.3131,310,1120.3131,314,1124.3131,310,1115.3131" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[2e09ed96493301d0e77104c448ea3f5a]
+link _13 to _14--><path d="M113.809,1284.9531 C148.326,1284.9531 211.679,1284.9531 256.846,1284.9531 " fill="none" id="_13-&gt;_14" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="261.985,1284.9531,252.985,1280.9531,256.985,1284.9531,252.985,1288.9531,261.985,1284.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[248ca33d45f368d3654f4fe55fee3431]
+link _14 to _19--><path d="M261.796,1278.8431 C232.698,1272.2731 198.247,1258.6631 182.25,1230.4531 C162.465,1195.5631 162.465,904.3431 182.25,869.4531 C201.643,835.2531 247.935,822.1031 279.135,817.0631 " fill="none" id="_14-&gt;_19" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="284.39,816.2731,274.8925,813.6659,279.4464,817.0218,276.0904,821.5757,284.39,816.2731" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[8a4a2e99901e03a27c75c1124701025d]
+link _15 to _18--><path d="M132.728,1359.9531 C154.226,1359.9531 181.109,1359.9531 207.354,1359.9531 " fill="none" id="_15-&gt;_18" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="212.593,1359.9531,203.593,1355.9531,207.593,1359.9531,203.593,1363.9531,212.593,1359.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[1df40e8b58f22dce7e92709b3ff9107f]
+link _18 to _21--><path d="M221.123,1339.8531 C205.244,1331.9231 190.992,1320.8731 182.25,1305.4531 C162.465,1270.5631 162.465,979.3431 182.25,944.4531 C192.696,926.0331 210.946,913.7131 230.437,905.4931 " fill="none" id="_18-&gt;_21" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="235.416,903.4831,225.5731,903.1405,230.7791,905.3536,228.5659,910.5596,235.416,903.4831" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[4330cd2bc2f43e8cfef87705304d31ab]
+link _16 to _17--><path d="M118.67,1434.9531 C152.594,1434.9531 208.931,1434.9531 251.531,1434.9531 " fill="none" id="_16-&gt;_17" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="256.656,1434.9531,247.656,1430.9531,251.656,1434.9531,247.656,1438.9531,256.656,1434.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[5c8a90a3bec598804742f89c6ab60c73]
+link _17 to _20--><path d="M256.883,1427.6761 C228.913,1420.7131 197.355,1407.0921 182.25,1380.4531 C148.928,1321.6831 154.433,1138.0131 182.25,1076.4531 C201.098,1034.7431 243.901,1002.3231 274.773,983.2231 " fill="none" id="_17-&gt;_20" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="279.238,980.5031,269.471,981.7706,274.9683,983.1049,273.634,988.6022,279.238,980.5031" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[9ae800529f37d604279e879669cef019]
+link _28 to _44--><path d="M153.225,82.9531 C173.537,82.9531 196.385,82.9531 218.194,82.9531 " fill="none" id="_28-&gt;_44" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="223.417,82.9531,214.417,78.9531,218.417,82.9531,214.417,86.9531,223.417,82.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[5d43653fea8babef0f591c5bfe7cabe2]
+link _44 to _7--><path d="M223.44,102.6531 C206.651,110.7831 191.434,122.2531 182.25,138.4531 C143.064,207.5631 149.537,1496.0561 182.25,1568.4531 C199.938,1607.5981 238.723,1638.5581 268.947,1658.0091 " fill="none" id="_44-&gt;_7" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="273.34,1660.7951,267.8838,1652.5958,269.1182,1658.1163,263.5976,1659.3507,273.34,1660.7951" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[c149ed2a4e7c24b2295ea4895b65d61c]
+link _30 to _27--><path d="M113.384,157.9531 C141.279,157.9531 188.396,157.9531 229.398,157.9531 " fill="none" id="_30-&gt;_27" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="234.623,157.9531,225.623,153.9531,229.623,157.9531,225.623,161.9531,234.623,157.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[b223eccd934c94f43c77681a43f58c15]
+link _27 to _2--><path d="M234.743,172.7431 C213.664,180.9431 193.462,193.6831 182.25,213.4531 C161.862,249.4131 161.862,1665.4981 182.25,1701.4531 C196.526,1726.6301 225.498,1740.1781 252.248,1747.4681 " fill="none" id="_27-&gt;_2" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="257.213,1748.7581,249.5076,1742.624,252.3736,1747.5011,247.4965,1750.3671,257.213,1748.7581" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[070e8fe19cf0af93cfc5a1b0cc8db2d4]
+link _31 to _32--><path d="M113.384,232.9531 C148.179,232.9531 212.883,232.9531 258.32,232.9531 " fill="none" id="_31-&gt;_32" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="263.485,232.9531,254.485,228.9531,258.485,232.9531,254.485,236.9531,263.485,232.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[107f5dc15129f17c3a96d3b682d35a4f]
+link _32 to _25--><path d="M263.443,239.1031 C234.028,245.7631 198.591,259.6331 182.25,288.4531 C144.215,355.5331 150.498,912.1831 182.25,982.4531 C202.257,1026.7331 249.259,1060.5431 280.329,1079.0631 " fill="none" id="_32-&gt;_25" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="284.793,1081.6831,279.0549,1073.6785,280.4805,1079.1528,275.0063,1080.5785,284.793,1081.6831" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[f123722eccb79b284378b0c21d8399f6]
+link _34 to _35--><path d="M113.809,307.9531 C148.326,307.9531 211.679,307.9531 256.846,307.9531 " fill="none" id="_34-&gt;_35" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="261.985,307.9531,252.985,303.9531,256.985,307.9531,252.985,311.9531,261.985,307.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[6c03364fb7290d1bdc7f52fe040c58b0]
+link _35 to _19--><path d="M261.827,314.4731 C232.741,321.2731 198.292,335.1631 182.25,363.4531 C145.202,428.7931 151.322,633.0031 182.25,701.4531 C202.141,745.4731 248.715,779.1431 279.787,797.7331 " fill="none" id="_35-&gt;_19" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="284.254,800.3731,278.5257,792.3615,279.9447,797.8375,274.4687,799.2564,284.254,800.3731" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[af37201a6cf1dcd2d5dc9261c43baf1d]
+link _36 to _37--><path d="M113.384,382.9531 C149.795,382.9531 218.957,382.9531 264.521,382.9531 " fill="none" id="_36-&gt;_37" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="269.68,382.9531,260.68,378.9531,264.68,382.9531,260.68,386.9531,269.68,382.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[830ffa3ac5379e9f87d484b129857cb2]
+link _37 to _23--><path d="M269.779,387.7531 C239.303,393.8231 199.783,407.5331 182.25,438.4531 C141.53,510.2631 167.592,1843.2091 182.25,1924.4531 C204.674,2048.7351 269.427,2186.7511 297.153,2242.0551 " fill="none" id="_37-&gt;_23" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="299.56,2246.8341,299.0851,2236.9967,297.3114,2242.3683,291.9398,2240.5945,299.56,2246.8341" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[23d4cf6012f8fcce05929c4a14fb8707]
+link _38 to _43--><path d="M132.728,457.9531 C154.226,457.9531 181.109,457.9531 207.354,457.9531 " fill="none" id="_38-&gt;_43" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="212.593,457.9531,203.593,453.9531,207.593,457.9531,203.593,461.9531,212.593,457.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[49441d74f0145c060cc1f6578ba3269f]
+link _43 to _21--><path d="M222.787,477.9731 C206.257,486.0831 191.315,497.4631 182.25,513.4531 C147.065,575.5031 147.065,772.4031 182.25,834.4531 C192.666,852.8231 210.907,865.0031 230.399,873.0731 " fill="none" id="_43-&gt;_21" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="235.377,875.0431,228.4801,868.0123,230.7277,873.2034,225.5366,875.4511,235.377,875.0431" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[3974a7cc4e967321e05a0f9e91c08d1c]
+link _39 to _29--><path d="M116.863,532.9531 C142.43,532.9531 181.752,532.9531 218.178,532.9531 " fill="none" id="_39-&gt;_29" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="223.529,532.9531,214.529,528.9531,218.529,532.9531,214.529,536.9531,223.529,532.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[4a42c856ce51a631a81d199aea0c4bd3]
+link _29 to _3--><path d="M223.768,552.4931 C206.849,560.6331 191.494,572.1531 182.25,588.4531 C149.696,645.8631 149.696,1719.0401 182.25,1776.4531 C194.575,1798.1901 217.855,1811.2591 241.202,1819.1161 " fill="none" id="_29-&gt;_3" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="246.181,1820.7151,238.835,1814.1549,241.4204,1819.1864,236.389,1821.7718,246.181,1820.7151" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[39413098f57c1a77eea6168bc4941621]
+link _40 to _41--><path d="M118.67,607.9531 C152.594,607.9531 208.931,607.9531 251.531,607.9531 " fill="none" id="_40-&gt;_41" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="256.656,607.9531,247.656,603.9531,251.656,607.9531,247.656,611.9531,256.656,607.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[01c7e39e41b407e9ef1fb85fddaec5d2]
+link _41 to _20--><path d="M256.916,615.6731 C228.957,622.8731 197.398,636.7431 182.25,663.4531 C155.286,711.0031 155.286,861.9031 182.25,909.4531 C200.576,941.7731 243.123,954.9331 274.094,960.2831 " fill="none" id="_41-&gt;_20" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="279.346,961.1331,271.1062,955.7381,274.411,960.3292,269.82,963.6341,279.346,961.1331" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[3a8b16414360117d36afdd4c073deb9c]
+link _42 to _33--><path d="M117.761,682.9531 C145.517,682.9531 188.863,682.9531 227.274,682.9531 " fill="none" id="_42-&gt;_33" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="232.417,682.9531,223.417,678.9531,227.417,682.9531,223.417,686.9531,232.417,682.9531" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[455cde1fde73b3ada402392634de3052]
+link _33 to _5--><path d="M273.34,703.1131 C242.589,722.3231 200.808,754.3831 182.25,795.4531 C158.093,848.9131 153.313,1800.4191 182.25,1851.4531 C196.134,1875.9391 223.919,1889.4261 250.041,1896.8541 " fill="none" id="_33-&gt;_5" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="254.895,1898.1711,247.2577,1891.9524,250.0697,1896.8609,245.1613,1899.6729,254.895,1898.1711" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[6fdc71aae3ce4759b794a6d872d9cefa]
 @startuml
 ''''''''''''''''''''''''''''''''''''''''''
 ''                                      ''
@@ -64,90 +69,100 @@ state "Dashboard" as X_0 {
 state "IdentityServer" as X_1 <<highlight>> {
   state "Authenticate" as _2 <<highlight>>
   state "CustomerProfile" as _3 <<highlight>>
-  state "NewCustomer" as _4 <<highlight>>
-  state "UpdatePassword" as _5 <<highlight>>
+  state "InsertCustomer client" as _4 <<highlight>>
+  state "NewCustomer" as _5 <<highlight>>
+  state "SelectCustomer client" as _6 <<highlight>>
+  state "UpdatePassword" as _7 <<highlight>>
 }
 state "MasterCard" as X_2 {
-  state "POST /pay" as _6
+  state "POST /pay" as _8
 }
-state "Mobile" as X_3 {
-  state "Menu" as _7
-  state "Menu client" as _8
-  state "Order" as _9
-  state "Order client" as _10
-  state "PlaceOrder" as _11
-  state "Review" as _12
-  state "Review client" as _13
-  state "UpdateOrderStatus client" as _14
+state "MegaDatabase" as X_3 <<highlight>> {
+  state "InsertCustomer" as _9 <<highlight>>
+  state "SelectCustomer" as _10 <<highlight>>
 }
-state "OrderServer" as X_4 <<highlight>> {
-  state "Order" as _15 <<highlight>>
-  state "Review" as _16 <<highlight>>
-  state "UpdateOrderStatus" as _17 <<highlight>>
+state "Mobile" as X_4 {
+  state "Menu" as _11
+  state "Menu client" as _12
+  state "Order" as _13
+  state "Order client" as _14
+  state "PlaceOrder" as _15
+  state "Review" as _16
+  state "Review client" as _17
+  state "UpdateOrderStatus client" as _18
 }
-state "PaymentServer" as X_5 <<highlight>> {
-  state "POST /pay client" as _18 <<highlight>>
-  state "Pay" as _19 <<highlight>>
-  state "Pay client" as _20 <<highlight>>
+state "OrderServer" as X_5 <<highlight>> {
+  state "Order" as _19 <<highlight>>
+  state "Review" as _20 <<highlight>>
+  state "UpdateOrderStatus" as _21 <<highlight>>
 }
-state "ProductServer" as X_6 <<highlight>> {
-  state "Menu" as _21 <<highlight>>
+state "PaymentServer" as X_6 <<highlight>> {
+  state "POST /pay client" as _22 <<highlight>>
+  state "Pay" as _23 <<highlight>>
+  state "Pay client" as _24 <<highlight>>
 }
-state "Visa" as X_7 {
-  state "Pay" as _22
+state "ProductServer" as X_7 <<highlight>> {
+  state "Menu" as _25 <<highlight>>
 }
-state "Website" as X_8 {
-  state "Authenticate client" as _23
-  state "ChangePassword" as _24
-  state "CustomerProfile client" as _25
-  state "Login" as _26
-  state "Menu" as _27
-  state "Menu client" as _28
-  state "NewCustomer client" as _29
-  state "Order" as _30
-  state "Order client" as _31
-  state "Pay" as _32
-  state "Pay client" as _33
-  state "PlaceOrder" as _34
-  state "Profile" as _35
-  state "Review" as _36
-  state "Review client" as _37
-  state "Signup" as _38
-  state "UpdateOrderStatus client" as _39
-  state "UpdatePassword client" as _40
+state "Visa" as X_8 {
+  state "Pay" as _26
 }
-_19 -[#silver]-> _20
-_20 -[#black]> _22
-_19 -[#silver]-> _18
-_18 -[#black]> _6
+state "Website" as X_9 {
+  state "Authenticate client" as _27
+  state "ChangePassword" as _28
+  state "CustomerProfile client" as _29
+  state "Login" as _30
+  state "Menu" as _31
+  state "Menu client" as _32
+  state "NewCustomer client" as _33
+  state "Order" as _34
+  state "Order client" as _35
+  state "Pay" as _36
+  state "Pay client" as _37
+  state "PlaceOrder" as _38
+  state "Profile" as _39
+  state "Review" as _40
+  state "Review client" as _41
+  state "Signup" as _42
+  state "UpdateOrderStatus client" as _43
+  state "UpdatePassword client" as _44
+}
+_23 -[#silver]-> _24
+_24 -[#black]> _26
+_23 -[#silver]-> _22
+_22 -[#black]> _8
+_3 -[#silver]-> _6
+_6 -[#black]> _10
+_5 -[#silver]-> _4
+_4 -[#black]> _9
 _0 -[#silver]-> _1
-_1 -[#black]> _19
-_7 -[#silver]-> _8
-_8 -[#black]> _21
-_9 -[#silver]-> _10
-_10 -[#black]> _15
-_11 -[#silver]-> _14
-_14 -[#black]> _17
-_12 -[#silver]-> _13
-_13 -[#black]> _16
-_24 -[#silver]-> _40
-_40 -[#black]> _5
-_26 -[#silver]-> _23
-_23 -[#black]> _2
-_27 -[#silver]-> _28
-_28 -[#black]> _21
-_30 -[#silver]-> _31
-_31 -[#black]> _15
-_32 -[#silver]-> _33
-_33 -[#black]> _19
-_34 -[#silver]-> _39
-_39 -[#black]> _17
-_35 -[#silver]-> _25
-_25 -[#black]> _3
+_1 -[#black]> _23
+_11 -[#silver]-> _12
+_12 -[#black]> _25
+_13 -[#silver]-> _14
+_14 -[#black]> _19
+_15 -[#silver]-> _18
+_18 -[#black]> _21
+_16 -[#silver]-> _17
+_17 -[#black]> _20
+_28 -[#silver]-> _44
+_44 -[#black]> _7
+_30 -[#silver]-> _27
+_27 -[#black]> _2
+_31 -[#silver]-> _32
+_32 -[#black]> _25
+_34 -[#silver]-> _35
+_35 -[#black]> _19
 _36 -[#silver]-> _37
-_37 -[#black]> _16
-_38 -[#silver]-> _29
-_29 -[#black]> _4
+_37 -[#black]> _23
+_38 -[#silver]-> _43
+_43 -[#black]> _21
+_39 -[#silver]-> _29
+_29 -[#black]> _3
+_40 -[#silver]-> _41
+_41 -[#black]> _20
+_42 -[#silver]-> _33
+_33 -[#black]> _5
 @enduml
 
 @startuml
@@ -169,90 +184,100 @@ state "Dashboard" as X_0 {
 state "IdentityServer" as X_1 <<highlight>> {
   state "Authenticate" as _2 <<highlight>>
   state "CustomerProfile" as _3 <<highlight>>
-  state "NewCustomer" as _4 <<highlight>>
-  state "UpdatePassword" as _5 <<highlight>>
+  state "InsertCustomer client" as _4 <<highlight>>
+  state "NewCustomer" as _5 <<highlight>>
+  state "SelectCustomer client" as _6 <<highlight>>
+  state "UpdatePassword" as _7 <<highlight>>
 }
 state "MasterCard" as X_2 {
-  state "POST /pay" as _6
+  state "POST /pay" as _8
 }
-state "Mobile" as X_3 {
-  state "Menu" as _7
-  state "Menu client" as _8
-  state "Order" as _9
-  state "Order client" as _10
-  state "PlaceOrder" as _11
-  state "Review" as _12
-  state "Review client" as _13
-  state "UpdateOrderStatus client" as _14
+state "MegaDatabase" as X_3 <<highlight>> {
+  state "InsertCustomer" as _9 <<highlight>>
+  state "SelectCustomer" as _10 <<highlight>>
 }
-state "OrderServer" as X_4 <<highlight>> {
-  state "Order" as _15 <<highlight>>
-  state "Review" as _16 <<highlight>>
-  state "UpdateOrderStatus" as _17 <<highlight>>
+state "Mobile" as X_4 {
+  state "Menu" as _11
+  state "Menu client" as _12
+  state "Order" as _13
+  state "Order client" as _14
+  state "PlaceOrder" as _15
+  state "Review" as _16
+  state "Review client" as _17
+  state "UpdateOrderStatus client" as _18
 }
-state "PaymentServer" as X_5 <<highlight>> {
-  state "POST /pay client" as _18 <<highlight>>
-  state "Pay" as _19 <<highlight>>
-  state "Pay client" as _20 <<highlight>>
+state "OrderServer" as X_5 <<highlight>> {
+  state "Order" as _19 <<highlight>>
+  state "Review" as _20 <<highlight>>
+  state "UpdateOrderStatus" as _21 <<highlight>>
 }
-state "ProductServer" as X_6 <<highlight>> {
-  state "Menu" as _21 <<highlight>>
+state "PaymentServer" as X_6 <<highlight>> {
+  state "POST /pay client" as _22 <<highlight>>
+  state "Pay" as _23 <<highlight>>
+  state "Pay client" as _24 <<highlight>>
 }
-state "Visa" as X_7 {
-  state "Pay" as _22
+state "ProductServer" as X_7 <<highlight>> {
+  state "Menu" as _25 <<highlight>>
 }
-state "Website" as X_8 {
-  state "Authenticate client" as _23
-  state "ChangePassword" as _24
-  state "CustomerProfile client" as _25
-  state "Login" as _26
-  state "Menu" as _27
-  state "Menu client" as _28
-  state "NewCustomer client" as _29
-  state "Order" as _30
-  state "Order client" as _31
-  state "Pay" as _32
-  state "Pay client" as _33
-  state "PlaceOrder" as _34
-  state "Profile" as _35
-  state "Review" as _36
-  state "Review client" as _37
-  state "Signup" as _38
-  state "UpdateOrderStatus client" as _39
-  state "UpdatePassword client" as _40
+state "Visa" as X_8 {
+  state "Pay" as _26
 }
-_19 -[#silver]-> _20
-_20 -[#black]> _22
-_19 -[#silver]-> _18
-_18 -[#black]> _6
+state "Website" as X_9 {
+  state "Authenticate client" as _27
+  state "ChangePassword" as _28
+  state "CustomerProfile client" as _29
+  state "Login" as _30
+  state "Menu" as _31
+  state "Menu client" as _32
+  state "NewCustomer client" as _33
+  state "Order" as _34
+  state "Order client" as _35
+  state "Pay" as _36
+  state "Pay client" as _37
+  state "PlaceOrder" as _38
+  state "Profile" as _39
+  state "Review" as _40
+  state "Review client" as _41
+  state "Signup" as _42
+  state "UpdateOrderStatus client" as _43
+  state "UpdatePassword client" as _44
+}
+_23 -[#silver]-> _24
+_24 -[#black]> _26
+_23 -[#silver]-> _22
+_22 -[#black]> _8
+_3 -[#silver]-> _6
+_6 -[#black]> _10
+_5 -[#silver]-> _4
+_4 -[#black]> _9
 _0 -[#silver]-> _1
-_1 -[#black]> _19
-_7 -[#silver]-> _8
-_8 -[#black]> _21
-_9 -[#silver]-> _10
-_10 -[#black]> _15
-_11 -[#silver]-> _14
-_14 -[#black]> _17
-_12 -[#silver]-> _13
-_13 -[#black]> _16
-_24 -[#silver]-> _40
-_40 -[#black]> _5
-_26 -[#silver]-> _23
-_23 -[#black]> _2
-_27 -[#silver]-> _28
-_28 -[#black]> _21
-_30 -[#silver]-> _31
-_31 -[#black]> _15
-_32 -[#silver]-> _33
-_33 -[#black]> _19
-_34 -[#silver]-> _39
-_39 -[#black]> _17
-_35 -[#silver]-> _25
-_25 -[#black]> _3
+_1 -[#black]> _23
+_11 -[#silver]-> _12
+_12 -[#black]> _25
+_13 -[#silver]-> _14
+_14 -[#black]> _19
+_15 -[#silver]-> _18
+_18 -[#black]> _21
+_16 -[#silver]-> _17
+_17 -[#black]> _20
+_28 -[#silver]-> _44
+_44 -[#black]> _7
+_30 -[#silver]-> _27
+_27 -[#black]> _2
+_31 -[#silver]-> _32
+_32 -[#black]> _25
+_34 -[#silver]-> _35
+_35 -[#black]> _19
 _36 -[#silver]-> _37
-_37 -[#black]> _16
-_38 -[#silver]-> _29
-_29 -[#black]> _4
+_37 -[#black]> _23
+_38 -[#silver]-> _43
+_43 -[#black]> _21
+_39 -[#silver]-> _29
+_29 -[#black]> _3
+_40 -[#silver]-> _41
+_41 -[#black]> _20
+_42 -[#silver]-> _33
+_33 -[#black]> _5
 @enduml
 
 PlantUML version 1.2020.16beta7(Unknown compile time)

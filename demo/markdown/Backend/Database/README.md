@@ -24,10 +24,11 @@
 ## Application Index
 
 
+| Application Name | Method | Source Location |
+|----|----|----|
+| MegaDatabase | [InsertCustomer](#MegaDatabase-InsertCustomer) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl)|  
+| MegaDatabase | [SelectCustomer](#MegaDatabase-SelectCustomer) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl)|  
 
-
-
-<span style="color:grey">No Applications Defined</span>
 
 
 
@@ -54,6 +55,10 @@
 </details>
 
 
+
+
+
+# Applications
 
 
 

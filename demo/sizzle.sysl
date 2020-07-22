@@ -1,5 +1,5 @@
 # This project tells our integration diagram what apps to include
-import simple.yaml as MasterCard
+import mastercard.yaml as MasterCard
 # This app specifies the projects to include, it is optional and can be left out
 Sizzle[~project]:
     @contact.name = "Jimmy Smith"

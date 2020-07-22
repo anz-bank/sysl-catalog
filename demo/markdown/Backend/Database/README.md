@@ -18,7 +18,7 @@
 ## Database Index
 | Database Application Name  | Source Location |
 ----|----
-[MegaDatabase](#Database-MegaDatabase) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl)|  
+[MegaDatabase](#Database-MegaDatabase) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl)|  
 
 
 ## Application Index

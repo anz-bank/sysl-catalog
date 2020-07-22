@@ -19,7 +19,7 @@
 
 | Application Name | Method | Source Location |
 |----|----|----|
-| MasterCard | [POST /pay](#MasterCard-POSTpay) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|  
+| MasterCard | [POST /pay](#MasterCard-POSTpay) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml)|  
 
 
 
@@ -29,9 +29,9 @@
 
 | Application Name | Type Name | Source Location |
 |----|----|----|
-| MasterCard | [AustralianState](#MasterCard.AustralianState) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
-| MasterCard | [SimpleObj](#MasterCard.SimpleObj) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
-| MasterCard | [SimpleObj2](#MasterCard.SimpleObj2) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple.yaml)|
+| MasterCard | [AustralianState](#MasterCard.AustralianState) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml)|
+| MasterCard | [SimpleObj](#MasterCard.SimpleObj) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml)|
+| MasterCard | [SimpleObj2](#MasterCard.SimpleObj2) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml](https://github.com/anz-bank/sysl-catalog/blob/master/demo/mastercard.yaml)|
 
 
 

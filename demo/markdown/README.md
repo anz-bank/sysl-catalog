@@ -1,6 +1,6 @@
 
 
-# simple2.sysl
+# sizzle.sysl
 
 | Package |
 ----|

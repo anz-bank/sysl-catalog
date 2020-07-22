@@ -1,3 +1,18 @@
+# This example shows:
+#   ~human
+#   ~ui
+#   ~db
+#   package
+#   long description
+#   sequence of ...
+#   alias
+#   empty project
+#   types/tables/endpoints
+#   import OpenAPI3.0 file
+# TODO:
+#   convert endpoints to RESTful endpoints
+#   add database operation
+
 # This project tells our integration diagram what apps to include
 import mastercard.yaml as MasterCard
 

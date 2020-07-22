@@ -1,164 +1,318 @@
 # This project tells our integration diagram what apps to include
-import simple.yaml as simpleredoc
+import simple.yaml as MasterCard
 # This app specifies the projects to include, it is optional and can be left out
-simple2[~project]:
-    FirstDivision:
-        # you can specify packages to include
-        ApplicationPackage
-    SecondDivision:
-        MegaDatabase
-    ThirdDivision:
-        ServerPackage
-        foo
-        bar
-        simpleredoc
+Sizzle[~project]:
+    @contact.name = "Jimmy Smith"
+    @description =:
+        | Sizzle is a Gourmet Sausage Restaurant.
+        |
+        | We aim to provide the truly Aussie sausage sizzle 
+        | to our customers.
+        |
+        | We will offer 90 minute table allocations and 
+        | comply with all directions and safety procedures 
+        | implemented by the state government.
+        |
+        | You can dine-in, take away, or shop online.
+    @version = "1.0.0"
 
-foo:
-    @package="foo"
-    whatever:
-        ...
+    Frontend:
+        Application
+    Backend:
+        BFF
+        Database
+        MasterCard
 
-    !alias FooRequest:
-        string
 
-bar:
-    @package="bar"
-this:
-    @package="MegaDatabase"
-    this:
-        ...
-that:
-    @pacakge="MegaDatabase"
-    this:
-        this <- this
-MobileApp:
-    @package = "ApplicationPackage"
-    @description = "this is a comment for MobileApp"
-    Login(input <: Server.Request):
-        @description = "hello, gamers"
-        Server <- Authenticate
-        return ok <: MegaDatabase.Empty
-    Another:
-        @description = "hello, world"
-        return ok <: Server.Response
+Dine-in Customer [~human]:
+    # ~human specifies a user
+    Menu:
+        Mobile <- Menu
+    Order:
+        Mobile <- Order
+    PlaceOrder:
+        Mobile <- PlaceOrder
+    Pay:
+        Dashboard <- Pay
+    Review:
+        Mobile <- Review
 
-MobileApp2:
-    @package = "ApplicationPackage"
-    @description = "this is a comment for MobileApp"
-    SecondEndpoint(input <: Server.Request):
-        @description = "SecondEndpoint, comment"
-        Server <- Authenticate
-        return ok <: MegaDatabase.Empty
-    ThirdEndpoint:
-        @description = "ThirdEndpoint comment"
-        return ok <: Server.Response
+Online Customer [~human]:
+    Sign up:
+        Website <- Signup
+    Login:
+        Website <- Login
+        Website <- Profile
+    Change password:
+        Website <- ChangePassword
+    Menu:
+        Website <- Menu
+    Order:
+        Website <- Order
+    Place and Pay Order:
+        Website <- PlaceOrder
+        Website <- Pay
+    Review:
+        Website <- Review
 
-Server:
-    @package = "ServerPackage"
-    @description = "this is a comment for Server"
-    !type Response:
-        @description="Response Response Response"
-        query <: MegaDatabase.Money
-        balance <: MegaDatabase.Empty
-    !type Request:
-        @description="Request Request Request"
-        query <: sequence of Response
+
+Mobile [~ui]:
+    # ~ui specifies a user interface
+    @package = "Application"
+    @description = "Android and iOS App for Sizzle"
+    Menu:
+        ProductServer <- Menu
+    Order:
+        OrderServer <- Order
+    PlaceOrder:
+        OrderServer <- UpdateOrderStatus
+    Review:
+        OrderServer <- Review
+
+Dashboard [~ui]:
+    Pay:
+        PaymentServer <- Pay
+
+
+Website [~ui]:
+    @package = "Application"
+    @description = "Web App for Sizzle"
+    Signup(req <: NewCustomerRequest):
+        IdentityServer <- NewCustomer(req)
+
+    Login(input <: IdentityServer.Request):
+        @description = "For customer to login"
+        IdentityServer <- Authenticate
+
+    Profile(customer_id <: int):
+        IdentityServer <- CustomerProfile(customer_id)
+        return ok <: Customer
+
+    ChangePassword(customer_id <: int, old <: string, new <: string):
+        IdentityServer <- UpdatePassword(customer_id, old, new)
+        return ok
+
+    Menu:
+        ProductServer <- Menu
+    Order:
+        OrderServer <- Order
+    PlaceOrder:
+        OrderServer <- UpdateOrderStatus
+    Review:
+        OrderServer <- Review
+    Pay:
+        PaymentServer <- Pay
+
+
+
+Common:
     !type Empty[~empty]:
-        @description="Empty Empty Empty"
+        @description="Empty Type"
         ...
-    !type LongDescription:
-        @description =:
-            | # This is a formatted description
-            |
-            | Something
-            |
-            | Something else
-        field <: string
-    !type LongDescriptionNoExtraLines:
-        @description =:
-            | # This is a formatted description
-            | Something
-            | Something else
-        field <: string
-        
-    Authenticate(input <: Request):
-        @description = "this is a description of Authenticate"
-        return ok <: sequence of Response
+
+IdentityServer:
+    @package="BFF"
+    @description =: 
+        | This server handles all the customer related endpoints
+        | including customer profile, password update, 
+        | customer authentication, etc.
+
+    NewCustomer(req <: NewCustomerRequest):
+        # TODO: DB insert
+        return ok <: Customer
+
+    Authenticate(email <: string, password <: string):
+        @description ="this is a description of Authenticate"
+        # TODO: how to present database interaction here?
+        if authenticated:
+          return 200 <: MegaDatabase.Empty
+        else:    
+          return 401 <: UnauthorizedError
+
+    CustomerProfile(customer_id <: int):
+        # TODO: database interaction
+        return ok <: Customer
+
+    UpdatePassword(customer_id <: int, old <: string, new <: string):
+        # DB update
+        return ok
+
+    !type Customer:
+        @description="Empty Type"
+        first_name <: string
+        middle_name <: string
+        last_name <: string
+        phone <: string
+        email <: string
+
+    !type NewCustomerRequest:
+        first_name <: string
+        middle_name <: string
+        last_name <: string
+        phone <: string
+        email <: string
+        password <: string
+
+    !type UnauthorizedError:
+        error_msg <: string
+
+ProductServer:
+    @package="BFF"
+    @description =: 
+        | This server handles all the product
+        | related endpoints.
+
+    Menu:
+        # TODO: DB/cache op
+        return ok <: Products
+
+    !alias Products:
+        sequence of Product
+
+    !type Product:
+        @description="Product information"
+        id <: int
+        name <: string
+        image <: string
+        details <: string
+        price <: int
+
+
+OrderServer:
+    @package="BFF"
+    @description =: 
+        | This server handles all the order
+        | related endpoints.
+
+    Order(req <: OrderRequest):
+        if order_id is nil:
+            # TODO: DB op create a new order
+            return ok <: Order
+        else:
+            # TODO: add/update OrderProduct for the 
+            # existing order
+            return ok <: Order
+
+    UpdateOrderStatus(order_id <: int, status <: int):
+        # TODO: DB op get order by order_id
+        # state machine
+        return ok <: Order
+
+    Review(score <: int, comment <: string):
+        # TODO: DB op
+        return ok <: Order
+
+    !type OrderRequest:
+        order_id <: int
+        product_id <: int
+        quantity <: int
+
+    !type Order:
+        @description="Customer order information"
+        id <: int
+        status <: OrderStatus
+        total_price <: int
+        items <: sequence of OrderProduct
+        paid <: bool
+        review_score <: int
+        review_comment <: string
+
+    !type OrderProduct:
+        @description="Order items"
+        product_id <: int
+        quantity <: int
+        comments <: string
+
+    !enum OrderStatus:
+        created: 1
+        placed: 2
+        shipped: 3
+        delivered: 4
     
-    /testRestURLParam/{id<:Request}:
-        GET:
-            return ok <: Response
-    
-    /testRestQueryParam:
-        GET ?queryString={Request}&secondQueryString={Request}:
-            return ok <: Response
 
-    /testRestQueryParamPrimitive:
-        GET ?queryPrimitiveString=string:
-            return ok <: Response
-    /testRestPathParamPrimitive/{primitiveID<:string}:
-        GET:
-            return ok <: Response
+PaymentServer:
+    @package="BFF"
+    @description =: 
+        | This server handles all the payment related endpoints.
 
-    /testReturnNil:
-        GET:
-            return Empty
+    Pay:
+        if processor_type == "visa":
+            Visa <- Pay
+        # else if processor_type == "mastercard":
+            # MasterCard <- Pay
+        else:
+            return 500 < NotSupportedError
 
-# This is an example of apps with types made up of different apps
-MegaDatabase:
-    # This was meant to be an example of how different applications can be in the same package
-    !type Empty[~empty]:
-        @description="Empty Empty Empty"
+        return 200
+
+    !enum PaymentType:
+        cash: 1
+        card: 2
+
+Visa[~external]:
+    # ~external specifies an external service
+    Pay:
         ...
-    !type Money:
-        @description="Money Money Money"
-        amount <: int
-RelModel[~db]:
-    @package="ServerPackage"
-    !table exhibition:
-        exhibition_id <: int [~pk]
-        time <: DATETIME
-        capacity <: int
-    !table audio_guide:
-        audio_guide_id <: int [~pk]
-        type <: float
-        activation_date <: date
-        listen_time <: float
-        payment <: payment_details.payment_details_id
-        language <: float
-        ticket_id <: ticket.ticket_id
-        issue_point <: location.location_id
-        return_point <: location.location_id
-    !table ticket:
-        ticket_id <: int [~pk]
-        payment <: payment_details.payment_details_id
-        checkpoints <: checkpoint_lookup.checkpoint_lookup_id
-        arrival_transport <: float
-        exhibition <: exhibition.exhibition_id
-    !table checkpoint_lookup:
-        checkpoint_lookup_id <: int [~pk]
-        location <: location.location_id
-    !table location:
-        location_id <: int [~pk]
-        type <: float
-        time <: DATETIME
-        name <: float
-    !table payment_details:
-        price <: decimal
-        payment_details_id <: int [~pk]
-        type <: float
-        online <: bool
-        payment_cash <: cash_payment.id
-        payment_card <: card_payment.id
-    !table cash_payment:
+
+DeliveryServer:
+    @package="BFF"
+    @description =: 
+        | We are going to provide delivery service ASAP
+        | since our customers need it during COVID-19
+    ...
+
+
+
+MegaDatabase[~db]:
+    # ~db specifies a database
+    @package="Database"
+
+    !table customers:
         id <: int [~pk]
         first_name <: string
-        city <: string
-        country <: string
+        middle_name <: string
+        last_name <: string
+        phone <: string
+        email <: string
+        password <: string
+
+    !table products:
+        id <: int [~pk]
+        name <: string
+        image <: string
+        details <: string
+        price <: int
+
+    !table orders:
+        id <: int [~pk]
+        customer_id <: customers.id
+        status <: int
+        review <: reviews.id
+        total_price <: int
+
+    !table orders_products:
+        @description="order details"
+        order_id <: orders.id [~pk]
+        product_id <: products.id [~pk]
+        quantity <: int
+        comments <: string
+
+    !table payment_details:
+        id <: int [~pk]
+        order_id <: orders.id
+        type <: float
+        payment_card <: card_payment.id
+
     !table card_payment:
         id <: int [~pk]
-        bank_name <: string
-        bank_short_name <: string
-        branch <: string
+        card_number <: string
         expiry <: string
-        card_number_snippet <: string
+
+    !table reviews:
+        id <: int [~pk]
+        score <: int
+        comment <: string
+
+Cache:
+    @pacakge="Database"
+    ...

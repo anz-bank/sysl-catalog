@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="390px" preserveAspectRatio="none" style="width:370px;height:390px;" version="1.1" viewBox="0 0 370 390" width="370px" zoomAndPan="magnify"><defs><filter height="300%" id="f124ae8wrsma5a" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="158" x="101.5" y="26.708">Website &lt;- Login</text><rect fill="#FFFFFF" filter="url(#f124ae8wrsma5a)" height="157.6641" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="56" y="160.5156"/><rect fill="#FFFFFF" filter="url(#f124ae8wrsma5a)" height="128.5313" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="278" y="189.6484"/><rect fill="#FFFFFF" filter="url(#f124ae8wrsma5a)" height="46.2656" style="stroke: #000000; stroke-width: 2.0;" width="330" x="18" y="204.6484"/><rect fill="#FFFFFF" filter="url(#f124ae8wrsma5a)" height="46.2656" style="stroke: #000000; stroke-width: 2.0;" width="330" x="18" y="264.9141"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="61" x2="61" y1="86.25" y2="328.1797"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="283" x2="283" y1="86.25" y2="328.1797"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="28" y="82.9482">Website</text><path d="M40.5,41.9531 L40.5,65.9531 M40.5,53.9531 L57.5,53.9531 " fill="none" filter="url(#f124ae8wrsma5a)" style="stroke: #A80036; stroke-width: 2.0;"/><ellipse cx="69.5" cy="53.9531" fill="#FEFECE" filter="url(#f124ae8wrsma5a)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="28" y="340.1748">Website</text><path d="M40.5,347.4766 L40.5,371.4766 M40.5,359.4766 L57.5,359.4766 " fill="none" filter="url(#f124ae8wrsma5a)" style="stroke: #A80036; stroke-width: 2.0;"/><ellipse cx="69.5" cy="359.4766" fill="#FEFECE" filter="url(#f124ae8wrsma5a)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="228" y="82.9482">IdentityServer</text><ellipse cx="283" cy="53.9531" fill="#FEFECE" filter="url(#f124ae8wrsma5a)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="279,41.9531,285,36.9531,283,41.9531,285,46.9531,279,41.9531" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="228" y="340.1748">IdentityServer</text><ellipse cx="283" cy="359.4766" fill="#FEFECE" filter="url(#f124ae8wrsma5a)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="279,347.4766,285,342.4766,283,347.4766,285,352.4766,279,347.4766" style="stroke: #A80036; stroke-width: 1.0;"/><rect fill="#FFFFFF" filter="url(#f124ae8wrsma5a)" height="157.6641" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="56" y="160.5156"/><rect fill="#FFFFFF" filter="url(#f124ae8wrsma5a)" height="128.5313" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="278" y="189.6484"/><rect fill="#EEEEEE" filter="url(#f124ae8wrsma5a)" height="3" style="stroke: #EEEEEE; stroke-width: 1.0;" width="355" x="3" y="116.8164"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="358" y1="116.8164" y2="116.8164"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="358" y1="119.8164" y2="119.8164"/><rect fill="#EEEEEE" filter="url(#f124ae8wrsma5a)" height="23.1328" style="stroke: #000000; stroke-width: 2.0;" width="146" x="107.5" y="106.25"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="127" x="113.5" y="122.3169">Website &lt;- Login</text><polygon fill="#A80036" points="44,156.5156,54,160.5156,44,164.5156,48,160.5156" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="3" x2="50" y1="160.5156" y2="160.5156"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="34" x="10" y="155.4497">Login</text><polygon fill="#A80036" points="266,185.6484,276,189.6484,266,193.6484,270,189.6484" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="66" x2="272" y1="189.6484" y2="189.6484"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="82" x="73" y="184.5825">Authenticate</text><path d="M18,204.6484 L90,204.6484 L90,211.6484 L80,221.6484 L18,221.6484 L18,204.6484 " fill="#EEEEEE" style="stroke: #000000; stroke-width: 1.0;"/><rect fill="none" height="46.2656" style="stroke: #000000; stroke-width: 2.0;" width="330" x="18" y="204.6484"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="27" x="33" y="217.7153">opt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="106" x="105" y="216.8589">[authenticated]</text><polygon fill="#A80036" points="77,238.9141,67,242.9141,77,246.9141,73,242.9141" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="71" x2="277" y1="242.9141" y2="242.9141"/><text fill="#0000FF" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="142" x="83" y="237.8481">MegaDatabase.Empty</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="10" x="229" y="237.8481">&lt;</text><text fill="#008000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="22" x="239" y="237.8481">?, ?</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="10" x="261" y="237.8481">&gt;</text><path d="M18,264.9141 L93,264.9141 L93,271.9141 L83,281.9141 L18,281.9141 L18,264.9141 " fill="#EEEEEE" style="stroke: #000000; stroke-width: 1.0;"/><rect fill="none" height="46.2656" style="stroke: #000000; stroke-width: 2.0;" width="330" x="18" y="264.9141"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="30" x="33" y="277.981">else</text><polygon fill="#A80036" points="77,299.1797,67,303.1797,77,307.1797,73,303.1797" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="71" x2="277" y1="303.1797" y2="303.1797"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="116" x="83" y="298.1138">UnauthorizedError</text><!--MD5=[12de9b24310ad01a8a02723034343423]
+@startuml
+''''''''''''''''''''''''''''''''''''''''''
+''                                      ''
+''  AUTOGENERATED CODE - - DO NOT EDIT!  ''
+''                                      ''
+''''''''''''''''''''''''''''''''''''''''''
+
+
+boundary "Website" as _0
+control "IdentityServer" as _1
+skinparam maxMessageSize 250
+title Website <- Login
+== Website <- Login ==
+[->_0 : Login
+activate _0
+ _0->_1 : Authenticate
+ activate _1
+ opt authenticated
+  _0<- -_1 : <color blue>MegaDatabase.Empty</color> <<color green>?, ?</color>>
+ end
+ group else
+  _0<- -_1 : UnauthorizedError
+ end
+ deactivate _1
+deactivate _0
+@enduml
+
+@startuml
+
+
+boundary "Website" as _0
+control "IdentityServer" as _1
+skinparam maxMessageSize 250
+title Website <- Login
+== Website <- Login ==
+[->_0 : Login
+activate _0
+ _0->_1 : Authenticate
+ activate _1
+ opt authenticated
+  _0<- -_1 : <color blue>MegaDatabase.Empty</color> <<color green>?, ?</color>>
+ end
+ group else
+  _0<- -_1 : UnauthorizedError
+ end
+ deactivate _1
+deactivate _0
+@enduml
+
+PlantUML version 1.2020.16beta7(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

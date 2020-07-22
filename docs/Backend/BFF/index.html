@@ -1,0 +1,808 @@
+
+<!doctype html>
+<html lang="en"><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sysl Catalog</title>
+</head>
+<body>
+<div id='content'>
+<p><a href="../index.html">Back</a></p>
+<h1>BFF</h1>
+<h2>Integration Diagram</h2>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZa-huZ0KnVVtKznPkIfKhJeB4V-q3Yx6oandN8IXnFPYWsaYIJhloUDzzqU959_me7TroE-Sd3FeVJ0OOA-xMrT_ilH7iaz-hR8anaqQ9nW46AUuJpDCubtshRFs_hNtLbXQnurhQWbEE4cutcwX4YMXTMH8kzkLm1PS4jRy5OVJyVS8AnBdoe6z27NbXjTOwFgg5Ic7Ru2uviNbR7IZoesMsk1MQiFbiHAEMgfDISQJjUJ51H1NnkWN_xGnehPQmJkm0x_LfDnlCl_9_4DkCGznFg_4kPBjWCK2s5zXkKT3o4CCWaMhMCnjTTBSb9wD81zv5WBxgKz2aWTZO0UZowRur18zjUHZ7uw0fUtuH-_a2-y4s95ELhXxqnJOhYJbXBizncVFyQcFppeLTMhIgH2MfCgcbXy1003__mFDh_00" alt=""></p>
+<h2>Application Index</h2>
+<table>
+<thead>
+<tr>
+<th>Application Name</th>
+<th>Method</th>
+<th>Source Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeliveryServer</td>
+<td><a href="#DeliveryServer-...">...</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-Authenticate">Authenticate</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-CustomerProfile">CustomerProfile</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-NewCustomer">NewCustomer</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer-UpdatePassword">UpdatePassword</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>OrderServer</td>
+<td><a href="#OrderServer-Order">Order</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>OrderServer</td>
+<td><a href="#OrderServer-Review">Review</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>OrderServer</td>
+<td><a href="#OrderServer-UpdateOrderStatus">UpdateOrderStatus</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>PaymentServer</td>
+<td><a href="#PaymentServer-Pay">Pay</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>ProductServer</td>
+<td><a href="#ProductServer-Menu">Menu</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Type Index</h2>
+<table>
+<thead>
+<tr>
+<th>Application Name</th>
+<th>Type Name</th>
+<th>Source Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer.Customer">Customer</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer.NewCustomerRequest">NewCustomerRequest</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>IdentityServer</td>
+<td><a href="#IdentityServer.UnauthorizedError">UnauthorizedError</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>OrderServer</td>
+<td><a href="#OrderServer.Order">Order</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>OrderServer</td>
+<td><a href="#OrderServer.OrderProduct">OrderProduct</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>OrderServer</td>
+<td><a href="#OrderServer.OrderRequest">OrderRequest</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>OrderServer</td>
+<td><a href="#OrderServer.OrderStatus">OrderStatus</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>PaymentServer</td>
+<td><a href="#PaymentServer.PaymentType">PaymentType</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>ProductServer</td>
+<td><a href="#ProductServer.Product">Product</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+<tr>
+<td>ProductServer</td>
+<td><a href="#ProductServer.Products">Products</a></td>
+<td><a href="https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl">https://github.com/anz-bank/sysl-catalog/blob/master/demo/simple2.sysl</a></td>
+</tr>
+</tbody>
+</table>
+<h1>Applications</h1>
+<h2>Application DeliveryServer</h2>
+<ul>
+<li>We are going to provide delivery service ASAP
+since our customers need it during COVID-19</li>
+</ul>
+<h3><a name=DeliveryServer-...></a>DeliveryServer ...</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZh5gmp0KHNTznQqNJpAcqALKnQOIfKCjgDMfWn7D8uZ8Tf0Ka-JhGq8813BehE-yoocpOMM9BAvg-slqf-hKJskKn8UM2fn3QdJQGCalytHJirUpMraJamrfDthsFqyfp1w59EyM2eUUmaAXW8qOQXOtRjhQO4UCTlzDCTerzUv8U7wfMNB94-uVySPHLHKJul41Gh0__ZxKUBru3KshSySf003__nhPKFq0" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><span style="color:grey">No Request types</span></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><span style="color:grey">No Response Types</span></p>
+</details>
+<hr>
+<h2>Application IdentityServer</h2>
+<ul>
+<li>This server handles all the customer related endpoints
+including customer profile, password update,
+customer authentication, etc.</li>
+</ul>
+<h3><a name=IdentityServer-Authenticate></a>IdentityServer Authenticate</h3>
+<p>this is a description of Authenticate</p>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaB5kya0GXFjxYlrfQ7udLgGqaMr0yIcY04l1L1HeiLVEAUSxQs-D0ayV6P48gdZAcs_cHZiTBJMTmYXTqSMsBDxqMhylIft3Qv5hY2B82rWN9UXyMVxxHKUtZjwgva6GfM-jghmJzXOcovgS63bjY8_44y00-rY5J-CwP6oXnQyLXO0DRSoPuEavLcB44jm78ObWqSl7y5QXa4hJFmX8KxMBidqCB_T9hCGS1s0VAzy9u8rPAzWbKNG99PMtdk5WUyfMr62EWWSCzA3RJax9uyNE8Bbo3HEvRFOVPZzMfiZLgc7VTq0sq4ttrWs_UZPdgZMpvmjQq-ssERbwEELt0000__zvx9QC" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oiefUOcPkOeAIGMAyGRADZOA6YuwEGN9MTafcWg59SKPUQbAzZPALHprN8vfEQbWC834000__-sM3Qm" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5IGM5vVd5wKeAIGMAyGRADZOA6YuwEGN9MTafcWg59SKPUQbAzZPALHprN8vfEQbW8844000__zrBpWR" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><span style="color:grey">No Response Types</span></p>
+</details>
+<hr>
+<h3><a name=IdentityServer-CustomerProfile></a>IdentityServer CustomerProfile</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZp5B0q4GXVlv5SyqLoqSWeta926tI0fpOiugHHXoeopUxihk9AY_NW8Y7XRPryxtXkzLnQ6gGb5-qELptztRZNrQzhR5gcijZ47ROTFriEswl_f5YxyMkz8YAoSz-f4ECMYA8sRhGO8w_TnAEacQWJFsDUKt5zuviOVdZmV9cLzbwxu4rpSrgTDHC2rYRh0wPerUqcEABsuKQfhB49g6TkPkN-FsNvyFwawiSXRQpOsPG3J8t_j2md3UzHq00F__b_Dm3G00" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie9PSMb-JdfXR5PwOeAIGMAyGRADZOA6YuwEGN9MTafcWgPEQLADZPALHprN8vfEQbW8844000__zwOpVw" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaS5An30KHVVvYkjigemZhgMKbYP8DmreN9VGF6qWIIL91H7_NGILWhF8MHuEZmUtJLd7l7d7gc9OLQ68dxHxKl9UZEAXKuAZbrpWT0AN6AM2u8Ew-4kBhnR_ocQdKyAXtr9UFSK3TC9qYxh69RzUuxnOSuN1KCWslpzIVADuynkZQV31ZY2lhSCTKeuslB0ZdcrCUGhQqzuwVKPwQuoZV_frMSDEVBAMWldUuIi00F__YK1W3m00" alt=""></p>
+</details>
+<hr>
+<h3><a name=IdentityServer-NewCustomer></a>IdentityServer NewCustomer</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZxrg0p4GX7iznSJDLO8Za2RuWeqbWekS85Og5sRnBK7af0lIslbv-k0GJDmOJJlVBDysrL5DWwhyeSiNxnvjRv-NtXgidB7G6iQXTnxMhFtD6Qs-Mksg5aKeoo6EQZyboTE8sNhW946-DfoFd6UWWbshobj8xvGf8jBd4vT2hxm9tupRkrP9a95nESHSe-UFrQ7853chhhiEeElKLZ_iMjnVx6WluKZ29udjNEjVuDmE_BzVS1fEl_m4003__nZaQnW0" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaK5B0p4GHk_v5P-zh58hdgMKbYP8BxjGrtC9pMW3ITREp5f4_EyYY5Jqa7TyF8Q1RodgMSUSJ5EDQHfKyPsk7llkthLkk-gTnRgp3hCPR8Usw-7ifh_uIQklLlzgzicBOC9qdC0BThUOpt5fhmVU7sAumYPGqQXl3yIln3SjdTQZw929jtGSIHIB1TxD59HzJBY3ACVoRAPuYYowApxJkKt-7vbZ28d-w1SlSXeu_7A7ePn57sP99NmDz1a00F__XlPeyG00" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaS5An30KHVVvYkjigemZhgMKbYP8DmreN9VGF6qWIIL91H7_NGILWhF8MHuEZmUtJLd7l7d7gc9OLQ68dxHxKl9UZEAXKuAZbrpWT0AN6AM2u8Ew-4kBhnR_ocQdKyAXtr9UFSK3TC9qYxh69RzUuxnOSuN1KCWslpzIVADuynkZQV31ZY2lhSCTKeuslB0ZdcrCUGhQqzuwVKPwQuoZV_frMSDEVBAMWldUuIi00F__YK1W3m00" alt=""></p>
+</details>
+<hr>
+<h3><a name=IdentityServer-UpdatePassword></a>IdentityServer UpdatePassword</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZpzB0q4GnVlv5CyqLoqSWeta9C5R98KvCPSgHHYoWoovsmsxO_ppwUL4H6tSryxl3RzN5OUg2aNvGfVRlhkpQ_kux6sBswwrC0PjXtNNmxQh_k8RBVvQx4gBh9pqUHpe48EcE62sSXBKwzj6qbdI39onhoaVVJXnuX4ZlzvBplma6_ykkBogIRqEWjz5p0ss9ySg3vppIqoEckPV1ar3EtEpht7zjyq7zMTMcMnsSsC-cNWa9pyl2mbkclCH003__v2ER4u0" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie9PSMb-JdfXR5PwOeAIGMAyGRADZOA6YuwEGN9MTafcWgPEQLADZPALHprN8vfEQbW8844000__zwOpVw" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oievUUaA2aa5Yl46oZOs2XekEZa5oLdPAPeAXIN56NcfIlOsIbKSzLoEQJcfO120n000F__GG4rvm00" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oievQMMAoaa5Yl46oZOs2XekEZa5oLdPAPeAXIN56NcfIlOsIbKSzLoEQJcfO120n000F__GkSryW00" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><span style="color:grey">No Response Types</span></p>
+</details>
+<hr>
+<h2>Application OrderServer</h2>
+<ul>
+<li>This server handles all the order
+related endpoints.</li>
+</ul>
+<h3><a name=OrderServer-Order></a>OrderServer Order</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZp5hmp0GXVVx5QzPF0bCeKk9Iq8jIeT6qBXJ1YEY8uZAaf4keVJN5zCGF6Jms-xTT-_kgiMYgi8YNT7jLsVUz4v_RZlTujMq6agXDTYP3hfzxnvkwEBKnRVIfeZDSXu27LEKd09M9ZlEUyuNpYlOWhwcyktZQBCTCDYV3ox5ddZlVncFJpM9by2OJM6j_ajgchi-ceOEwgMlyNm5xL7ynGfFoz8eI9FRUmTV47qW7DPApNYEZauvdKTmA7otxNWUkk7efY__0W00___pBd0-" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCa45hX30GHk_v5L-zs68jFHSHfGcb5mCsFKimWGQihfDaOLdsloykikmnxpGy7iCmZG-QGloVM9uCotCaiQVjhv9VeXDzgmJ7f-G2PGakqKa5mR_LqprDtffyAnidxJqoici6xJ6yewhmp5yN6l-SUO4aO-d7qj7IsstkxHgj3wXhd5c1PNE3C_Y0cmChSA35n34ygZNgERXmsiM5DNOssrEl0G00___GMquX" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><span style="color:grey">No Response Types</span></p>
+</details>
+<hr>
+<h3><a name=OrderServer-Review></a>OrderServer Review</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZZzB134GnVlv5CzhjWeiWerSv0uJnC8BtCNgYcFO7IIuVoI9g_ZfPHULBIposj_lpRogE5HLACgFkd_sxi4Ux77lhS6zCnPAmJWSd8SrZ_xgJos-MhoLTYbppEzzHyquv3XssBZOIZn9d2Hkm0cNcj9h6DuuSe-UFvya9NwHK_WIND_Kb4Fk1AiMjWf7cO9yaDR_0sXDPtLtgN7xgtAJmyHPvd_dhL8BMyhKoXhkP6ZdmTy1003__tR-Nxe0" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5IVd5wKgAIGMAyGRADZOA6YuwEGN9MTafcWgPEQLADZPALHprN8vfEQbW0834000__yFw3Lu" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie9UVdvgRcbIWf91Ohn1iesDWeQBZev1SbPsIcQ2eKbnHbvgKhsDafL7FLSZcavgM0GWGG003__pEcDvi0" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaa5luZ0GXU_-5MzpOJTi8i8H8GHgegeNKfNqRBcErLfARB0dL5N5VwzmWDBsqCnfx7cUzpt9Iq_2KTSsR3Ius6Y4GNMIhXwhyhPO5m-hgiXnK-O5aWHvYNLPeSZlgZyNwU2jWrcPR8JtY4fNAnT1UF09vdFypVzR9rzq_GzXj55khrmQUYmMU6TZw1epQ4F7bbJhCKCSRzIkKqOgp8FstjcwaxI8OpR6LeGdJzOsR0odzbgzScdRLXd239wSDi-V4o-jKnSBJuAwtgCd2kUmboo9Xc-TbcVvuPmhWFMvijzodLZFyKvW_ffisqluLVHT9mnfUllk_6Dz3mnbkhO7cdxb2RO7nYU8amJH94tZ23oxN6HfcY42dxAbClNnJtu4003__xfkiDa0" alt=""></p>
+</details>
+<hr>
+<h3><a name=OrderServer-UpdateOrderStatus></a>OrderServer UpdateOrderStatus</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZq5B0p4GXU_pAvwzx2cm25waAoqcY0SRiEcfXp8qWmHtjoMP5l7NIwl87WJpZZFVFBvfgaDDWwhyeCjDy4zkvLwNmLayUkjW3Ap7oWSu-nnkVj7grcfNMXJbhAUXf_rXr7peCVCvIbvBFakUWGjsBPNtD1uvyu21Frwa57wJTVeKtDwrf4bxmUGASuFDCRBAzr1PJuMwxby6NKTRyx1hSVz70UyrdLdb8hIT6tF5hW15cIuNCiRBHry1003__ufcRGq0" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oievHUbf1R5PwOeAIGMAyGRADZOA6YuwEGN9MTafcWgPEQLADZPALHprN8vfEQbWC834000__-_VZQa" alt=""></p>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5PSabfGMAoaa5Yl46oZOs2XekEZa5oLdPAPeAcJcbIZOsIbKSzLoEQJcfO120n000F__K2Ks0000" alt=""></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaa5luZ0GXU_-5MzpOJTi8i8H8GHgegeNKfNqRBcErLfARB0dL5N5VwzmWDBsqCnfx7cUzpt9Iq_2KTSsR3Ius6Y4GNMIhXwhyhPO5m-hgiXnK-O5aWHvYNLPeSZlgZyNwU2jWrcPR8JtY4fNAnT1UF09vdFypVzR9rzq_GzXj55khrmQUYmMU6TZw1epQ4F7bbJhCKCSRzIkKqOgp8FstjcwaxI8OpR6LeGdJzOsR0odzbgzScdRLXd239wSDi-V4o-jKnSBJuAwtgCd2kUmboo9Xc-TbcVvuPmhWFMvijzodLZFyKvW_ffisqluLVHT9mnfUllk_6Dz3mnbkhO7cdxb2RO7nYU8amJH94tZ23oxN6HfcY42dxAbClNnJtu4003__xfkiDa0" alt=""></p>
+</details>
+<hr>
+<h2>Application PaymentServer</h2>
+<ul>
+<li>This server handles all the payment related endpoints.</li>
+</ul>
+<h3><a name=PaymentServer-Pay></a>PaymentServer Pay</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCa45h-a0GnU_pATxVYwU5LV3onuZIXD93JQbfBnx2OWO9JRBBx2Yrdxx4Ybhe8NFRjx_tvZ7ZmKFZCGRD1Lsz5VbZjivULqMMuY5FCnY3DCSwBv2bJyM_ApeuTN1NMaPreeUsePtlL7o3qOixjTpfXkN8CeABAEtjzxsExaUSKFoek-34jMZTvpF7wFQygRyOqvabhRLX_0h3tFG29ScVEfA4jcPHMlm_OswdzT4fz_jzK0JnEuxHIwcdm4WIZ8vz6m9AQnRbvE83Riu90HNVlxchQ2_-4C1DPC9sRinvvSnQpB7skZc4u4MvoaIyd0rNQ6ejtUTPMd9NzVVx3W00__zcW8k2" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><span style="color:grey">No Request types</span></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><span style="color:grey">No Response Types</span></p>
+</details>
+<hr>
+<h2>Application ProductServer</h2>
+<ul>
+<li>This server handles all the product
+related endpoints.</li>
+</ul>
+<h3><a name=ProductServer-Menu></a>ProductServer Menu</h3>
+<details>
+<summary>Sequence Diagram</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCZa5Bmq0GXU_pAvwzvBGG12_II8jPn4ExOjTJ3sL81bbCDh8xAUAlbseHXHxsNR_lpRogE5HLACfPNRzuzs2tzddjROjxrreOWzPXwpni--YlVjNYgyLRQPMLayxZGDqKDKq35azfwkTETvAEaXRWZ4DD-It4TquyOkIFZUJChx8BduBhcveqw23uryFIO2DnfgQv3D0qj3TtXngtFo9t6ewiSlgsNnhpJSxLJBtyvIk9_MdpLm000F__o6DXAW00" alt=""></p>
+</details>
+<details>
+<summary>Request types</summary>
+<p><span style="color:grey">No Request types</span></p>
+</details>
+<details>
+<summary>Response types</summary>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8vfEQbWFm72000___IZYWQ" alt=""></p>
+</details>
+<hr>
+<h1>Types</h1>
+<p><a name=IdentityServer.Customer></a><details></p>
+<summary>IdentityServer.Customer</summary>
+<h3>IdentityServer.Customer</h3>
+<ul>
+<li>Empty Type</li>
+</ul>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCq35hmp0G1U1Tl-BLYrjSG-TYZ8qbIXSBYZeROQcrG9A394yX_pq4ac181htnkyTnN1UJ36bpbfJP8MM9h5oh_Q_WNsnaFxrW50Ed37KDoZ5o0KQ_nSkzchqr-rOoMnaZYc6BQNKw590HqmUQ1g_qVGtpOjGRRbEqBOwaWdRIM7mYfc3yFwdmPq9CavTExzNA9-YCKbO_y65P_GvEfDDUNHv_3W00__-TFbeW" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCaS5An30KHVVvYkjigemZhgMKbYP8DmreN9VGF6qWIIL91H7_NGILWhF8MHuEZmUtJLd7l7d7gc9OLQ68dxHxKl9UZEAXKuAZbrpWT0AN6AM2u8Ew-4kBhnR_ocQdKyAXtr9UFSK3TC9qYxh69RzUuxnOSuN1KCWslpzIVADuynkZQV31ZY2lhSCTKeuslB0ZdcrCUGhQqzuwVKPwQuoZV_frMSDEVBAMWldUuIi00F__YK1W3m00">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>middle_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=IdentityServer.NewCustomerRequest></a><details>
+<summary>IdentityServer.NewCustomerRequest</summary>
+<h3>IdentityServer.NewCustomerRequest</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaSrA0p4KHlTvYizkHga5rr9AInF4pGHAN9VGN9r0VZGtmop4TnT1P6Iwo5aU3fSBtvwhBNMCGNJDYAv34x_fuSNe9zMhqy4eYQEM2fiDf4Ql3PHyDZT_QVFLvb_59LXch7gQZYFN7AcSw6CahYjOnla1sorkvNqkby6xEomxx7Ru56jGj3xW4LoBJszYZLTVk9wJZJItmLwHqJiNQA7VBVEKY_ldXfncqPVOKt8_0tq7003__z1RQHy0" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCaK5B0p4GHk_v5P-zh58hdgMKbYP8BxjGrtC9pMW3ILPdPYqY_dSHH2hra7Tyl1a6PYdgMSUSJ5EDQHfKyPEk7llkthLkk-gTnRgp3hCPR8Usw-7ifh_uJQktLjzgzicBODBISJsA3fbuIwyZYKxW1RjRpEUujDS3xmynN64Jg6ZKzmVYD-ARyp4i5lWmKr3sCU4EeXpBivdYARBehlXCfpRvVsIE8IGwqozUv3Xm-ECEGpc9FisIIlZ-rrS0003__wkBRmu0">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>middle_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=IdentityServer.UnauthorizedError></a><details>
+<summary>IdentityServer.UnauthorizedError</summary>
+<h3>IdentityServer.UnauthorizedError</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaC4AWa0OXE_x59CNYn8wXuZIBj75XLZFigYee2xy_tefUlSGeakN_Mu37yCmENjBVfqd4GSZuXX1VDMYClgcIlKeZ9AuQgcG990QfJPGycvsFpMuDNYhQ2RBZAXQxEe7H-EpQnMHemYMKP-HfjZBawDc6Di3_ZHa6LxYY6uBzSmzBc1FuzABjyYxfTs--mG00F__--L7Nm00" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCa45hX30KXE_v5LCljhIMdek8qeJYnK0Rpn9Cq816U8c5xhB_VH6MlUmbt-t1zuPXwX0rnNrTM9uCotCaSLERNiblqOcVHWcEBya5YW9SefCAWhVgwQucfoPtPUEYGq3MUxt7UIDtiaOGRPH11mmVA4iyyxUDnjcP5xJ6-kZY_w-bFqll3r-eAfpPA-nn36kOy8aGoVc9NLXjlJccl0O00F__W6HDJW00">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error_msg</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<p><a name=OrderServer.Order></a><details></p>
+<summary>OrderServer.Order</summary>
+<h3>OrderServer.Order</h3>
+<ul>
+<li>Customer order information</li>
+</ul>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCaK5Bn30GXU_v5S-zhBOkU2wbx6A2UDc8Myyb9eC6scHDfdeG_xjirFNQTqfutxmtCDlC9l4yZMAzM6AznYBzehkdNj-flNhSzKhYLak5pGPIOwzxA7dVNvpHnQcBTnLsD3bZfPEZj8B966xGjhYKrp7PL--kK2nq7Jv53U_Gm0S-FPccZ0PLTQ2tcO8bj8LzID7Dbhkg4ZMEfemynpYA6edUFNqCDauJ1KQ3pCc7btydsvZeN97PyFpJKP8FvLzoER8PXsFozW__4biAxdIhxm000F__2R5f3W00" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCaa5luZ0GXU_-5MzpOJTi8i8H8GHgegeNKfNqRBcErLfARB0dL5N5VwzmWDBsqCnfx7cUzpt9Iq_2KTSsR3Ius6Y4GNMIhXwhyhPO5m-hgiXnK-O5aWHvYNLPeSZlgZyNwU2jWrcPR8JtY4fNAnT1UF09vdFypVzR9rzq_GzXj55khrmQUYmMU6TZw1epQ4F7bbJhCKCSRzIkKqOgp8FstjcwaxI8OpR6LeGdJzOsR0odzbgzScdRLXd239wSDi-V4o-jKnSBJuAwtgCd2kUmboo9Xc-TbcVvuPmhWFMvijzodLZFyKvW_ffisqluLVHT9mnfUllk_6Dz3mnbkhO7cdxb2RO7nYU8amJH94tZ23oxN6HfcY42dxAbClNnJtu4003__xfkiDa0">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>items</td>
+<td>sequence of OrderProduct</td>
+<td></td>
+</tr>
+<tr>
+<td>paid</td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td>review_comment</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>review_score</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>status</td>
+<td>OrderStatus</td>
+<td></td>
+</tr>
+<tr>
+<td>total_price</td>
+<td>int</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=OrderServer.OrderProduct></a><details>
+<summary>OrderServer.OrderProduct</summary>
+<h3>OrderServer.OrderProduct</h3>
+<ul>
+<li>Order items</li>
+</ul>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCqB5gmp0Gnl5TJ_7LYrjSGsTZZ4qbIXUh56KsGZA9m9OJwJo4a7SF8IPar7yyVXp7jP5qe7MUM9uSotCajT5kf-IFwCL_fmJ7j-G2PGakqKi5mN_LsvCcRqs-bPb9nuXC1Zk6lx3OrL067J5yeQxnpZ-NO0xEVk1Le6bmOGNCCi-ZfuWAaOBpUrRW-223iwZWFB42frLxSdJU1bVMZjxUdteB003___b5JdS0" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCqC5An30Gnl5xdk9pBrNgYkTIIei9ugKHZUSIag21DjN9L13ntKKjiiVyZyEFOPW-ioNUbbbKnOcgGb4x7PwClbMZUXYCahZHKk5uXDGOjO6IT-RidnPlBRvLkDdcZ8Cc7-YULhyvFi1cJDTeMvpBovNSI_GN-1MFWTu3NPrgT1q-HGstBaj8dD4WCyNqB6gy_f4fUZI8YKMDjyqcZlon3xv47vB_UV1t0000___u_bCO">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>comments</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>product_id</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>int</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=OrderServer.OrderRequest></a><details>
+<summary>OrderServer.OrderRequest</summary>
+<h3>OrderServer.OrderRequest</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCa4yBWZ0OX-_x5B-yM9ZGEKIKDgAB0rbd6MxGm3Jtvn3HTmz1mkEUuyF3oyklSbvQ7vu3IQCXQOeerhI-2tvb3MjhmIWkd3BaEIX7mmKOlOdTFus-6lqhwGVf719kbRQjdeDsFe5qw4ue2kpfSRBzmwW3jWNA4X-IOLfSPnJECACd6LvsKg7tMpK7ENhZtwluaagFQbdq5m00___-q4qT" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCaCsAWp0KHlTvYc_SE8FZCEj1H9c4qeq1cwubc403Lcj-2gNqtOj5YikSvU5mkNoLyzBwS1v86Wr9KqInflLHy1rhM5iBHl7FAKEUWt8qN83HlVXufz5Netyb_I2TGyAjqhRLSz3E9v0EtI-A0f_qUxBzoQWll8g3jbTjVxOroX9tac5QN6SK_c16Jp9SxAH2xxTg3dBqnjzMyI2L7jMoxZC00F__yGPHlW00">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order_id</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>product_id</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>int</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=OrderServer.OrderStatus></a><details>
+<summary>OrderServer.OrderStatus</summary>
+<h3>OrderServer.OrderStatus</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie-HUbf1O5boIMb1OhfEQLvYef91Ohn1lOs2XekEZa5oLdPAPeAjZPALHprN8vfEQbW8844000__-4BpWc" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie-HUbf1O5fnQLfHRfGTWbYIMbnGgfUQMvIWg9nGhn1ZOs2XekElb5oHcPAPeATdOArLorN0wfUIcWu044003__sz9FCS0">Full Diagram</a></p>
+</details>
+<p><a name=PaymentServer.PaymentType></a><details></p>
+<summary>PaymentServer.PaymentType</summary>
+<h3>PaymentServer.PaymentType</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie1IHMvgRcbOHK5gGgfEQLvYef91Ohn1lOs2XekEZa5oLdPAPeAjZPALHprN8vfEQbW8844000__-4bpWc" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie1IHMvgRcbGId5fMb5kb1UI6L1QaAgNcbkKeAYSKAyGOsDWeQBZhvHSaPcIcQ2dPs2jLSjLmEgNafe0021000___uM3sf">Full Diagram</a></p>
+</details>
+<p><a name=ProductServer.Product></a><details></p>
+<summary>ProductServer.Product</summary>
+<h3>ProductServer.Product</h3>
+<ul>
+<li>Product information</li>
+</ul>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDgCa36hWp0KXVVyYlDSV0-Vq5b4b2QKBgQKT2uX2JQWiIHnAltlHP3IRZdJlNmVbyjfGvG-BjD8ykIGF4TIDhMx27vWFJjtWb7iEMKeIr2EdWimUXG_RpNvQlAlH8qo16GdF-j5nGmouBf3NUEN_izUtQp-mmRHD7YG0jf4QSU02Y5wwmPIm6fKi2wkuoG7yycSdBxskxVARFgJjCRfjTzN0000___4pK-Z" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDgCa35hmp0GXNVzYbSlRd5TEXjZR2fHkbYbLUSY9E48R3b8SfQG_nuC8YIRtdIFx-CuhWzH-hWjCocpGyeIMKdgy2Vu9nlPpo0OnGUd37KDoZ5o0KQ_nDDDpTwQVIjHimm1nRTVzQPY0Hdm_uwsnJDzNRqwMFs217-DFnd_bXgw3cTIGPiexHpG84HltKGgM8q6riLzNEHaxfcJoqC_UgjCqY-aDqxltxu6003__xotLIa0">Full Diagram</a></p>
+<h4>Fields</h4>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>details</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>image</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>int</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<a name=ProductServer.Products></a><details>
+<summary>ProductServer.Products</summary>
+<h3>ProductServer.Products</h3>
+<p><img src="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8vfEQbWFm72000___IZYWQ" alt=""></p>
+<p><a href="https://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8vfEQbWFm72000___IZYWQ">Full Diagram</a></p>
+</details>
+<div class="footer">
+
+<style type="text/css">
+
+
+body {
+  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #111;
+  background-color: #fdfdfd;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    padding: 5px;
+  }
+
+  body > #content {
+    padding: 0px 20px 20px 20px !important;
+  }
+}
+
+body > #content {
+  margin: 0px;
+  max-width: 900px;
+  border: 1px solid #e1e4e8;
+  padding: 10px 40px;
+  padding-bottom: 20px;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+hr {
+  color: #bbb;
+  background-color: #bbb;
+  height: 1px;
+  flex: 0 1 auto;
+  margin: 1em 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+ * Links
+ */
+a {
+  color: #0366d6;
+  text-decoration: none; }
+  a:visited {
+    color: #0366d6; }
+  a:hover {
+    color: #0366d6;
+    text-decoration: underline; }
+
+pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 16px;
+}
+
+/**
+  * Code blocks
+  */
+
+code {
+  background-color: rgba(27,31,35,.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  word-wrap: break-word;
+  padding: .2em .4em;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+}
+
+pre > code {
+  background-color: transparent;
+  border: 0;
+  display: inline;
+  line-height: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  word-wrap: normal;
+  font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+blockquote {
+  margin-left: 30px;
+  margin-top: 0px;
+  margin-bottom: 16px;
+  border-left-width: 3px;
+  padding: 0 1em;
+  color: #828282;
+  border-left: 4px solid #e8e8e8;
+  padding-left: 15px;
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-style: italic;
+}
+blockquote * {
+  font-style: normal !important;
+  letter-spacing: 0;
+  color: #6a737d !important;
+}
+
+/**
+ * Tables
+ */
+table {
+  border-spacing: 2px;
+  display: block;
+  font-size: 14px;
+  overflow: auto;
+  width: 100%;
+  margin-bottom: 16px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+th {
+  font-weight: 600;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+/**
+ * Others
+ */
+
+img {
+  max-width: 100%;
+}
+
+p {
+  line-height: 24px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #24292e; }
+
+ul {
+  margin-top: 0; }
+
+li {
+  color: #24292e;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5; }
+
+li + li {
+  margin-top: 0.25em; }
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: #24292e; }
+
+a:visited {
+  color: #0366d6; }
+
+h1, h2, h3 {
+  border-bottom: 1px solid #eaecef;
+  color: #111;
+  /* Darker */ }
+</style></div>
+</body>
+</html>

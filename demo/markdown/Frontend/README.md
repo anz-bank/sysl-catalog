@@ -1,11 +1,11 @@
 
 
-# simple2.sysl
+ [Back](../README.md) |  | )
+# Frontend
 
 | Package |
 ----|
-[Backend](Backend/README.md)|
-[Frontend](Frontend/README.md)|
+[Application](Application/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

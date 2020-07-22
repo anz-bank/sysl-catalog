@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="353px" preserveAspectRatio="none" style="width:342px;height:353px;" version="1.1" viewBox="0 0 342 353" width="342px" zoomAndPan="magnify"><defs><filter height="300%" id="f1suqcf8hegdv6" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="317" x="12" y="26.708">IdentityServer &lt;- CustomerProfile</text><rect fill="#FFFFFF" filter="url(#f1suqcf8hegdv6)" height="87.3984" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="133" y="174.5156"/><rect fill="#FFFFFF" filter="url(#f1suqcf8hegdv6)" height="29.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="264" y="203.6484"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="138" x2="138" y1="100.25" y2="279.9141"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="269" x2="269" y1="100.25" y2="279.9141"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="83" y="96.9482">IdentityServer</text><ellipse cx="138" cy="67.9531" fill="#FEFECE" filter="url(#f1suqcf8hegdv6)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="134,55.9531,140,50.9531,138,55.9531,140,60.9531,134,55.9531" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="83" y="291.9092">IdentityServer</text><ellipse cx="138" cy="311.2109" fill="#FEFECE" filter="url(#f1suqcf8hegdv6)" rx="12" ry="12" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="134,299.2109,140,294.2109,138,299.2109,140,304.2109,134,299.2109" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="106" x="213" y="96.9482">MegaDatabase</text><path d="M251,47.9531 C251,37.9531 269,37.9531 269,37.9531 C269,37.9531 287,37.9531 287,47.9531 L287,73.9531 C287,83.9531 269,83.9531 269,83.9531 C269,83.9531 251,83.9531 251,73.9531 L251,47.9531 " fill="#FEFECE" filter="url(#f1suqcf8hegdv6)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M251,47.9531 C251,57.9531 269,57.9531 269,57.9531 C269,57.9531 287,57.9531 287,47.9531 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="106" x="213" y="291.9092">MegaDatabase</text><path d="M251,305.2109 C251,295.2109 269,295.2109 269,295.2109 C269,295.2109 287,295.2109 287,305.2109 L287,331.2109 C287,341.2109 269,341.2109 269,341.2109 C269,341.2109 251,341.2109 251,331.2109 L251,305.2109 " fill="#FEFECE" filter="url(#f1suqcf8hegdv6)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M251,305.2109 C251,315.2109 269,315.2109 269,315.2109 C269,315.2109 287,315.2109 287,305.2109 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><rect fill="#FFFFFF" filter="url(#f1suqcf8hegdv6)" height="87.3984" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="133" y="174.5156"/><rect fill="#FFFFFF" filter="url(#f1suqcf8hegdv6)" height="29.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="264" y="203.6484"/><rect fill="#EEEEEE" filter="url(#f1suqcf8hegdv6)" height="3" style="stroke: #EEEEEE; stroke-width: 1.0;" width="319" x="11" y="130.8164"/><line style="stroke: #000000; stroke-width: 1.0;" x1="11" x2="330" y1="130.8164" y2="130.8164"/><line style="stroke: #000000; stroke-width: 1.0;" x1="11" x2="330" y1="133.8164" y2="133.8164"/><rect fill="#EEEEEE" filter="url(#f1suqcf8hegdv6)" height="23.1328" style="stroke: #000000; stroke-width: 2.0;" width="280" x="30.5" y="120.25"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="261" x="36.5" y="136.3169">IdentityServer &lt;- CustomerProfile</text><polygon fill="#A80036" points="121,170.5156,131,174.5156,121,178.5156,125,174.5156" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="11" x2="127" y1="174.5156" y2="174.5156"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="103" x="18" y="169.4497">CustomerProfile</text><polygon fill="#A80036" points="252,199.6484,262,203.6484,252,207.6484,256,203.6484" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="143" x2="258" y1="203.6484" y2="203.6484"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="102" x="150" y="198.5825">SelectCustomer</text><polygon fill="#A80036" points="154,228.7813,144,232.7813,154,236.7813,150,232.7813" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="148" x2="268" y1="232.7813" y2="232.7813"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="15" x="160" y="227.7153">ok</text><polygon fill="#A80036" points="22,257.9141,12,261.9141,22,265.9141,18,261.9141" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="16" x2="137" y1="261.9141" y2="261.9141"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="63" x="28" y="256.8481">Customer</text><!--MD5=[f65db8eb5b92ff9a16482532293f9fb6]
+@startuml
+''''''''''''''''''''''''''''''''''''''''''
+''                                      ''
+''  AUTOGENERATED CODE - - DO NOT EDIT!  ''
+''                                      ''
+''''''''''''''''''''''''''''''''''''''''''
+
+
+control "IdentityServer" as _0
+database "MegaDatabase" as _1
+skinparam maxMessageSize 250
+title IdentityServer <- CustomerProfile
+== IdentityServer <- CustomerProfile ==
+[->_0 : CustomerProfile
+activate _0
+ _0->_1 : SelectCustomer
+ activate _1
+ _0<- -_1 : ok
+ deactivate _1
+[<- -_0 : Customer
+deactivate _0
+@enduml
+
+@startuml
+
+
+control "IdentityServer" as _0
+database "MegaDatabase" as _1
+skinparam maxMessageSize 250
+title IdentityServer <- CustomerProfile
+== IdentityServer <- CustomerProfile ==
+[->_0 : CustomerProfile
+activate _0
+ _0->_1 : SelectCustomer
+ activate _1
+ _0<- -_1 : ok
+ deactivate _1
+[<- -_0 : Customer
+deactivate _0
+@enduml
+
+PlantUML version 1.2020.16beta7(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

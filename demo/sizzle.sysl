@@ -25,6 +25,7 @@ Sizzle[~project]:
         OrderServer
         PaymentServer
         DeliveryServer
+        Database
 
 
 Dine-in Customer [~human]:
@@ -143,14 +144,12 @@ IdentityServer:
     !type Customer:
         @description="This contains all information relating to a customer"
         first_name <: string
-        middle_name <: string
         last_name <: string
         phone <: string
         email <: string
 
     !type NewCustomerRequest:
         first_name <: string
-        middle_name <: string
         last_name <: string
         phone <: string
         email <: string
@@ -283,11 +282,12 @@ MegaDatabase[~db]:
     !table customers:
         id <: int [~pk]
         first_name <: string
-        middle_name <: string
         last_name <: string
         phone <: string
         email <: string
         password <: string
+        signup_at <: datetime
+        last_login_at <: datetime
 
     !table products:
         id <: int [~pk]
@@ -302,6 +302,8 @@ MegaDatabase[~db]:
         status <: int
         review <: reviews.id
         total_price <: int
+        created_at <: datetime
+        updated_at <: datetime
 
     !table orders_products:
         @description="order details"
@@ -313,10 +315,11 @@ MegaDatabase[~db]:
     !table payment_details:
         id <: int [~pk]
         order_id <: orders.id
-        type <: float
-        payment_card <: card_payment.id
+        type <: int
+        payment_card <: cards.id
+        paid_at <: datetime
 
-    !table card_payment:
+    !table cards:
         id <: int [~pk]
         card_number <: string
         expiry <: string
@@ -325,6 +328,7 @@ MegaDatabase[~db]:
         id <: int [~pk]
         score <: int
         comment <: string
+        created_at <: datetime
 
 Cache:
     @package="Database"

@@ -282,7 +282,6 @@ this is a description of Authenticate
 | email | string | |
 | first_name | string | |
 | last_name | string | |
-| middle_name | string | |
 | phone | string | |
 
 
@@ -306,7 +305,6 @@ this is a description of Authenticate
 | email | string | |
 | first_name | string | |
 | last_name | string | |
-| middle_name | string | |
 | password | string | |
 | phone | string | |
 

@@ -26,6 +26,7 @@
 
 | Application Name | Method | Source Location |
 |----|----|----|
+| Cache | [...](#Cache-...) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl)|  
 | MegaDatabase | [InsertCustomer](#MegaDatabase-InsertCustomer) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl)|  
 | MegaDatabase | [SelectCustomer](#MegaDatabase-SelectCustomer) | [https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl](https://github.com/anz-bank/sysl-catalog/blob/master/demo/sizzle.sysl)|  
 
@@ -47,6 +48,7 @@
 
 
 
+
 <a name=Database-MegaDatabase></a><details>
 <summary>Database MegaDatabase</summary>
 
@@ -59,6 +61,60 @@
 
 
 # Applications
+
+
+
+
+
+## Application Cache
+
+
+
+
+
+
+
+
+
+
+
+
+### <a name=Cache-...></a>Cache ...
+
+
+<details>
+<summary>Sequence Diagram</summary>
+
+![](Cache/....svg)
+</details>
+
+<details>
+<summary>Request types</summary>
+
+
+<span style="color:grey">No Request types</span>
+
+
+
+
+
+
+</details>
+
+<details>
+<summary>Response types</summary>
+
+
+
+
+
+<span style="color:grey">No Response Types</span>
+
+</details>
+
+
+---
+
 
 
 

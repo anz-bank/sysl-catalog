@@ -7,7 +7,6 @@
 ----|
 [BFF](BFF/README.md)|
 [Database](Database/README.md)|
-[MasterCard](MasterCard/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

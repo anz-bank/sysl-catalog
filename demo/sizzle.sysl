@@ -239,7 +239,7 @@ PaymentServer:
         if processor_type == "visa":
             Visa <- Pay
         else if processor_type == "mastercard":
-            MasterCard <- Pay
+            MasterCard <- POST /pay
         else:
             return 500 < NotSupportedError
 

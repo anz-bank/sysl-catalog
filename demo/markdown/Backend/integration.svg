@@ -1,20 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="305px" preserveAspectRatio="none" style="width:698px;height:305px;" version="1.1" viewBox="0 0 698 305" width="698px" zoomAndPan="magnify"><defs><filter height="300%" id="f1u0ln6lg6i2qe" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="78" x="301.25" y="16.708">Backend</text><!--MD5=[834ef74a6aa73a899f9de7987f49a674]
-entity _0--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="151" x="7" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="138" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="136" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="136" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="111" x="22" y="166.9482">PaymentServer</text><!--MD5=[5793e68b51480d2da18d2edf8802f392]
-entity _1--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="69" x="48" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="97" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="95" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="95" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="63" y="272.9482">Visa</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
-entity _2--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="117" x="24" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="121" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="119" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="119" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="77" x="39" y="60.9482">Dashboard</text><!--MD5=[491502b257624c25ed563d7bf73ae0a0]
-entity _3--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="88" x="485.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="553.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="551.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="551.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="500.5" y="60.9482">Mobile</text><!--MD5=[e10aba13bcd25b8e2f2c6ecd09c6015a]
-entity _4--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="143" x="373" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="496" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="494" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="494" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="103" x="388" y="166.9482">ProductServer</text><!--MD5=[9e283554f6c225a5c09d9b9f4b518823]
-entity _5--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="128" x="551.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="659.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="657.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="657.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="566.5" y="166.9482">OrderServer</text><!--MD5=[91935b7652ee4fab4148391a7b11bd92]
-entity _6--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="100" x="240.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="320.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="318.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="318.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="255.5" y="60.9482">Website</text><!--MD5=[298d702d1872fc728c85faa77d789d69]
-entity _7--><rect fill="#FFFAF0" filter="url(#f1u0ln6lg6i2qe)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="144" x="193.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="317.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="315.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="315.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="208.5" y="166.9482">IdentityServer</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
-link _0 to _1--><path d="M82.5,180.0091 C82.5,196.0034 82.5,217.7316 82.5,234.7949 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="82.5,239.9292,86.5,230.9292,82.5,234.9292,78.5,230.9292,82.5,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[f66a3fcae2732dd8e1fa566b839f94c6]
-link _2 to _0--><path d="M82.5,74.0091 C82.5,90.0031 82.5,111.7311 82.5,128.7951 " fill="none" id="_2-&gt;_0" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="82.5,133.9291,86.5,124.9291,82.5,128.9291,78.5,124.9291,82.5,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[93ef791431a7b6117d678d1cd8d8ef27]
-link _3 to _4--><path d="M511.474,74.0091 C498.176,90.2791 480.029,112.4821 465.979,129.6731 " fill="none" id="_3-&gt;_4" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="462.5,133.9291,471.2927,129.492,465.6642,130.0577,465.0985,124.4293,462.5,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[6d0ac5e9347bdb5725f48fc0bd3bd7ba]
-link _3 to _5--><path d="M547.738,74.0091 C561.193,90.2791 579.553,112.4821 593.769,129.6731 " fill="none" id="_3-&gt;_5" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="597.288,133.9291,594.6356,124.4441,594.1019,130.0758,588.4702,129.542,597.288,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[a95ccebab27d805ca2570b1585a03a39]
-link _6 to _7--><path d="M285.198,74.0091 C281.353,90.0031 276.13,111.7311 272.028,128.7951 " fill="none" id="_6-&gt;_7" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="270.794,133.9291,276.7867,126.1133,271.9626,129.0676,269.0083,124.2435,270.794,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[ab8cfac35efbe81c697ce9e92bffb793]
-link _6 to _4--><path d="M323.159,74.0091 C347.865,90.6931 381.808,113.6151 407.513,130.9741 " fill="none" id="_6-&gt;_4" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="411.888,133.9291,406.6659,125.5787,407.7436,131.1319,402.1904,132.2097,411.888,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[c6d103796782b03246687d21fec6ff16]
-link _6 to _5--><path d="M340.569,67.9751 C395.753,85.6341 484.868,114.1511 546.615,133.9101 " fill="none" id="_6-&gt;_5" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="551.384,135.4361,544.0315,128.8832,546.6219,133.9121,541.593,136.5025,551.384,135.4361" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[9585cf7d1d21c22dd47359ade972c561]
-link _6 to _0--><path d="M246.389,74.0091 C212.607,90.9001 166.037,114.1851 131.171,131.6171 " fill="none" id="_6-&gt;_0" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="126.548,133.9291,136.3866,133.4794,131.0196,131.6919,132.807,126.3249,126.548,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[59e5ba9967de192486264cdab71b673a]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="305px" preserveAspectRatio="none" style="width:722px;height:305px;" version="1.1" viewBox="0 0 722 305" width="722px" zoomAndPan="magnify"><defs><filter height="300%" id="f1hody90spcnap" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="78" x="313.25" y="16.708">Backend</text><!--MD5=[834ef74a6aa73a899f9de7987f49a674]
+entity _0--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="151" x="31" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="162" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="160" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="160" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="111" x="46" y="166.9482">PaymentServer</text><!--MD5=[5793e68b51480d2da18d2edf8802f392]
+entity _1--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="69" x="7" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="56" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="54" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="54" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="22" y="272.9482">Visa</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
+entity _2--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="122" x="111.5" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="213.5" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="211.5" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="211.5" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="82" x="126.5" y="272.9482">MasterCard</text><!--MD5=[491502b257624c25ed563d7bf73ae0a0]
+entity _3--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="117" x="48" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="145" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="143" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="143" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="77" x="63" y="60.9482">Dashboard</text><!--MD5=[e10aba13bcd25b8e2f2c6ecd09c6015a]
+entity _4--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="88" x="509.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="577.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="575.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="575.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="524.5" y="60.9482">Mobile</text><!--MD5=[9e283554f6c225a5c09d9b9f4b518823]
+entity _5--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="143" x="397" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="520" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="518" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="518" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="103" x="412" y="166.9482">ProductServer</text><!--MD5=[91935b7652ee4fab4148391a7b11bd92]
+entity _6--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="128" x="575.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="683.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="681.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="681.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="88" x="590.5" y="166.9482">OrderServer</text><!--MD5=[298d702d1872fc728c85faa77d789d69]
+entity _7--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="100" x="264.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="344.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="342.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="342.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="279.5" y="60.9482">Website</text><!--MD5=[44fe721b4d4a777d892a0da9deb1717d]
+entity _8--><rect fill="#FFFAF0" filter="url(#f1hody90spcnap)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="144" x="217.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="341.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="339.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="339.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="232.5" y="166.9482">IdentityServer</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
+link _0 to _1--><path d="M92.7152,180.0091 C82.5462,196.2791 68.6691,218.4825 57.9249,235.6733 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="55.265,239.9292,63.4271,234.4174,57.9151,235.6893,56.6432,230.1773,55.265,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[0fa3c531946f58762b8ab90cbdfa2c60]
+link _0 to _2--><path d="M120.497,180.0091 C130.822,196.2791 144.913,218.4825 155.822,235.6733 " fill="none" id="_0-&gt;_2" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="158.523,239.9292,157.0776,230.187,155.8438,235.7076,150.3231,234.4738,158.523,239.9292" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[03a1d26dd10eebe4bb7f3279a78bc074]
+link _3 to _0--><path d="M106.5,74.0091 C106.5,90.0031 106.5,111.7311 106.5,128.7951 " fill="none" id="_3-&gt;_0" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="106.5,133.9291,110.5,124.9291,106.5,128.9291,102.5,124.9291,106.5,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[dea49d2e17506af380c2337519959ae2]
+link _4 to _5--><path d="M535.474,74.0091 C522.176,90.2791 504.029,112.4821 489.979,129.6731 " fill="none" id="_4-&gt;_5" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="486.5,133.9291,495.2927,129.492,489.6642,130.0577,489.0985,124.4293,486.5,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[7eca67a7e429760db2012996cf609bd2]
+link _4 to _6--><path d="M571.738,74.0091 C585.193,90.2791 603.553,112.4821 617.769,129.6731 " fill="none" id="_4-&gt;_6" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="621.288,133.9291,618.6356,124.4441,618.1019,130.0758,612.4702,129.542,621.288,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[0fdfea4396fe66ad7b3bdce4e645d05b]
+link _7 to _8--><path d="M309.198,74.0091 C305.353,90.0031 300.13,111.7311 296.028,128.7951 " fill="none" id="_7-&gt;_8" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="294.794,133.9291,300.7867,126.1133,295.9626,129.0676,293.0083,124.2435,294.794,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[564f20eeb8c3712f15f016ee9ae150ae]
+link _7 to _5--><path d="M347.159,74.0091 C371.865,90.6931 405.808,113.6151 431.513,130.9741 " fill="none" id="_7-&gt;_5" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="435.888,133.9291,430.6659,125.5787,431.7436,131.1319,426.1904,132.2097,435.888,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[99be20694a6e27f424faf2b87c999465]
+link _7 to _6--><path d="M364.569,67.9751 C419.753,85.6341 508.868,114.1511 570.615,133.9101 " fill="none" id="_7-&gt;_6" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="575.384,135.4361,568.0315,128.8832,570.6219,133.9121,565.593,136.5025,575.384,135.4361" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[73f95ae1d9c01c0fe28b15a4ec26cb90]
+link _7 to _0--><path d="M270.389,74.0091 C236.607,90.9001 190.037,114.1851 155.171,131.6171 " fill="none" id="_7-&gt;_0" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="150.548,133.9291,160.3866,133.4794,155.0196,131.6919,156.807,126.3249,150.548,133.9291" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[b52f65129c92a593b5b83d620af239ae]
 @startuml
 ''''''''''''''''''''''''''''''''''''''''''
 ''                                      ''
@@ -34,19 +36,21 @@ skinparam component {
 [PaymentServer] as _0 <<highlight>>
 [Visa] as _1
 _0 - -> _1
-[Dashboard] as _2
-_2 - -> _0
-[Mobile] as _3
-[ProductServer] as _4 <<highlight>>
-_3 - -> _4
-[OrderServer] as _5 <<highlight>>
-_3 - -> _5
-[Website] as _6
-[IdentityServer] as _7 <<highlight>>
-_6 - -> _7
-_6 - -> _4
-_6 - -> _5
-_6 - -> _0
+[MasterCard] as _2
+_0 - -> _2
+[Dashboard] as _3
+_3 - -> _0
+[Mobile] as _4
+[ProductServer] as _5 <<highlight>>
+_4 - -> _5
+[OrderServer] as _6 <<highlight>>
+_4 - -> _6
+[Website] as _7
+[IdentityServer] as _8 <<highlight>>
+_7 - -> _8
+_7 - -> _5
+_7 - -> _6
+_7 - -> _0
 @enduml
 
 @startuml
@@ -63,19 +67,21 @@ skinparam component {
 [PaymentServer] as _0 <<highlight>>
 [Visa] as _1
 _0 - -> _1
-[Dashboard] as _2
-_2 - -> _0
-[Mobile] as _3
-[ProductServer] as _4 <<highlight>>
-_3 - -> _4
-[OrderServer] as _5 <<highlight>>
-_3 - -> _5
-[Website] as _6
-[IdentityServer] as _7 <<highlight>>
-_6 - -> _7
-_6 - -> _4
-_6 - -> _5
-_6 - -> _0
+[MasterCard] as _2
+_0 - -> _2
+[Dashboard] as _3
+_3 - -> _0
+[Mobile] as _4
+[ProductServer] as _5 <<highlight>>
+_4 - -> _5
+[OrderServer] as _6 <<highlight>>
+_4 - -> _6
+[Website] as _7
+[IdentityServer] as _8 <<highlight>>
+_7 - -> _8
+_7 - -> _5
+_7 - -> _6
+_7 - -> _0
 @enduml
 
 PlantUML version 1.2020.16beta7(Unknown compile time)

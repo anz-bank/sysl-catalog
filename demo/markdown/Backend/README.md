@@ -5,8 +5,11 @@
 
 | Package |
 ----|
-[BFF](BFF/README.md)|
-[Database](Database/README.md)|
+[DeliveryServer](DeliveryServer/README.md)|
+[IdentityServer](IdentityServer/README.md)|
+[OrderServer](OrderServer/README.md)|
+[PaymentServer](PaymentServer/README.md)|
+[ProductServer](ProductServer/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

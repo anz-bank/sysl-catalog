@@ -7,8 +7,8 @@ Sizzle[~project]:
     @description =:
         | Sizzle is a Gourmet Sausage Restaurant.
         |
-        | We aim to provide the truly Aussie sausage sizzle 
-        | to our customers.
+        | We aim to provide an authentic Aussie
+        | sausage sizzle experience to our customers.
         |
         | We will offer 90 minute table allocations and 
         | comply with all directions and safety procedures 
@@ -20,8 +20,11 @@ Sizzle[~project]:
     Frontend:
         Application
     Backend:
-        BFF
-        Database
+        IdentityServer
+        ProductServer
+        OrderServer
+        PaymentServer
+        DeliveryServer
 
 
 Dine-in Customer [~human]:
@@ -111,7 +114,7 @@ Common:
         ...
 
 IdentityServer:
-    @package="BFF"
+    @package="IdentityServer"
     @description =: 
         | This server handles all the customer related endpoints
         | including customer profile, password update, 
@@ -138,7 +141,7 @@ IdentityServer:
         return ok
 
     !type Customer:
-        @description="Empty Type"
+        @description="This contains all information relating to a customer"
         first_name <: string
         middle_name <: string
         last_name <: string
@@ -157,7 +160,7 @@ IdentityServer:
         error_msg <: string
 
 ProductServer:
-    @package="BFF"
+    @package="ProductServer"
     @description =: 
         | This server handles all the product
         | related endpoints.
@@ -179,7 +182,7 @@ ProductServer:
 
 
 OrderServer:
-    @package="BFF"
+    @package="OrderServer"
     @description =: 
         | This server handles all the order
         | related endpoints.
@@ -231,7 +234,7 @@ OrderServer:
     
 
 PaymentServer:
-    @package="BFF"
+    @package="PaymentServer"
     @description =: 
         | This server handles all the payment related endpoints.
 
@@ -255,7 +258,7 @@ Visa[~external]:
         ...
 
 DeliveryServer:
-    @package="BFF"
+    @package="DeliveryServer"
     @description =: 
         | We are going to provide delivery service ASAP
         | since our customers need it during COVID-19
@@ -324,5 +327,5 @@ MegaDatabase[~db]:
         comment <: string
 
 Cache:
-    @pacakge="Database"
+    @package="Database"
     ...

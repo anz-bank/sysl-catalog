@@ -11,7 +11,12 @@ case $i in
         wait
         echo "Done"
         exit 0
-        
+        ;;
+    --plantuml=plantuml.jar)
+        java -cp plantuml.jar:nailgun-server-1.0.0-SNAPSHOT.jar -server com.facebook.nailgun.NGServer&
+        sysl-catalog $@
+        echo "Done"
+        exit 0
 esac
 done
 

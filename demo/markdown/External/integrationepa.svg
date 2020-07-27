@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="392px" preserveAspectRatio="none" style="width:272px;height:392px;" version="1.1" viewBox="0 0 272 392" width="272px" zoomAndPan="magnify"><defs><filter height="300%" id="f1dtff335edmdz" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="74" x="90" y="16.708">External</text><!--MD5=[758d88821a0e741df1f73accbabae398]
+cluster X_0--><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="97" x="137.5" y="27.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="91" x="140.5" y="57.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="137.5" x2="234.5" y1="54.25" y2="54.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="146.5" y="44.9482">MasterCard</text><!--MD5=[cecb9a85ae19b9003f4441b135e71cd6]
+cluster X_1--><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="150" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="248" x="7" y="225.9531"/><rect fill="#FFFFFF" height="117.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="242" x="10" y="255.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="7" x2="255" y1="252.25" y2="252.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="79" y="242.9482">PaymentServer</text><!--MD5=[51e8d94a944361a156a1f52e5c4894ba]
+cluster X_2--><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="91" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="93" x="140" y="126.9531"/><rect fill="#FFFFFF" height="58.7031" rx="12.5" ry="12.5" style="stroke: #FFFFFF; stroke-width: 1.0;" width="87" x="143" y="156.25"/><line style="stroke: #000000; stroke-width: 1.5;" x1="140" x2="233" y1="153.25" y2="153.25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="148" y="143.9482">Visa</text><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="81" x="145.5" y="70.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="150.5" y="95.7998">POST /pay</text><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="122" x="125" y="252.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="112" x="130" y="277.7998">POST /pay client</text><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="15" y="290.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="24" x="28" y="315.7998">Pay</text><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="75" x="148.5" y="327.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="65" x="153.5" y="352.7998">Pay client</text><rect fill="#FFFAF0" filter="url(#f1dtff335edmdz)" height="40" rx="12.5" ry="12.5" style="stroke: #000000; stroke-width: 1.5;" width="50" x="161" y="169.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="24" x="174" y="194.7998">Pay</text><!--MD5=[d99ac6ad79726fc9199b9f217ddce05c]
+link _2 to _3--><path d="M65.0983,317.3136 C86.5765,322.7567 117.9597,330.71 143.369,337.1494 " fill="none" id="_2-&gt;_3" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="148.3665,338.4159,140.6251,332.3274,143.5197,337.1875,138.6596,340.0822,148.3665,338.4159" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[93ef791431a7b6117d678d1cd8d8ef27]
+link _3 to _4--><path d="M148.2641,335.2815 C128.6374,326.5469 106.4144,312.7845 95,292.4531 C82.5982,270.363 82.3825,257.4207 95,235.4531 C107.5425,213.6161 134.3389,201.9898 155.6226,195.974 " fill="none" id="_3-&gt;_4" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="160.625,194.633,150.8961,193.1002,155.7956,195.9279,152.9679,200.8273,160.625,194.633" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[797b2ad59651ef14175f94513191e355]
+link _2 to _1--><path d="M65.0983,304.4207 C80.2808,300.4691 100.4126,295.2293 119.8852,290.1611 " fill="none" id="_2-&gt;_1" style="stroke: #C0C0C0; stroke-width: 1.0;"/><polygon fill="#C0C0C0" points="124.8182,288.8771,115.1009,287.273,119.9794,290.1365,117.1159,295.0151,124.8182,288.8771" style="stroke: #C0C0C0; stroke-width: 1.0;"/><!--MD5=[b4e3d399786c33682cf7201d5a7381ec]
+link _1 to _0--><path d="M140.9886,252.6935 C123.2897,242.2098 104.8704,227.5476 95,208.4531 C80.3055,180.0265 79.0621,164.2016 95,136.4531 C104.6497,119.6526 122.7364,108.896 140.2586,102.0883 " fill="none" id="_1-&gt;_0" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="145.1783,100.2712,135.3499,99.6374,140.488,102.0037,138.1217,107.1418,145.1783,100.2712" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[7a3fe1ff9fed2c5ce22450da92cf86ab]
+@startuml
+''''''''''''''''''''''''''''''''''''''''''
+''                                      ''
+''  AUTOGENERATED CODE - - DO NOT EDIT!  ''
+''                                      ''
+''''''''''''''''''''''''''''''''''''''''''
+
+
+title External
+left to right direction
+scale max 16384 height
+hide empty description
+skinparam state {
+  BackgroundColor FloralWhite
+  BorderColor Black
+  ArrowColor Crimson
+}
+state "MasterCard" as X_0 <<highlight>> {
+  state "POST /pay" as _0 <<highlight>>
+}
+state "PaymentServer" as X_1 {
+  state "POST /pay client" as _1
+  state "Pay" as _2
+  state "Pay client" as _3
+}
+state "Visa" as X_2 <<highlight>> {
+  state "Pay" as _4 <<highlight>>
+}
+_2 -[#silver]-> _3
+_3 -[#black]> _4
+_2 -[#silver]-> _1
+_1 -[#black]> _0
+@enduml
+
+@startuml
+
+
+title External
+left to right direction
+scale max 16384 height
+hide empty description
+skinparam state {
+  BackgroundColor FloralWhite
+  BorderColor Black
+  ArrowColor Crimson
+}
+state "MasterCard" as X_0 <<highlight>> {
+  state "POST /pay" as _0 <<highlight>>
+}
+state "PaymentServer" as X_1 {
+  state "POST /pay client" as _1
+  state "Pay" as _2
+  state "Pay client" as _3
+}
+state "Visa" as X_2 <<highlight>> {
+  state "Pay" as _4 <<highlight>>
+}
+_2 -[#silver]-> _3
+_3 -[#black]> _4
+_2 -[#silver]-> _1
+_1 -[#black]> _0
+@enduml
+
+PlantUML version 1.2020.15(Sun Jun 28 11:39:45 UTC 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

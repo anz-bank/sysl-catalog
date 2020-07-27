@@ -1,12 +1,12 @@
 
 
-# sizzle.sysl
+ [Back](../README.md) |  
+# External
 
 | Package |
 ----|
-[Backend](Backend/README.md)|
-[External](External/README.md)|
-[Frontend](Frontend/README.md)|
+[MasterCard](MasterCard/README.md)|
+[Visa](Visa/README.md)|
 
 ## Integration Diagram
 <img src="integration.svg">

@@ -1,6 +1,6 @@
 
 
- [Back](../README.md) |  | )
+ [Back](../README.md) |  
 # Frontend
 
 | Package |

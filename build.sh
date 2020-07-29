@@ -7,8 +7,8 @@ git add docs || true
 git rm -rf docs/* || true
 make install || true
 
-sysl-catalog -o demo/markdown demo/sizzle.sysl
-sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml --embed -o demo/html demo/sizzle.sysl --redoc
+sysl-catalog -o demo/markdown demo/sizzle.sysl --mermaid
+sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml -o demo/html demo/sizzle.sysl --redoc --mermaid
 mkdir -p docs
 cp -r demo/html/* docs
 mkdir demo/html/demo/

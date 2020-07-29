@@ -13,22 +13,17 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/anz-bank/sysl/pkg/diagrams"
-
+	"github.com/anz-bank/mermaid-go/mermaid"
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
-
+	"github.com/anz-bank/sysl/pkg/cmdutils"
+	"github.com/anz-bank/sysl/pkg/diagrams"
+	"github.com/anz-bank/sysl/pkg/sequencediagram"
+	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
-	"github.com/joshcarp/mermaid-go/mermaid"
-
+	"github.com/hashicorp/go-retryablehttp"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
-
-	"github.com/anz-bank/sysl/pkg/cmdutils"
-	"github.com/anz-bank/sysl/pkg/sequencediagram"
-	"github.com/hashicorp/go-retryablehttp"
-
-	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
 // SanitiseOutputName removes characters so that the string can be used as a hyperlink.
@@ -325,9 +320,20 @@ func PlantUMLNailGun(contents string) ([]byte, error) {
 	return []byte(plantuml), nil
 }
 
+type MermaidGenerator struct {
+	g *mermaid.Generator
+}
+
+func MakeMermaidGenerator() MermaidGenerator {
+	return MermaidGenerator{g: mermaid.Init()}
+}
+
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file
-func GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
-	mermaidSvg := []byte(mermaid.Execute(data) + "\n")
+func (m MermaidGenerator) GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
+	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
+		return err
+	}
+	mermaidSvg := []byte(m.g.Execute(data) + "\n")
 	var err = afero.WriteFile(fs, fileName, mermaidSvg, os.ModePerm)
 	if err != nil {
 		return err

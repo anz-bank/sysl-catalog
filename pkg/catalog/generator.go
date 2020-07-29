@@ -136,19 +136,20 @@ func NewProject(
 	module *sysl.Module,
 	fs afero.Fs, outputDir string) *Generator {
 	p := Generator{
-		ProjectTitle:       titleAndFileName,
-		SourceFileName:     titleAndFileName,
-		OutputDir:          outputDir,
-		OutputFileName:     outputFileNames[strings.ToLower(outputType)],
-		Format:             strings.ToLower(outputType),
-		Log:                logger,
-		RootModule:         module,
-		PlantumlService:    plantumlService,
-		FilesToCreate:      make(map[string]string),
-		GeneratedFiles:     make(map[string][]byte),
-		RedocFilesToCreate: make(map[string]string),
-		Fs:                 fs,
-		Ext:                ".svg",
+		ProjectTitle:         titleAndFileName,
+		SourceFileName:       titleAndFileName,
+		OutputDir:            outputDir,
+		OutputFileName:       outputFileNames[strings.ToLower(outputType)],
+		Format:               strings.ToLower(outputType),
+		Log:                  logger,
+		RootModule:           module,
+		PlantumlService:      plantumlService,
+		FilesToCreate:        make(map[string]string),
+		GeneratedFiles:       make(map[string][]byte),
+		RedocFilesToCreate:   make(map[string]string),
+		MermaidFilesToCreate: make(map[string]string),
+		Fs:                   fs,
+		Ext:                  ".svg",
 	}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
@@ -246,7 +247,8 @@ func (p *Generator) Run() {
 
 	if p.Mermaid {
 		progress = pb.Full.Start(len(p.MermaidFilesToCreate))
-		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram, progress)
+		mermaidGen := MakeMermaidGenerator()
+		diagramCreator(p.MermaidFilesToCreate, mermaidGen.GenerateAndWriteMermaidDiagram, progress)
 	} else {
 		if strings.Contains(p.PlantumlService, ".jar") {
 			if !p.Server {

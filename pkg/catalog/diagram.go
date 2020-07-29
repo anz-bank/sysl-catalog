@@ -288,7 +288,7 @@ func CreateFileName(dir string, elems ...string) (string, string) {
 
 // CreateRedoc registers a file that needs to be created when the input source context has extension .json or .yaml
 func (p *Generator) CreateRedoc(sourceContext *sysl.SourceContext, appName string) string {
-	if !IsOpenAPIFile(sourceContext) || !p.Redoc || strings.Contains(sourceContext.GetFile(), "github") {
+	if !IsOpenAPIFile(sourceContext) || !p.Redoc {
 		return ""
 	}
 	absPath, _ := CreateFileName(p.CurrentDir, appName+".redoc.html")

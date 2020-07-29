@@ -21,6 +21,13 @@ func TestIsOpenAPIFileYAML(t *testing.T) {
 	assert.True(t, result)
 }
 
+func TestIsOpenAPIFileYAMLOAS(t *testing.T) {
+	t.Parallel()
+	sourceContext := &sysl.SourceContext{File: "github.com/myorg/test/spec.oas.yaml"}
+	result := IsOpenAPIFile(sourceContext)
+	assert.True(t, result)
+}
+
 func TestIsOpenAPIFileSysl(t *testing.T) {
 	t.Parallel()
 	sourceContext := &sysl.SourceContext{File: "github.com/myorg/test/spec.sysl"}
@@ -37,7 +44,7 @@ func TestIsOpenAPIFileEmpty(t *testing.T) {
 
 func TestBuildSpecURL(t *testing.T) {
 	t.Parallel()
-	expected := "https://raw.githubusercontent.com/anz-bank/sysl-catalog/master/pkg/catalog/test/simple.yaml"
+	expected := "/pkg/catalog/test/simple.yaml"
 	url, _ := BuildSpecURL(&sysl.SourceContext{File: "pkg/catalog/test/simple.yaml"})
 	assert.Equal(t, expected, url)
 }

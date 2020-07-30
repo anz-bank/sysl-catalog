@@ -98,7 +98,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.GeneratedFilesMutex.RUnlock()
 			return
 		}
-		p.GeneratedFilesMutex.Unlock()
+		p.GeneratedFilesMutex.RUnlock()
 		bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
 		p.errs = []error{}
 		if err != nil {

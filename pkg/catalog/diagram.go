@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"text/template"
 
 	"github.com/pkg/errors"
@@ -316,15 +317,20 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	var absFilePath, currentDir string
 	absFilePath, currentDir = CreateFileName(p.CurrentDir, elems...)
 	var targetMap map[string]string
+	mutex := &sync.RWMutex{}
 	var err error
 	switch diagramType {
 	case plantuml:
 		if !strings.Contains(p.PlantumlService, ".jar") {
 			contents, err = PlantUMLURL(p.PlantumlService, contents)
 		}
+		mutex.Lock()
 		targetMap = p.FilesToCreate
+		mutex.Unlock()
 	case mermaidjs:
+		mutex.Lock()
 		targetMap = p.MermaidFilesToCreate
+		mutex.Unlock()
 	default:
 		panic("Wrong diagram type specified")
 	}
@@ -335,7 +341,10 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	}
 	newFileName := absFilePath
 	for i := 0; ; i++ {
-		if diagram, ok := targetMap[newFileName]; !ok || diagram == contents {
+		mutex.RLock()
+		diagram, ok := targetMap[newFileName]
+		mutex.RUnlock()
+		if !ok || diagram == contents {
 			break
 		}
 		newFileName = strings.ReplaceAll(absFilePath, p.Ext, strconv.Itoa(i)+p.Ext)
@@ -347,10 +356,14 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 	}
 	if p.ImageDest != "" {
 		absFilePath = path.Join(p.ImageDest, strings.ReplaceAll(absFilePath, "/", "-"))
+		mutex.Lock()
 		targetMap[absFilePath] = contents
+		mutex.Unlock()
 		return path.Join(root(currentDir), absFilePath)
 	}
+	mutex.Lock()
 	targetMap[path.Join(p.OutputDir, absFilePath)] = contents
+	mutex.Unlock()
 	return strings.Replace(absFilePath, currentDir, "", 1)
 }
 

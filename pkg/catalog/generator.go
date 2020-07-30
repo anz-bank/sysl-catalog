@@ -265,7 +265,7 @@ func (p *Generator) Run() {
 	}
 
 	if p.Redoc {
-		if progress.IsStarted() {
+		if progress != nil && progress.IsStarted() {
 			progress.SetTotal(progress.Total() + int64(len(p.RedocFilesToCreate)))
 		} else {
 			progress = pb.Full.Start(len(p.RedocFilesToCreate))

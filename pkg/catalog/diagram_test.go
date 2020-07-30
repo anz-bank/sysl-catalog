@@ -225,7 +225,7 @@ func TestCreateReturnDataModelWithEmpty(t *testing.T) {
 }
 func TestCreateRedoc(t *testing.T) {
 	appName := "myAppName"
-	fileName := "myfile.yaml"
+	fileName := "sysl/myfile.yaml"
 	sourceContext := &sysl.SourceContext{File: fileName}
 	gen := Generator{
 		CurrentDir:         "myAppName",
@@ -236,7 +236,7 @@ func TestCreateRedoc(t *testing.T) {
 	t.Log(gen.RedocFilesToCreate)
 	registeredFile, ok := gen.RedocFilesToCreate["myAppName/myappname.redoc.html"]
 	assert.True(t, ok)
-	assert.Equal(t, "https://raw.githubusercontent.com/anz-bank/sysl-catalog/master/myfile.yaml", registeredFile)
+	assert.Equal(t, "/sysl/myfile.yaml", registeredFile)
 	assert.Equal(t, "myappname.redoc.html", link)
 }
 
@@ -261,5 +261,5 @@ func TestCreateRedocFromImportRemote(t *testing.T) {
 		Redoc:              true,
 	}
 	link := gen.CreateRedoc(sourceContext, appName)
-	assert.Equal(t, "", link)
+	assert.Equal(t, "myappname.redoc.html", link)
 }

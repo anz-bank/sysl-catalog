@@ -11,6 +11,10 @@ sysl-catalog -o demo/markdown demo/sizzle.sysl
 sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml --embed -o demo/html demo/sizzle.sysl --redoc
 mkdir -p docs
 cp -r demo/html/* docs
+mkdir demo/html/demo/
+mkdir docs/demo/
+cp demo/mastercard.yaml demo/html/demo/mastercard.yaml
+cp demo/mastercard.yaml docs/demo/mastercard.yaml
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
  sed -i "s/sizzle.sysl/<a href=http:\/\/github.com\/anz-bank\/sysl-catalog>This is an example of sysl catalog deployed to github pages <\/a>/" docs/index.html

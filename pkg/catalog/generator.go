@@ -41,7 +41,7 @@ type Generator struct {
 	MermaidFilesToCreate map[string]string
 	RedocFilesToCreate   map[string]string
 	GeneratedFiles       map[string][]byte
-	GeneratedFilesMutex  *sync.Mutex
+	GeneratedFilesMutex  *sync.RWMutex
 	SourceFileName       string
 	ProjectTitle         string
 	ImageDest            string // Output all images into this folder is set

@@ -20,7 +20,7 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	//p.Fs = afero.NewMemMapFs()
 	p.RootModule = m
 	p.GeneratedFiles = make(map[string][]byte)
-	p.GeneratedFilesMutex = &sync.Mutex{}
+	p.GeneratedFilesMutex = &sync.RWMutex{}
 	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 && !p.CustomTemplate {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	} else {
@@ -92,10 +92,10 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
-		p.GeneratedFilesMutex.Lock()
+		p.GeneratedFilesMutex.RLock()
 		if svg, ok := p.GeneratedFiles[path.Join(unescapedPath)]; ok {
 			bytes = svg
-			p.GeneratedFilesMutex.Unlock()
+			p.GeneratedFilesMutex.RUnlock()
 			return
 		}
 		p.GeneratedFilesMutex.Unlock()

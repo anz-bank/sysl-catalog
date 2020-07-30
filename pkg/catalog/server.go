@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"path"
 	"strings"
+	"sync"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/spf13/afero"
@@ -19,6 +20,7 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	//p.Fs = afero.NewMemMapFs()
 	p.RootModule = m
 	p.GeneratedFiles = make(map[string][]byte)
+	p.GeneratedFilesMutex = &sync.Mutex{}
 	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 && !p.CustomTemplate {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	} else {
@@ -90,16 +92,21 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
+		p.GeneratedFilesMutex.Lock()
 		if svg, ok := p.GeneratedFiles[path.Join(unescapedPath)]; ok {
 			bytes = svg
+			p.GeneratedFilesMutex.Unlock()
 			return
 		}
+		p.GeneratedFilesMutex.Unlock()
 		bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
 		p.errs = []error{}
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
+		p.GeneratedFilesMutex.Lock()
 		p.GeneratedFiles[path.Join(unescapedPath)] = bytes
+		p.GeneratedFilesMutex.Unlock()
 		return
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)

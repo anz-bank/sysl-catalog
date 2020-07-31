@@ -115,6 +115,13 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.Log.Info(err)
 		}
 		return
+	case ".yaml", ".json", ".sysl":
+		bytes, err = afero.ReadFile(afero.NewOsFs(), strings.TrimPrefix(request, "/"))
+		if err != nil {
+			p.Log.Error(err)
+			return
+		}
+		return
 	case "":
 		request += "index.html"
 	}

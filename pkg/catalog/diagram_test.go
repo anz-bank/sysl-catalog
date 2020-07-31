@@ -225,7 +225,7 @@ func TestCreateReturnDataModelWithEmpty(t *testing.T) {
 }
 func TestCreateRedoc(t *testing.T) {
 	appName := "myAppName"
-	fileName := "sysl/myfile.yaml"
+	fileName := "/sysl/myfile.yaml"
 	sourceContext := &sysl.SourceContext{File: fileName}
 	gen := Generator{
 		CurrentDir:         "myAppName",

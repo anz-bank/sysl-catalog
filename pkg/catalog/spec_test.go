@@ -45,7 +45,14 @@ func TestIsOpenAPIFileEmpty(t *testing.T) {
 func TestBuildSpecURL(t *testing.T) {
 	t.Parallel()
 	expected := "/pkg/catalog/test/simple.yaml"
-	url, _ := BuildSpecURL(&sysl.SourceContext{File: "pkg/catalog/test/simple.yaml"})
+	url, _ := BuildSpecURL(&sysl.SourceContext{File: "./pkg/catalog/test/simple.yaml"})
+	assert.Equal(t, expected, url)
+}
+
+func TestBuildSpecURLNoDot(t *testing.T) {
+	t.Parallel()
+	expected := "/pkg/catalog/test/simple.yaml"
+	url, _ := BuildSpecURL(&sysl.SourceContext{File: "/pkg/catalog/test/simple.yaml"})
 	assert.Equal(t, expected, url)
 }
 

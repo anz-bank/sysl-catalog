@@ -168,12 +168,8 @@ github.com/anz-bank/sysl v0.88.0/go.mod h1:xItS1/FgoOxITJ7wjHb0c2E9JJuMPOvuzAo++
 github.com/anz-bank/sysl v0.92.0/go.mod h1:xItS1/FgoOxITJ7wjHb0c2E9JJuMPOvuzAo++VMV79w=
 github.com/anz-bank/sysl v0.93.0/go.mod h1:NVHgDqSHotzbNmVG/x0DB1nGFswB9MKVv0Oa5s/Q71o=
 github.com/anz-bank/sysl v0.94.0/go.mod h1:75Wt6P08jkIy1ecDY6UO5RdCy+dE/Z8XBeO5V5Iq+2c=
-github.com/anz-bank/sysl v0.149.0 h1:kw8N6Ijxkgdf3Oucme3dwGX15ZG7zL+yw8bQqw2F21Y=
-github.com/anz-bank/sysl v0.149.0/go.mod h1:sfar1MWv6D7dpqButSQW+luZcZWRv0ttOUXSEwp3498=
-github.com/anz-bank/sysl v0.155.0 h1:WStK3lA/hpi62Xss2hnrkEEwzAMYc4DHyJI+Ha2IcB8=
-github.com/anz-bank/sysl v0.155.0/go.mod h1:dbbdO6irAV2yWmg/g51ogRSm1sl0L5fn4fx4WmcEbKM=
-github.com/anz-bank/sysl v0.158.0 h1:aFZSai4fLzyoNqluve67xvHwfgKAsaXfca6nicxN1fY=
-github.com/anz-bank/sysl v0.158.0/go.mod h1:dbbdO6irAV2yWmg/g51ogRSm1sl0L5fn4fx4WmcEbKM=
+github.com/anz-bank/sysl v0.173.0 h1:qOix707uOwom4AIrw2UYg3H6Gb8KQZqAPjkgi3j/20U=
+github.com/anz-bank/sysl v0.173.0/go.mod h1:dbbdO6irAV2yWmg/g51ogRSm1sl0L5fn4fx4WmcEbKM=
 github.com/anz-bank/sysl-catalog v1.2.30/go.mod h1:ctu4d6a7J3WzvfaatkpANwYBTRsdS9kM3/+RxVJ/kZs=
 github.com/anz-bank/sysl-catalog v1.4.20/go.mod h1:QeUCcG4RTf/065hLAt2btwXll+OcmMyaD/jYtSwFL6A=
 github.com/anz-bank/sysl-catalog v1.4.22/go.mod h1:ygwrUMDRRmzV7F86Z/9oj6I2XnFmQV9kMruLe+Na4a8=
@@ -1177,11 +1173,8 @@ golang.org/x/sys v0.0.0-20200413165638-669c56c373c4/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/sys v0.0.0-20200430202703-d923437fa56d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20200501145240-bc7a7d42d5c3/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/sys v0.0.0-20200519105757-fe76b779f299 h1:DYfZAGf2WMFjMxbgTjaC+2HC7NkNAQs+6Q8b9WEB/F4=
-golang.org/x/sys v0.0.0-20200519105757-fe76b779f299/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+golang.org/x/sys v0.0.0-20200720211630-cb9d2d5c5666 h1:gVCS+QOncANNPlmlO1AhlU3oxs4V9z+gTtPwIk3p2N8=
 golang.org/x/sys v0.0.0-20200720211630-cb9d2d5c5666/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/sys v0.0.0-20200724161237-0e2f3a69832c h1:UIcGWL6/wpCfyGuJnRFJRurA+yj8RrW7Q6x2YMCXt6c=
-golang.org/x/sys v0.0.0-20200724161237-0e2f3a69832c/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

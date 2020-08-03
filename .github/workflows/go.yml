@@ -16,3 +16,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Test
         run: go test ./...
+      - name: Upload coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash) -f ./coverage.txt
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

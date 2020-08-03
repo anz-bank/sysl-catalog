@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="305px" preserveAspectRatio="none" style="width:670px;height:305px;" version="1.1" viewBox="0 0 670 305" width="670px" zoomAndPan="magnify"><defs><filter height="300%" id="f8epac5s2t9u3" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="80" x="286.25" y="16.708">Frontend</text><!--MD5=[834ef74a6aa73a899f9de7987f49a674]
-entity _0--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="96" x="237" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="313" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="311" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="311" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="252" y="166.9482">Website</text><!--MD5=[5793e68b51480d2da18d2edf8802f392]
-entity _1--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="134" x="7" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="121" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="119" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="119" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="94" x="22" y="272.9482">IdentityServer</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
-entity _2--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="138" x="355" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="473" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="471" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="471" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="98" x="370" y="272.9482">ProductServer</text><!--MD5=[491502b257624c25ed563d7bf73ae0a0]
-entity _3--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="123" x="528.5" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="631.5" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="629.5" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="629.5" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="83" x="543.5" y="272.9482">OrderServer</text><!--MD5=[e10aba13bcd25b8e2f2c6ecd09c6015a]
-entity _4--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="144" x="176" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="300" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="298" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="298" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="191" y="272.9482">PaymentServer</text><!--MD5=[9e283554f6c225a5c09d9b9f4b518823]
-entity _5--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="85" x="510.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="575.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="573.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="573.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="45" x="525.5" y="166.9482">Mobile</text><!--MD5=[91935b7652ee4fab4148391a7b11bd92]
-entity _6--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="161" x="472.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="613.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="611.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="611.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="121" x="487.5" y="60.9482">Dine-in Customer</text><!--MD5=[298d702d1872fc728c85faa77d789d69]
-entity _7--><rect fill="#FFFAF0" filter="url(#f8epac5s2t9u3)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="156" x="207" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="343" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="341" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="341" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="116" x="222" y="60.9482">Online Customer</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
-link _0 to _1--><path d="M239.2161,179.9535 C205.4611,196.911 159.5451,219.9778 124.6849,237.4906 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="120.0584,239.8148,129.8962,239.349,124.5263,237.5703,126.305,232.2004,120.0584,239.8148" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[0fa3c531946f58762b8ab90cbdfa2c60]
-link _0 to _2--><path d="M315.1609,179.9535 C336.9594,196.5768 366.4565,219.071 389.2444,236.4488 " fill="none" id="_0-&gt;_2" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="393.4179,239.6315,388.687,230.9933,389.4421,236.5996,383.8358,237.3546,393.4179,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[4774900c3c3f97c2994a86017828dd12]
-link _0 to _3--><path d="M333.3282,173.7491 C384.7109,191.6067 466.3169,219.9682 523.6901,239.9077 " fill="none" id="_0-&gt;_3" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="528.4701,241.5689,521.2821,234.836,523.7472,239.9275,518.6557,242.3926,528.4701,241.5689" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[66d2e95ee2e3e1b5b59548f8bdae5bf2]
-link _0 to _4--><path d="M276.9716,179.9535 C271.3858,195.9561 263.9009,217.3992 257.9383,234.4811 " fill="none" id="_0-&gt;_4" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="256.1406,239.6315,262.8833,232.4527,257.7885,234.9109,255.3303,229.8161,256.1406,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[c7fbdd7d994d101b2f2fa3a54a2c78c1]
-link _5 to _2--><path d="M525.0089,179.9535 C504.7786,196.5768 477.4036,219.071 456.2552,236.4488 " fill="none" id="_5-&gt;_2" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="452.3819,239.6315,461.8749,237.0079,456.2449,236.4571,456.7958,230.8271,452.3819,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[d05a91d17e08e51ee59c3d220bcce4c8]
-link _5 to _3--><path d="M561.0284,179.9535 C566.6142,195.9561 574.0991,217.3992 580.0617,234.4811 " fill="none" id="_5-&gt;_3" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="581.8594,239.6315,582.6697,229.8161,580.2115,234.9109,575.1167,232.4527,581.8594,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[c6d103796782b03246687d21fec6ff16]
-link _6 to _5--><path d="M553,73.9535 C553,89.9561 553,111.3992 553,128.4811 " fill="none" id="_6-&gt;_5" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="553,133.6315,557,124.6315,553,128.6315,549,124.6315,553,133.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[73f95ae1d9c01c0fe28b15a4ec26cb90]
-link _7 to _0--><path d="M285,73.9535 C285,89.9561 285,111.3992 285,128.4811 " fill="none" id="_7-&gt;_0" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="285,133.6315,289,124.6315,285,128.6315,281,124.6315,285,133.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[bd41fb38b3e1e7b1ca2e96b11df6011f]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="305px" preserveAspectRatio="none" style="width:671px;height:305px;" version="1.1" viewBox="0 0 671 305" width="671px" zoomAndPan="magnify"><defs><filter height="300%" id="fr5ss1nsueb4n" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="80" x="286.5" y="16.708">Frontend</text><!--MD5=[834ef74a6aa73a899f9de7987f49a674]
+entity _0--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="85" x="67.5" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="132.5" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="130.5" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="130.5" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="45" x="82.5" y="166.9482">Mobile</text><!--MD5=[5793e68b51480d2da18d2edf8802f392]
+entity _1--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="138" x="7" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="125" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="123" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="123" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="98" x="22" y="272.9482">ProductServer</text><!--MD5=[fc69c2ef26418c6b4957312aae07cc91]
+entity _2--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="123" x="180.5" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="283.5" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="281.5" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="281.5" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="83" x="195.5" y="272.9482">OrderServer</text><!--MD5=[491502b257624c25ed563d7bf73ae0a0]
+entity _3--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="96" x="324" y="133.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="400" y="138.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="398" y="140.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="398" y="144.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="339" y="166.9482">Website</text><!--MD5=[e10aba13bcd25b8e2f2c6ecd09c6015a]
+entity _4--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="134" x="339" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="453" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="451" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="451" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="94" x="354" y="272.9482">IdentityServer</text><!--MD5=[9e283554f6c225a5c09d9b9f4b518823]
+entity _5--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="144" x="508" y="239.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="632" y="244.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="630" y="246.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="630" y="250.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="523" y="272.9482">PaymentServer</text><!--MD5=[91935b7652ee4fab4148391a7b11bd92]
+entity _6--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="161" x="29.5" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="170.5" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="168.5" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="168.5" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="121" x="44.5" y="60.9482">Dine-in Customer</text><!--MD5=[298d702d1872fc728c85faa77d789d69]
+entity _7--><rect fill="#FFFAF0" filter="url(#fr5ss1nsueb4n)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="156" x="294" y="27.9531"/><rect fill="#FFFAF0" height="10" style="stroke: #000000; stroke-width: 1.5;" width="15" x="430" y="32.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="428" y="34.9531"/><rect fill="#FFFAF0" height="2" style="stroke: #000000; stroke-width: 1.5;" width="4" x="428" y="38.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="116" x="309" y="60.9482">Online Customer</text><!--MD5=[b84326987e98dcb917912705a3ef9c62]
+link _0 to _1--><path d="M102.6225,179.9535 C97.4896,195.9561 90.6116,217.3992 85.1325,234.4811 " fill="none" id="_0-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="83.4805,239.6315,90.0384,232.2835,85.0078,234.8705,82.4207,229.8399,83.4805,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[0fa3c531946f58762b8ab90cbdfa2c60]
+link _0 to _2--><path d="M138.642,179.9535 C159.3428,196.5768 187.3544,219.071 208.9947,236.4488 " fill="none" id="_0-&gt;_2" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="212.958,239.6315,208.4452,230.8774,209.0594,236.5008,203.436,237.1151,212.958,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[93ef791431a7b6117d678d1cd8d8ef27]
+link _3 to _4--><path d="M379.3775,179.9535 C384.5104,195.9561 391.3884,217.3992 396.8675,234.4811 " fill="none" id="_3-&gt;_4" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="398.5195,239.6315,399.5793,229.8399,396.9922,234.8705,391.9616,232.2835,398.5195,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[37cfd5b081b6d21ad2c5815c40d55060]
+link _3 to _1--><path d="M323.7837,174.2197 C275.2829,191.5883 200.0209,218.5402 145.1645,238.1847 " fill="none" id="_3-&gt;_1" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="140.2547,239.943,150.0764,240.6743,144.9619,238.2572,147.379,233.1427,140.2547,239.943" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[450ea2f654882f822490fe83b2b538b8]
+link _3 to _2--><path d="M343.7919,179.9535 C323.4048,196.5768 295.8176,219.071 274.5053,236.4488 " fill="none" id="_3-&gt;_2" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="270.6019,239.6315,280.1048,237.044,274.4769,236.4718,275.0491,230.8439,270.6019,239.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[6d0ac5e9347bdb5725f48fc0bd3bd7ba]
+link _3 to _5--><path d="M417.1329,179.9535 C450.408,196.911 495.6711,219.9778 530.0358,237.4906 " fill="none" id="_3-&gt;_5" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="534.5965,239.8148,528.3939,232.1645,530.1416,237.5446,524.7615,239.2923,534.5965,239.8148" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[9585cf7d1d21c22dd47359ade972c561]
+link _6 to _0--><path d="M110,73.9535 C110,89.9561 110,111.3992 110,128.4811 " fill="none" id="_6-&gt;_0" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="110,133.6315,114,124.6315,110,128.6315,106,124.6315,110,133.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[a305417ff70b0b26159d69c3ce20cf46]
+link _7 to _3--><path d="M372,73.9535 C372,89.9561 372,111.3992 372,128.4811 " fill="none" id="_7-&gt;_3" style="stroke: #DC143C; stroke-width: 1.0;"/><polygon fill="#DC143C" points="372,133.6315,376,124.6315,372,128.6315,368,124.6315,372,133.6315" style="stroke: #DC143C; stroke-width: 1.0;"/><!--MD5=[f719dce49813d0d7d5b854bd010383e7]
 @startuml
 ''''''''''''''''''''''''''''''''''''''''''
 ''                                      ''
@@ -31,22 +31,22 @@ skinparam component {
   BorderColor Black
   ArrowColor Crimson
 }
-[Website] as _0 <<highlight>>
-[IdentityServer] as _1
+[Mobile] as _0 <<highlight>>
+[ProductServer] as _1
 _0 - -> _1
-[ProductServer] as _2
+[OrderServer] as _2
 _0 - -> _2
-[OrderServer] as _3
-_0 - -> _3
-[PaymentServer] as _4
-_0 - -> _4
-[Mobile] as _5 <<highlight>>
-_5 - -> _2
-_5 - -> _3
+[Website] as _3 <<highlight>>
+[IdentityServer] as _4
+_3 - -> _4
+_3 - -> _1
+_3 - -> _2
+[PaymentServer] as _5
+_3 - -> _5
 [Dine-in Customer] as _6
-_6 - -> _5
+_6 - -> _0
 [Online Customer] as _7
-_7 - -> _0
+_7 - -> _3
 @enduml
 
 @startuml
@@ -60,22 +60,22 @@ skinparam component {
   BorderColor Black
   ArrowColor Crimson
 }
-[Website] as _0 <<highlight>>
-[IdentityServer] as _1
+[Mobile] as _0 <<highlight>>
+[ProductServer] as _1
 _0 - -> _1
-[ProductServer] as _2
+[OrderServer] as _2
 _0 - -> _2
-[OrderServer] as _3
-_0 - -> _3
-[PaymentServer] as _4
-_0 - -> _4
-[Mobile] as _5 <<highlight>>
-_5 - -> _2
-_5 - -> _3
+[Website] as _3 <<highlight>>
+[IdentityServer] as _4
+_3 - -> _4
+_3 - -> _1
+_3 - -> _2
+[PaymentServer] as _5
+_3 - -> _5
 [Dine-in Customer] as _6
-_6 - -> _5
+_6 - -> _0
 [Online Customer] as _7
-_7 - -> _0
+_7 - -> _3
 @enduml
 
 PlantUML version 1.2020.15(Sun Jun 28 11:39:45 UTC 2020)

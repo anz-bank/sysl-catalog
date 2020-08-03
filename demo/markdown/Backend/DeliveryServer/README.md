@@ -67,6 +67,7 @@
 <details>
 <summary>Sequence Diagram</summary>
 
+![](DeliveryServer/....svg)
 </details>
 
 <details>

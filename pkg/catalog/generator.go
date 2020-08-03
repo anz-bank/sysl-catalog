@@ -86,11 +86,12 @@ func (p *Generator) SourcePath(a SourceCoder) string {
 	// if source_path := Attribute(a, "source_path"); source_path != "" {
 	// 	return rootDirectory(path.Join(p.OutputDir, p.CurrentDir)) + Attribute(a, "source_path")
 	// }
-	sourcePath, err := handleSourceURL(a.GetSourceContext().File)
+	// sourcePath, err := handleSourceURL(a.GetSourceContext().File)
+	str, err := BuildSpecURL(a.GetSourceContext())
 	if err != nil {
 		p.Log.Error(err)
 	}
-	return sourcePath
+	return str
 }
 
 func handleSourceURL(importPath string) (string, error) {

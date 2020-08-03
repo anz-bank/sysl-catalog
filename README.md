@@ -1,6 +1,10 @@
 # sysl-catalog
 
+[![Latest Release](https://img.shields.io/github/v/release/anz-bank/sysl?color=%2300ADD8)](https://github.com/anz-bank/sysl/releases)
+[![Codecov](https://img.shields.io/codecov/c/github/anz-bank/sysl/master.svg)](https://codecov.io/gh/anz-bank/sysl/branch/master)
+
 A markdown/html + Diagram generator for sysl specifications
+
 ## Objective
 The objective of sysl-catalog is to create the most seamless experience for developers to document their API behaviour, as well as creating a standardised way multiple teams can create documentation whilst gaining mutual benefit from already existing documentation.
 

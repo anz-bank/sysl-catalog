@@ -12,9 +12,9 @@ docker: build
 docker-mermaid:
 	docker build -t sysl-catalog-mermaid -f mermaid.Dockerfile . 
 docker-run: docker
-	docker run -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog demo/sizzle.sysl
+	docker run -it -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog demo/sizzle.sysl
 docker-mermaid-run: docker-mermaid
-	docker run -e SYSL_PLANTUML=localhost:8080 -v $$(pwd)/demo/html:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog-mermaid demo/sizzle.sysl --mermaid --type=html -o /out
+	docker run -it -e SYSL_PLANTUML=localhost:8080 -v $$(pwd)/demo/html:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog-mermaid demo/sizzle.sysl --mermaid --type=html -o /out
 .PHONY: test
 docker-compose:
 	docker-compose run sysl-catalog

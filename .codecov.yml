@@ -1,0 +1,13 @@
+ignore:
+  - demo/*
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 2%
+    patch: off
+
+comment:
+  layout: "diff, flags, files"

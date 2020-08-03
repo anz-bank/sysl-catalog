@@ -179,49 +179,26 @@ type Param interface {
 
 // CreateParamDataModel creates a parameter data model and returns a filename
 func (p *Generator) CreateParamDataModel(app *sysl.Application, param Param) string {
+	var appName, typeName, aliasTypeName string
+	var getRecursive bool
+	aliasTypeName = param.GetName()
+	appName, typeName = GetAppTypeName(param)
+	if aliasTypeName == "" {
+		aliasTypeName = typeName
+	}
+	if appName == "" {
+		appName = path.Join(app.GetName().GetPart()...)
+	}
+	if appName == "primitive" {
+		getRecursive = false
+	} else {
+		getRecursive = true
+	}
 	if p.Mermaid {
-		return p.CreateParamDataModelMermaid(app, param)
+		return p.CreateAliasedTypeDiagramMermaid(appName, typeName, aliasTypeName, getRecursive)
 	} else {
-		return p.CreateParamDataModelPlantUML(app, param)
+		return p.CreateAliasedTypeDiagram(appName, typeName, aliasTypeName, param.GetType(), getRecursive)
 	}
-}
-
-func (p *Generator) CreateParamDataModelMermaid(app *sysl.Application, param Param) string {
-	var appName, typeName, aliasTypeName string
-	var getRecursive bool
-	aliasTypeName = param.GetName()
-	appName, typeName = GetAppTypeName(param)
-	if aliasTypeName == "" {
-		aliasTypeName = typeName
-	}
-	if appName == "" {
-		appName = path.Join(app.GetName().GetPart()...)
-	}
-	if appName == "primitive" {
-		getRecursive = false
-	} else {
-		getRecursive = true
-	}
-	return p.CreateAliasedTypeDiagramMermaid(appName, typeName, aliasTypeName, getRecursive)
-}
-
-func (p *Generator) CreateParamDataModelPlantUML(app *sysl.Application, param Param) string {
-	var appName, typeName, aliasTypeName string
-	var getRecursive bool
-	aliasTypeName = param.GetName()
-	appName, typeName = GetAppTypeName(param)
-	if aliasTypeName == "" {
-		aliasTypeName = typeName
-	}
-	if appName == "" {
-		appName = path.Join(app.GetName().GetPart()...)
-	}
-	if appName == "primitive" {
-		getRecursive = false
-	} else {
-		getRecursive = true
-	}
-	return p.CreateAliasedTypeDiagram(appName, typeName, aliasTypeName, param.GetType(), getRecursive)
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.

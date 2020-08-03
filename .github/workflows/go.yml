@@ -17,6 +17,6 @@ jobs:
       - name: Test
         run: go test ./...
       - name: Upload coverage to Codecov
-        run: bash <(curl -s https://codecov.io/bash) -f ./coverage.txt
+        run: bash <(curl -s https://codecov.io/bash)
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

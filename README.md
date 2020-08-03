@@ -1,7 +1,7 @@
 # sysl-catalog
 
-[![Latest Release](https://img.shields.io/github/v/release/anz-bank/sysl?color=%2300ADD8)](https://github.com/anz-bank/sysl/releases)
-[![Codecov](https://img.shields.io/codecov/c/github/anz-bank/sysl/master.svg)](https://codecov.io/gh/anz-bank/sysl/branch/master)
+[![Latest Release](https://img.shields.io/github/v/release/anz-bank/sysl-catalog?color=%2300ADD8)](https://github.com/anz-bank/sysl-catalog/releases)
+[![Codecov](https://img.shields.io/codecov/c/github/anz-bank/sysl-catalog/master.svg)](https://codecov.io/gh/anz-bank/sysl-catalog/branch/master)
 
 A markdown/html + Diagram generator for sysl specifications
 

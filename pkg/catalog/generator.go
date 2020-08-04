@@ -248,8 +248,12 @@ func (p *Generator) Run() {
 
 	if p.Mermaid {
 		progress = pb.Full.Start(len(p.MermaidFilesToCreate))
+		start := time.Now()
 		mermaidGen := MakeMermaidGenerator()
 		diagramCreator(p.MermaidFilesToCreate, mermaidGen.GenerateAndWriteMermaidDiagram, progress)
+		wg.Wait()
+		elapsed := time.Since(start)
+		fmt.Println("Generating took ", elapsed)
 	} else {
 		if strings.Contains(p.PlantumlService, ".jar") {
 			if !p.Server {

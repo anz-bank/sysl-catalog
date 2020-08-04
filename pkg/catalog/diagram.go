@@ -12,8 +12,6 @@ import (
 	"sync"
 	"text/template"
 
-	"github.com/anz-bank/sysl/pkg/mermaid/datamodeldiagram"
-
 	"github.com/pkg/errors"
 
 	"github.com/yuin/goldmark"
@@ -26,10 +24,9 @@ import (
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
 
+	"github.com/anz-bank/sysl/pkg/mermaid/datamodeldiagram"
 	"github.com/anz-bank/sysl/pkg/mermaid/endpointanalysisdiagram"
-
 	integration "github.com/anz-bank/sysl/pkg/mermaid/integrationdiagram"
-
 	"github.com/anz-bank/sysl/pkg/mermaid/sequencediagram"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -96,22 +93,20 @@ func (p *Generator) CreateIntegrationDiagramMermaid(m *sysl.Module, title string
 	for app := range m.Apps {
 		apps = append(apps, app)
 	}
+	if len(apps) == 0 {
+		p.Log.Error("Empty Apps")
+		return ""
+	}
 	mod := p.RootModule
 	if EPA {
 		result, err = endpointanalysisdiagram.GenerateMultipleAppEndpointAnalysisDiagram(mod, apps)
-		if err != nil {
-			p.Log.Error(err)
-			return ""
-		}
+
 	} else {
 		result, err = integration.GenerateMultipleAppIntegrationDiagram(mod, apps)
-		if len(apps) == 0 {
-			p.Log.Error("Empty Apps")
-		}
-		if err != nil {
-			p.Log.Error(err)
-			return ""
-		}
+	}
+	if err != nil {
+		p.Log.Error(err)
+		return ""
 	}
 	output := "integration" + TernaryOperator(EPA, "EPA", "").(string)
 	return p.CreateFile(result, mermaidjs, output+p.Ext)

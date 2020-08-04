@@ -43,17 +43,31 @@ func TestIsOpenAPIFileEmpty(t *testing.T) {
 }
 
 func TestBuildSpecURL(t *testing.T) {
-	t.Parallel()
-	expected := "/pkg/catalog/test/simple.yaml"
-	url, _ := BuildSpecURL(&sysl.SourceContext{File: "./pkg/catalog/test/simple.yaml"})
-	assert.Equal(t, expected, url)
-}
-
-func TestBuildSpecURLNoDot(t *testing.T) {
-	t.Parallel()
-	expected := "/pkg/catalog/test/simple.yaml"
-	url, _ := BuildSpecURL(&sysl.SourceContext{File: "/pkg/catalog/test/simple.yaml"})
-	assert.Equal(t, expected, url)
+	type args struct {
+		source *sysl.SourceContext
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{"Simple", args{source: &sysl.SourceContext{File: "./pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
+		{"NoDot", args{source: &sysl.SourceContext{File: "/pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
+		{"AppendForwardSlash", args{source: &sysl.SourceContext{File: "pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := BuildSpecURL(tt.args.source)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("BuildSpecURL() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("BuildSpecURL() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
 
 func TestStripExtensionSSH(t *testing.T) {

@@ -24,6 +24,9 @@ func IsOpenAPIFile(source *sysl.SourceContext) bool {
 func BuildSpecURL(source *sysl.SourceContext) (string, error) {
 	filePath := source.GetFile()
 	filePath = strings.TrimPrefix(filePath, ".")
+	if !strings.HasPrefix(filePath, "/") {
+		filePath = "/" + filePath
+	}
 	return filePath, nil
 }
 

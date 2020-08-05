@@ -33,6 +33,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@master
 
+      - name: Get version tag
+        id: get-version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
       - name: Build and push docker image
         uses: docker/build-push-action@v1.1.0
         with:
@@ -42,5 +46,5 @@ jobs:
           repository: docker.io/anzbank/sysl-catalog
           tag_with_ref: true
           add_git_labels: true
-          tags: mermaid,mermaid-${{ github.ref }}
+          tags: mermaid,mermaid-${{ steps.get-version.outputs.VERSION }}
           labels: org.opencontainers.image.url=https://sysl.io

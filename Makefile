@@ -4,6 +4,8 @@ install:
 	go install github.com/anz-bank/sysl-catalog
 lint:
 	golangci-lint run ./...
+coverage:
+	go test -coverprofile=coverage.txt -covermode=atomic ./... && go tool cover -func=coverage.txt
 test:
 	go test ./...
 

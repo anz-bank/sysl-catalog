@@ -14,7 +14,8 @@ docker-mermaid:
 docker-run: docker
 	docker run -it -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog demo/sizzle.sysl
 docker-mermaid-run: docker-mermaid
-	docker run -e SYSL_PLANTUML=localhost:8080 -v $$(pwd)/demo/html:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog-mermaid demo/sizzle.sysl --mermaid --type=html -o /out
+	docker run -e SYSL_PLANTUML=localhost:8080 -v $$(pwd)/demo/html:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog-mermaid demo/sizzle.sysl --redoc --mermaid --type=html -o /out
+	cp demo/mastercard.yaml demo/html/demo/mastercard.yaml
 .PHONY: test
 docker-compose:
 	docker-compose run sysl-catalog

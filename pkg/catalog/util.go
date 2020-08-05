@@ -38,15 +38,16 @@ func SanitiseOutputName(s string) string {
 
 // rootDirectory converts a path (eg whatever/anotherdir/this.that) to the ../ pattern to get
 // back to the original folder that the sysl-catalog command was executed from
-func rootDirectory(s string) string {
-	var rootPath string
-	dir, _ := path.Split(s)
-	numberOfLevels := len(strings.Split(dir, "/"))
-	for i := 0; i < numberOfLevels; i++ {
-		rootPath += "../"
-	}
-	return rootPath
-}
+// func rootDirectory(s string) string {
+// 	var rootPath string
+// 	dir, _ := path.Split(s)
+// 	numberOfLevels := len(strings.Split(dir, "/"))
+// 	for i := 0; i < numberOfLevels; i++ {
+// 		rootPath += "../"
+// 	}
+// 	return rootPath
+// }
+
 func SortedKeys(m interface{}) []string {
 	keys := reflect.ValueOf(m).MapKeys()
 	ret := make([]string, 0, len(keys))
@@ -86,7 +87,7 @@ func createProjectApp(Apps map[string]*sysl.Application) *sysl.Application {
 	app.Endpoints = make(map[string]*sysl.Endpoint)
 	app.Endpoints["_"] = newsysl.Endpoint("_")
 	app.Endpoints["_"].Stmt = []*sysl.Statement{}
-	for key, _ := range Apps {
+	for key := range Apps {
 		app.Endpoints["_"].Stmt = append(app.Endpoints["_"].Stmt, newsysl.StringStatement(key))
 	}
 	if app.Attrs == nil {
@@ -101,18 +102,18 @@ func createProjectApp(Apps map[string]*sysl.Application) *sysl.Application {
 }
 
 // createProjectApp returns a "project" app used to make integration diagrams for any "sub module" apps
-func createModuleFromSlices(m *sysl.Module, stmnts []string) *sysl.Module {
-	ret := &sysl.Module{Apps: make(map[string]*sysl.Application)}
-	for _, appName := range stmnts {
-		for key, e := range m.GetApps() {
-			if Attribute(e, "package") == appName {
-				ret.Apps[key] = e
-			}
-		}
-	}
+// func createModuleFromSlices(m *sysl.Module, stmnts []string) *sysl.Module {
+// 	ret := &sysl.Module{Apps: make(map[string]*sysl.Application)}
+// 	for _, appName := range stmnts {
+// 		for key, e := range m.GetApps() {
+// 			if Attribute(e, "package") == appName {
+// 				ret.Apps[key] = e
+// 			}
+// 		}
+// 	}
 
-	return ret
-}
+// 	return ret
+// }
 
 type Attr interface {
 	GetAttrs() map[string]*sysl.Attribute
@@ -296,7 +297,12 @@ func (p *Generator) PUMLFile(fs afero.Fs, fileName, contents string) error {
 func PlantUMLJava(service, out string) error {
 	out = strings.TrimRight(out, "/")
 	cleanup := exec.Command("find", out, "-type", "f", "-name", "*.puml", "-delete")
-	defer cleanup.Run()
+	defer func() {
+		err := cleanup.Run()
+		if err != nil {
+			logrus.Debug(err)
+		}
+	}()
 	command := []string{"java", "-Xms256m", "-Xmx512m", "-Djava.security.egd=file:/dev/./urandom", "-XX:+UnlockExperimentalVMOptions", "-Djava.awt.headless=true", "-jar", service, "-tsvg", `"` + out + `*/**.puml"`}
 	c2 := exec.Command("sh", "-c", strings.Join(command, " "))
 	return c2.Run()

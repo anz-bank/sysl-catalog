@@ -42,5 +42,5 @@ jobs:
           repository: docker.io/anzbank/sysl-catalog
           tag_with_ref: true
           add_git_labels: true
-          tags: mermaid
+          tags: mermaid,mermaid-${{ github.ref }}
           labels: org.opencontainers.image.url=https://sysl.io

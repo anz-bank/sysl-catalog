@@ -91,6 +91,7 @@ Mobile [~ui]:
         OrderServer <- Review
 
 Dashboard [~ui]:
+    @package = "Application"
     Pay:
         PaymentServer <- Pay
 

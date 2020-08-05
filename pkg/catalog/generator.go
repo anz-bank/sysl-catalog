@@ -86,11 +86,12 @@ func (p *Generator) SourcePath(a SourceCoder) string {
 	// if source_path := Attribute(a, "source_path"); source_path != "" {
 	// 	return rootDirectory(path.Join(p.OutputDir, p.CurrentDir)) + Attribute(a, "source_path")
 	// }
-	sourcePath, err := handleSourceURL(a.GetSourceContext().File)
+	// sourcePath, err := handleSourceURL(a.GetSourceContext().File)
+	str, err := BuildSpecURL(a.GetSourceContext())
 	if err != nil {
 		p.Log.Error(err)
 	}
-	return sourcePath
+	return str
 }
 
 func handleSourceURL(importPath string) (string, error) {
@@ -136,19 +137,20 @@ func NewProject(
 	module *sysl.Module,
 	fs afero.Fs, outputDir string) *Generator {
 	p := Generator{
-		ProjectTitle:       titleAndFileName,
-		SourceFileName:     titleAndFileName,
-		OutputDir:          outputDir,
-		OutputFileName:     outputFileNames[strings.ToLower(outputType)],
-		Format:             strings.ToLower(outputType),
-		Log:                logger,
-		RootModule:         module,
-		PlantumlService:    plantumlService,
-		FilesToCreate:      make(map[string]string),
-		GeneratedFiles:     make(map[string][]byte),
-		RedocFilesToCreate: make(map[string]string),
-		Fs:                 fs,
-		Ext:                ".svg",
+		ProjectTitle:         titleAndFileName,
+		SourceFileName:       titleAndFileName,
+		OutputDir:            outputDir,
+		OutputFileName:       outputFileNames[strings.ToLower(outputType)],
+		Format:               strings.ToLower(outputType),
+		Log:                  logger,
+		RootModule:           module,
+		PlantumlService:      plantumlService,
+		FilesToCreate:        make(map[string]string),
+		GeneratedFiles:       make(map[string][]byte),
+		RedocFilesToCreate:   make(map[string]string),
+		MermaidFilesToCreate: make(map[string]string),
+		Fs:                   fs,
+		Ext:                  ".svg",
 	}
 	if module != nil && len(p.ModuleAsMacroPackage(module)) <= 1 {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
@@ -246,7 +248,12 @@ func (p *Generator) Run() {
 
 	if p.Mermaid {
 		progress = pb.Full.Start(len(p.MermaidFilesToCreate))
-		diagramCreator(p.MermaidFilesToCreate, GenerateAndWriteMermaidDiagram, progress)
+		start := time.Now()
+		mermaidGen := MakeMermaidGenerator()
+		diagramCreator(p.MermaidFilesToCreate, mermaidGen.GenerateAndWriteMermaidDiagram, progress)
+		wg.Wait()
+		elapsed := time.Since(start)
+		fmt.Println("Generating took ", elapsed)
 	} else {
 		if strings.Contains(p.PlantumlService, ".jar") {
 			if !p.Server {

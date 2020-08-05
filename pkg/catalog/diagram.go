@@ -23,6 +23,12 @@ import (
 	"github.com/anz-bank/sysl/pkg/cmdutils"
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
+
+	"github.com/anz-bank/sysl/pkg/mermaid/datamodeldiagram"
+	"github.com/anz-bank/sysl/pkg/mermaid/endpointanalysisdiagram"
+	integration "github.com/anz-bank/sysl/pkg/mermaid/integrationdiagram"
+	"github.com/anz-bank/sysl/pkg/mermaid/sequencediagram"
+
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
 	"github.com/anz-bank/sysl/pkg/syslwrapper"
@@ -80,9 +86,30 @@ func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA b
 	return p.CreateIntegrationDiagramPlantuml(m, title, EPA)
 }
 
-//TODO @ashwinsajiv: fill out this function to generate mermaid integration diagrams
 func (p *Generator) CreateIntegrationDiagramMermaid(m *sysl.Module, title string, EPA bool) string {
-	return "" //p.CreateFile("plantumlString", mermaidjs, "title", "integration.Output+p.Ext")
+	var result string
+	var err error
+	var apps []string
+	for app := range m.Apps {
+		apps = append(apps, app)
+	}
+	if len(apps) == 0 {
+		p.Log.Error("Empty Apps")
+		return ""
+	}
+	mod := p.RootModule
+	if EPA {
+		result, err = endpointanalysisdiagram.GenerateMultipleAppEndpointAnalysisDiagram(mod, apps)
+
+	} else {
+		result, err = integration.GenerateMultipleAppIntegrationDiagram(mod, apps)
+	}
+	if err != nil {
+		p.Log.Error(err)
+		return ""
+	}
+	output := "integration" + TernaryOperator(EPA, "EPA", "").(string)
+	return p.CreateFile(result, mermaidjs, output+p.Ext)
 }
 
 // CreateIntegrationDiagram creates an integration diagram and returns the filename
@@ -110,8 +137,25 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 	return p.CreateFile(plantumlString, plantuml, integration.Output+p.Ext)
 }
 
-// CreateSequenceDiagram creates an sequence diagram and returns the filename
 func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoint) string {
+	if p.Mermaid {
+		return p.CreateSequenceDiagramMermaid(appName, endpoint)
+	}
+	return p.CreateSequenceDiagramPlantuml(appName, endpoint)
+}
+
+func (p *Generator) CreateSequenceDiagramMermaid(appName string, endpoint *sysl.Endpoint) string {
+	m := p.RootModule
+	result, error := sequencediagram.GenerateSequenceDiagram(m, appName, endpoint.GetName())
+	if error != nil {
+		p.Log.Error(error)
+		return ""
+	}
+	return p.CreateFile(result, mermaidjs, appName, endpoint.GetName()+"_seq_"+p.Ext)
+}
+
+// CreateSequenceDiagram creates an sequence diagram and returns the filename
+func (p *Generator) CreateSequenceDiagramPlantuml(appName string, endpoint *sysl.Endpoint) string {
 	m := p.RootModule
 	call := fmt.Sprintf("%s <- %s", appName, endpoint.GetName())
 	plantumlString, err := CreateSequenceDiagram(m, call)
@@ -120,7 +164,7 @@ func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoin
 		os.Exit(1)
 		return ""
 	}
-	return p.CreateFile(plantumlString, plantuml, appName, endpoint.GetName()+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, appName, endpoint.GetName()+"_seq_"+p.Ext)
 }
 
 type Param interface {
@@ -145,7 +189,11 @@ func (p *Generator) CreateParamDataModel(app *sysl.Application, param Param) str
 	} else {
 		getRecursive = true
 	}
-	return p.CreateAliasedTypeDiagram(appName, typeName, aliasTypeName, param.GetType(), getRecursive)
+	if p.Mermaid {
+		return p.CreateAliasedTypeDiagramMermaid(appName, typeName, aliasTypeName, getRecursive)
+	} else {
+		return p.CreateAliasedTypeDiagram(appName, typeName, aliasTypeName, param.GetType(), getRecursive)
+	}
 }
 
 // GetReturnType converts an application and a param into a type, useful for getting attributes.
@@ -235,7 +283,29 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 // CreateTypeDiagram creates a data model diagram and returns the filename
 // It handles recursively getting the related types, or for primitives, just returns the
 func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.Type, recursive bool) string {
+	if p.Mermaid {
+		return p.CreateAliasedTypeDiagramMermaid(appName, typeName, typeName, recursive)
+	}
 	return p.CreateAliasedTypeDiagram(appName, typeName, typeName, t, recursive)
+}
+
+func (p *Generator) CreateAliasedTypeDiagramMermaid(appName string, typeName string, typeAlias string, recursive bool) string {
+	if appName == "" || typeName == "" {
+		return ""
+	}
+	m := p.RootModule
+	var mermaidString string
+	var err error
+
+	if appName == "primitive" {
+		mermaidString += datamodeldiagram.GeneratePrimitive(typeName)
+	} else {
+		mermaidString, err = datamodeldiagram.GenerateDataDiagramWithAppAndType(m, appName, typeName)
+		if err != nil {
+			return ""
+		}
+	}
+	return p.CreateFile(mermaidString, mermaidjs, appName, typeName+TernaryOperator(recursive, "", "simple").(string)+p.Ext)
 }
 
 func (p *Generator) CreateAliasedTypeDiagram(appName, typeName, typeAlias string, t *sysl.Type, recursive bool) string {
@@ -452,8 +522,9 @@ func (p *Generator) MacroPackages(module *sysl.Module) []string {
 		p.Links = map[string]string{
 			"Back": "../" + p.OutputFileName,
 		}
-		p.Module = macroPackage
-		err := p.CreateMarkdown(p.Templates[1], macroPackageFileName, p)
+		newGenerator := *p
+		newGenerator.Module = macroPackage
+		err := newGenerator.CreateMarkdown(newGenerator.Templates[1], macroPackageFileName, newGenerator)
 		if err != nil {
 			p.Log.Error("Error generating project table:", err)
 			os.Exit(1)

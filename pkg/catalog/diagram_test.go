@@ -223,6 +223,49 @@ func TestCreateReturnDataModelWithEmpty(t *testing.T) {
 	fileStringEmpty := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["GET /testReturnNil"].Stmt[0], m.Apps["App"].Endpoints["GET /testReturnNil"])
 	assert.Equal(t, "", fileStringEmpty)
 }
+
+func TestCreateSequenceMermaid(t *testing.T) {
+	filePath := "../../tests/verysimple.sysl"
+	outputDir := "test"
+	fs := afero.NewOsFs()
+	logger := logrus.New()
+	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	mermaidString := p.CreateSequenceDiagramMermaid("bar", m.Apps["bar"].Endpoints["barendpoint"])
+	assert.NotNil(t, mermaidString)
+}
+
+func TestCreateIntegrationMermaid(t *testing.T) {
+	filePath := "../../tests/verysimple.sysl"
+	outputDir := "test"
+	fs := afero.NewOsFs()
+	logger := logrus.New()
+	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	mermaidString := p.CreateIntegrationDiagram(m, "", true)
+	assert.NotNil(t, mermaidString)
+}
+
+func TestCreateTypeMermaid(t *testing.T) {
+	filePath := "../../tests/datamodel.sysl"
+	outputDir := "test"
+	fs := afero.NewOsFs()
+	logger := logrus.New()
+	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	mermaidString := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
+	assert.NotNil(t, mermaidString)
+}
+
 func TestCreateRedoc(t *testing.T) {
 	appName := "myAppName"
 	fileName := "/sysl/myfile.yaml"

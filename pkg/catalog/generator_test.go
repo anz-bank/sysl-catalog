@@ -20,12 +20,12 @@ func TestReplace(t *testing.T) {
 const plantumlService = "http://plantuml.com/plantuml"
 
 var testFiles = []string{
-	"test/App/App/gettestrestqueryparam{id}.svg",
-	"test/App/App/gettesturlparamprimitive{id}.svg",
-	"test/App/App/gettesturlparamref{id}.svg",
+	"test/App/App/gettestrestqueryparam{id}_seq_.svg",
+	"test/App/App/gettesturlparamprimitive{id}_seq_.svg",
+	"test/App/App/gettesturlparamref{id}_seq_.svg",
 	"test/App/App/foosimple.svg",
 	"test/App/App/foo.svg",
-	"test/App/App/endpoint.svg",
+	"test/App/App/endpoint_seq_.svg",
 	"test/App/integration.svg",
 	"test/App/README.md",
 	"test/App/integration.svg",
@@ -38,7 +38,7 @@ var testFiles = []string{
 func TestNewProjectWithLoadSyslModule(t *testing.T) {
 	filePath := "../../tests/params.sysl"
 	outputDir := "test"
-	fs := afero.NewMemMapFs()
+	fs := afero.NewOsFs()
 	logger := logrus.New()
 	m, _, err := loader.LoadSyslModule("", filePath, afero.NewOsFs(), logger)
 	if err != nil {

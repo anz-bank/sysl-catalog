@@ -1,0 +1,7 @@
+.sysl-tmp
+.vscode/*
+.git
+.github
+docs
+resources
+tests

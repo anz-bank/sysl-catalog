@@ -150,24 +150,16 @@ func RecursivelyGetTypesHelper(appName string, t *TypeData, m *sysl.Module, cumm
 		return nil
 	case *sysl.Type_Sequence:
 		if path := t.t.GetSequence().GetTypeRef().GetRef().Path; len(path) > 1 {
-			typeName = path[1]
 			appName = path[0]
-		} else {
-			typeName = path[0]
 		}
-
 		appName, typeName, t = TypeFromRef(m, appName, t)
 		if t != nil && t.t != nil {
 			ret[appName+"."+typeName] = &TypeData{t.alias, t.t.GetSequence()}
 		}
 	case *sysl.Type_TypeRef:
 		if path := t.t.GetTypeRef().GetRef().Path; len(path) > 1 {
-			typeName = path[1]
 			appName = path[0]
-		} else {
-			typeName = path[0]
 		}
-
 		appName, typeName, t = TypeFromRef(m, appName, t)
 		if t != nil && t.t != nil {
 			ret[appName+"."+typeName] = t
@@ -206,7 +198,6 @@ func RecursivelyGetTypesHelper(appName string, t *TypeData, m *sysl.Module, cumm
 			case *sysl.Type_Primitive_:
 				continue
 			case *sysl.Type_TypeRef:
-				typeName = strings.Join(v.t.GetTypeRef().GetRef().Path, "")
 				appName, typeName, newType = TypeFromRef(m, appName, v)
 				key = appName + "." + typeName
 				if newType != nil && newType.t != nil {

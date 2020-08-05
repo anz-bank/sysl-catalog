@@ -64,7 +64,7 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 		if err := md.Convert(out, &converted); err != nil {
 			return errors.Wrap(err, "Error converting markdown to html:")
 		}
-		raw := string(converted.Bytes())
+		raw := converted.String()
 		raw = strings.ReplaceAll(raw, "README.md", p.OutputFileName)
 		out = []byte(header + raw + style + endTags)
 	}
@@ -306,7 +306,7 @@ func (p *Generator) CreateRedoc(sourceContext *sysl.SourceContext, appName strin
 func root(p string) string {
 	this := strings.Split(p, "/")
 	ret := ""
-	for _ = range this {
+	for range this {
 		ret += "../"
 	}
 	return ret

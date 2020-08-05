@@ -228,3 +228,12 @@ Args:
 
 ![resources/package_view.png](resources/package_view.png)
 *package_view*
+
+## Development
+
+## Prerequisites
+
+- Go 1.14
+- golangci-lint v1.29+
+- docker
+- chrome (used for mermaid diagram generation)

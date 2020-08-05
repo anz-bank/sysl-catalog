@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: ['opened', 'edited', 'synchronize']
+    types: ['synchronize']
 name: Publish Deployment Preview
 jobs:
   publish:

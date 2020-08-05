@@ -38,7 +38,7 @@ var testFiles = []string{
 func TestNewProjectWithLoadSyslModule(t *testing.T) {
 	filePath := "../../tests/params.sysl"
 	outputDir := "test"
-	fs := afero.NewOsFs()
+	fs := afero.NewMemMapFs()
 	logger := logrus.New()
 	m, _, err := loader.LoadSyslModule("", filePath, afero.NewOsFs(), logger)
 	if err != nil {

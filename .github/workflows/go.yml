@@ -16,10 +16,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run golangci-lint 1.23.8
-        uses: actions-contrib/golangci-lint@v1
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v1
         with:
-          golangci_lint_version: 1.23.8
+          version: v1.29
 
       - name: Test
         run: go test -coverprofile=coverage.txt -covermode=atomic ./...

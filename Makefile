@@ -2,6 +2,8 @@ all:
 	./build.sh
 install:
 	go install github.com/anz-bank/sysl-catalog
+lint:
+	golangci-lint run ./...
 .PHONY: docker build
 build:
 	GOOS=linux GOARCH=amd64 go build -o sysl-catalog .

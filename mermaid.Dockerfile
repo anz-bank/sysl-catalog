@@ -8,4 +8,3 @@ WORKDIR /usr
 COPY --from=builder /src/sysl-catalog /bin/
 
 ENTRYPOINT [ "sysl-catalog" ]
-

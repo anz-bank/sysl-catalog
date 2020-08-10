@@ -84,7 +84,7 @@ func main() {
 					err = fmt.Errorf("%s", r)
 				}
 			}()
-			m, err = parseSyslFile("", *input, fs, logger)
+			m, err = parseSyslFile(".", *input, fs, logger)
 			return
 		}()
 		if err != nil {

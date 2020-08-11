@@ -12,9 +12,9 @@ test:
 .PHONY: demo demo-html demo-markdown
 demo: demo-html demo-markdown
 demo-html:
-	sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml -o demo/html demo/sizzle.sysl --redoc --mermaid
+	sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml -o demo/html demo/demo.sysl --redoc --mermaid
 demo-markdown:
-	sysl-catalog -o demo/markdown demo/sizzle.sysl --mermaid
+	sysl-catalog -o demo/markdown demo/demo.sysl --mermaid
 
 .PHONY: docker docker-mermaid
 docker:
@@ -22,10 +22,8 @@ docker:
 docker-mermaid:
 	docker build -t sysl-catalog-mermaid -f mermaid.Dockerfile . 
 docker-run: docker
-	docker run -it -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog demo/sizzle.sysl
+	docker run -it -e SYSL_PLANTUML=localhost:8080 -e SYSL_MODULES=github -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog demo/demo.sysl
 docker-mermaid-run: docker-mermaid
-	docker run -e SYSL_PLANTUML=localhost:8080 -v $$(pwd)/demo/html:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog-mermaid demo/sizzle.sysl --redoc --mermaid --type=html -o /out
-	cp demo/mastercard.yaml demo/html/demo/mastercard.yaml
+	docker run -e SYSL_PLANTUML=localhost:8080 -e SYSL_MODULES=github -v $$(pwd)/demo/html:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog-mermaid demo/demo.sysl --redoc --mermaid --type=html -o /out
 docker-compose:
 	docker-compose run sysl-catalog
-

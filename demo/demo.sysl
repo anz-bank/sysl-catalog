@@ -1,0 +1,30 @@
+import //github.com/anz-bank/sysl-examples/demos/sizzle_restaurant/sizzle.sysl
+import //github.com/anz-bank/sysl-examples/demos/sizzle_restaurant/mastercard.yaml as MasterCard.MasterCard
+
+Sizzle[~project]:
+    @contact.name = "Jimmy Smith"
+    @description =:
+        | Sizzle is a Gourmet Sausage Restaurant.
+        |
+        | We aim to provide an authentic Aussie
+        | sausage sizzle experience to our customers.
+        |
+        | We will offer 90 minute table allocations and 
+        | comply with all directions and safety procedures 
+        | implemented by the state government.
+        |
+        | You can dine-in, take away, or shop online.
+    @version = "1.0.0"
+
+    Frontend:
+        Application
+    Backend:
+        IdentityServer
+        ProductServer
+        OrderServer
+        PaymentServer
+        DeliveryServer
+        Database
+    External:
+        MasterCard
+        Visa

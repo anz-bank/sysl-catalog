@@ -1,7 +1,9 @@
+name: Publish Deployment Preview
+
 on:
   pull_request:
     types: ['synchronize']
-name: Publish Deployment Preview
+
 jobs:
   publish:
     runs-on: ubuntu-latest

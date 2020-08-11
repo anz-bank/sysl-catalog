@@ -16,8 +16,7 @@
 │   ├── html                  demo on generating HTML files from sysl files
 │   ├── markdown              demo on generating Markdown files from sysl files
 │   ├── protos                demo on generating Markdown files from proto files
-│   ├── mastercard.yaml
-│   └── sizzle.sysl
+│   └── demo.sysl
 ├── docs                      duplicated with demo/html, as GitHub Pages publishing source
 ├── scripts                   Docker build PlantUML dependancy, can be removed once PlantUML is removed
 ├── java                      Docker build PlantUML dependancy, can be removed once PlantUML is removed

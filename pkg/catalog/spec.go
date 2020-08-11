@@ -7,12 +7,14 @@ import (
 	"path"
 	"strings"
 
+	"github.com/anz-bank/sysl/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
 func IsOpenAPIFile(source *sysl.SourceContext) bool {
 	importPath := source.GetFile()
-	fileExt := path.Ext(importPath)
+	p, _ := mod.ExtractVersion(importPath)
+	fileExt := path.Ext(p)
 	if fileExt == ".yaml" || fileExt == ".json" {
 		return true
 	}
@@ -24,9 +26,21 @@ func IsOpenAPIFile(source *sysl.SourceContext) bool {
 func BuildSpecURL(source *sysl.SourceContext) (string, error) {
 	filePath := source.GetFile()
 	filePath = strings.TrimPrefix(filePath, ".")
-	if !strings.HasPrefix(filePath, "/") {
+
+	p, ver := mod.ExtractVersion(filePath)
+	names := strings.FieldsFunc(p, func(c rune) bool {
+		return c == '/'
+	})
+	if len(names) > 3 && names[0] == "github.com" {
+		if ver == "" {
+			ver = "master"
+		}
+		filePath = strings.Join([]string{"https://raw.githubusercontent.com", names[1], names[2], ver, strings.Join(names[3:], "/")}, "/")
+
+	} else if !strings.HasPrefix(filePath, "/") {
 		filePath = "/" + filePath
 	}
+
 	return filePath, nil
 }
 

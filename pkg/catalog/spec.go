@@ -3,18 +3,32 @@ package catalog
 import (
 	"fmt"
 	"net/url"
+	"os"
 	"os/exec"
 	"path"
 	"strings"
 
-	"github.com/anz-bank/sysl/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
+// CopySyslModCache copies ALL the contents of the sysl module cache directory
+// (typically found in ~/.sysl/github.com) and outputs it to the specified folder
+func CopySyslModCache(targetDir string) error {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+	syslCacheDir := homeDir + "/.sysl/github.com"
+	cpSpecsToOutputDir := exec.Command("cp", "-r", syslCacheDir, targetDir)
+	if err := cpSpecsToOutputDir.Run(); err != nil {
+		return err
+	}
+	return nil
+}
+
 func IsOpenAPIFile(source *sysl.SourceContext) bool {
 	importPath := source.GetFile()
-	p, _ := mod.ExtractVersion(importPath)
-	fileExt := path.Ext(p)
+	fileExt := path.Ext(importPath)
 	if fileExt == ".yaml" || fileExt == ".json" {
 		return true
 	}
@@ -26,21 +40,9 @@ func IsOpenAPIFile(source *sysl.SourceContext) bool {
 func BuildSpecURL(source *sysl.SourceContext) (string, error) {
 	filePath := source.GetFile()
 	filePath = strings.TrimPrefix(filePath, ".")
-
-	p, ver := mod.ExtractVersion(filePath)
-	names := strings.FieldsFunc(p, func(c rune) bool {
-		return c == '/'
-	})
-	if len(names) > 3 && names[0] == "github.com" {
-		if ver == "" {
-			ver = "master"
-		}
-		filePath = strings.Join([]string{"https://raw.githubusercontent.com", names[1], names[2], ver, strings.Join(names[3:], "/")}, "/")
-
-	} else if !strings.HasPrefix(filePath, "/") {
+	if !strings.HasPrefix(filePath, "/") {
 		filePath = "/" + filePath
 	}
-
 	return filePath, nil
 }
 

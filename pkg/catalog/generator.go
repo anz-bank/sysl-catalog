@@ -286,6 +286,10 @@ func (p *Generator) Run() {
 	}
 
 	wg.Wait()
+	err := CopySyslModCache(p.OutputDir)
+	if err != nil {
+		logrus.Warn(err)
+	}
 }
 
 // GetFuncMap returns the funcs that are used in diagram generation.

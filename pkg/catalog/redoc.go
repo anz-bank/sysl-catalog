@@ -27,7 +27,7 @@ const RedocPage = `<!DOCTYPE html>
     </style>
   </head>
   <body>
-    <redoc spec-url='https://cors-anywhere.herokuapp.com/{{.SpecURL}}'></redoc>
+    <redoc spec-url='{{.SpecURL}}'></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
   </body>
 </html>

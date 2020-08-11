@@ -3,6 +3,8 @@
 [![Latest Release](https://img.shields.io/github/v/release/anz-bank/sysl-catalog?color=%2300ADD8)](https://github.com/anz-bank/sysl-catalog/releases)
 [![Codecov](https://img.shields.io/codecov/c/github/anz-bank/sysl-catalog/master.svg)](https://codecov.io/gh/anz-bank/sysl-catalog/branch/master)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/82238815-c7d8-4b1a-a069-9308b2477a67/deploy-status)](https://app.netlify.com/sites/lucid-franklin-43e899/deploys)
+[![Docker Pulls](https://img.shields.io/docker/pulls/anzbank/sysl-catalog?style=plastic)](https://img.shields.io/docker/pulls/anzbank/sysl-catalog?style=plastic)
+
 
 A markdown/html + Diagram generator for sysl specifications
 

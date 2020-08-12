@@ -55,6 +55,7 @@ func TestBuildSpecURL(t *testing.T) {
 		{"Simple", args{source: &sysl.SourceContext{File: "./pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
 		{"NoDot", args{source: &sysl.SourceContext{File: "/pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
 		{"AppendForwardSlash", args{source: &sysl.SourceContext{File: "pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
+		{"AppendVersion", args{source: &sysl.SourceContext{File: "github.com/anz-bank/sysl-examples/demos/grocerystore/grocerystore.sysl", Version: "v0.0.0-c63b9e92813a"}}, "/github.com/anz-bank/sysl-examples@v0.0.0-c63b9e92813a/demos/grocerystore/grocerystore.sysl", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

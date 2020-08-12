@@ -170,6 +170,8 @@ github.com/anz-bank/sysl v0.93.0/go.mod h1:NVHgDqSHotzbNmVG/x0DB1nGFswB9MKVv0Oa5
 github.com/anz-bank/sysl v0.94.0/go.mod h1:75Wt6P08jkIy1ecDY6UO5RdCy+dE/Z8XBeO5V5Iq+2c=
 github.com/anz-bank/sysl v0.179.0 h1:NM8WSXoSjO1GCaKgqeepYiCNg62YbyXTWOe7irrl7cI=
 github.com/anz-bank/sysl v0.179.0/go.mod h1:1IRCnjxV/tyk7/qqg4uVoxGi+AQfi2xXI6aqz4yHbWY=
+github.com/anz-bank/sysl v0.180.0 h1:SKqrXxtzBVYrSFAlETVeSewvGtqMnEg+L0rgImZjfAo=
+github.com/anz-bank/sysl v0.180.0/go.mod h1:1IRCnjxV/tyk7/qqg4uVoxGi+AQfi2xXI6aqz4yHbWY=
 github.com/anz-bank/sysl-catalog v1.2.30/go.mod h1:ctu4d6a7J3WzvfaatkpANwYBTRsdS9kM3/+RxVJ/kZs=
 github.com/anz-bank/sysl-catalog v1.4.20/go.mod h1:QeUCcG4RTf/065hLAt2btwXll+OcmMyaD/jYtSwFL6A=
 github.com/anz-bank/sysl-catalog v1.4.22/go.mod h1:ygwrUMDRRmzV7F86Z/9oj6I2XnFmQV9kMruLe+Na4a8=

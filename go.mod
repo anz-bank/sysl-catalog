@@ -10,7 +10,7 @@ require (
 	github.com/antlr/antlr4 v0.0.0-20200712162734-eb1adaa8a7a6 // indirect
 	github.com/anz-bank/mermaid-go v0.1.1
 	github.com/anz-bank/protoc-gen-sysl v0.0.17
-	github.com/anz-bank/sysl v0.179.0
+	github.com/anz-bank/sysl v0.180.0
 	github.com/cheggaaa/pb/v3 v3.0.4
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/gohugoio/hugo v0.74.1

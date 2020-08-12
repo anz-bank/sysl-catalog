@@ -38,7 +38,16 @@ func IsOpenAPIFile(source *sysl.SourceContext) bool {
 // BuildSpecURL takes a source context reference and builds an raw git URL for it
 // It handles sourceContext paths which are from remote repos as well as in the same repo
 func BuildSpecURL(source *sysl.SourceContext) (string, error) {
-	filePath := source.GetFile()
+	// Append the version tag to the repo name
+	var filePath string = source.GetFile()
+	if source.GetVersion() != "" {
+		names := strings.FieldsFunc(source.GetFile(), func(c rune) bool {
+			return c == '/'
+		})
+		names[2] = names[2] + "@" + source.GetVersion()
+		filePath = path.Join(names...)
+	}
+
 	filePath = strings.TrimPrefix(filePath, ".")
 	if !strings.HasPrefix(filePath, "/") {
 		filePath = "/" + filePath

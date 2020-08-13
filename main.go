@@ -109,7 +109,7 @@ func plantUMLService() string {
 	if *plantUMLoption != "" {
 		plantUMLService = *plantUMLoption
 	}
-	if plantUMLService == "" && !enableMermaid {
+	if plantUMLService == "" && !*enableMermaid {
 		log.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
 	}
 	return plantUMLService

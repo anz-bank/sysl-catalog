@@ -131,6 +131,7 @@ func handleSourceURL(importPath string) (string, error) {
 	return buildLink(remote, importPath), nil
 }
 
+// NewProjectFromJson generates a generator object with a json byte input (of a sysl module) instead of a sysl module
 func NewProjectFromJson(
 	titleAndFileName, plantumlService, outputType string,
 	logger *logrus.Logger,

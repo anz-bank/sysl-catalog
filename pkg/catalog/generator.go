@@ -2,6 +2,7 @@
 package catalog
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"os"
@@ -128,6 +129,20 @@ func handleSourceURL(importPath string) (string, error) {
 		return "", err
 	}
 	return buildLink(remote, importPath), nil
+}
+
+func NewProjectFromJson(
+	titleAndFileName, plantumlService, outputType string,
+	logger *logrus.Logger,
+	module []byte,
+	fs afero.Fs, outputDir string) *Generator {
+	m := &sysl.Module{}
+	if err := json.Unmarshal(module, m); err != nil {
+		logger.Error("Error unmarshalling data")
+		return nil
+	}
+	return NewProject(titleAndFileName, plantumlService, outputType, logger, m, fs, outputDir)
+
 }
 
 // NewProject generates a Generator object, fs and outputDir are optional if being used for a web server.

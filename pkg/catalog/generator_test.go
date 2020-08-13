@@ -1,8 +1,11 @@
 package catalog
 
 import (
+	"io/ioutil"
 	"log"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/parse"
@@ -150,4 +153,22 @@ whatever:
 	assert.NoError(t, err)
 	_, err = afero.ReadFile(fs, testFile)
 	assert.NoError(t, err)
+}
+
+func TestNewProjectFromJson(t *testing.T) {
+
+	expectedModule, err := parse.NewParser().Parse("../../tests/rest.sysl", afero.NewOsFs())
+	require.Nil(t, err)
+
+	expected := NewProject("", "", "", logrus.New(), expectedModule, afero.NewMemMapFs(), "/")
+
+	file, err := ioutil.ReadFile("../../tests/rest.json")
+
+	require.Nil(t, err)
+
+	actual := NewProjectFromJson("", "", "", logrus.New(), file, afero.NewMemMapFs(), "/")
+	require.Nil(t, err)
+
+	require.Equal(t, expected.String(), actual.String())
+
 }

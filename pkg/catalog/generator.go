@@ -221,7 +221,7 @@ func (p *Generator) SetOptions(
 	return p
 }
 
-var maxCreatorCount = 80
+var maxCreatorCount = 20
 var maxCreators = make(chan struct{}, maxCreatorCount)
 
 // Run Executes a project and generates markdown and diagrams to a given filesystem.
@@ -264,12 +264,8 @@ func (p *Generator) Run() {
 
 	if p.Mermaid {
 		progress = pb.Full.Start(len(p.MermaidFilesToCreate))
-		start := time.Now()
 		mermaidGen := MakeMermaidGenerator()
 		diagramCreator(p.MermaidFilesToCreate, mermaidGen.GenerateAndWriteMermaidDiagram, progress)
-		wg.Wait()
-		elapsed := time.Since(start)
-		fmt.Println("Generating took ", elapsed)
 	} else {
 		if strings.Contains(p.PlantumlService, ".jar") {
 			if !p.Server {

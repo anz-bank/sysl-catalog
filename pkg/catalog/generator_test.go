@@ -1,8 +1,12 @@
 package catalog
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/parse"
@@ -150,4 +154,56 @@ whatever:
 	assert.NoError(t, err)
 	_, err = afero.ReadFile(fs, testFile)
 	assert.NoError(t, err)
+}
+
+func TestNewProjectFromJson(t *testing.T) {
+
+	expectedModule, err := parse.NewParser().Parse("../../tests/rest.sysl", afero.NewOsFs())
+	require.Nil(t, err)
+
+	expected := NewProject("", "", "", logrus.New(), expectedModule, afero.NewMemMapFs(), "/")
+
+	file, err := ioutil.ReadFile("../../tests/rest.json")
+
+	require.Nil(t, err)
+
+	actual := NewProjectFromJson("", "", "", logrus.New(), file, afero.NewMemMapFs(), "/")
+	require.Nil(t, err)
+
+	require.Equal(t, expected.String(), actual.String())
+
+}
+
+/* String returns a string of all of the non pointer fields; mainly to be used with require.Equal*/
+func (p *Generator) String() string {
+	return fmt.Sprint(
+		p.FilesToCreate,
+		p.MermaidFilesToCreate,
+		p.RedocFilesToCreate,
+		p.GeneratedFiles,
+		p.SourceFileName,
+		p.ProjectTitle,
+		p.ImageDest,
+		p.Format,
+		p.Ext,
+		p.OutputFileName,
+		p.PlantumlService,
+		p.StartTemplateIndex,
+		p.FilterPackage,
+		p.CustomTemplate,
+		p.LiveReload,
+		p.ImageTags,
+		p.DisableCss,
+		p.DisableImages,
+		p.Mermaid,
+		p.Redoc,
+		p.Fs,
+		p.errs,
+		p.CurrentDir,
+		p.TempDir,
+		p.Title,
+		p.OutputDir,
+		p.Links,
+		p.Server,
+	)
 }

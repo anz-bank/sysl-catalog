@@ -66,7 +66,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			bytes = convertToEscapedHTML(fmt.Sprintln(p.errs))
 		}
 	}()
-	request := r.RequestURI
+	request := r.URL.Path
 	if p.RootModule == nil && path.Ext(request) != ".ico" {
 		bytes = convertToHTML(`<img class="blink-image" src="favicon.ico">` + flashing)
 		return

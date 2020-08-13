@@ -221,7 +221,7 @@ func (p *Generator) SetOptions(
 	return p
 }
 
-var maxCreatorCount = 80
+var maxCreatorCount = 20
 var maxCreators = make(chan struct{}, maxCreatorCount)
 
 // Run Executes a project and generates markdown and diagrams to a given filesystem.

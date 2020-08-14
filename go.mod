@@ -27,5 +27,6 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/yuin/goldmark v1.1.31
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect
+	google.golang.org/protobuf v1.23.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )

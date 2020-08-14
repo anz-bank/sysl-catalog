@@ -13,6 +13,8 @@ import (
 	"sort"
 	"strings"
 
+	"google.golang.org/protobuf/encoding/protojson"
+
 	"github.com/anz-bank/mermaid-go/mermaid"
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 	"github.com/anz-bank/sysl/pkg/cmdutils"
@@ -387,4 +389,17 @@ func GetAppTypeName(param Typer) (appName string, typeName string) {
 		typeName = ref.GetPath()[0]
 	}
 	return appName, typeName
+}
+
+// Unmarshall Json unmarshalls json bytes into a sysl module
+func UnmarshallJson(b []byte, m *sysl.Module) error {
+	if m == nil {
+		return fmt.Errorf("module is nil")
+	}
+	ma := protojson.UnmarshalOptions{}
+	err := ma.Unmarshal(b, m)
+	if err != nil {
+		return err
+	}
+	return err
 }

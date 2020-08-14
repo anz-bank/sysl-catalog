@@ -2,7 +2,6 @@
 package catalog
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/url"
 	"os"
@@ -74,6 +73,8 @@ type Generator struct {
 	OutputDir  string
 	Links      map[string]string
 	Server     bool
+
+	BasePath string // for using on another endpoint that isn't '/'
 }
 
 type SourceCoder interface {
@@ -138,7 +139,7 @@ func NewProjectFromJson(
 	module []byte,
 	fs afero.Fs, outputDir string) *Generator {
 	m := &sysl.Module{}
-	if err := json.Unmarshal(module, m); err != nil {
+	if err := UnmarshallJson(module, m); err != nil {
 		logger.Error("Error unmarshalling data")
 		return nil
 	}

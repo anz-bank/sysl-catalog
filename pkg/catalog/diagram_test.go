@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/anz-bank/sysl/pkg/loader"
+	"github.com/anz-bank/sysl/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/sirupsen/logrus"
@@ -270,12 +271,13 @@ func TestCreateRedoc(t *testing.T) {
 	appName := "myAppName"
 	fileName := "/sysl/myfile.yaml"
 	sourceContext := &sysl.SourceContext{File: fileName}
+	app := &sysl.Application{SourceContext: sourceContext}
 	gen := Generator{
 		CurrentDir:         "myAppName",
 		RedocFilesToCreate: make(map[string]string),
 		Redoc:              true,
 	}
-	link := gen.CreateRedoc(sourceContext, appName)
+	link := gen.CreateRedoc(app, appName)
 	t.Log(gen.RedocFilesToCreate)
 	registeredFile, ok := gen.RedocFilesToCreate["myAppName/myappname.redoc.html"]
 	assert.True(t, ok)
@@ -287,11 +289,12 @@ func TestCreateRedocFlagFalse(t *testing.T) {
 	appName := "myAppName"
 	fileName := "myfile.yaml"
 	sourceContext := &sysl.SourceContext{File: fileName}
+	app := &sysl.Application{SourceContext: sourceContext}
 	gen := Generator{
 		RedocFilesToCreate: make(map[string]string),
 		Redoc:              false,
 	}
-	link := gen.CreateRedoc(sourceContext, appName)
+	link := gen.CreateRedoc(app, appName)
 	assert.Equal(t, "", link)
 }
 
@@ -299,10 +302,33 @@ func TestCreateRedocFromImportRemote(t *testing.T) {
 	appName := "myAppName"
 	fileName := "github.com/myorg/myrepo/specs/myfile.yaml"
 	sourceContext := &sysl.SourceContext{File: fileName}
+	app := &sysl.Application{SourceContext: sourceContext}
 	gen := Generator{
 		RedocFilesToCreate: make(map[string]string),
 		Redoc:              true,
 	}
-	link := gen.CreateRedoc(sourceContext, appName)
+	link := gen.CreateRedoc(app, appName)
+	assert.Equal(t, "myappname.redoc.html", link)
+}
+
+func TestCreateRedocFromAttribute(t *testing.T) {
+	mod.GitHubMode = true // Setup sysl module in Github mode
+	appName := "myAppName"
+	fileName := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
+	attrs := map[string]*sysl.Attribute{
+		"redoc-spec": {
+			Attribute: &sysl.Attribute_S{
+				S: fileName,
+			},
+		},
+	}
+
+	app := &sysl.Application{Attrs: attrs}
+	gen := Generator{
+		RedocFilesToCreate: make(map[string]string),
+		Redoc:              true,
+		Log:                logrus.New(),
+	}
+	link := gen.CreateRedoc(app, appName)
 	assert.Equal(t, "myappname.redoc.html", link)
 }

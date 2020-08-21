@@ -89,10 +89,7 @@ func (p *Generator) SourcePath(a SourceCoder) string {
 	// 	return rootDirectory(path.Join(p.OutputDir, p.CurrentDir)) + Attribute(a, "source_path")
 	// }
 	// sourcePath, err := handleSourceURL(a.GetSourceContext().File)
-	str, err := BuildSpecURL(a.GetSourceContext())
-	if err != nil {
-		p.Log.Error(err)
-	}
+	str := BuildSpecURL(a.GetSourceContext().GetFile(), a.GetSourceContext().GetVersion())
 	return str
 }
 

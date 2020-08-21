@@ -357,18 +357,26 @@ func CreateFileName(dir string, elems ...string) (string, string) {
 	return path.Join(dir, absolutefilePath), dir
 }
 
-// CreateRedoc registers a file that needs to be created when the input source context has extension .json or .yaml
-func (p *Generator) CreateRedoc(sourceContext *sysl.SourceContext, appName string) string {
-	if !IsOpenAPIFile(sourceContext) || !p.Redoc {
+// CreateRedoc registers a file that needs to be created when either:
+// - The @redoc-spec attribute has been set
+// - The source context has an extension suggesting it is an OpenAPI file
+func (p *Generator) CreateRedoc(app *sysl.Application, appName string) string {
+	if !p.Redoc {
 		return ""
 	}
-	absPath, _ := CreateFileName(p.CurrentDir, appName+".redoc.html")
-	absPath = path.Join(p.OutputDir, absPath)
-	var err error
-	p.RedocFilesToCreate[absPath], err = BuildSpecURL(sourceContext)
+
+	importPath, version, err := GetImportPathAndVersion(app)
 	if err != nil {
 		p.Log.Error(err)
+		return ""
 	}
+	if !IsOpenAPIFile(importPath) {
+		return ""
+	}
+
+	redocOutputPath, _ := CreateFileName(p.CurrentDir, appName+".redoc.html")
+	redocOutputPath = path.Join(p.OutputDir, redocOutputPath)
+	p.RedocFilesToCreate[redocOutputPath] = BuildSpecURL(importPath, version)
 	link, _ := CreateFileName("", appName+".redoc.html")
 	return link
 }

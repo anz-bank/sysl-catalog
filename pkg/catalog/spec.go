@@ -8,6 +8,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/anz-bank/sysl/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
@@ -26,29 +27,43 @@ func CopySyslModCache(targetDir string) error {
 	return nil
 }
 
-func IsOpenAPIFile(source *sysl.SourceContext) bool {
-	importPath := source.GetFile()
-	fileExt := path.Ext(importPath)
-	if fileExt == ".yaml" || fileExt == ".json" {
+func IsOpenAPIFile(filePath string) bool {
+	fileExt := path.Ext(filePath)
+	if fileExt == ".yaml" || fileExt == ".yml" || fileExt == ".json" {
 		return true
 	}
 	return false
 }
 
-// BuildSpecURL takes a source context reference and builds an raw git URL for it
-// It handles sourceContext paths which are from remote repos as well as in the same repo
-func BuildSpecURL(source *sysl.SourceContext) (string, error) {
-	// Append the version tag to the repo name
-	var filePath string = source.GetFile()
-	if v := source.GetVersion(); v != "" {
-		filePath = AppendVersion(filePath, v)
+func GetImportPathAndVersion(app *sysl.Application) (importPath string, version string, err error) {
+	specURL, ok := app.Attrs["redoc-spec"]
+	if ok {
+		// Fetch the OpenAPI spec file into the cached ~/.sysl directory
+		remoteFileMod, err := mod.Retrieve(specURL.GetS(), "")
+		if err != nil {
+			return "", "", err
+		}
+		importPath = specURL.GetS()
+		version = remoteFileMod.Version
+	} else {
+		importPath = app.SourceContext.File
+		version = app.SourceContext.Version
 	}
+	return importPath, version, nil
+}
 
+// BuildSpecURL takes a filepath and version and builds a URL to the cached spec file
+// It also trims . prefixes and adds a / so that the URL is relative
+func BuildSpecURL(filePath string, version string) string {
+	// Append the version tag to the repo name
+	if version != "" {
+		filePath = AppendVersion(filePath, version)
+	}
 	filePath = strings.TrimPrefix(filePath, ".")
 	if !strings.HasPrefix(filePath, "/") {
 		filePath = "/" + filePath
 	}
-	return filePath, nil
+	return filePath
 }
 
 // AppendVersion takes in a remote file import path and a version, and appends the version tag to the repo name separated by the '@' char
@@ -60,6 +75,9 @@ func AppendVersion(remoteFilePath string, version string) string {
 	names := strings.FieldsFunc(remoteFilePath, func(c rune) bool {
 		return c == '/'
 	})
+	if len(names) < 3 {
+		return ""
+	}
 	names[2] = names[2] + "@" + version
 	return path.Join(names...)
 }

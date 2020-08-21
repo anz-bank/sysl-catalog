@@ -173,6 +173,8 @@ github.com/anz-bank/sysl v0.180.0/go.mod h1:1IRCnjxV/tyk7/qqg4uVoxGi+AQfi2xXI6aq
 github.com/anz-bank/sysl-catalog v1.2.30/go.mod h1:ctu4d6a7J3WzvfaatkpANwYBTRsdS9kM3/+RxVJ/kZs=
 github.com/anz-bank/sysl-catalog v1.4.20/go.mod h1:QeUCcG4RTf/065hLAt2btwXll+OcmMyaD/jYtSwFL6A=
 github.com/anz-bank/sysl-catalog v1.4.22/go.mod h1:ygwrUMDRRmzV7F86Z/9oj6I2XnFmQV9kMruLe+Na4a8=
+github.com/anz-bank/sysl-examples v0.0.2 h1:szNx6secul+G1tyQaWTMKXTD2YByJ/ln2V85O34IhZk=
+github.com/anz-bank/sysl-examples v0.0.2/go.mod h1:AdokLChJxixvIBlAByw+kI13pAKawobfpcYCyPssvLQ=
 github.com/anz-bank/sysl-go v0.0.0-20200325045908-46c4ce0a2736 h1:zTsCdjeUtEFYnLxSEEHAhblYzpbVRUh1a4DH0jDNDoU=
 github.com/anz-bank/sysl-go v0.0.0-20200325045908-46c4ce0a2736/go.mod h1:Jvn9Prqi9lVOaDTTPaU84If2C8MUcB7gOKOtQWqD/Hc=
 github.com/apache/thrift v0.12.0 h1:pODnxUFNcjP9UTLZGTdeh+j16A8lJbRvD3rOtrk/7bs=
@@ -274,6 +276,8 @@ github.com/cpuguy83/go-md2man v1.0.10 h1:BSKMNlYxDvnunlTymqtgONjNnaRV1sTpcovwwjF
 github.com/cpuguy83/go-md2man v1.0.10/go.mod h1:SmD6nW6nTyfqj6ABTjUi3V3JVMnlJmwcJI5acqYI6dE=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d h1:U+s90UTSYgptZMwQh2aRr3LuazLJIa+Pg3Kc1ylSYVY=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
+github.com/cuminandpaprika/syslmod v0.0.0-20200820080614-3db1c953643b h1:7NekJJOkhAtUOC7dHBhOA8WyzbtyL1dCEN7AiH6k4X8=
+github.com/cuminandpaprika/syslmod v0.0.0-20200820080614-3db1c953643b/go.mod h1:IHw9JZUtnZCZQ7TLLSEmHhHnUG2I4Ip7IrePpZ0pROA=
 github.com/daaku/go.zipexe v1.0.0 h1:VSOgZtH418pH9L16hC/JrgSNJbbAL26pj7lmD1+CGdY=
 github.com/daaku/go.zipexe v1.0.0/go.mod h1:z8IiR6TsVLEYKwXAoE/I+8ys/sDkgTzSL0CLnGVd57E=
 github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 h1:y5HC9v93H5EPKqaS1UYVg1uYah5Xf51mBfIoWehClUQ=

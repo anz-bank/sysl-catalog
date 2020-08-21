@@ -53,13 +53,14 @@ type Generator struct {
 	StartTemplateIndex   int
 	FilterPackage        []string // Filter these regex terms out of packagenames
 
-	CustomTemplate bool
-	LiveReload     bool // Add live reload javascript to html
-	ImageTags      bool // embedded plantuml img tags, or generated svgs
-	DisableCss     bool // used for rendering raw markdown
-	DisableImages  bool // used for omitting image creation
-	Mermaid        bool
-	Redoc          bool // used for generating redoc for openapi specs
+	CustomTemplate    bool
+	LiveReload        bool // Add live reload javascript to html
+	ImageTags         bool // embedded plantuml img tags, or generated svgs
+	DisableCss        bool // used for rendering raw markdown
+	DisableImages     bool // used for omitting image creation
+	Mermaid           bool
+	Redoc             bool // used for generating redoc for openapi specs
+	CopySpecsToOutput bool
 
 	Log  *logrus.Logger
 	Fs   afero.Fs
@@ -163,6 +164,7 @@ func NewProject(
 		GeneratedFiles:       make(map[string][]byte),
 		RedocFilesToCreate:   make(map[string]string),
 		MermaidFilesToCreate: make(map[string]string),
+		CopySpecsToOutput:    true,
 		Fs:                   fs,
 		Ext:                  ".svg",
 	}
@@ -296,9 +298,11 @@ func (p *Generator) Run() {
 	}
 
 	wg.Wait()
-	err := CopySyslModCache(p.OutputDir)
-	if err != nil {
-		logrus.Warn(err)
+	if p.CopySpecsToOutput {
+		err := CopySyslModCache(p.OutputDir)
+		if err != nil {
+			logrus.Warn(err)
+		}
 	}
 }
 

@@ -11,7 +11,9 @@ require (
 	github.com/anz-bank/mermaid-go v0.1.1
 	github.com/anz-bank/protoc-gen-sysl v0.0.17
 	github.com/anz-bank/sysl v0.180.0
+	github.com/anz-bank/sysl-examples v0.0.2 // indirect
 	github.com/cheggaaa/pb/v3 v3.0.4
+	github.com/cuminandpaprika/syslmod v0.0.0-20200820080614-3db1c953643b // indirect
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/gohugoio/hugo v0.74.1
 	github.com/hashicorp/go-retryablehttp v0.6.6

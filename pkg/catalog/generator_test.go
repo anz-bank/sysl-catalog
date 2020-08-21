@@ -93,6 +93,7 @@ func TestGenerateDocsWithRedoc(t *testing.T) {
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
 	p.SetOptions(false, false, false, true, false, "", "")
+	p.CopySpecsToOutput = false
 	p.Run()
 	// Assert the right files exist
 	testFile := outputDir + "/Simple/simple.redoc.html"
@@ -147,6 +148,7 @@ whatever:
 	}
 	p := NewProject("", plantumlService, "markdown", logger, m, fs, outputDir)
 	p.SetOptions(false, false, false, true, false, "", "")
+	p.CopySpecsToOutput = false
 	p.Run()
 	// Assert the right files exist
 	testFile := outputDir + "/renamed/README.md"

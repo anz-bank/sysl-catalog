@@ -112,8 +112,8 @@ const NewPackageTemplate = `
 
 {{ServiceMetadata $app}}
 
-{{with CreateRedoc $app.SourceContext $appName}}
-[View OpenAPI Specs in Redoc]({{CreateRedoc $app.SourceContext $appName}})
+{{with CreateRedoc $app $appName}}
+[View OpenAPI Specs in Redoc]({{CreateRedoc $app $appName}})
 {{end}}
 
 {{range $e := $app.Endpoints}}

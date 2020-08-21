@@ -4,47 +4,37 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/anz-bank/sysl/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
-func TestIsOpenAPIFileJSON(t *testing.T) {
-	t.Parallel()
-	sourceContext := &sysl.SourceContext{File: "github.com/myorg/test/spec.json"}
-	result := IsOpenAPIFile(sourceContext)
-	assert.True(t, result)
-}
-
-func TestIsOpenAPIFileYAML(t *testing.T) {
-	t.Parallel()
-	sourceContext := &sysl.SourceContext{File: "github.com/myorg/test/spec.yaml"}
-	result := IsOpenAPIFile(sourceContext)
-	assert.True(t, result)
-}
-
-func TestIsOpenAPIFileYAMLOAS(t *testing.T) {
-	t.Parallel()
-	sourceContext := &sysl.SourceContext{File: "github.com/myorg/test/spec.oas.yaml"}
-	result := IsOpenAPIFile(sourceContext)
-	assert.True(t, result)
-}
-
-func TestIsOpenAPIFileSysl(t *testing.T) {
-	t.Parallel()
-	sourceContext := &sysl.SourceContext{File: "github.com/myorg/test/spec.sysl"}
-	result := IsOpenAPIFile(sourceContext)
-	assert.False(t, result)
-}
-
-func TestIsOpenAPIFileEmpty(t *testing.T) {
-	t.Parallel()
-	sourceContext := &sysl.SourceContext{}
-	result := IsOpenAPIFile(sourceContext)
-	assert.False(t, result)
+func TestIsOpenAPIFile(t *testing.T) {
+	tests := []struct {
+		name string
+		arg  string
+		want bool
+	}{
+		{"Handles empty string", "", false},
+		{"Handles .sysl", "github.com/myorg/test/spec.sysl", false},
+		{"Handles .oas.yaml", "github.com/myorg/test/spec.oas.yaml", true},
+		{"Handles .yaml", "github.com/myorg/test/spec.yaml", true},
+		{"Handles .yml", "github.com/myorg/test/spec.yml", true},
+		{"Handles .json", "github.com/myorg/test/spec.json", true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := IsOpenAPIFile(tt.arg)
+			if got != tt.want {
+				t.Errorf("IsOpenAPIFile() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
 
 func TestBuildSpecURL(t *testing.T) {
 	type args struct {
-		source *sysl.SourceContext
+		filePath string
+		version  string
 	}
 	tests := []struct {
 		name    string
@@ -52,18 +42,14 @@ func TestBuildSpecURL(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		{"Simple", args{source: &sysl.SourceContext{File: "./pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
-		{"NoDot", args{source: &sysl.SourceContext{File: "/pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
-		{"AppendForwardSlash", args{source: &sysl.SourceContext{File: "pkg/catalog/test/simple.yaml"}}, "/pkg/catalog/test/simple.yaml", false},
-		{"AppendVersion", args{source: &sysl.SourceContext{File: "github.com/anz-bank/sysl-examples/demos/grocerystore/grocerystore.sysl", Version: "v0.0.0-c63b9e92813a"}}, "/github.com/anz-bank/sysl-examples@v0.0.0-c63b9e92813a/demos/grocerystore/grocerystore.sysl", false},
+		{"Simple", args{filePath: "./pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
+		{"NoDot", args{filePath: "/pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
+		{"AppendForwardSlash", args{filePath: "pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
+		{"AppendVersion", args{filePath: "github.com/anz-bank/sysl-examples/demos/grocerystore/grocerystore.sysl", version: "v0.0.0-c63b9e92813a"}, "/github.com/anz-bank/sysl-examples@v0.0.0-c63b9e92813a/demos/grocerystore/grocerystore.sysl", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := BuildSpecURL(tt.args.source)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("BuildSpecURL() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+			got := BuildSpecURL(tt.args.filePath, tt.args.version)
 			if got != tt.want {
 				t.Errorf("BuildSpecURL() = %v, want %v", got, tt.want)
 			}
@@ -71,6 +57,24 @@ func TestBuildSpecURL(t *testing.T) {
 	}
 }
 
+// Note this test might require SYSL_GITHUB_TOKEN to be set
+func TestGetImportPathAndVersion(t *testing.T) {
+	mod.GitHubMode = true
+	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
+	attrs := map[string]*sysl.Attribute{
+		"redoc-spec": {
+			Attribute: &sysl.Attribute_S{
+				S: importPath,
+			},
+		},
+	}
+	app := &sysl.Application{Attrs: attrs}
+	result, ver, err := GetImportPathAndVersion(app)
+	assert.NoError(t, err)
+	assert.Equal(t, importPath, result)
+	assert.Equal(t, "v0.0.0-3db1c953643b", ver)
+
+}
 func TestStripExtensionSSH(t *testing.T) {
 	t.Parallel()
 	url := "https://github.com/anz-bank/sysl-catalog.git"

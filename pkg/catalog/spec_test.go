@@ -4,6 +4,8 @@ import (
 	"testing"
 
 	"github.com/alecthomas/assert"
+	"github.com/anz-bank/sysl/pkg/mod"
+	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
 func TestIsOpenAPIFile(t *testing.T) {
@@ -55,6 +57,24 @@ func TestBuildSpecURL(t *testing.T) {
 	}
 }
 
+// Note this test might require SYSL_GITHUB_TOKEN to be set
+func TestGetImportPathAndVersion(t *testing.T) {
+	mod.GitHubMode = true
+	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
+	attrs := map[string]*sysl.Attribute{
+		"redoc-spec": {
+			Attribute: &sysl.Attribute_S{
+				S: importPath,
+			},
+		},
+	}
+	app := &sysl.Application{Attrs: attrs}
+	result, ver, err := GetImportPathAndVersion(app)
+	assert.NoError(t, err)
+	assert.Equal(t, importPath, result)
+	assert.Equal(t, "v0.0.0-3db1c953643b", ver)
+
+}
 func TestStripExtensionSSH(t *testing.T) {
 	t.Parallel()
 	url := "https://github.com/anz-bank/sysl-catalog.git"

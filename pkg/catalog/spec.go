@@ -46,8 +46,8 @@ func GetImportPathAndVersion(app *sysl.Application) (importPath string, version 
 		importPath = specURL.GetS()
 		version = remoteFileMod.Version
 	} else {
-		importPath = app.SourceContext.File
-		version = app.SourceContext.Version
+		importPath = app.SourceContext.GetFile()
+		version = app.SourceContext.GetVersion()
 	}
 	return importPath, version, nil
 }

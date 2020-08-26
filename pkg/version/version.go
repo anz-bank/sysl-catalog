@@ -21,9 +21,9 @@ type Tag struct {
 	Date time.Time `json:"date"`
 }
 
-// ListTags fetches git repo tags via GitHub API. It return tags in order.
+// ListGitHubTags fetches git repo tags via GitHub API. It return tags in order.
 // Could support pagination. Return up to 30 by default
-func ListTags(owner, repo string) (*[]Tag, error) {
+func ListGitHubTags(owner, repo string) (*[]Tag, error) {
 	client := github.NewClient(nil)
 	githubToken := os.Getenv("SYSL_GITHUB_TOKEN")
 	if githubToken != "" {
@@ -59,8 +59,8 @@ func ListTags(owner, repo string) (*[]Tag, error) {
 	return &tags, nil
 }
 
-// GitListTags fetches git repo tags via git. It returns disordered tags.
-func GitListTags(url string) (*[]Tag, error) {
+// ListGitTags fetches git repo tags via git. It returns disordered tags.
+func ListGitTags(url string) (*[]Tag, error) {
 	r, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
 		URL: url,
 	})

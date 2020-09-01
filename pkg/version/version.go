@@ -17,13 +17,13 @@ import (
 
 type Tag struct {
 	Name string    `json:"name"`
-	SHA  string    `json:"sha"`
+	SHA  string    `json:"sha"` // Commit SHA, e.g. c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc
 	Date time.Time `json:"date"`
 }
 
 // ListGitHubTags fetches git repo tags via GitHub API. It return tags in order.
-// Could support pagination. Return up to 30 by default
-func ListGitHubTags(owner, repo string) (*[]Tag, error) {
+// Could support pagination. Returns up to 30 by default.
+func ListGitHubTags(owner, repo string) ([]*Tag, error) {
 	client := github.NewClient(nil)
 	githubToken := os.Getenv("SYSL_GITHUB_TOKEN")
 	if githubToken != "" {
@@ -36,13 +36,12 @@ func ListGitHubTags(owner, repo string) (*[]Tag, error) {
 
 	ctx := context.Background()
 
-	// rawtags, _, err := client.Repositories.ListTags(ctx, owner, repo, &github.ListOptions{PerPage: 100})
 	rawtags, _, err := client.Repositories.ListTags(ctx, owner, repo, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	tags := make([]Tag, 0, len(rawtags))
+	tags := make([]*Tag, 0, len(rawtags))
 	for _, tag := range rawtags {
 		sha := tag.GetCommit().GetSHA()
 		rc, _, err := client.Repositories.GetCommit(ctx, owner, repo, sha)
@@ -50,17 +49,17 @@ func ListGitHubTags(owner, repo string) (*[]Tag, error) {
 			return nil, err
 		}
 
-		tags = append(tags, Tag{
+		tags = append(tags, &Tag{
 			Name: tag.GetName(),
 			SHA:  sha,
 			Date: rc.GetCommit().GetAuthor().GetDate(),
 		})
 	}
-	return &tags, nil
+	return tags, nil
 }
 
 // ListGitTags fetches git repo tags via git. It returns disordered tags.
-func ListGitTags(url string) (*[]Tag, error) {
+func ListGitTags(url string) ([]*Tag, error) {
 	r, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
 		URL: url,
 	})
@@ -73,7 +72,7 @@ func ListGitTags(url string) (*[]Tag, error) {
 		return nil, err
 	}
 
-	tags := make([]Tag, 0)
+	tags := make([]*Tag, 0)
 	err = iter.ForEach(func(tag *plumbing.Reference) error {
 		sha := tag.Hash().String()
 		h, err := r.ResolveRevision(plumbing.Revision(sha))
@@ -91,7 +90,7 @@ func ListGitTags(url string) (*[]Tag, error) {
 
 		o := obj.(*object.Commit)
 
-		tags = append(tags, Tag{
+		tags = append(tags, &Tag{
 			Name: strings.TrimPrefix(tag.Name().String(), "refs/tags/"),
 			SHA:  sha,
 			Date: o.Author.When,
@@ -101,5 +100,5 @@ func ListGitTags(url string) (*[]Tag, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &tags, nil
+	return tags, nil
 }

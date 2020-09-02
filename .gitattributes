@@ -2,3 +2,4 @@ demo/html/* linguist-generated=true
 demo/markdown/* linguist-generated=true
 demo/protos/* linguist-generated=true
 docs/* linguist-generated=true
+go.sum linguist-generated=true

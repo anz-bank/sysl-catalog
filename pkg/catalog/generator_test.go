@@ -107,12 +107,12 @@ func TestHandleSourceURL(t *testing.T) {
 	t.Parallel()
 	u, _ := handleSourceURL("random.sysl")
 	assert.Equal(t,
-		"https://github.com/anz-bank/sysl-catalog/blob/master/random.sysl",
+		"https://github.com/anzx/sysl-catalog/blob/master/random.sysl",
 		u,
 	)
 	u, _ = handleSourceURL("random/random/random.sysl")
 	assert.Equal(t,
-		"https://github.com/anz-bank/sysl-catalog/blob/master/random/random/random.sysl",
+		"https://github.com/anzx/sysl-catalog/blob/master/random/random/random.sysl",
 		u,
 	)
 	u, _ = handleSourceURL("github.com/user/repo/sysl/file")
@@ -122,12 +122,12 @@ func TestHandleSourceURL(t *testing.T) {
 	)
 	u, _ = handleSourceURL("github/fake")
 	assert.Equal(t,
-		"https://github.com/anz-bank/sysl-catalog/blob/master/github/fake",
+		"https://github.com/anzx/sysl-catalog/blob/master/github/fake",
 		u,
 	)
 	u, _ = handleSourceURL("github.com/invalid/path")
 	assert.Equal(t,
-		"https://github.com/anz-bank/sysl-catalog/blob/master/github.com/invalid/path",
+		"https://github.com/anzx/sysl-catalog/blob/master/github.com/invalid/path",
 		u,
 	)
 }

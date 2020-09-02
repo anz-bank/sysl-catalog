@@ -9,6 +9,7 @@ require (
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/antlr/antlr4 v0.0.0-20200712162734-eb1adaa8a7a6 // indirect
 	github.com/anz-bank/mermaid-go v0.1.1
+	github.com/anz-bank/pkg v0.0.17
 	github.com/anz-bank/protoc-gen-sysl v0.0.17
 	github.com/anz-bank/sysl v0.205.0
 	github.com/anz-bank/sysl-examples v0.0.2 // indirect

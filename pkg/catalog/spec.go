@@ -8,7 +8,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/anz-bank/sysl/pkg/mod"
+	"github.com/anz-bank/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
@@ -39,12 +39,13 @@ func GetImportPathAndVersion(app *sysl.Application) (importPath string, version 
 	specURL, ok := app.Attrs["redoc-spec"]
 	if ok {
 		// Fetch the OpenAPI spec file into the cached ~/.sysl directory
-		remoteFileMod, err := mod.Retrieve(specURL.GetS(), "")
+		specImportPath, ver := mod.ExtractVersion(specURL.GetS())
+		modInfo, err := mod.Retrieve(specImportPath, ver)
 		if err != nil {
 			return "", "", err
 		}
-		importPath = specURL.GetS()
-		version = remoteFileMod.Version
+		importPath = specImportPath
+		version = modInfo.Version
 	} else {
 		importPath = app.SourceContext.GetFile()
 		version = app.SourceContext.GetVersion()

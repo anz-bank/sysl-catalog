@@ -49,6 +49,7 @@ func TestNewProjectWithLoadSyslModule(t *testing.T) {
 		log.Fatal(err)
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p.CopySpecsToOutput = false
 	p.Run()
 	// Assert the right files exist
 	for _, testFile := range testFiles {
@@ -70,6 +71,7 @@ func TestNewProjectWithParser(t *testing.T) {
 		log.Fatal(err)
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logrus.New(), m, fs, outputDir)
+	p.CopySpecsToOutput = false
 	p.Run()
 	// Assert the right files exist
 	for _, testFile := range testFiles {

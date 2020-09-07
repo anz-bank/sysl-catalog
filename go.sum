@@ -3,6 +3,7 @@ aqwari.net/xml v0.0.0-20200323224746-73105c9af915 h1:XE0WxBil+QakNGN1kP3jzCNGPQ2
 aqwari.net/xml v0.0.0-20200323224746-73105c9af915/go.mod h1:NIqcJ5inc6DJNSGCVEYGd3vohE6xF4fhUKHSl5bItVE=
 aqwari.net/xml v0.0.0-20200619145941-6c62842e69c1 h1:MRcR/WbipbMIH7HY4ARtkZn79QV0N2lS5smQeVfGTsI=
 aqwari.net/xml v0.0.0-20200619145941-6c62842e69c1/go.mod h1:NIqcJ5inc6DJNSGCVEYGd3vohE6xF4fhUKHSl5bItVE=
+bou.ke/monkey v1.0.2 h1:kWcnsrCNUatbxncxR/ThdYqbytgOIArtYWqcQLQzKLI=
 bou.ke/monkey v1.0.2/go.mod h1:OqickVX3tNx6t33n1xvtTtu85YN5s6cKwVug+oHMaIA=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
@@ -177,8 +178,6 @@ github.com/anz-bank/sysl v0.88.0/go.mod h1:xItS1/FgoOxITJ7wjHb0c2E9JJuMPOvuzAo++
 github.com/anz-bank/sysl v0.92.0/go.mod h1:xItS1/FgoOxITJ7wjHb0c2E9JJuMPOvuzAo++VMV79w=
 github.com/anz-bank/sysl v0.93.0/go.mod h1:NVHgDqSHotzbNmVG/x0DB1nGFswB9MKVv0Oa5s/Q71o=
 github.com/anz-bank/sysl v0.94.0/go.mod h1:75Wt6P08jkIy1ecDY6UO5RdCy+dE/Z8XBeO5V5Iq+2c=
-github.com/anz-bank/sysl v0.180.0 h1:SKqrXxtzBVYrSFAlETVeSewvGtqMnEg+L0rgImZjfAo=
-github.com/anz-bank/sysl v0.180.0/go.mod h1:1IRCnjxV/tyk7/qqg4uVoxGi+AQfi2xXI6aqz4yHbWY=
 github.com/anz-bank/sysl v0.205.0 h1:nDdZka5IHShQ2rWO2gP/tkB6776FYKNCt/3nvH/fDKc=
 github.com/anz-bank/sysl v0.205.0/go.mod h1:iD1PWZfbfP6QmVpqAZps4Q8dK1x9+5j5Hj35ueFlqRA=
 github.com/anz-bank/sysl-catalog v1.2.30/go.mod h1:ctu4d6a7J3WzvfaatkpANwYBTRsdS9kM3/+RxVJ/kZs=
@@ -192,6 +191,8 @@ github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6 h1:G1bPvciwNyF7IU
 github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6/go.mod h1:grANhF5doyWs3UAsr3K4I6qtAmlQcZDesFNEHPZAzj8=
 github.com/armon/go-radix v1.0.0 h1:F4z6KzEeeQIMeLFa97iZU6vupzoecKdU5TX24SNppXI=
 github.com/armon/go-radix v1.0.0/go.mod h1:ufUuZ+zHj4x4TnLV4JWEpy2hxWSpsRywHrMgIH9cCH8=
+github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPdPJAN/hZIm0C4OItdklCFmMRWYpio=
+github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=
 github.com/arr-ai/frozen v0.11.1/go.mod h1:YEr4TubkrAoA3f9U1R4PcEVB5ocBUdiS3NKh03cbVts=
 github.com/arr-ai/frozen v0.13.0 h1:LUqRAVNbsH3SIHCxSSrVRvLOraCazaj3bazvJ9tdVbo=
 github.com/arr-ai/frozen v0.13.0/go.mod h1:YEr4TubkrAoA3f9U1R4PcEVB5ocBUdiS3NKh03cbVts=
@@ -575,6 +576,7 @@ github.com/google/go-cmp v0.3.1/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMyw
 github.com/google/go-cmp v0.3.2-0.20191028172631-481baca67f93/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
 github.com/google/go-cmp v0.4.0 h1:xsAVV57WRhGj6kEIi8ReJzQlHHqcBYCElAvkovg3B/4=
 github.com/google/go-cmp v0.4.0/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+github.com/google/go-cmp v0.5.0 h1:/QaMHBdZ26BB3SSst0Iwl10Epc+xhTquomWX0oZEB6w=
 github.com/google/go-cmp v0.5.0/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-github/v32 v32.1.0 h1:GWkQOdXqviCPx7Q7Fj+KyPoGm4SwHRh8rheoPhd27II=
 github.com/google/go-github/v32 v32.1.0/go.mod h1:rIEpZD9CTDQwDK9GDrtMTycQNA4JU3qBsCizh3q2WCI=
@@ -935,8 +937,6 @@ github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72/go.mod h1:JwIasO
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
 github.com/spf13/afero v1.2.2 h1:5jhuqJyZCZf2JRofRvN/nIFgIWNzPa3/Vz8mYylgbWc=
 github.com/spf13/afero v1.2.2/go.mod h1:9ZxEEn6pIJ8Rxe320qSDBk6AsU0r9pR7Q4OcevTdifk=
-github.com/spf13/afero v1.3.2 h1:GDarE4TJQI52kYSbSAmLiId1Elfj+xgSDqrUZxFhxlU=
-github.com/spf13/afero v1.3.2/go.mod h1:5KUK8ByomD5Ti5Artl0RtHeI5pTF7MIDuXL3yY520V4=
 github.com/spf13/afero v1.3.4 h1:8q6vk3hthlpb2SouZcnBVKboxWQWMDNF38bwholZrJc=
 github.com/spf13/afero v1.3.4/go.mod h1:Ai8FlHk4v/PARR026UzYexafAt9roJ7LcLMAmO6Z93I=
 github.com/spf13/cast v1.3.0/go.mod h1:Qx5cxh0v+4UWYiBimWS+eyWzqEqokIECu5etghLkUJE=

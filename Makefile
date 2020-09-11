@@ -8,6 +8,8 @@ coverage:
 	go test -coverprofile=coverage.txt -covermode=atomic ./... && go tool cover -func=coverage.txt
 test:
 	go test ./...
+test-integration: # Run integration tests (against Github API. Requires SYSL_GITHUB_TOKEN to be set)
+	go test -tags=integration ./...
 
 .PHONY: demo demo-html demo-markdown
 demo: demo-html demo-markdown

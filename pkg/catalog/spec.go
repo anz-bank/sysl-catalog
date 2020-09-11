@@ -10,6 +10,7 @@ import (
 
 	"github.com/anz-bank/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
+	"github.com/spf13/afero"
 )
 
 // CopySyslModCache copies ALL the contents of the sysl module cache directory
@@ -28,24 +29,34 @@ func CopySyslModCache(targetDir string) error {
 }
 
 func IsOpenAPIFile(filePath string) bool {
-	fileExt := path.Ext(filePath)
+	name, _ := mod.ExtractVersion(filePath)
+	fileExt := path.Ext(name)
 	if fileExt == ".yaml" || fileExt == ".yml" || fileExt == ".json" {
 		return true
 	}
 	return false
 }
 
+// GetImportPathAndVersion takes a Sysl Application and returns an import and version string
+// The import path is of format github.com/org/repo/myfile.yaml
+// it CAN contain version tags e.g github.com/org/repo/myfile.yaml@develop or github.com/org/repo/myfile.yaml@v1.1.0
+// The version string is of format version-12digitCommitSHA e.g v0.0.0-c63b9e92813a
 func GetImportPathAndVersion(app *sysl.Application) (importPath string, version string, err error) {
 	specURL, ok := app.Attrs["redoc-spec"]
 	if ok {
+		homeDir, _ := os.UserHomeDir()
 		// Fetch the OpenAPI spec file into the cached ~/.sysl directory
-		specImportPath, ver := mod.ExtractVersion(specURL.GetS())
-		modInfo, err := mod.Retrieve(specImportPath, ver)
+		err2 := mod.Config("github", mod.GoModulesOptions{}, mod.GitHubOptions{CacheDir: homeDir + "/.sysl", AccessToken: os.Getenv("SYSL_GITHUB_TOKEN"), Fs: afero.NewOsFs()}) // Setup sysl module in Github mode
+		if err2 != nil {
+			return "", "", err2
+		}
+		name, ver := mod.ExtractVersion(specURL.GetS())
+		remoteFileMod, err := mod.Retrieve(name, ver)
 		if err != nil {
 			return "", "", err
 		}
-		importPath = specImportPath
-		version = modInfo.Version
+		importPath = specURL.GetS()
+		version = remoteFileMod.Version
 	} else {
 		importPath = app.SourceContext.GetFile()
 		version = app.SourceContext.GetVersion()
@@ -56,15 +67,17 @@ func GetImportPathAndVersion(app *sysl.Application) (importPath string, version 
 // BuildSpecURL takes a filepath and version and builds a URL to the cached spec file
 // It also trims . prefixes and adds a / so that the URL is relative
 func BuildSpecURL(filePath string, version string) string {
+	// Remove trailing @tag or @branchname
+	repoPath, _ := mod.ExtractVersion(filePath)
 	// Append the version tag to the repo name
 	if version != "" {
-		filePath = AppendVersion(filePath, version)
+		repoPath = AppendVersion(repoPath, version)
 	}
-	filePath = strings.TrimPrefix(filePath, ".")
-	if !strings.HasPrefix(filePath, "/") {
-		filePath = "/" + filePath
+	repoPath = strings.TrimPrefix(repoPath, ".")
+	if !strings.HasPrefix(repoPath, "/") {
+		repoPath = "/" + repoPath
 	}
-	return filePath
+	return repoPath
 }
 
 // AppendVersion takes in a remote file import path and a version, and appends the version tag to the repo name separated by the '@' char

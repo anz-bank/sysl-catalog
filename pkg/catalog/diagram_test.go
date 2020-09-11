@@ -1,11 +1,9 @@
 package catalog
 
 import (
-	"os"
 	"path"
 	"testing"
 
-	"github.com/anz-bank/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/anz-bank/sysl/pkg/sysl"
@@ -307,32 +305,6 @@ func TestCreateRedocFromImportRemote(t *testing.T) {
 	gen := Generator{
 		RedocFilesToCreate: make(map[string]string),
 		Redoc:              true,
-	}
-	link := gen.CreateRedoc(app, appName)
-	assert.Equal(t, "myappname.redoc.html", link)
-}
-
-func TestCreateRedocFromAttribute(t *testing.T) {
-	homeDir, err := os.UserHomeDir()
-	assert.NoError(t, err)
-	cacheDir := homeDir + "/.sysl/"
-	err = mod.Config("github", nil, &cacheDir, nil) // Setup sysl module in Github mode
-	assert.NoError(t, err)
-	appName := "myAppName"
-	fileName := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
-	attrs := map[string]*sysl.Attribute{
-		"redoc-spec": {
-			Attribute: &sysl.Attribute_S{
-				S: fileName,
-			},
-		},
-	}
-
-	app := &sysl.Application{Attrs: attrs}
-	gen := Generator{
-		RedocFilesToCreate: make(map[string]string),
-		Redoc:              true,
-		Log:                logrus.New(),
 	}
 	link := gen.CreateRedoc(app, appName)
 	assert.Equal(t, "myappname.redoc.html", link)

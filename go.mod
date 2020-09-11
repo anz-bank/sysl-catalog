@@ -8,9 +8,10 @@ require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/anz-bank/mermaid-go v0.1.1
-	github.com/anz-bank/pkg v0.0.17
+	github.com/anz-bank/pkg v0.0.22
 	github.com/anz-bank/protoc-gen-sysl v0.0.17
-	github.com/anz-bank/sysl v0.205.0
+	github.com/anz-bank/sysl v0.207.0
+	github.com/anz-bank/sysl-examples v0.0.2 // indirect
 	github.com/cheggaaa/pb/v3 v3.0.4
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/go-chi/chi v4.1.2+incompatible // indirect
@@ -25,7 +26,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/radovskyb/watcher v1.0.7
 	github.com/sirupsen/logrus v1.6.0
-	github.com/spf13/afero v1.3.4
+	github.com/spf13/afero v1.3.5
 	github.com/stretchr/testify v1.6.1
 	github.com/yuin/goldmark v1.1.31
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect

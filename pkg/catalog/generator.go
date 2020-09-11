@@ -3,7 +3,6 @@ package catalog
 
 import (
 	"fmt"
-	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -92,42 +91,6 @@ func (p *Generator) SourcePath(a SourceCoder) string {
 	// sourcePath, err := handleSourceURL(a.GetSourceContext().File)
 	str := BuildSpecURL(a.GetSourceContext().GetFile(), a.GetSourceContext().GetVersion())
 	return str
-}
-
-func handleSourceURL(importPath string) (string, error) {
-	//FIXME: does not work with external sysl import modules
-	//FIXME: does not work with absolute import in sysl
-	//FIXME: only handles github
-	buildLink := func(base, file string) string {
-		urlPath, err := url.Parse(BuildGithubBlobURL(base))
-		if err != nil {
-			panic(err)
-		}
-		urlPath.Path = path.Join(urlPath.Path, file)
-		return urlPath.String()
-	}
-
-	if strings.HasPrefix(importPath, "github") {
-		urlPath, err := url.Parse("https://" + importPath)
-		if err == nil {
-			if strings.Contains(urlPath.Host, "github.") {
-				paths := strings.Split(urlPath.Path, "/")
-				// minimum length must be 3 to be a default external import
-				// user/repo/file
-				if len(paths) > 3 {
-					file := path.Join(paths[3:]...)
-
-					urlPath.Path = path.Join(paths[:3]...)
-					return buildLink(urlPath.String(), file), nil
-				}
-			}
-		}
-	}
-	remote, err := GetRemoteFromGit()
-	if err != nil {
-		return "", err
-	}
-	return buildLink(remote, importPath), nil
 }
 
 // NewProjectFromJson generates a generator object with a json byte input (of a sysl module) instead of a sysl module

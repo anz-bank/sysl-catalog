@@ -1,12 +1,9 @@
 package catalog
 
 import (
-	"os"
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/anz-bank/pkg/mod"
-	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
 func TestIsOpenAPIFile(t *testing.T) {
@@ -21,6 +18,7 @@ func TestIsOpenAPIFile(t *testing.T) {
 		{"Handles .yaml", "github.com/myorg/test/spec.yaml", true},
 		{"Handles .yml", "github.com/myorg/test/spec.yml", true},
 		{"Handles .json", "github.com/myorg/test/spec.json", true},
+		{"Handles @develop", "github.com/myorg/test/spec.json@develop", true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -47,6 +45,7 @@ func TestBuildSpecURL(t *testing.T) {
 		{"NoDot", args{filePath: "/pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
 		{"AppendForwardSlash", args{filePath: "pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
 		{"AppendVersion", args{filePath: "github.com/anz-bank/sysl-examples/demos/grocerystore/grocerystore.sysl", version: "v0.0.0-c63b9e92813a"}, "/github.com/anz-bank/sysl-examples@v0.0.0-c63b9e92813a/demos/grocerystore/grocerystore.sysl", false},
+		{"AppendVersionWithBranchTag", args{filePath: "github.com/anz-bank/sysl-examples/demos/grocerystore/grocerystore.sysl@develop", version: "v0.0.0-c63b9e92813a"}, "/github.com/anz-bank/sysl-examples@v0.0.0-c63b9e92813a/demos/grocerystore/grocerystore.sysl", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -56,29 +55,6 @@ func TestBuildSpecURL(t *testing.T) {
 			}
 		})
 	}
-}
-
-// Note this test might require SYSL_GITHUB_TOKEN to be set
-func TestGetImportPathAndVersion(t *testing.T) {
-	homeDir, err := os.UserHomeDir()
-	assert.NoError(t, err)
-	cacheDir := homeDir + "/.sysl/"
-	err = mod.Config("github", nil, &cacheDir, nil) // Setup sysl module in Github mode
-	assert.NoError(t, err)
-	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
-	attrs := map[string]*sysl.Attribute{
-		"redoc-spec": {
-			Attribute: &sysl.Attribute_S{
-				S: importPath,
-			},
-		},
-	}
-	app := &sysl.Application{Attrs: attrs}
-	result, ver, err := GetImportPathAndVersion(app)
-	assert.NoError(t, err)
-	assert.Equal(t, importPath, result)
-	assert.Equal(t, "v0.0.0-3db1c953643b", ver)
-
 }
 func TestStripExtensionSSH(t *testing.T) {
 	t.Parallel()

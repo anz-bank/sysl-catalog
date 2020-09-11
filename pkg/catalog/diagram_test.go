@@ -1,11 +1,12 @@
 package catalog
 
 import (
+	"os"
 	"path"
 	"testing"
 
+	"github.com/anz-bank/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/loader"
-	"github.com/anz-bank/sysl/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/sirupsen/logrus"
@@ -47,7 +48,7 @@ func TestCreateQueryParamDataModelWithPrimitive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	file := p.CreateParamDataModel(m.Apps["Bar"], m.Apps["Bar"].Endpoints["GET /address"].RestParams.QueryParam[0])
 	assert.Equal(t, "primitive/stringstreet.svg", file)
 	assert.Equal(t,
@@ -65,7 +66,7 @@ func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testRestQueryParam/{id}"].RestParams.QueryParam[0])
 	assert.Equal(t, "App/fooquerystring.svg", file)
 	assert.Equal(t,
@@ -83,7 +84,7 @@ func TestCreatePathParamDataModelWithPrimitive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamPrimitive/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t, "primitive/stringid.svg", file)
 	assert.Equal(t,
@@ -101,7 +102,7 @@ func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	file := p.CreateParamDataModel(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamRef/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t, "App/fooid.svg", file)
 	assert.Equal(t,
@@ -119,7 +120,7 @@ func TestCreateParamDataModel(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	file := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
 	assert.Equal(t, "GrpcTesting/requestinput.svg", file)
 	assert.Equal(t,
@@ -137,7 +138,7 @@ func TestCreateParamDataModelWithRestParam(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 
 	type paramCase struct {
 		fileName, svg string
@@ -173,7 +174,7 @@ func TestCreateReturnDataModelWithSequence(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	fileStringSequenceRef := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["somefoo"].Stmt[0], m.Apps["App"].Endpoints["somefoo"])
 	fileStringSequencePrimitive := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["someprimitivefoo"].Stmt[0], m.Apps["App"].Endpoints["someprimitivefoo"])
 	assert.Equal(t, "App/foo.svg", fileStringSequenceRef)
@@ -195,7 +196,7 @@ func TestCreateTypeDiagramWithRecursiveSequenceTypes(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	fileStringSequenceRef := p.CreateTypeDiagram("App", "VeryComplex", m.Apps["App"].Types["VeryComplex"], true)
 	assert.Equal(t, "App/verycomplex.svg", fileStringSequenceRef)
 	assert.Equal(t,
@@ -220,7 +221,7 @@ func TestCreateReturnDataModelWithEmpty(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	fileStringEmpty := p.CreateReturnDataModel("App", m.Apps["App"].Endpoints["GET /testReturnNil"].Stmt[0], m.Apps["App"].Endpoints["GET /testReturnNil"])
 	assert.Equal(t, "", fileStringEmpty)
 }
@@ -234,7 +235,7 @@ func TestCreateSequenceMermaid(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	mermaidString := p.CreateSequenceDiagramMermaid("bar", m.Apps["bar"].Endpoints["barendpoint"])
 	assert.NotNil(t, mermaidString)
 }
@@ -248,7 +249,7 @@ func TestCreateIntegrationMermaid(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	mermaidString := p.CreateIntegrationDiagram(m, "", true)
 	assert.NotNil(t, mermaidString)
 }
@@ -262,7 +263,7 @@ func TestCreateTypeMermaid(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
+	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
 	mermaidString := p.CreateParamDataModel(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
 	assert.NotNil(t, mermaidString)
 }
@@ -312,7 +313,11 @@ func TestCreateRedocFromImportRemote(t *testing.T) {
 }
 
 func TestCreateRedocFromAttribute(t *testing.T) {
-	mod.GitHubMode = true // Setup sysl module in Github mode
+	homeDir, err := os.UserHomeDir()
+	assert.NoError(t, err)
+	cacheDir := homeDir + "/.sysl/"
+	err = mod.Config("github", nil, &cacheDir, nil) // Setup sysl module in Github mode
+	assert.NoError(t, err)
 	appName := "myAppName"
 	fileName := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
 	attrs := map[string]*sysl.Attribute{

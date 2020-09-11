@@ -1,10 +1,11 @@
 package catalog
 
 import (
+	"os"
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/anz-bank/sysl/pkg/mod"
+	"github.com/anz-bank/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
 )
 
@@ -59,7 +60,11 @@ func TestBuildSpecURL(t *testing.T) {
 
 // Note this test might require SYSL_GITHUB_TOKEN to be set
 func TestGetImportPathAndVersion(t *testing.T) {
-	mod.GitHubMode = true
+	homeDir, err := os.UserHomeDir()
+	assert.NoError(t, err)
+	cacheDir := homeDir + "/.sysl/"
+	err = mod.Config("github", nil, &cacheDir, nil) // Setup sysl module in Github mode
+	assert.NoError(t, err)
 	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
 	attrs := map[string]*sysl.Attribute{
 		"redoc-spec": {

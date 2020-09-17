@@ -17,7 +17,22 @@ demo-html:
 	sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml -o demo/html demo/demo.sysl --redoc --mermaid
 demo-markdown:
 	sysl-catalog -o demo/markdown demo/demo.sysl --mermaid
-
+demo-server:
+	docker run \
+	-p 6900:6900 \
+	-e SYSL_GITHUB_TOKEN=$(SYSL_GITHUB_TOKEN) \
+	-e SYSL_PLANTUML=localhost:8080 \
+	-e SYSL_MODULES=github \
+	-v $$(pwd)/demo/html:/out:rw \
+	-v $$(pwd)/demo:/usr/demo:ro \
+	sysl-catalog-mermaid \
+		--serve \
+		-v \
+		--redoc \
+		--mermaid \
+		--type=html \
+		-o /out \
+		demo/demo.sysl
 .PHONY: docker docker-mermaid
 docker:
 	docker build -t sysl-catalog .

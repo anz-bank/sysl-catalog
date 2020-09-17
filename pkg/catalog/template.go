@@ -23,14 +23,14 @@ const MacroPackageProject = `
 # {{Base .Title}}
 
 | Package |
-----|{{range $val := MacroPackages .Module}}
-[{{$val}}]({{$val}}/README.md)|{{end}}
+----|{{if .Module}}{{range $val := MacroPackages .Module}}
+[{{$val}}]({{$val}}/README.md)|{{end}}{{end}}
 
 ## Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module .Title false}}">
+<img src="{{if .Module}}{{CreateIntegrationDiagram .Module .Title false}}{{end}}">
 
 ## End Point Analysis Integration Diagram
-<img src="{{CreateIntegrationDiagram .Module .Title true}}">
+<img src="{{if .Module}}{{CreateIntegrationDiagram .Module .Title true}}{{end}}">
 
 `
 

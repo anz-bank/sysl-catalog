@@ -326,16 +326,21 @@ type MermaidGenerator struct {
 	g *mermaid.Generator
 }
 
-func MakeMermaidGenerator() MermaidGenerator {
-	return MermaidGenerator{g: mermaid.Init()}
+func MakeMermaidGenerator() *MermaidGenerator {
+	return &MermaidGenerator{g: mermaid.Init()}
 }
 
 // GenerateAndWriteMermaidDiagram writes a mermaid svg to file
-func (m MermaidGenerator) GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
+func (m *MermaidGenerator) GenerateMermaidDiagram(data string) []byte {
+	return []byte(m.g.Execute(data) + "\n")
+}
+
+// GenerateAndWriteMermaidDiagram writes a mermaid svg to file
+func (m *MermaidGenerator) GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
 	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
 		return err
 	}
-	mermaidSvg := []byte(m.g.Execute(data) + "\n")
+	mermaidSvg := m.GenerateMermaidDiagram(data)
 	var err = afero.WriteFile(fs, fileName, mermaidSvg, os.ModePerm)
 	if err != nil {
 		return err

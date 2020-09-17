@@ -46,6 +46,7 @@ func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Gene
 	p.OutputDir = "/"
 	p.Server = true
 	p.Fs = afero.NewMemMapFs()
+	p.MermaidGen = MakeMermaidGenerator()
 	return p
 }
 
@@ -99,7 +100,11 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		p.GeneratedFilesMutex.RUnlock()
-		bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
+		if !p.Mermaid {
+			bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
+		} else {
+			bytes = p.MermaidGen.GenerateMermaidDiagram(p.MermaidFilesToCreate[path.Join(unescapedPath)])
+		}
 		p.errs = []error{}
 		if err != nil {
 			p.errs = append(p.errs, err)
@@ -115,7 +120,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.Log.Info(err)
 		}
 		return
-	case ".yaml", ".json", ".sysl":
+	case ".yaml", ".yml", ".json", ".sysl":
 		bytes, err = afero.ReadFile(afero.NewOsFs(), strings.TrimPrefix(request, "/"))
 		if err != nil {
 			p.Log.Error(err)

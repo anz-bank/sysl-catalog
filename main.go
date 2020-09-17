@@ -15,6 +15,7 @@ import (
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
 	"github.com/gohugoio/hugo/livereload"
+	watch "github.com/radovskyb/watcher"
 	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
@@ -73,6 +74,9 @@ func main() {
 		WithTemplateFs(fs, strings.Split(*templates, ",")...).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 
+	// Generate initial files so we don't get 404
+	handler.Run()
+
 	logrus.SetOutput(ioutil.Discard)
 
 	go watcher.WatchFile(func(i interface{}) {
@@ -84,7 +88,17 @@ func main() {
 					err = fmt.Errorf("%s", r)
 				}
 			}()
-			m, err = parseSyslFile(".", *input, fs, logger)
+			if handler.RootModule == nil {
+				m, err = parseSyslFile(".", *input, fs, logger)
+			} else {
+				var changedModule *sysl.Module
+				relativeChangedFilePath := "." + strings.TrimPrefix(i.(watch.Event).Path, "/usr")
+				changedModule, err = parseSyslFile(".", relativeChangedFilePath, fs, logger)
+				if err == nil {
+					m = overwriteSyslModules(handler.RootModule, changedModule)
+				}
+			}
+
 			return
 		}()
 		if err != nil {
@@ -102,6 +116,15 @@ func main() {
 	http.HandleFunc("/livereload", livereload.Handler)
 	fmt.Println("Serving on http://localhost" + *port)
 	logger.Fatal(http.ListenAndServe(*port, nil))
+}
+
+// overwriteSyslModules takes two sysl modules and overwrites one with the other
+// TODO: Handle app definitions from multiple files
+func overwriteSyslModules(existing *sysl.Module, overwrite *sysl.Module) *sysl.Module {
+	for k, v := range overwrite.Apps {
+		existing.Apps[k] = v
+	}
+	return existing
 }
 
 func plantUMLService() string {

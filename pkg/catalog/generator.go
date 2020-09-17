@@ -74,6 +74,8 @@ type Generator struct {
 	Links      map[string]string
 	Server     bool
 
+	MermaidGen *MermaidGenerator // This is used for mermaid diagram generation
+
 	BasePath string // for using on another endpoint that isn't '/'
 }
 
@@ -228,7 +230,10 @@ func (p *Generator) Run() {
 	if p.Mermaid {
 		progress = pb.Full.Start(len(p.MermaidFilesToCreate))
 		mermaidGen := MakeMermaidGenerator()
-		diagramCreator(p.MermaidFilesToCreate, mermaidGen.GenerateAndWriteMermaidDiagram, progress)
+		// We only want to generate diagrams when not in server mode. Otherwise, they get dynamically generated on demand.
+		if !p.Server {
+			diagramCreator(p.MermaidFilesToCreate, mermaidGen.GenerateAndWriteMermaidDiagram, progress)
+		}
 	} else {
 		if strings.Contains(p.PlantumlService, ".jar") {
 			if !p.Server {

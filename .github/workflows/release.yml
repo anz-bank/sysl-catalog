@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  release-sysl-catalog:
+    name: Release sysl-catalog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.13
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@master
+
+      - name: Unshallow
+        run: git fetch --prune --unshallow
+
+      - name: Validate goreleaser config
+        uses: goreleaser/goreleaser-action@v1.3.1
+        with:
+          version: v0.126.0
+          args: check -f .goreleaser.yml
+
+      - name: Set env
+        run: echo ::set-env name=GOVERSION::$(go version | awk '{print $3, $4;}')
+
+      # GoReleaser release process is customized in `.goreleaser.yml` file
+      - name: Release binaries via goreleaser
+        uses: goreleaser/goreleaser-action@v1.3.1
+        with:
+          version: v0.126.0
+          args: release --rm-dist --debug -f .goreleaser.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}

@@ -1,0 +1,58 @@
+project_name: sysl-catalog
+env:
+  - GO111MODULE=on
+  - GOPROXY=https://proxy.golang.org
+before:
+  hooks:
+    - go mod tidy
+
+build:
+  main: main.go
+  ldflags:
+    - -s -w -X main.Version=v{{.Version}}
+    - -X main.GitCommit={{.ShortCommit}}
+    - -X main.GitFullCommit={{.FullCommit}}
+    - -X main.BuildDate={{.Date}}
+    - -X main.BuildOS={{.Os}}/{{.Arch}}
+    - -s -w -X "main.GoVersion={{.Env.GOVERSION}}"
+  goos:
+    - darwin
+    - linux
+    - windows
+  goarch:
+    - amd64
+    - 386
+  goarm:
+    - 7
+
+archives:
+- id: "sysl-catalog"
+  builds: ['sysl-catalog']
+  format: tar.gz
+  format_overrides:
+    - goos: windows
+      format: zip
+  replacements:
+    darwin: darwin
+    linux: linux
+    windows: windows
+    openbsd: openBSD
+    netbsd: netBSD
+    freebsd: freeBSD
+    dragonfly: dragonFlyBSD
+  name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}"
+  files:
+    - README.md
+    - LICENSE
+
+checksum:
+  name_template: '{{.ProjectName}}_{{.Version}}_checksums.txt'
+snapshot:
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - typo

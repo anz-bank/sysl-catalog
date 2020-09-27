@@ -11,7 +11,6 @@ require (
 	github.com/anz-bank/pkg v0.0.22
 	github.com/anz-bank/protoc-gen-sysl v0.0.17
 	github.com/anz-bank/sysl v0.207.0
-	github.com/anz-bank/sysl-examples v0.0.2 // indirect
 	github.com/cheggaaa/pb/v3 v3.0.4
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/go-chi/chi v4.1.2+incompatible // indirect

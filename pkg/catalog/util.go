@@ -60,10 +60,9 @@ func NewTypeRef(appName, typeName string) *sysl.Type {
 	return &sysl.Type{
 		Type: &sysl.Type_TypeRef{
 			TypeRef: &sysl.ScopedRef{
-				Ref: &sysl.Scope{Appname: &sysl.AppName{
-					Part: []string{appName},
-				},
-					Path: []string{appName, typeName},
+				Ref: &sysl.Scope{
+					Appname: &sysl.AppName{Part: []string{appName}},
+					Path:    []string{typeName},
 				},
 			},
 		},
@@ -181,9 +180,19 @@ type Namer interface {
 	GetName() *sysl.AppName
 }
 
+// GetAppNameString returns an app's name as a string, with the namespace joined on "::".
+func GetAppNameString(a Namer) string {
+	return JoinAppNameString(a.GetName())
+}
+
+// JoinAppNameString transforms an AppName to a string, with the namespace joined on "::".
+func JoinAppNameString(an *sysl.AppName) string {
+	return strings.Join(an.GetPart(), " :: ")
+}
+
 // GetAppPackageName returns the package and app name of any sysl application
 func GetAppPackageName(a Namer) (string, string) {
-	appName := strings.Join(a.GetName().GetPart(), "")
+	appName := GetAppNameString(a)
 	packageName := appName
 	if attr := a.GetAttrs()["package"]; attr != nil {
 		packageName = attr.GetS()
@@ -385,7 +394,7 @@ func GetAppTypeName(param Typer) (appName string, typeName string) {
 	if len(appNameParts) > 0 {
 		typeNameParts := ref.GetPath()
 		if typeNameParts != nil {
-			appName = appNameParts[0]
+			appName = JoinAppNameString(ref.GetAppname())
 			typeName = typeNameParts[0]
 		} else {
 			typeName = appNameParts[0]

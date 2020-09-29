@@ -80,6 +80,11 @@ func (p *Generator) CreateMarkdown(t *template.Template, outputFileName string, 
 	return nil
 }
 func (p *Generator) CreateIntegrationDiagram(m *sysl.Module, title string, EPA bool) string {
+	defer func() {
+		if err := recover(); err != nil {
+			p.Log.Errorf("error creating integration diagram: %s", err)
+		}
+	}()
 	if p.Mermaid {
 		return p.CreateIntegrationDiagramMermaid(m, title, EPA)
 	}
@@ -138,6 +143,11 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 }
 
 func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoint) string {
+	defer func() {
+		if err := recover(); err != nil {
+			p.Log.Errorf("error creating sequence diagram: %s", err)
+		}
+	}()
 	if p.Mermaid {
 		return p.CreateSequenceDiagramMermaid(appName, endpoint)
 	}
@@ -174,6 +184,11 @@ type Param interface {
 
 // CreateParamDataModel creates a parameter data model and returns a filename
 func (p *Generator) CreateParamDataModel(app *sysl.Application, param Param) string {
+	defer func() {
+		if err := recover(); err != nil {
+			p.Log.Errorf("error creating param data model: %s", err)
+		}
+	}()
 	var appName, typeName, aliasTypeName string
 	var getRecursive bool
 	aliasTypeName = param.GetName()
@@ -224,7 +239,7 @@ func (p *Generator) GetReturnType(endpoint *sysl.Endpoint, stmnt *sysl.Statement
 		typeName = split[0]
 	}
 	if appName == "" {
-		appName = strings.Join(endpoint.GetSource().GetPart(), "")
+		appName = JoinAppNameString(endpoint.GetSource())
 	}
 	return p.RootModule.GetApps()[appName].GetTypes()[typeName]
 }
@@ -283,6 +298,11 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 // CreateTypeDiagram creates a data model diagram and returns the filename
 // It handles recursively getting the related types, or for primitives, just returns the
 func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.Type, recursive bool) string {
+	defer func() {
+		if err := recover(); err != nil {
+			p.Log.Errorf("error creating type diagram: %s", err)
+		}
+	}()
 	if p.Mermaid {
 		return p.CreateAliasedTypeDiagramMermaid(appName, typeName, typeName, recursive)
 	}
@@ -320,6 +340,7 @@ func (p *Generator) CreateAliasedTypeDiagram(appName, typeName, typeAlias string
 		)
 		plantumlString = catalogdiagrams.GenerateDataModel(appName, relatedTypes)
 		if _, ok := p.RootModule.GetApps()[appName]; !ok {
+			p.Log.Warnf("no app named %s", appName)
 			return ""
 		}
 		// Handle Empty
@@ -332,8 +353,10 @@ func (p *Generator) CreateAliasedTypeDiagram(appName, typeName, typeAlias string
 			map[string]*catalogdiagrams.TypeData{typeAlias: catalogdiagrams.NewTypeData(typeAlias, t)},
 		)
 	}
+	appNameParts := strings.Split(appName, " :: ")
+	dirname := appNameParts[len(appNameParts)-1]
 	return p.CreateFile(
-		plantumlString, plantuml, appName,
+		plantumlString, plantuml, dirname,
 		typeName+TernaryOperator(
 			recursive,
 			TernaryOperator(typeAlias == typeName, "", typeAlias),
@@ -447,12 +470,13 @@ func (p *Generator) CreateFile(contents string, diagramType int, elems ...string
 
 // GenerateDataModel generates a data model for all of the types in app
 func (p *Generator) GenerateDataModel(app *sysl.Application) string {
-	appName := strings.Join(app.GetName().GetPart(), "")
+	appName := GetAppNameString(app)
+	filename := strings.ReplaceAll(appName, " :: ", "")
 	plantumlString := catalogdiagrams.GenerateDataModel(appName, catalogdiagrams.FromSyslTypeMap(appName, app.GetTypes()))
 	if _, ok := p.RootModule.GetApps()[appName]; !ok {
 		return ""
 	}
-	return p.CreateFile(plantumlString, plantuml, appName, "types"+p.Ext)
+	return p.CreateFile(plantumlString, plantuml, filename, "types"+p.Ext)
 }
 
 func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string]string) {
@@ -512,7 +536,7 @@ func (p *Generator) ModuleAsMacroPackage(m *sysl.Module) map[string]*sysl.Module
 		if _, ok := packages[projectEndpoint]; !ok {
 			packages[projectEndpoint] = &sysl.Module{Apps: map[string]*sysl.Application{}}
 		}
-		packages[projectEndpoint].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
+		packages[projectEndpoint].GetApps()[GetAppNameString(app)] = app
 	}
 	return packages
 }
@@ -581,7 +605,7 @@ func (p *Generator) ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 		if _, ok := packages[packageName]; !ok {
 			packages[packageName] = &sysl.Module{Apps: map[string]*sysl.Application{}}
 		}
-		packages[packageName].GetApps()[strings.Join(app.GetName().GetPart(), "")] = app
+		packages[packageName].GetApps()[GetAppNameString(app)] = app
 	}
 	return packages
 }

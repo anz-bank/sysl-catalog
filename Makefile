@@ -1,9 +1,13 @@
-.PHONY: install lint test
+.PHONY: install lint tidy test test-integration coverage
 all: lint test install demo 
 install:
 	go install github.com/anz-bank/sysl-catalog
 lint:
 	golangci-lint run ./...
+tidy:
+	go mod tidy
+	gofmt -s -w .
+	goimports -w .
 coverage:
 	go test -coverprofile=coverage.txt -covermode=atomic ./... && go tool cover -func=coverage.txt
 test:

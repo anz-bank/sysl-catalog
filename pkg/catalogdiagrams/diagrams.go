@@ -237,7 +237,7 @@ func TypeFromRef(mod *sysl.Module, appName string, t *TypeData) (string, string,
 			return "", "", nil // It's most likely a primitive type
 		}
 		if ref.Appname != nil {
-			appName = strings.Join(ref.Appname.Part, "")
+			appName = strings.Join(ref.Appname.Part, " :: ")
 		}
 		if len(ref.Path) > 1 {
 			appName = ref.Path[0]
@@ -247,19 +247,26 @@ func TypeFromRef(mod *sysl.Module, appName string, t *TypeData) (string, string,
 		}
 		return TypeFromRef(mod, appName, &TypeData{t.alias, ty})
 	case *sysl.Type_TypeRef:
+		typeAppName := ""
 		ref := t.t.GetTypeRef().GetRef()
 		if ref.Appname != nil {
-			appName = strings.Join(ref.Appname.Part, "")
+			typeAppName = strings.Join(ref.GetAppname().GetPart(), " :: ")
+		} else {
+			typeAppName = strings.Join(t.t.GetTypeRef().GetContext().GetAppname().GetPart(), " :: ")
 		}
-		typeName = strings.Join(ref.Path, ".")
+		typeName = strings.Join(ref.GetPath(), ".")
 		if len(ref.Path) > 1 {
-			appName = ref.Path[0]
+			typeAppName = ref.Path[0]
 			typeName = ref.Path[1]
 		}
-		if appName == "" {
+		if typeAppName == "" {
 			return "", "", nil
 		}
-		return appName, typeName, &TypeData{t.alias, mod.Apps[appName].Types[typeName]}
+		if app, ok := mod.Apps[typeAppName]; ok {
+			return typeAppName, typeName, &TypeData{t.alias, app.Types[typeName]}
+		} else {
+			panic(fmt.Sprintf("no app named %s", typeAppName))
+		}
 	}
 
 	return "", "", nil

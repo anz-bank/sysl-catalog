@@ -39,6 +39,22 @@ var testFiles = []string{
 	"test/integrationepa.svg",
 }
 
+type AferoRetriever struct {
+	fs afero.Fs
+}
+
+func (ar AferoRetriever) Retrieve(resource string) ([]byte, bool, error) {
+	f, err := ar.fs.Open(resource)
+	if err != nil {
+		return nil, false, err
+	}
+	bs, err := ioutil.ReadAll(f)
+	if err != nil {
+		return nil, false, err
+	}
+	return bs, false, nil
+}
+
 func TestNewProjectWithLoadSyslModule(t *testing.T) {
 	filePath := "../../tests/params.sysl"
 	outputDir := "test"
@@ -66,7 +82,7 @@ func TestNewProjectWithParser(t *testing.T) {
 	filePath := "../../tests/params.sysl"
 	outputDir := "test"
 	fs := afero.NewMemMapFs()
-	m, err := parse.NewParser().Parse(filePath, afero.NewOsFs())
+	m, err := parse.NewParser().Parse(filePath, AferoRetriever{afero.NewOsFs()})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -133,7 +149,7 @@ whatever:
 
 func TestNewProjectFromJson(t *testing.T) {
 
-	expectedModule, err := parse.NewParser().Parse("../../tests/rest.sysl", afero.NewOsFs())
+	expectedModule, err := parse.NewParser().Parse("../../tests/rest.sysl", AferoRetriever{afero.NewOsFs()})
 	require.Nil(t, err)
 
 	expected := NewProject("", "", "", logrus.New(), expectedModule, afero.NewMemMapFs(), "/")

@@ -91,6 +91,11 @@ services:
 ## How to use
 1. Set up environment
 
+
+```bash
+export SYSL_TOKENS=github.com:<YOUR_TOKEN_HERE>
+```
+
 ```bash
 export SYSL_PLANTUML=http://www.plantuml.com/plantuml`
 ```

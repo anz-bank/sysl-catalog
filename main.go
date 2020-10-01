@@ -9,7 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/anz-bank/sysl/pkg/loader"
+	"github.com/anz-bank/sysl/pkg/parse"
+
 	"github.com/anz-bank/sysl/pkg/sysl"
 
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
@@ -92,7 +93,8 @@ func main() {
 				m, err = parseSyslFile(".", *input, fs, logger)
 			} else {
 				var changedModule *sysl.Module
-				relativeChangedFilePath := "." + strings.TrimPrefix(i.(watch.Event).Path, "/usr")
+				wd, _ := os.Getwd()
+				relativeChangedFilePath := "." + strings.TrimPrefix(i.(watch.Event).Path, wd)
 				changedModule, err = parseSyslFile(".", relativeChangedFilePath, fs, logger)
 				if err == nil {
 					m = overwriteSyslModules(handler.RootModule, changedModule)
@@ -152,7 +154,10 @@ func setupLogger() *logrus.Logger {
 func parseSyslFile(root string, filename string, fs afero.Fs, logger *logrus.Logger) (*sysl.Module, error) {
 	logger.Info("Parsing...")
 	start := time.Now()
-	m, _, err := loader.LoadSyslModule(root, filename, fs, logger)
+	m, err := parse.NewParser().ParseFromFs(filename, fs)
+	if err != nil {
+		return nil, err
+	}
 	elapsed := time.Since(start)
 	logger.Info("Done, time elapsed: ", elapsed)
 	return m, err

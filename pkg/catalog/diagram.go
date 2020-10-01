@@ -13,6 +13,7 @@ import (
 	"text/template"
 
 	"github.com/pkg/errors"
+	"github.com/spf13/afero"
 
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
@@ -145,7 +146,7 @@ func (p *Generator) CreateIntegrationDiagramPlantuml(m *sysl.Module, title strin
 func (p *Generator) CreateSequenceDiagram(appName string, endpoint *sysl.Endpoint) string {
 	defer func() {
 		if err := recover(); err != nil {
-			p.Log.Errorf("error creating sequence diagram: %s", err)
+			p.Log.Errorf("error creating sequence diagram for %s %s: %s", appName, endpoint.Name, err)
 		}
 	}()
 	if p.Mermaid {
@@ -300,7 +301,7 @@ func (p *Generator) CreateReturnDataModel(appname string, stmnt *sysl.Statement,
 func (p *Generator) CreateTypeDiagram(appName string, typeName string, t *sysl.Type, recursive bool) string {
 	defer func() {
 		if err := recover(); err != nil {
-			p.Log.Errorf("error creating type diagram: %s", err)
+			p.Log.Errorf("error creating type diagram for %s %s: %s", appName, typeName, err)
 		}
 	}()
 	if p.Mermaid {
@@ -313,14 +314,13 @@ func (p *Generator) CreateAliasedTypeDiagramMermaid(appName string, typeName str
 	if appName == "" || typeName == "" {
 		return ""
 	}
-	m := p.RootModule
 	var mermaidString string
 	var err error
 
 	if appName == "primitive" {
 		mermaidString += datamodeldiagram.GeneratePrimitive(typeName)
 	} else {
-		mermaidString, err = datamodeldiagram.GenerateDataDiagramWithAppAndType(m, appName, typeName)
+		mermaidString, err = datamodeldiagram.GenerateDataDiagramWithMapper(p.Mapper, appName, typeName)
 		if err != nil {
 			return ""
 		}
@@ -388,7 +388,7 @@ func (p *Generator) CreateRedoc(app *sysl.Application, appName string) string {
 		return ""
 	}
 
-	importPath, version, err := GetImportPathAndVersion(app)
+	importPath, version, err := GetImportPathAndVersion(app, afero.NewOsFs())
 	if err != nil {
 		p.Log.Error(err)
 		return ""

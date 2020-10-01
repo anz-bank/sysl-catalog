@@ -54,7 +54,7 @@ const NewPackageTemplate = `
 ## Database Index
 | Database Application Name  | Source Location |
 ----|----{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if and (eq (hasPattern $app.Attrs "ignore") false) (eq (hasPattern $app.Attrs "db") true)}}
-[{{$appName}}](#Database-{{$appName}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}
+[{{SanitiseOutputName $appName}}](#Database-{{$appName}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}
 {{end}}
 
 ## Application Index
@@ -62,7 +62,7 @@ const NewPackageTemplate = `
 
 {{$Apps := .Apps}}{{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{if eq (hasPattern $app.Attrs "ignore") false}}{{$Endpoints := $app.Endpoints}}{{range $endpointName := SortedKeys $Endpoints}}{{$endpoint := index $Endpoints $endpointName}}{{if eq (hasPattern $endpoint.Attrs "ignore") false}}{{if not $anyApps}}| Application Name | Method | Source Location |
 |----|----|----|{{$anyApps = true}}{{end}}
-| {{$appName}} | [{{$endpoint.Name}}](#{{$appName}}-{{SanitiseOutputName $endpoint.Name}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}{{end}}{{end}}
+| {{$appName}} | [{{$endpoint.Name}}](#{{SanitiseOutputName $appName}}-{{SanitiseOutputName $endpoint.Name}}) | [{{SourcePath $app}}]({{SourcePath $app}})|  {{end}}{{end}}{{end}}{{end}}
 
 {{if not $anyApps}}
 <span style="color:grey">No Applications Defined</span>
@@ -74,7 +74,7 @@ const NewPackageTemplate = `
 
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}{{$types := $app.Types}}{{if ne (hasPattern $app.Attrs "db") true}}{{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}{{if not $anyTypes}}| Application Name | Type Name | Source Location |
 |----|----|----|{{$anyTypes = true}}{{end}}
-| {{$appName}} | [{{$typeName}}](#{{$appName}}.{{$typeName}}) | [{{SourcePath $type}}]({{SourcePath $type}})|{{end}}{{end}}{{end}}
+| {{$appName}} | [{{$typeName}}](#{{SanitiseOutputName $appName}}.{{SanitiseOutputName $typeName}}) | [{{SourcePath $type}}]({{SourcePath $type}})|{{end}}{{end}}{{end}}
 
 {{if not $anyTypes}}
 <span style="color:grey">No Types Defined</span>
@@ -86,7 +86,7 @@ const NewPackageTemplate = `
 {{range $appName := SortedKeys .Apps}}{{$app := index $Apps $appName}}
 {{if hasPattern $app.GetAttrs "db"}}
 
-<a name=Database-{{$appName}}></a><details>
+<a name=Database-{{SanitiseOutputName $appName}}></a><details>
 <summary>Database {{$appName}}</summary>
 
 {{Attribute $app "description"}}
@@ -120,7 +120,7 @@ const NewPackageTemplate = `
 {{if eq (hasPattern $e.Attrs "ignore") false}}
 
 
-### <a name={{$appName}}-{{SanitiseOutputName $e.Name}}></a>{{$appName}} {{$e.Name}}
+### <a name={{SanitiseOutputName $appName}}-{{SanitiseOutputName $e.Name}}></a>{{$appName}} {{$e.Name}}
 {{Attribute $e "description"}}
 
 <details>
@@ -197,7 +197,7 @@ const NewPackageTemplate = `
 
 
 {{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
-<a name={{$appName}}.{{$typeName}}></a><details>
+<a name={{SanitiseOutputName $appName}}.{{SanitiseOutputName $typeName}}></a><details>
 <summary>{{$appName}}.{{$typeName}}</summary>
 
 ### {{$appName}}.{{$typeName}}

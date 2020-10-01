@@ -1,5 +1,5 @@
-import //github.com/anz-bank/sysl-examples/demos/sizzle_restaurant/sizzle.sysl
-import //github.com/anz-bank/sysl-examples/demos/sizzle_restaurant/mastercard.yaml as MasterCard.MasterCard
+import //github.com/anz-bank/sysl-examples/demos/sizzle_restaurant/sizzle.sysl@master
+import //github.com/anz-bank/sysl-examples/demos/sizzle_restaurant/mastercard.yaml@master as MasterCard.MasterCard
 
 Sizzle[~project]:
     @contact.name = "Jimmy Smith"

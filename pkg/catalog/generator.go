@@ -20,6 +20,7 @@ import (
 	"github.com/iancoleman/strcase"
 
 	"github.com/anz-bank/sysl/pkg/syslutil"
+	"github.com/anz-bank/sysl/pkg/syslwrapper"
 
 	"github.com/sirupsen/logrus"
 
@@ -75,6 +76,7 @@ type Generator struct {
 	Server     bool
 
 	MermaidGen *MermaidGenerator // This is used for mermaid diagram generation
+	Mapper     *syslwrapper.AppMapper
 
 	BasePath string // for using on another endpoint that isn't '/'
 }
@@ -267,7 +269,7 @@ func (p *Generator) Run() {
 
 	wg.Wait()
 	if p.CopySpecsToOutput {
-		err := CopySyslModCache(p.OutputDir)
+		err := CopySyslCacheDir(p.OutputDir)
 		if err != nil {
 			logrus.Warn(err)
 		}

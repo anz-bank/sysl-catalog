@@ -12,6 +12,7 @@ import (
 	"sync"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
+	"github.com/anz-bank/sysl/pkg/syslwrapper"
 	"github.com/spf13/afero"
 )
 
@@ -21,6 +22,9 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	p.RootModule = m
 	p.GeneratedFiles = make(map[string][]byte)
 	p.GeneratedFilesMutex = &sync.RWMutex{}
+	p.Mapper = syslwrapper.MakeAppMapper(m)
+	p.Mapper.IndexTypes()
+	p.Mapper.ConvertTypes()
 	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 && !p.CustomTemplate {
 		p.StartTemplateIndex = 1 // skip the MacroPackageProject
 	} else {

@@ -303,10 +303,9 @@ func TestCreateRedoc(t *testing.T) {
 		Redoc:              true,
 	}
 	link := gen.CreateRedoc(app, appName)
-	t.Log(gen.RedocFilesToCreate)
 	registeredFile, ok := gen.RedocFilesToCreate["myAppName/myappname.redoc.html"]
 	assert.True(t, ok)
-	assert.Equal(t, "/sysl/myfile.yaml", registeredFile)
+	assert.Equal(t, "/sysl/myfile.yaml@master", registeredFile)
 	assert.Equal(t, "myappname.redoc.html", link)
 }
 

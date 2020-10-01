@@ -18,7 +18,7 @@ test-integration: # Run integration tests (against Github API. Requires SYSL_GIT
 .PHONY: demo demo-html demo-markdown
 demo: demo-html demo-markdown
 demo-html:
-	sysl-catalog --type=html --plantuml=https://plantuml.com/plantuml -o demo/html demo/demo.sysl --redoc --mermaid
+	sysl-catalog --type=html -o demo/html demo/demo.sysl --redoc --mermaid
 demo-markdown:
 	sysl-catalog -o demo/markdown demo/demo.sysl --mermaid
 demo-server:

@@ -1,3 +1,4 @@
 .sysl-tmp
 .vscode/*
 coverage.txt
+sysl_modules

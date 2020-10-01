@@ -3,25 +3,19 @@
 package catalog
 
 import (
-	"os"
 	"testing"
 
 	"github.com/alecthomas/assert"
-	"github.com/anz-bank/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 )
 
-// Note the tests in this folder require SYSL_GITHUB_TOKEN to be set
+// Note the tests in this folder require SYSL_TOKENS to be set
 
 func TestGetImportPathAndVersion(t *testing.T) {
-	homeDir, err := os.UserHomeDir()
-	assert.NoError(t, err)
-	cacheDir := homeDir + "/.sysl/"
-	err = mod.Config("github", mod.GoModulesOptions{}, mod.GitHubOptions{CacheDir: cacheDir, Fs: afero.NewMemMapFs()}) // Setup sysl module in Github mode
-	assert.NoError(t, err)
-	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
+	t.Parallel()
+	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@master"
 	attrs := map[string]*sysl.Attribute{
 		"redoc-spec": {
 			Attribute: &sysl.Attribute_S{
@@ -30,13 +24,14 @@ func TestGetImportPathAndVersion(t *testing.T) {
 		},
 	}
 	app := &sysl.Application{Attrs: attrs}
-	result, ver, err := GetImportPathAndVersion(app)
+	result, ver, err := GetImportPathAndVersion(app, afero.NewMemMapFs())
 	assert.NoError(t, err)
 	assert.Equal(t, importPath, result)
-	assert.Equal(t, "v0.0.0-3db1c953643b", ver)
+	assert.Equal(t, "master", ver)
 }
 
 func TestGetImportPathAndVersionBranch(t *testing.T) {
+	t.Parallel()
 	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@develop"
 	attrs := map[string]*sysl.Attribute{
 		"redoc-spec": {
@@ -46,19 +41,15 @@ func TestGetImportPathAndVersionBranch(t *testing.T) {
 		},
 	}
 	app := &sysl.Application{Attrs: attrs}
-	result, ver, err := GetImportPathAndVersion(app)
+	result, ver, err := GetImportPathAndVersion(app, afero.NewMemMapFs())
 	assert.NoError(t, err)
 	assert.Equal(t, "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@develop", result)
-	assert.Equal(t, "v0.0.0-3db1c953643b", ver)
+	assert.Equal(t, "develop", ver)
 }
 
 func TestGetImportPathAndVersionNonExistentFile(t *testing.T) {
-	homeDir, err := os.UserHomeDir()
-	assert.NoError(t, err)
-	cacheDir := homeDir + "/.sysl/"
-	err = mod.Config("github", mod.GoModulesOptions{}, mod.GitHubOptions{CacheDir: cacheDir, Fs: afero.NewMemMapFs()}) // Setup sysl module in Github mode
-	assert.NoError(t, err)
-	importPath := "github.com/cuminandpaprika/syslmod/nonexistent.yaml"
+	t.Parallel()
+	importPath := "github.com/cuminandpaprika/syslmod/nonexistent.yaml@master"
 	attrs := map[string]*sysl.Attribute{
 		"redoc-spec": {
 			Attribute: &sysl.Attribute_S{
@@ -67,18 +58,14 @@ func TestGetImportPathAndVersionNonExistentFile(t *testing.T) {
 		},
 	}
 	app := &sysl.Application{Attrs: attrs}
-	_, _, err = GetImportPathAndVersion(app)
+	_, _, err := GetImportPathAndVersion(app, afero.NewMemMapFs())
 	assert.Error(t, err)
 }
 
 func TestCreateRedocFromAttribute(t *testing.T) {
-	homeDir, err := os.UserHomeDir()
-	assert.NoError(t, err)
-	cacheDir := homeDir + "/.sysl/"
-	err = mod.Config("github", mod.GoModulesOptions{Root: ""}, mod.GitHubOptions{CacheDir: cacheDir, Fs: afero.NewMemMapFs()}) // Setup sysl module in Github mode
-	assert.NoError(t, err)
+	t.Parallel()
 	appName := "myAppName"
-	fileName := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml"
+	fileName := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@master"
 	attrs := map[string]*sysl.Attribute{
 		"redoc-spec": {
 			Attribute: &sysl.Attribute_S{

@@ -2,8 +2,6 @@ package catalog
 
 import (
 	"testing"
-
-	"github.com/alecthomas/assert"
 )
 
 func TestIsOpenAPIFile(t *testing.T) {
@@ -41,11 +39,9 @@ func TestBuildSpecURL(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		{"Simple", args{filePath: "./pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
-		{"NoDot", args{filePath: "/pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
-		{"AppendForwardSlash", args{filePath: "pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml", false},
-		{"AppendVersion", args{filePath: "github.com/anz-bank/sysl-examples/demos/grocerystore/grocerystore.sysl", version: "v0.0.0-c63b9e92813a"}, "/github.com/anz-bank/sysl-examples@v0.0.0-c63b9e92813a/demos/grocerystore/grocerystore.sysl", false},
-		{"AppendVersionWithBranchTag", args{filePath: "github.com/anz-bank/sysl-examples/demos/grocerystore/grocerystore.sysl@develop", version: "v0.0.0-c63b9e92813a"}, "/github.com/anz-bank/sysl-examples@v0.0.0-c63b9e92813a/demos/grocerystore/grocerystore.sysl", false},
+		{"Simple", args{filePath: "./pkg/catalog/test/simple.yaml"}, "/pkg/catalog/test/simple.yaml@master", false},
+		{"NoDot", args{filePath: "/pkg/catalog/test/simple.yaml@master"}, "/pkg/catalog/test/simple.yaml@master", false},
+		{"AppendForwardSlash", args{filePath: "pkg/catalog/test/simple.yaml@master"}, "/pkg/catalog/test/simple.yaml@master", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -55,38 +51,4 @@ func TestBuildSpecURL(t *testing.T) {
 			}
 		})
 	}
-}
-func TestStripExtensionSSH(t *testing.T) {
-	t.Parallel()
-	url := "https://github.com/anz-bank/sysl-catalog.git"
-	expected := "https://github.com/anz-bank/sysl-catalog"
-	stripped := StripExtension(url)
-	assert.Equal(t, expected, stripped)
-}
-func TestStripExtensionNone(t *testing.T) {
-	t.Parallel()
-	url := "https://github.com/anz-bank/sysl-catalog"
-	stripped := StripExtension(url)
-	assert.Equal(t, url, stripped)
-}
-func TestBuildGitURLGithubPublic(t *testing.T) {
-	t.Parallel()
-	repoPath := "https://github.com/anz-bank/sysl-catalog"
-	result := BuildGithubRawURL(repoPath)
-	assert.Equal(t, "https://raw.githubusercontent.com/anz-bank/sysl-catalog/master/", result)
-}
-
-func TestBuildGitURLGithubEnterprise(t *testing.T) {
-	t.Parallel()
-	repoPath := "https://github.myorg.com/anz-bank/sysl-catalog"
-	result := BuildGithubRawURL(repoPath)
-	assert.Equal(t, "https://github.myorg.com/raw/anz-bank/sysl-catalog/master/", result)
-}
-
-func TestBuildGithubBlobURL(t *testing.T) {
-	t.Parallel()
-	assert.Equal(t,
-		"github.com/user/repo/blob/master",
-		BuildGithubBlobURL("github.com/user/repo"),
-	)
 }

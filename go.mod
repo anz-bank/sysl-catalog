@@ -10,7 +10,7 @@ require (
 	github.com/anz-bank/mermaid-go v0.1.1
 	github.com/anz-bank/pkg v0.0.25
 	github.com/anz-bank/protoc-gen-sysl v0.0.17
-	github.com/anz-bank/sysl v0.223.0
+	github.com/anz-bank/sysl v0.228.0
 	github.com/cheggaaa/pb/v3 v3.0.4
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/go-chi/chi v4.1.2+incompatible // indirect
@@ -19,6 +19,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.6.6
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
+	github.com/joshcarp/gop v0.0.0-20200922043230-a225272c1746
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1

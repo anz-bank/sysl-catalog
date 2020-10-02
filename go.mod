@@ -3,6 +3,8 @@ module github.com/anz-bank/sysl-catalog
 go 1.14
 
 require (
+	cloud.google.com/go v0.67.0 // indirect
+	cloud.google.com/go/storage v1.12.0 // indirect
 	github.com/Masterminds/goutils v1.1.0 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/sprig v2.22.0+incompatible
@@ -19,7 +21,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.6.6
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
-	github.com/joshcarp/gop v0.0.0-20200922043230-a225272c1746
+	github.com/joshcarp/gop v0.3.0
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1
@@ -27,8 +29,13 @@ require (
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/afero v1.4.0
 	github.com/stretchr/testify v1.6.1
-	github.com/yuin/goldmark v1.1.32
+	github.com/yuin/goldmark v1.2.1
+	golang.org/x/crypto v0.0.0-20200930160638-afb6bcd081ae // indirect
+	golang.org/x/net v0.0.0-20200930145003-4acb6c075d10 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
+	golang.org/x/sys v0.0.0-20200930185726-fdedc70b468f // indirect
+	golang.org/x/tools v0.0.0-20200930213115-e57f6d466a48 // indirect
+	google.golang.org/genproto v0.0.0-20200930140634-01fc692af84b // indirect
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/src-d/go-git.v4 v4.13.1

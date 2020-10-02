@@ -3,13 +3,16 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"path"
 	"strings"
 	"time"
 
+	"github.com/anz-bank/sysl/pkg/env"
 	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/joshcarp/gop/gop/cli"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 
@@ -18,7 +21,6 @@ import (
 	"github.com/gohugoio/hugo/livereload"
 	watch "github.com/radovskyb/watcher"
 	"github.com/sirupsen/logrus"
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
@@ -40,6 +42,8 @@ var (
 	enableMermaid     = kingpin.Flag("mermaid", "Enable mermaid for diagram generation instead of Plantuml (Not currently supported)").Default("false").Bool()
 	enableRedoc       = kingpin.Flag("redoc", "Enable Redoc generation for specs imported from OpenAPI. Must be run on a git repo.").Default("false").Bool()
 	imageDest         = kingpin.Flag("imageDest", "Optional image directory destination (can be outside of the path provided using --output)").String()
+	modcmd            = kingpin.Arg("cmd", "get or update").String()
+	repo              = kingpin.Arg("repo", "repo to get").String()
 )
 
 func main() {
@@ -48,7 +52,13 @@ func main() {
 	logger := setupLogger()
 	plantUMLService := plantUMLService()
 	fs := afero.NewOsFs()
-
+	if * input == "mod" && *modcmd != ""{
+		a, _ := Retriever(afero.NewOsFs())
+		if err := a.Command(*modcmd, *repo); err != nil{
+			logrus.Error(err)
+		}
+		return
+	}
 	if !*server {
 		m, err := parseSyslFile(".", *input, fs, logger)
 		if err != nil {
@@ -135,7 +145,7 @@ func plantUMLService() string {
 		plantUMLService = *plantUMLoption
 	}
 	if plantUMLService == "" && !*enableMermaid {
-		log.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
+		logrus.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
 	}
 	return plantUMLService
 }
@@ -154,11 +164,26 @@ func setupLogger() *logrus.Logger {
 func parseSyslFile(root string, filename string, fs afero.Fs, logger *logrus.Logger) (*sysl.Module, error) {
 	logger.Info("Parsing...")
 	start := time.Now()
-	m, err := parse.NewParser().ParseFromFs(filename, fs)
-	if err != nil {
+	retr, err := Retriever(fs)
+	if err != nil{
+		return nil, err
+	}
+	m, err := parse.NewParser().Parse(path.Join(root, filename), retr)
+	if err != nil{
 		return nil, err
 	}
 	elapsed := time.Since(start)
 	logger.Info("Done, time elapsed: ", elapsed)
 	return m, err
+}
+
+/* TODO: Move this into anz-bank/sysl/pkg/mod */
+func Retriever(fs afero.Fs) (cli.Retriever, error) {
+	tokenmap, _ := cli.NewTokenMap(env.SYSL_TOKENS.String(), "GIT_CREDENTIALS")
+	var cache, proxy string
+	if moduleFlag := env.SYSL_MODULES.Value(); moduleFlag != "" && moduleFlag != "false" && moduleFlag != "off" {
+		cache = env.SYSL_CACHE.Value()
+		proxy = env.SYSL_PROXY.Value()
+	}
+	return cli.Moduler(fs, "sysl_modules.yaml", cache, proxy, tokenmap, log.Printf), nil
 }

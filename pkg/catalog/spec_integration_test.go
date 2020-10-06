@@ -1,14 +1,14 @@
-//+build integration
-
 package catalog
 
 import (
 	"testing"
+	"text/template"
+
+	"github.com/spf13/afero"
 
 	"github.com/alecthomas/assert"
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/afero"
 )
 
 // Note the tests in this folder require SYSL_TOKENS to be set
@@ -24,32 +24,22 @@ func TestGetImportPathAndVersion(t *testing.T) {
 		},
 	}
 	app := &sysl.Application{Attrs: attrs}
-	result, ver, err := GetImportPathAndVersion(app, afero.NewMemMapFs())
+	r := retr{map[string]string{"github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@master": "openapi: \"3.0.0\"\ninfo:\n  title: Simple API overview\n  version: 2.0.0\npaths:\n  /:\n    get:\n      operationId: listVersionsv2\n      summary: List API versions\n      responses:\n        '200':\n          description: |-\n            200 response\n          content:\n            application/json:\n              examples: \n                foo:\n                  value:\n                    {\n                      \"versions\": [\n                        {\n                            \"status\": \"CURRENT\",\n                            \"updated\": \"2011-01-21T11:33:21Z\",\n                            \"id\": \"v2.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v2/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        },\n                        {\n                            \"status\": \"EXPERIMENTAL\",\n                            \"updated\": \"2013-07-23T11:33:21Z\",\n                            \"id\": \"v3.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v3/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        }\n                      ]\n                    }\n        '300':\n          description: |-\n            300 response\n          content:\n            application/json: \n              examples: \n                foo:\n                  value: |\n                   {\n                    \"versions\": [\n                          {\n                            \"status\": \"CURRENT\",\n                            \"updated\": \"2011-01-21T11:33:21Z\",\n                            \"id\": \"v2.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v2/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        },\n                        {\n                            \"status\": \"EXPERIMENTAL\",\n                            \"updated\": \"2013-07-23T11:33:21Z\",\n                            \"id\": \"v3.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v3/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        }\n                    ]\n                   }\n  /v2:\n    get:\n      operationId: getVersionDetailsv2\n      summary: Show API version details\n      responses:\n        '200':\n          description: |-\n            200 response\n          content:\n            application/json: \n              examples:\n                foo:\n                  value:\n                    {\n                      \"version\": {\n                        \"status\": \"CURRENT\",\n                        \"updated\": \"2011-01-21T11:33:21Z\",\n                        \"media-types\": [\n                          {\n                              \"base\": \"application/xml\",\n                              \"type\": \"application/vnd.openstack.compute+xml;version=2\"\n                          },\n                          {\n                              \"base\": \"application/json\",\n                              \"type\": \"application/vnd.openstack.compute+json;version=2\"\n                          }\n                        ],\n                        \"id\": \"v2.0\",\n                        \"links\": [\n                          {\n                              \"href\": \"http://127.0.0.1:8774/v2/\",\n                              \"rel\": \"self\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf\",\n                              \"type\": \"application/pdf\",\n                              \"rel\": \"describedby\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                              \"type\": \"application/vnd.sun.wadl+xml\",\n                              \"rel\": \"describedby\"\n                          },\n                          {\n                            \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                            \"type\": \"application/vnd.sun.wadl+xml\",\n                            \"rel\": \"describedby\"\n                          }\n                        ]\n                      }\n                    }\n        '203':\n          description: |-\n            203 response\n          content:\n            application/json: \n              examples:\n                foo:\n                  value:\n                    {\n                      \"version\": {\n                        \"status\": \"CURRENT\",\n                        \"updated\": \"2011-01-21T11:33:21Z\",\n                        \"media-types\": [\n                          {\n                              \"base\": \"application/xml\",\n                              \"type\": \"application/vnd.openstack.compute+xml;version=2\"\n                          },\n                          {\n                              \"base\": \"application/json\",\n                              \"type\": \"application/vnd.openstack.compute+json;version=2\"\n                          }\n                        ],\n                        \"id\": \"v2.0\",\n                        \"links\": [\n                          {\n                              \"href\": \"http://23.253.228.211:8774/v2/\",\n                              \"rel\": \"self\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf\",\n                              \"type\": \"application/pdf\",\n                              \"rel\": \"describedby\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                              \"type\": \"application/vnd.sun.wadl+xml\",\n                              \"rel\": \"describedby\"\n                          }\n                        ]\n                      }\n                    }"}}
+	result, ver, err := GetImportPathAndVersion(r, app)
 	assert.NoError(t, err)
 	assert.Equal(t, importPath, result)
 	assert.Equal(t, "master", ver)
 }
 
-func TestGetImportPathAndVersionBranch(t *testing.T) {
-	t.Parallel()
-	importPath := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@develop"
-	attrs := map[string]*sysl.Attribute{
-		"redoc-spec": {
-			Attribute: &sysl.Attribute_S{
-				S: importPath,
-			},
-		},
-	}
-	app := &sysl.Application{Attrs: attrs}
-	result, ver, err := GetImportPathAndVersion(app, afero.NewMemMapFs())
-	assert.NoError(t, err)
-	assert.Equal(t, "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@develop", result)
-	assert.Equal(t, "develop", ver)
+type retr struct{ content map[string]string }
+
+func (r retr) Retrieve(resource string) ([]byte, bool, error) {
+	return []byte(r.content[resource]), false, nil
 }
 
 func TestGetImportPathAndVersionNonExistentFile(t *testing.T) {
 	t.Parallel()
-	importPath := "github.com/cuminandpaprika/syslmod/nonexistent.yaml@master"
+	importPath := "github.com/cuminandpaprika/syslmod/specs/doesntexist.yaml@master"
 	attrs := map[string]*sysl.Attribute{
 		"redoc-spec": {
 			Attribute: &sysl.Attribute_S{
@@ -58,12 +48,14 @@ func TestGetImportPathAndVersionNonExistentFile(t *testing.T) {
 		},
 	}
 	app := &sysl.Application{Attrs: attrs}
-	_, _, err := GetImportPathAndVersion(app, afero.NewMemMapFs())
-	assert.Error(t, err)
+	r := retr{}
+	result, ver, err := GetImportPathAndVersion(r, app)
+	assert.NoError(t, err)
+	assert.Equal(t, importPath, result)
+	assert.Equal(t, "master", ver)
 }
 
 func TestCreateRedocFromAttribute(t *testing.T) {
-	t.Parallel()
 	appName := "myAppName"
 	fileName := "github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@master"
 	attrs := map[string]*sysl.Attribute{
@@ -77,8 +69,10 @@ func TestCreateRedocFromAttribute(t *testing.T) {
 	app := &sysl.Application{Attrs: attrs}
 	gen := Generator{
 		RedocFilesToCreate: make(map[string]string),
-		Redoc:              true,
 		Log:                logrus.New(),
+		Retriever:          retr{content: map[string]string{"github.com/cuminandpaprika/syslmod/specs/brokenOpenAPI.yaml@master": "openapi: \"3.0.0\"\ninfo:\n  title: Simple API overview\n  version: 2.0.0\npaths:\n  /:\n    get:\n      operationId: listVersionsv2\n      summary: List API versions\n      responses:\n        '200':\n          description: |-\n            200 response\n          content:\n            application/json:\n              examples: \n                foo:\n                  value:\n                    {\n                      \"versions\": [\n                        {\n                            \"status\": \"CURRENT\",\n                            \"updated\": \"2011-01-21T11:33:21Z\",\n                            \"id\": \"v2.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v2/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        },\n                        {\n                            \"status\": \"EXPERIMENTAL\",\n                            \"updated\": \"2013-07-23T11:33:21Z\",\n                            \"id\": \"v3.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v3/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        }\n                      ]\n                    }\n        '300':\n          description: |-\n            300 response\n          content:\n            application/json: \n              examples: \n                foo:\n                  value: |\n                   {\n                    \"versions\": [\n                          {\n                            \"status\": \"CURRENT\",\n                            \"updated\": \"2011-01-21T11:33:21Z\",\n                            \"id\": \"v2.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v2/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        },\n                        {\n                            \"status\": \"EXPERIMENTAL\",\n                            \"updated\": \"2013-07-23T11:33:21Z\",\n                            \"id\": \"v3.0\",\n                            \"links\": [\n                                {\n                                    \"href\": \"http://127.0.0.1:8774/v3/\",\n                                    \"rel\": \"self\"\n                                }\n                            ]\n                        }\n                    ]\n                   }\n  /v2:\n    get:\n      operationId: getVersionDetailsv2\n      summary: Show API version details\n      responses:\n        '200':\n          description: |-\n            200 response\n          content:\n            application/json: \n              examples:\n                foo:\n                  value:\n                    {\n                      \"version\": {\n                        \"status\": \"CURRENT\",\n                        \"updated\": \"2011-01-21T11:33:21Z\",\n                        \"media-types\": [\n                          {\n                              \"base\": \"application/xml\",\n                              \"type\": \"application/vnd.openstack.compute+xml;version=2\"\n                          },\n                          {\n                              \"base\": \"application/json\",\n                              \"type\": \"application/vnd.openstack.compute+json;version=2\"\n                          }\n                        ],\n                        \"id\": \"v2.0\",\n                        \"links\": [\n                          {\n                              \"href\": \"http://127.0.0.1:8774/v2/\",\n                              \"rel\": \"self\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf\",\n                              \"type\": \"application/pdf\",\n                              \"rel\": \"describedby\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                              \"type\": \"application/vnd.sun.wadl+xml\",\n                              \"rel\": \"describedby\"\n                          },\n                          {\n                            \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                            \"type\": \"application/vnd.sun.wadl+xml\",\n                            \"rel\": \"describedby\"\n                          }\n                        ]\n                      }\n                    }\n        '203':\n          description: |-\n            203 response\n          content:\n            application/json: \n              examples:\n                foo:\n                  value:\n                    {\n                      \"version\": {\n                        \"status\": \"CURRENT\",\n                        \"updated\": \"2011-01-21T11:33:21Z\",\n                        \"media-types\": [\n                          {\n                              \"base\": \"application/xml\",\n                              \"type\": \"application/vnd.openstack.compute+xml;version=2\"\n                          },\n                          {\n                              \"base\": \"application/json\",\n                              \"type\": \"application/vnd.openstack.compute+json;version=2\"\n                          }\n                        ],\n                        \"id\": \"v2.0\",\n                        \"links\": [\n                          {\n                              \"href\": \"http://23.253.228.211:8774/v2/\",\n                              \"rel\": \"self\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf\",\n                              \"type\": \"application/pdf\",\n                              \"rel\": \"describedby\"\n                          },\n                          {\n                              \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                              \"type\": \"application/vnd.sun.wadl+xml\",\n                              \"rel\": \"describedby\"\n                          }\n                        ]\n                      }\n                    }"}},
+		Redoc:              template.Must(template.New("redoc").Parse(RedocPage)),
+		Fs:                 afero.NewMemMapFs(),
 	}
 	link := gen.CreateRedoc(app, appName)
 	assert.Equal(t, "myappname.redoc.html", link)

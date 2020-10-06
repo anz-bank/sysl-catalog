@@ -1,0 +1,4 @@
+App:
+    _:
+        foobar:
+            return ok <: string

@@ -23,22 +23,6 @@ func TestReplace(t *testing.T) {
 
 const plantumlService = "http://plantuml.com/plantuml"
 
-var testFiles = []string{
-	"test/App/App/gettestrestqueryparam{id}_seq_.svg",
-	"test/App/App/gettesturlparamprimitive{id}_seq_.svg",
-	"test/App/App/gettesturlparamref{id}_seq_.svg",
-	"test/App/App/foosimple.svg",
-	"test/App/App/foo.svg",
-	"test/App/App/endpoint_seq_.svg",
-	"test/App/integration.svg",
-	"test/App/README.md",
-	"test/App/integration.svg",
-	"test/App/primitive/stringid.svg",
-	"test/README.md",
-	"test/integration.svg",
-	"test/integrationepa.svg",
-}
-
 type AferoRetriever struct {
 	fs afero.Fs
 }
@@ -65,17 +49,8 @@ func TestNewProjectWithLoadSyslModule(t *testing.T) {
 		log.Fatal(err)
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
-	p.CopySpecsToOutput = false
 	p.Run()
 	// Assert the right files exist
-	for _, testFile := range testFiles {
-		t.Run(testFile, func(t *testing.T) {
-			_, err = fs.Open(testFile)
-			assert.NoError(t, err)
-			_, err := afero.ReadFile(fs, testFile)
-			assert.NoError(t, err)
-		})
-	}
 }
 
 func TestNewProjectWithParser(t *testing.T) {
@@ -87,17 +62,8 @@ func TestNewProjectWithParser(t *testing.T) {
 		log.Fatal(err)
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logrus.New(), m, fs, outputDir)
-	p.CopySpecsToOutput = false
 	p.Run()
 	// Assert the right files exist
-	for _, testFile := range testFiles {
-		t.Run(testFile, func(t *testing.T) {
-			_, err = fs.Open(testFile)
-			assert.NoError(t, err)
-			_, err := afero.ReadFile(fs, testFile)
-			assert.NoError(t, err)
-		})
-	}
 }
 
 func TestGenerateDocsWithRedoc(t *testing.T) {
@@ -110,8 +76,8 @@ func TestGenerateDocsWithRedoc(t *testing.T) {
 		log.Fatal(err)
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, fs, outputDir)
-	p.SetOptions(false, false, false, true, false, "", "")
-	p.CopySpecsToOutput = false
+	p.SetOptions(false, "", "")
+	p.Retriever = retr{content: map[string]string{"test/simple.yaml": "openapi: \"3.0.0\"\ninfo:\n  version: 1.0.0\n  title: simple\n  license:\n    name: MIT\nservers:\n  - url: http://petstore.swagger.io/v1\n"}}
 	p.Run()
 	// Assert the right files exist
 	testFile := outputDir + "/Simple/simple.redoc.html"
@@ -136,8 +102,7 @@ whatever:
 		log.Fatal(err)
 	}
 	p := NewProject("", plantumlService, "markdown", logger, m, fs, outputDir)
-	p.SetOptions(false, false, false, true, false, "", "")
-	p.CopySpecsToOutput = false
+	p.SetOptions(false, "", "")
 	p.Run()
 	// Assert the right files exist
 	testFile := outputDir + "/renamed/README.md"
@@ -171,23 +136,17 @@ func (p *Generator) String() string {
 		p.FilesToCreate,
 		p.MermaidFilesToCreate,
 		p.RedocFilesToCreate,
-		p.GeneratedFiles,
 		p.SourceFileName,
 		p.ProjectTitle,
 		p.ImageDest,
 		p.Format,
-		p.Ext,
 		p.OutputFileName,
 		p.PlantumlService,
 		p.StartTemplateIndex,
 		p.FilterPackage,
 		p.CustomTemplate,
 		p.LiveReload,
-		p.ImageTags,
 		p.DisableCss,
-		p.DisableImages,
-		p.Mermaid,
-		p.Redoc,
 		p.Fs,
 		p.errs,
 		p.CurrentDir,

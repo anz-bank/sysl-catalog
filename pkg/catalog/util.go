@@ -2,20 +2,13 @@
 package catalog
 
 import (
-	"bytes"
-	"errors"
 	"fmt"
-	"io/ioutil"
-	"os"
-	"os/exec"
-	"path"
 	"reflect"
 	"sort"
 	"strings"
 
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/anz-bank/mermaid-go/mermaid"
 	"github.com/anz-bank/protoc-gen-sysl/newsysl"
 	"github.com/anz-bank/sysl/pkg/cmdutils"
 	"github.com/anz-bank/sysl/pkg/diagrams"
@@ -23,27 +16,13 @@ import (
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
 
-	"github.com/hashicorp/go-retryablehttp"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/afero"
 )
 
 // SanitiseOutputName removes characters so that the string can be used as a hyperlink.
 func SanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
 }
-
-// rootDirectory converts a path (eg whatever/anotherdir/this.that) to the ../ pattern to get
-// back to the original folder that the sysl-catalog command was executed from
-// func rootDirectory(s string) string {
-// 	var rootPath string
-// 	dir, _ := path.Split(s)
-// 	numberOfLevels := len(strings.Split(dir, "/"))
-// 	for i := 0; i < numberOfLevels; i++ {
-// 		rootPath += "../"
-// 	}
-// 	return rootPath
-// }
 
 func SortedKeys(m interface{}) []string {
 	keys := reflect.ValueOf(m).MapKeys()
@@ -95,24 +74,6 @@ func createProjectApp(Apps map[string]*sysl.Application) *sysl.Application {
 		}
 	}
 	return app
-}
-
-// createProjectApp returns a "project" app used to make integration diagrams for any "sub module" apps
-// func createModuleFromSlices(m *sysl.Module, stmnts []string) *sysl.Module {
-// 	ret := &sysl.Module{Apps: make(map[string]*sysl.Application)}
-// 	for _, appName := range stmnts {
-// 		for key, e := range m.GetApps() {
-// 			if Attribute(e, "package") == appName {
-// 				ret.Apps[key] = e
-// 			}
-// 		}
-// 	}
-
-// 	return ret
-// }
-
-type Attr interface {
-	GetAttrs() map[string]*sysl.Attribute
 }
 
 func Attribute(a Attr, query string) string {
@@ -175,11 +136,6 @@ func FieldType(t *sysl.Type) string {
 	return typeDetail
 }
 
-type Namer interface {
-	Attr
-	GetName() *sysl.AppName
-}
-
 // GetAppNameString returns an app's name as a string, with the namespace joined on "::".
 func GetAppNameString(a Namer) string {
 	return JoinAppNameString(a.GetName())
@@ -219,23 +175,6 @@ func ModulePackageName(m *sysl.Module) string {
 }
 
 // Map applies a function to every element in a string slice
-func Map(vs []string, funcs ...func(string) string) []string {
-	vsm := make([]string, len(vs))
-	for i, v := range vs {
-		for j, f := range funcs {
-			var middle string
-			if j == 0 {
-				middle = f(v)
-				vsm[i] = middle
-			}
-			vsm[i] = f(middle)
-		}
-
-	}
-	return vsm
-}
-
-// Map applies a function to every element in a string slice
 func Filter(vs []string, f func(string) bool) []string {
 	vsm := make([]string, 0, len(vs))
 	for _, v := range vs {
@@ -246,125 +185,10 @@ func Filter(vs []string, f func(string) bool) []string {
 	return vsm
 }
 
-func AsSet(in []string) map[string]struct{} {
-	ret := make(map[string]struct{})
-	for _, e := range in {
-		ret[e] = struct{}{}
-	}
-	return ret
-}
-
-// RetryHTTPRequest retries the given request
-func RetryHTTPRequest(url string) ([]byte, error) {
-	client := retryablehttp.NewClient()
-	client.Logger = nil
-	client.RetryMax = 100
-	resp, err := client.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	return ioutil.ReadAll(resp.Body)
-}
-
 // PlantUMLURL returns a PlantUML url
-func PlantUMLURL(plantumlService, contents string) (string, error) {
-	encoded, err := diagrams.DeflateAndEncode([]byte(contents))
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprint(plantumlService, "/", "svg", "/~1", encoded), nil
-}
-
-func HttpToFile(fs afero.Fs, fileName, url string) error {
-	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
-		return err
-	}
-	out, err := RetryHTTPRequest(url)
-	if err != nil {
-		return err
-	}
-	if err := afero.WriteFile(fs, fileName, out, os.ModePerm); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *Generator) PUMLFile(fs afero.Fs, fileName, contents string) error {
-	fileName = strings.ReplaceAll(fileName, ".svg", ".puml")
-	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
-		return err
-	}
-	if err := afero.WriteFile(fs, fileName, []byte(contents), os.ModePerm); err != nil {
-		return err
-	}
-	return nil
-}
-
-func PlantUMLJava(service, out string) error {
-	out = strings.TrimRight(out, "/")
-	cleanup := exec.Command("find", out, "-type", "f", "-name", "*.puml", "-delete")
-	defer func() {
-		err := cleanup.Run()
-		if err != nil {
-			logrus.Debug(err)
-		}
-	}()
-	command := []string{"java", "-Xms256m", "-Xmx512m", "-Djava.security.egd=file:/dev/./urandom", "-XX:+UnlockExperimentalVMOptions", "-Djava.awt.headless=true", "-jar", service, "-tsvg", `"` + out + `*/**.puml"`}
-	c2 := exec.Command("sh", "-c", strings.Join(command, " "))
-	return c2.Run()
-}
-
-func PlantUMLNailGun(contents string) ([]byte, error) {
-	c2 := exec.Command("./ng", "net.sourceforge.plantuml.Run", "-tsvg", "-p")
-	c2.Stdin = strings.NewReader(contents)
-	var stdout, stderr bytes.Buffer
-	c2.Stdout = &stdout
-	c2.Stderr = &stderr
-	if err := c2.Run(); err != nil {
-		return nil, err
-	}
-	if len(stderr.Bytes()) != 0 {
-		return nil, errors.New(stderr.String())
-	}
-	plantuml := strings.TrimLeft(stdout.String(), "\n")
-	plantuml = strings.TrimRight(plantuml, "\n")
-	return []byte(plantuml), nil
-}
-
-type MermaidGenerator struct {
-	g *mermaid.Generator
-}
-
-func MakeMermaidGenerator() *MermaidGenerator {
-	return &MermaidGenerator{g: mermaid.Init()}
-}
-
-// GenerateAndWriteMermaidDiagram writes a mermaid svg to file
-func (m *MermaidGenerator) GenerateMermaidDiagram(data string) []byte {
-	return []byte(m.g.Execute(data) + "\n")
-}
-
-// GenerateAndWriteMermaidDiagram writes a mermaid svg to file
-func (m *MermaidGenerator) GenerateAndWriteMermaidDiagram(fs afero.Fs, fileName string, data string) error {
-	if err := fs.MkdirAll(path.Dir(fileName), os.ModePerm); err != nil {
-		return err
-	}
-	mermaidSvg := m.GenerateMermaidDiagram(data)
-	var err = afero.WriteFile(fs, fileName, mermaidSvg, os.ModePerm)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// GenerateRedoc creates a redoc html file
-func GenerateAndWriteRedoc(fs afero.Fs, fileName string, specURL string) error {
-	redoc := BuildRedoc(specURL)
-	err := afero.WriteFile(fs, fileName, redoc, os.ModePerm)
-	if err != nil {
-		return err
-	}
-	return nil
+func PlantUMLURL(plantumlService, contents string) string {
+	encoded, _ := diagrams.DeflateAndEncode([]byte(contents))
+	return fmt.Sprint(plantumlService, "/", "svg", "/~1", encoded)
 }
 
 // CreateSequenceDiagram creates an sequence diagram and returns the sequence diagram string and any errors
@@ -377,10 +201,6 @@ func CreateSequenceDiagram(m *sysl.Module, call string) (string, error) {
 		Title:           call,
 	}
 	return sequencediagram.GenerateSequenceDiag(m, p, logrus.New())
-}
-
-type Typer interface {
-	GetType() *sysl.Type
 }
 
 // GetAppTypeName takes a Sysl Type and returns the appName and typeName of a param

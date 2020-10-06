@@ -4,16 +4,14 @@ package catalog
 import (
 	"encoding/base64"
 	"fmt"
+	"github.com/anz-bank/sysl/pkg/sysl"
+	"github.com/anz-bank/sysl/pkg/syslwrapper"
+	"github.com/spf13/afero"
 	"html"
 	"net/http"
 	"net/url"
 	"path"
 	"strings"
-	"sync"
-
-	"github.com/anz-bank/sysl/pkg/sysl"
-	"github.com/anz-bank/sysl/pkg/syslwrapper"
-	"github.com/spf13/afero"
 )
 
 // Update loads another Sysl module into a project and runs
@@ -21,7 +19,6 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	//p.Fs = afero.NewMemMapFs()
 	p.RootModule = m
 	p.GeneratedFiles = make(map[string][]byte)
-	p.GeneratedFilesMutex = &sync.RWMutex{}
 	p.Mapper = syslwrapper.MakeAppMapper(m)
 	p.Mapper.IndexTypes()
 	p.Mapper.ConvertTypes()
@@ -46,11 +43,9 @@ func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 func (p *Generator) ServerSettings(disableCSS, liveReload, imageTags bool) *Generator {
 	p.DisableCss = disableCSS
 	p.LiveReload = liveReload
-	p.ImageTags = imageTags || !strings.Contains(p.PlantumlService, ".jar")
 	p.OutputDir = "/"
 	p.Server = true
 	p.Fs = afero.NewMemMapFs()
-	p.MermaidGen = MakeMermaidGenerator()
 	return p
 }
 
@@ -79,17 +74,6 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if p.Fs == nil && path.Ext(request) != ".ico" {
 		p.Update(p.RootModule)
 	}
-	switch request {
-	case "/plantuml", "/plantuml/":
-		p.Mermaid = false
-		return
-	case "/mermaid", "/mermaid/":
-		p.Mermaid = true
-		return
-	case "/update", "/update/":
-		p.Run()
-		return
-	}
 	switch path.Ext(request) {
 	case ".svg":
 		w.Header().Set("Content-Type", "image/svg+xml")
@@ -97,25 +81,15 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
-		p.GeneratedFilesMutex.RLock()
 		if svg, ok := p.GeneratedFiles[path.Join(unescapedPath)]; ok {
 			bytes = svg
-			p.GeneratedFilesMutex.RUnlock()
 			return
-		}
-		p.GeneratedFilesMutex.RUnlock()
-		if !p.Mermaid {
-			bytes, err = PlantUMLNailGun(p.FilesToCreate[path.Join(unescapedPath)])
-		} else {
-			bytes = p.MermaidGen.GenerateMermaidDiagram(p.MermaidFilesToCreate[path.Join(unescapedPath)])
 		}
 		p.errs = []error{}
 		if err != nil {
 			p.errs = append(p.errs, err)
 		}
-		p.GeneratedFilesMutex.Lock()
 		p.GeneratedFiles[path.Join(unescapedPath)] = bytes
-		p.GeneratedFilesMutex.Unlock()
 		return
 	case ".ico":
 		bytes, err = base64.StdEncoding.DecodeString(favicon)
@@ -150,7 +124,7 @@ func (p *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	switch p.Format {
 	case "html":
-		bytes = []byte(file + script) //TODO @ashwinsajiv: html to switch between mermaid and plantuml
+		bytes = []byte(file + liveReload)
 		if p.DisableCss {
 			bytes = convertToEscapedHTML(file)
 		}
@@ -165,9 +139,9 @@ func convertToEscapedHTML(file string) []byte {
 		header +
 			`<pre style="word-wrap: break-word; white-space: pre-wrap;">` +
 			html.EscapeString(file) +
-			`</pre>` + script + endTags)
+			`</pre>` + liveReload + endTags)
 }
 
 func convertToHTML(file string) []byte {
-	return []byte(header + file + script + endTags)
+	return []byte(header + file + liveReload + endTags)
 }

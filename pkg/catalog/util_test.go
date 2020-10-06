@@ -5,20 +5,9 @@ import (
 	"testing"
 
 	"github.com/anz-bank/sysl/pkg/parse"
-	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
-
-func TestGenerateAndWriteRedoc(t *testing.T) {
-	t.Parallel()
-	fs := afero.NewMemMapFs()
-	fileName := "redoc.html"
-	err := GenerateAndWriteRedoc(fs, fileName, "")
-	assert.NoError(t, err)
-	_, err = fs.Open(fileName)
-	assert.NoError(t, err)
-}
 
 func TestServiceMetadata(t *testing.T) {
 	t.Parallel()

@@ -26,24 +26,21 @@ import (
 )
 
 var (
-	input             = kingpin.Arg("input", "Input sysl file to generate documentation for").Required().String()
-	plantUMLoption    = kingpin.Flag("plantuml", "Plantuml service to use").String()
-	port              = kingpin.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
-	outputType        = kingpin.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
-	outputDir         = kingpin.Flag("output", "OutputDir directory to generate to").Short('o').String()
-	verbose           = kingpin.Flag("verbose", "Verbose logs").Short('v').Bool()
-	templates         = kingpin.Flag("templates", "Custom templates to use, separated by a comma").String()
-	outputFileName    = kingpin.Flag("outputFileName", "Output file name for pages; {{.Title}}").Default("").String()
-	server            = kingpin.Flag("serve", "Start a http server and preview documentation").Bool()
-	noCSS             = kingpin.Flag("noCSS", "Disable adding css to served html").Bool()
-	disableLiveReload = kingpin.Flag("disableLiveReload", "Disable live reload").Default("false").Bool()
-	noImages          = kingpin.Flag("noImages", "Disable image generation").Default("false").Bool()
-	embed             = kingpin.Flag("embed", "Embed images instead of creating svgs").Default("false").Bool()
-	enableMermaid     = kingpin.Flag("mermaid", "Enable mermaid for diagram generation instead of Plantuml (Not currently supported)").Default("false").Bool()
-	enableRedoc       = kingpin.Flag("redoc", "Enable Redoc generation for specs imported from OpenAPI. Must be run on a git repo.").Default("false").Bool()
-	imageDest         = kingpin.Flag("imageDest", "Optional image directory destination (can be outside of the path provided using --output)").String()
-	modcmd            = kingpin.Arg("cmd", "get or update").String()
-	repo              = kingpin.Arg("repo", "repo to get").String()
+	run               = kingpin.Command("run", "Run the generator")
+	input             = run.Arg("input", "Input sysl file to generate documentation for").Required().String()
+	plantUMLoption    = run.Flag("plantuml", "Plantuml service to use").String()
+	port              = run.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
+	outputType        = run.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
+	outputDir         = run.Flag("output", "OutputDir directory to generate to").Short('o').String()
+	verbose           = run.Flag("verbose", "Verbose logs").Short('v').Bool()
+	templates         = run.Flag("templates", "Custom templates to use, separated by a comma, or 'mermaid' or 'plantuml' for defaults").String()
+	outputFileName    = run.Flag("outputFileName", "Output file name for pages; {{.Title}}").Default("").String()
+	server            = run.Flag("serve", "Start a http server and preview documentation").Bool()
+	noCSS             = run.Flag("noCSS", "Disable adding css to served html").Bool()
+	disableLiveReload = run.Flag("disableLiveReload", "Disable live reload").Default("false").Bool()
+	mod               = kingpin.Command("mod", "sysl modules")
+	cmd               = mod.Arg("cmd", "get or update").String()
+	repo              = mod.Arg("repo", "repo to get").String()
 )
 
 func main() {
@@ -52,9 +49,10 @@ func main() {
 	logger := setupLogger()
 	plantUMLService := plantUMLService()
 	fs := afero.NewOsFs()
-	if * input == "mod" && *modcmd != ""{
-		a, _ := Retriever(afero.NewOsFs())
-		if err := a.Command(*modcmd, *repo); err != nil{
+	var retr cli.Retriever
+	retr, _ = Retriever(afero.NewOsFs())
+	if *cmd != "" {
+		if err := retr.Command(*cmd, *repo); err != nil {
 			logrus.Error(err)
 		}
 		return
@@ -66,8 +64,9 @@ func main() {
 		}
 
 		catalog.NewProject(*input, plantUMLService, *outputType, logger, m, fs, *outputDir).
-			SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *enableMermaid, *outputFileName, *imageDest).
-			WithTemplateFs(fs, strings.Split(*templates, ",")...).
+			SetOptions(*noCSS, *outputFileName, "/").
+			WithRetriever(retr).
+			AutomaticTemplates(fs, strings.Split(*templates, ",")...).
 			Run()
 
 		return
@@ -81,13 +80,13 @@ func main() {
 	}
 
 	handler := catalog.NewProject(*input, plantUMLService, "html", logger, nil, nil, "").
-		SetOptions(*noCSS, *noImages, *embed, *enableRedoc, *enableMermaid, *outputFileName, *imageDest).
-		WithTemplateFs(fs, strings.Split(*templates, ",")...).
+		SetOptions(*noCSS, *outputFileName, "").
+		WithRetriever(retr).
+		AutomaticTemplates(fs, strings.Split(*templates, ",")...).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
 
 	// Generate initial files so we don't get 404
 	handler.Run()
-
 	logrus.SetOutput(ioutil.Discard)
 
 	go watcher.WatchFile(func(i interface{}) {
@@ -110,7 +109,6 @@ func main() {
 					m = overwriteSyslModules(handler.RootModule, changedModule)
 				}
 			}
-
 			return
 		}()
 		if err != nil {
@@ -144,9 +142,6 @@ func plantUMLService() string {
 	if *plantUMLoption != "" {
 		plantUMLService = *plantUMLoption
 	}
-	if plantUMLService == "" && !*enableMermaid {
-		logrus.Fatal("Error: Set SYSL_PLANTUML env variable or --plantuml flag")
-	}
 	return plantUMLService
 }
 
@@ -165,11 +160,11 @@ func parseSyslFile(root string, filename string, fs afero.Fs, logger *logrus.Log
 	logger.Info("Parsing...")
 	start := time.Now()
 	retr, err := Retriever(fs)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	m, err := parse.NewParser().Parse(path.Join(root, filename), retr)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	elapsed := time.Since(start)

@@ -18,33 +18,27 @@ test-integration: # Run integration tests (against Github API. Requires SYSL_GIT
 .PHONY: demo demo-html demo-markdown
 demo: demo-html demo-markdown
 demo-html:
-	sysl-catalog --type=html -o demo/html demo/demo.sysl --redoc --mermaid
+	sysl-catalog run --type=html -o demo/html demo/demo.sysl
 demo-markdown:
-	sysl-catalog -o demo/markdown demo/demo.sysl --mermaid
+	sysl-catalog run -o demo/markdown demo/demo.sysl
 demo-server:
 	docker run \
 	-p 6900:6900 \
-	-e SYSL_GITHUB_TOKEN=$(SYSL_GITHUB_TOKEN) \
+	-e SYSL_TOKENS=$(SYSL_TOKENS) \
 	-e SYSL_PLANTUML=localhost:8080 \
-	-e SYSL_MODULES=github \
+	-e SYSL_MODULES=on \
 	-v $$(pwd)/demo/html:/out:rw \
 	-v $$(pwd)/demo:/usr/demo:ro \
-	sysl-catalog-mermaid \
+	sysl-catalog run \
 		--serve \
 		-v \
-		--redoc \
-		--mermaid \
 		--type=html \
 		-o /out \
 		demo/demo.sysl
-.PHONY: docker docker-mermaid
+.PHONY: docker
 docker:
 	docker build -t sysl-catalog .
-docker-mermaid:
-	docker build -t sysl-catalog-mermaid -f mermaid.Dockerfile . 
 docker-run: docker
-	docker run -it -e SYSL_PLANTUML=localhost:8080 -e SYSL_MODULES=github -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog demo/demo.sysl
-docker-mermaid-run: docker-mermaid
-	docker run -e SYSL_PLANTUML=localhost:8080 -e SYSL_MODULES=github -v $$(pwd)/demo/html:/out:rw -v $$(pwd)/demo:/usr/demo:ro sysl-catalog-mermaid demo/demo.sysl --redoc --mermaid --type=html -o /out
+	docker run -it -e SYSL_PLANTUML=localhost:8080 -e SYSL_MODULES=on -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog run demo/demo.sysl
 docker-compose:
 	docker-compose run sysl-catalog

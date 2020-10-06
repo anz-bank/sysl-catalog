@@ -1,0 +1,3 @@
+imports:
+  github.com/anz-bank/sysl-examples@master: github.com/anz-bank/sysl-examples@c63b9e92813a94197094f97655bcff248874ac16
+  github.com/joshcarp/sysl-11: github.com/joshcarp/sysl-11@0386eb3e03a2749caee3becf297c3bc9be69ed4b

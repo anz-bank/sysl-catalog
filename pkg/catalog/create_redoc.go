@@ -2,9 +2,11 @@ package catalog
 
 import (
 	"bytes"
+	"os"
+	"path"
+
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/ghodss/yaml"
-	"path"
 )
 
 const RedocPage = `<!DOCTYPE html>
@@ -42,6 +44,9 @@ type Redoc struct {
 // - The @redoc-spec attribute has been set
 // - The source context has an extension suggesting it is an OpenAPI file
 func (p *Generator) CreateRedoc(app *sysl.Application, appName string) string {
+	if app == nil || appName == "" {
+		return ""
+	}
 	importPath, _, err := GetImportPathAndVersion(p.Retriever, app)
 	if err != nil {
 		p.Log.Error(err)
@@ -63,9 +68,18 @@ func (p *Generator) CreateRedoc(app *sysl.Application, appName string) string {
 	if err := p.Redoc.Execute(&buf, string(js)); err != nil {
 		return ""
 	}
-	//p.RedocFilesToCreate[redocOutputPath] = BuildSpecURL(importPath, version)
+
 	link, _ := CreateFileName("", appName+".redoc.html")
-	file, _ := p.Fs.Create(redocOutputPath)
-	_, _ = file.Write(buf.Bytes())
+	_ = p.Fs.MkdirAll(path.Dir(redocOutputPath), os.ModePerm)
+	file, err := p.Fs.Create(redocOutputPath)
+	if err != nil {
+		p.Log.Error("error creating redoc file: ", err)
+		return ""
+	}
+	_, err = file.Write(buf.Bytes())
+	if err != nil {
+		p.Log.Error("error writing redoc: ", err)
+		return ""
+	}
 	return link
 }

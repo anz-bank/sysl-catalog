@@ -9,12 +9,12 @@ require (
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/anz-bank/pkg v0.0.25
 	github.com/anz-bank/protoc-gen-sysl v0.0.17
-	github.com/anz-bank/sysl v0.228.0
+	github.com/anz-bank/sysl v0.244.0
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0
 	github.com/gohugoio/hugo v0.74.1
 	github.com/huandu/xstrings v1.3.2 // indirect
-	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
+	github.com/iancoleman/strcase v0.1.1
 	github.com/joshcarp/gop v0.4.0
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.1 // indirect

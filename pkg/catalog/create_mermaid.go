@@ -6,7 +6,6 @@ import (
 	integration "github.com/anz-bank/sysl/pkg/mermaid/integrationdiagram"
 	"github.com/anz-bank/sysl/pkg/mermaid/sequencediagram"
 	"github.com/anz-bank/sysl/pkg/sysl"
-	"github.com/anz-bank/sysl/pkg/syslwrapper"
 )
 
 func (p *Generator) IntegrationMermaid(m *sysl.Module, title string, EPA bool) string {
@@ -57,7 +56,7 @@ func (p *Generator) DataModelMermaid(appName, typeName string) string {
 	}()
 	var mermaidString string
 	var err error
-	p.Mapper = syslwrapper.MakeAppMapper(p.RootModule)
+
 	if appName == "primitive" {
 		mermaidString += datamodeldiagram.GeneratePrimitive(typeName)
 	} else {

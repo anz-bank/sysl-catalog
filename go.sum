@@ -203,6 +203,10 @@ github.com/anz-bank/sysl v0.228.0 h1:njWuBHByerwo8y2DGNl53WfQSnKdxWktjYGZYO36yN8
 github.com/anz-bank/sysl v0.228.0/go.mod h1:vS3eGfxZPskwtnCbYFrf92O/tdZSLJXsecCLILZFlM0=
 github.com/anz-bank/sysl v0.243.0 h1:/MFKcA+npLGNzUD2GW4MSClppShBTBo9k9DDR6bnndY=
 github.com/anz-bank/sysl v0.243.0/go.mod h1:4gtrzZ3L3+stP7SLuCL+C26zqrz2Jf372iXVJrWdNK8=
+github.com/anz-bank/sysl v0.244.0 h1:EG8x5euzUwILhRBb4J1xFtHyi4kdfeSVuMhS08bNvU4=
+github.com/anz-bank/sysl v0.244.0/go.mod h1:4gtrzZ3L3+stP7SLuCL+C26zqrz2Jf372iXVJrWdNK8=
+github.com/anz-bank/sysl v0.247.0 h1:41lBhDdvzU7iftxbdp5yKJnyl0CEGOgJoAfZ6hXUmoo=
+github.com/anz-bank/sysl v0.247.0/go.mod h1:4gtrzZ3L3+stP7SLuCL+C26zqrz2Jf372iXVJrWdNK8=
 github.com/anz-bank/sysl-catalog v1.2.30/go.mod h1:ctu4d6a7J3WzvfaatkpANwYBTRsdS9kM3/+RxVJ/kZs=
 github.com/anz-bank/sysl-catalog v1.4.20/go.mod h1:QeUCcG4RTf/065hLAt2btwXll+OcmMyaD/jYtSwFL6A=
 github.com/anz-bank/sysl-catalog v1.4.22/go.mod h1:ygwrUMDRRmzV7F86Z/9oj6I2XnFmQV9kMruLe+Na4a8=

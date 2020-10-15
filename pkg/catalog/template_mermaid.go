@@ -164,31 +164,28 @@ const NewPackageTemplateMermaid = `
 {{range $param := $e.Param}}
 {{Attribute $param.Type "description"}}
 
-<pre class="mermaid">
-{{DataModelAliasMermaid $app $param}}
-</pre>
+{{DataModelAliasTable $app $param}}
+
 {{end}}
 
 {{if $e.RestParams}}{{if $e.RestParams.UrlParam}}
 {{range $param := $e.RestParams.UrlParam}}
-{{$pathDataModel := (DataModelAliasMermaid $app $param)}}
+{{$pathDataModel := (DataModelAliasTable $app $param)}}
 {{if ne $pathDataModel ""}}
 #### Path Parameter
 
-<pre class="mermaid">
 {{$pathDataModel}}
-</pre>
+
 {{end}}{{end}}{{end}}
 
 {{if $e.RestParams.QueryParam}}
 {{range $param := $e.RestParams.QueryParam}}
-{{$queryDataModel := (DataModelAliasMermaid $app $param)}}
+{{$queryDataModel := (DataModelAliasTable $app $param)}}
 {{if ne $queryDataModel ""}}
 #### Query Parameter
 
-<pre class="mermaid">
 {{$queryDataModel}}
-</pre>
+
 {{end}}{{end}}{{end}}{{end}}
 </details>
 
@@ -196,14 +193,12 @@ const NewPackageTemplateMermaid = `
 <summary>Response types</summary>
 
 {{$responses := false}}
-{{range $s := $e.Stmt}}{{$diagram := DataModelReturnMermaid  $appName $s $e}}{{if ne $diagram ""}}
+{{range $s := $e.Stmt}}{{$diagram := DataModelReturnTable  $appName $s $e}}{{if ne $diagram ""}}
 {{$responses = true}}
 {{$ret := (GetReturnType $e $s)}}{{if $ret }}
 {{Attribute $ret "description"}}{{end}}
 
-<pre class="mermaid">
 {{$diagram}}
-</pre>
 
 {{end}}{{end}}
 
@@ -227,28 +222,18 @@ const NewPackageTemplateMermaid = `
 
 
 {{range $typeName := SortedKeys $types}}{{$type := index $types $typeName}}
-<a name={{SanitiseOutputName $appName}}.{{SanitiseOutputName $typeName}}></a><details>
-<summary>{{$appName}}.{{$typeName}}</summary>
+<a name={{SanitiseOutputName $appName}}.{{SanitiseOutputName $typeName}}></a>
 
 ### {{$appName}}.{{$typeName}}
 {{$typedesc := (Attribute $type "description")}}
 {{if ne $typedesc ""}}- {{$typedesc}}{{end}}
 
-<pre class="mermaid">
-{{DataModelMermaid $appName $typeName}}
-</pre>
-
-[Full Diagram]({{DataModelMermaid $appName $typeName}})
-
-{{if Fields $type}}
+{{if DataModelTable $appName $typeName ""}}
 #### Fields
-{{$fieldHeader := false}}
-{{$fieldMap := Fields $type}}{{range $fieldName := SortedKeys $fieldMap}}{{$field := index $fieldMap $fieldName}}{{if not $fieldHeader}}| Field name | Type | Description |
-|----|----|----|{{$fieldHeader = true}}{{end}}
-| {{$fieldName}} | {{FieldType $field}} | {{$desc := Attribute $field "description"}}{{if ne $desc $typedesc}}{{$desc}}{{end}}|{{end}}
+{{DataModelTable $appName $typeName ""}}
 {{end}}
 
-</details>{{end}}{{end}}{{end}}
+{{end}}{{end}}{{end}}
 {{end}}
 
 <pre class="footer">

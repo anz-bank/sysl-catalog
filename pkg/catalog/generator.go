@@ -2,7 +2,6 @@
 package catalog
 
 import (
-	"github.com/joshcarp/gop/gop"
 	"os"
 	"path"
 	"path/filepath"
@@ -10,6 +9,8 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
+
+	"github.com/joshcarp/gop/gop"
 
 	"github.com/Masterminds/sprig"
 
@@ -66,7 +67,7 @@ type Generator struct {
 	Links      map[string]string
 	Server     bool
 
-	Mapper     *syslwrapper.AppMapper
+	Mapper *syslwrapper.AppMapper
 
 	BasePath string // for using on another endpoint that isn't '/'
 }
@@ -206,6 +207,11 @@ func (p *Generator) Run() {
 	p.Title = p.ProjectTitle
 	fileName := markdownName(p.OutputFileName, path.Base(p.ProjectTitle))
 	p.Module = p.RootModule
+	if p.Module != nil {
+		p.Mapper = syslwrapper.MakeAppMapper(p.Module)
+		p.Mapper.IndexTypes()
+		p.Mapper.ConvertTypes()
+	}
 	if err := p.CreateMarkdown(p.Templates[p.StartTemplateIndex], path.Join(p.OutputDir, fileName), p); err != nil {
 		p.Log.Error("Error creating project markdown:", err)
 	}
@@ -222,6 +228,11 @@ func (p *Generator) GetFuncMap() template.FuncMap {
 		"DataModelMermaid":       p.DataModelMermaid,
 		"DataModelAliasMermaid":  p.DataModelAliasMermaid,
 		"DataModelAppMermaid":    p.DataModelAppMermaid,
+
+		// Datamodel table functions
+		"DataModelReturnTable": p.DataModelReturnTable,
+		"DataModelAliasTable":  p.DataModelAliasTable,
+		"DataModelTable":       p.DataModelTable,
 
 		/* Plantuml Diagram functions */
 

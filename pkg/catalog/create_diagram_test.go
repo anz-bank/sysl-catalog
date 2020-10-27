@@ -1,6 +1,8 @@
 package catalog
 
 import (
+	"github.com/anz-bank/sysl/pkg/sysl"
+	"github.com/stretchr/testify/require"
 	"testing"
 
 	"github.com/anz-bank/sysl/pkg/loader"
@@ -17,6 +19,8 @@ import (
 const retSeqPrimSVG = "http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5PSKPUQbAoaa5Yl46oZOs2XekEZa5oLdPAPeAa3a5Epi5AgvQhaSKlDIG0422000___vlJS_"
 
 func TestCreateIntegrationDiagramPlantuml(t *testing.T) {
+	t.Parallel()
+
 	m, err := parse.NewParser().ParseString(`
 App1:
 	Endpoint1:
@@ -35,15 +39,11 @@ App2:
 		file)
 }
 func TestCreateQueryParamDataModelWithPrimitive(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/rest.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	file := p.DataModelParamPlantuml(m.Apps["Bar"], m.Apps["Bar"].Endpoints["GET /address"].RestParams.QueryParam[0])
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5PSKfQQMA2aa5Yl46oZOs2XekEZa5oLdPAPeAXIN56NcfIlOsIbKSzLoEQJcfO0211000F__-QmtFm00",
@@ -52,15 +52,11 @@ func TestCreateQueryParamDataModelWithPrimitive(t *testing.T) {
 }
 
 func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/params.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	file := p.DataModelParamPlantuml(m.Apps["App"], m.Apps["App"].Endpoints["GET /testRestQueryParam/{id}"].RestParams.QueryParam[0])
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5PQc5bK6bnHbvgKhAIGMAyGRADZOA6YuwEGN9MTafcWgE1OKwANbvolOsIbKSsahb6Ha5YjOAHI3TN3LSZcavgM0WWaG003__nwmFcy0",
@@ -69,15 +65,11 @@ func TestCreateQueryParamDataModelWithTypeRef(t *testing.T) {
 }
 
 func TestCreatePathParamDataModelWithPrimitive(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/params.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	file := p.DataModelParamPlantuml(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamPrimitive/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oiePQOeAIGMAyGRADZOA6YuwEGN9MTafcWg59SKPUQbAzZPALHprN8vfEQbW0834000__y4SpLr",
@@ -86,15 +78,11 @@ func TestCreatePathParamDataModelWithPrimitive(t *testing.T) {
 }
 
 func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/params.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	file := p.DataModelParamPlantuml(m.Apps["App"], m.Apps["App"].Endpoints["GET /testURLParamRef/{id}"].RestParams.UrlParam[0])
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oiePQOeAIGMAyGRADZOA6YuwEGN9MTafcWgE1OKwANbvolOsIbKSsahb6Ha5YjOAHIN56NcfNFLSZcavgM0GWSG003__x99Eey0",
@@ -103,15 +91,11 @@ func TestCreatePathParamDataModelWithTypeRef(t *testing.T) {
 }
 
 func TestCreateParamDataModel(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/datamodel.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	file := p.DataModelParamPlantuml(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDgCa47BWa0KHVVlLzpFZL-KqJf4b6QGDWx8j0xHeGPiCjzp5Vtt2ABrdFNXSZabIpVBSXifZORI555yrUfaJQqRtLPMAnoCqiWoA8F6M6Xrj7y_DNer-YlrOyUCn8TfaGGTuxn3dkDVRUvpV_N32lKyzTQn-73PjkwnE1OK1PwqXX-mXmz2BofT63wTtW400F__Kli-gG00",
@@ -120,15 +104,11 @@ func TestCreateParamDataModel(t *testing.T) {
 }
 
 func TestCreateParamDataModelWithRestParam(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/rest_params.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 
 	cases := []string{
 		"http://plantuml.com/plantuml/svg/~1UDfoA2v9B2efpStXKYSQSAchAn05e4eTGqFytLtzN8CSGrnT59pzNLmLT7KLNFmL_Fn355nTF4CKuKg9DfLejt8bvoGM5oie5HHbvcQMP9Qb1YGM9UOgAIGMAyGRADZOA6YuwEGN9MTafcWg59SKPUQbAzZPALHprN8vfEQbW0864000___cfpfo",
@@ -143,15 +123,11 @@ func TestCreateParamDataModelWithRestParam(t *testing.T) {
 }
 
 func TestCreateReturnDataModelWithSequence(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/return.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	fileStringSequenceRef := p.DataModelReturnPlantuml("App", m.Apps["App"].Endpoints["somefoo"].Stmt[0], m.Apps["App"].Endpoints["somefoo"])
 	fileStringSequencePrimitive := p.DataModelReturnPlantuml("App", m.Apps["App"].Endpoints["someprimitivefoo"].Stmt[0], m.Apps["App"].Endpoints["someprimitivefoo"])
 	assert.Equal(t,
@@ -162,16 +138,12 @@ func TestCreateReturnDataModelWithSequence(t *testing.T) {
 }
 
 func TestCreateTypeDiagramWithRecursiveSequenceTypes(t *testing.T) {
+	t.Parallel()
+
 	//TODO: do sequence of aliased and non-aliased primitives, and sequence of self
 	filePath := "../../tests/seq_type.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	fileStringSequenceRef := p.DataModelAliasPlantuml("App", "VeryComplex", "VeryComplex", m.Apps["App"].Types["VeryComplex"], true)
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDgCaK5Bn30GHk_pApvpgKPJkjUbb2sR85useD5hATcWXMwt9brGfFzTIglieOUysy3ZpS3imb3xuN9gAOc6aWHHB6hvQlIZEgZdqYY9lPOAGa1g7BI1aa_cvb-DhaRVIhQjGm1xS_vxVpxrhVjYg0Eg37cEM_bmzlQZETwXxFlqIa9Hu8Vk4PffzDY2ynVtUN6TTSZjB1MSq_YtOJ7d-cQbRjVAs28ClkdUQQGg0nS2B4jJpb1jQEUwu_IRtm000F__KVnXp000",
@@ -186,16 +158,12 @@ func TestCreateTypeDiagramWithRecursiveSequenceTypes(t *testing.T) {
 }
 
 func TestCreateTypeDiagramWithRecursiveNamespacedSequenceTypes(t *testing.T) {
+	t.Parallel()
+
 	//TODO: do sequence of aliased and non-aliased primitives, and sequence of self
 	filePath := "../../tests/namespaced_seq_type.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	fileStringSequenceRef := p.DataModelAliasPlantuml("First :: App", "VeryComplex", "VeryComplex", m.Apps["First :: App"].Types["VeryComplex"], true)
 	assert.Equal(t,
 		"http://plantuml.com/plantuml/svg/~1UDgCaS5Bmp0KX-_lh_ZPIpMQqbr3AIjB52yBQFHQIXOqq7KroK2H_UyoDiM3IBxRWu_tFNZBc8QGzjkHocoeB975MUsUZBvJQ_NG6IMnqbA1SqYDjJPGyjvS_AZPMxDl9JiECQ9uTk5ZjTlEetilC4JqDPe6b_9c5-ohtrpXreUO80IwUQv-sMXRVD8reZ-E0GACFRgtlPkiGsDFKiiO7RvJP_EKMVoNiNyb811JyDCB7QYlmJX7KLSLAz0lQEccpV5RNm400F__RwXdH000",
@@ -210,57 +178,79 @@ func TestCreateTypeDiagramWithRecursiveNamespacedSequenceTypes(t *testing.T) {
 }
 
 func TestCreateReturnDataModelWithEmpty(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/return.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	fileStringEmpty := p.DataModelReturnPlantuml("App", m.Apps["App"].Endpoints["GET /testReturnNil"].Stmt[0], m.Apps["App"].Endpoints["GET /testReturnNil"])
 	assert.Equal(t, "", fileStringEmpty)
 }
 
 func TestCreateSequenceMermaid(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/verysimple.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	mermaidString := p.SequenceMermaid("bar", m.Apps["bar"].Endpoints["barendpoint"])
 	assert.NotNil(t, mermaidString)
 }
 
 func TestCreateIntegrationMermaid(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/verysimple.sysl"
-	outputDir := "test"
-	fs := afero.NewOsFs()
-	logger := logrus.New()
-	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
-	if err != nil {
-		t.Fatal(err)
-	}
-	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
 	mermaidString := p.IntegrationPlantuml(m, "", true)
 	assert.NotNil(t, mermaidString)
 }
 
 func TestCreateTypeMermaid(t *testing.T) {
+	t.Parallel()
+
 	filePath := "../../tests/datamodel.sysl"
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
+	mermaidString := p.DataModelParamPlantuml(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
+	assert.NotNil(t, mermaidString)
+}
+
+func TestPackages(t *testing.T) {
+	t.Parallel()
+
+	filePath := "../../tests/packages.sysl"
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
+	pkgs := p.Packages(m)
+
+	expected := []string{"Org", "Org :: Team :: System", "Org :: Team2", "Project", "Team Two"}
+	assert.Equal(t, expected, pkgs)
+}
+
+func TestModuleAsPackages(t *testing.T) {
+	t.Parallel()
+
+	filePath := "../../tests/packages.sysl"
+	p, m, err := loadProject(filePath)
+	require.NoError(t, err)
+	pkgs := p.ModuleAsPackages(m)
+
+	assert.NotNil(t, pkgs["Org :: Team :: System"].Apps["Org :: Team :: System :: a"])
+	assert.Nil(t, pkgs["Org :: Team2 :: System"])
+	assert.Nil(t, pkgs["Org :: Team2"].Apps["Org :: Team2 :: System :: c"])
+	assert.NotNil(t, pkgs["Team Two"].Apps["Org :: Team2 :: System :: c"])
+}
+
+func loadProject(filePath string) (*Generator, *sysl.Module, error) {
 	outputDir := "test"
 	fs := afero.NewOsFs()
 	logger := logrus.New()
 	m, _, err := loader.LoadSyslModule("", filePath, fs, logger)
 	if err != nil {
-		t.Fatal(err)
+		return nil, nil, err
 	}
 	p := NewProject(filePath, plantumlService, "markdown", logger, m, afero.NewMemMapFs(), outputDir)
-	mermaidString := p.DataModelParamPlantuml(m.Apps["MobileApp"], m.Apps["MobileApp"].Endpoints["Login"].Param[0])
-	assert.NotNil(t, mermaidString)
+	return p, m, nil
 }

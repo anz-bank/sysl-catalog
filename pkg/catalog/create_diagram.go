@@ -249,9 +249,16 @@ func (p *Generator) ModuleAsPackages(m *sysl.Module) map[string]*sysl.Module {
 		if packageName == "" {
 			packageName = key
 		}
-		if _, ok := includedProjects[packageName]; len(includedProjects) > 0 && !ok {
-			continue
+
+		ns := strings.Join(app.Name.Part[:len(app.Name.Part)-1], namespaceSeparator)
+		if len(includedProjects) > 0 {
+			if _, ok := includedProjects[ns]; !ok {
+				if _, ok := includedProjects[packageName]; !ok {
+					continue
+				}
+			}
 		}
+
 		packageName = GetPackageName(p.RootModule, app)
 		if syslutil.HasPattern(app.GetAttrs(), "ignore") || syslutil.HasPattern(app.GetAttrs(), "project") {
 			continue

@@ -19,6 +19,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+const namespaceSeparator = " :: "
+
 // SanitiseOutputName removes characters so that the string can be used as a hyperlink.
 func SanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
@@ -143,14 +145,16 @@ func GetAppNameString(a Namer) string {
 
 // JoinAppNameString transforms an AppName to a string, with the namespace joined on "::".
 func JoinAppNameString(an *sysl.AppName) string {
-	return strings.Join(an.GetPart(), " :: ")
+	return strings.Join(an.GetPart(), namespaceSeparator)
 }
 
 // GetAppPackageName returns the package and app name of any sysl application
 func GetAppPackageName(a Namer) (string, string) {
 	appName := GetAppNameString(a)
 	packageName := appName
-	if attr := a.GetAttrs()["package"]; attr != nil {
+	if len(a.GetName().Part) > 1 {
+		packageName = strings.Join(a.GetName().Part[:len(a.GetName().Part)-1], namespaceSeparator)
+	} else if attr := a.GetAttrs()["package"]; attr != nil {
 		packageName = attr.GetS()
 	}
 	return packageName, appName

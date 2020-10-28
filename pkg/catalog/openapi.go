@@ -1,9 +1,10 @@
 package catalog
 
 import (
-	"github.com/joshcarp/gop/gop"
 	"path"
 	"strings"
+
+	"github.com/joshcarp/gop/gop"
 
 	"github.com/anz-bank/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/sysl"

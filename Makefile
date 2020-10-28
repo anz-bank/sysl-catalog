@@ -5,9 +5,9 @@ install:
 lint:
 	golangci-lint run ./...
 tidy:
-	go mod tidy
-	gofmt -s -w .
 	goimports -w .
+	gofmt -s -w .
+	go mod tidy
 coverage:
 	go test -coverprofile=coverage.txt -covermode=atomic ./... && go tool cover -func=coverage.txt
 test:

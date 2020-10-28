@@ -1,9 +1,10 @@
 package catalog
 
 import (
+	"testing"
+
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/stretchr/testify/require"
-	"testing"
 
 	"github.com/anz-bank/sysl/pkg/loader"
 	"github.com/anz-bank/sysl/pkg/parse"

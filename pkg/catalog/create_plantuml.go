@@ -2,12 +2,13 @@ package catalog
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/anz-bank/sysl-catalog/pkg/catalogdiagrams"
 	"github.com/anz-bank/sysl/pkg/cmdutils"
 	"github.com/anz-bank/sysl/pkg/diagrams"
 	"github.com/anz-bank/sysl/pkg/integrationdiagram"
 	"github.com/anz-bank/sysl/pkg/sysl"
-	"os"
 )
 
 // IntegrationPlantuml creates an integration diagram and returns the plantuml string

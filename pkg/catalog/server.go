@@ -4,14 +4,15 @@ package catalog
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/anz-bank/sysl/pkg/sysl"
-	"github.com/anz-bank/sysl/pkg/syslwrapper"
-	"github.com/spf13/afero"
 	"html"
 	"net/http"
 	"net/url"
 	"path"
 	"strings"
+
+	"github.com/anz-bank/sysl/pkg/sysl"
+	"github.com/anz-bank/sysl/pkg/syslwrapper"
+	"github.com/spf13/afero"
 )
 
 // Update loads another Sysl module into a project and runs

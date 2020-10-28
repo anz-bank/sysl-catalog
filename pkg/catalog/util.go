@@ -21,6 +21,10 @@ import (
 
 const namespaceSeparator = " :: "
 
+// macroPackageNameAttr is the name of a synthetic attribute used to pass the name of the macro-
+// package to a template.
+const macropackage_name = "_macropackage_name"
+
 // SanitiseOutputName removes characters so that the string can be used as a hyperlink.
 func SanitiseOutputName(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, " ", ""), "/", "")
@@ -152,7 +156,9 @@ func JoinAppNameString(an *sysl.AppName) string {
 func GetAppPackageName(a Namer) (string, string) {
 	appName := GetAppNameString(a)
 	packageName := appName
-	if len(a.GetName().Part) > 1 {
+	if attr := a.GetAttrs()[macropackage_name]; attr != nil {
+		packageName = attr.GetS()
+	} else if len(a.GetName().Part) > 1 {
 		packageName = strings.Join(a.GetName().Part[:len(a.GetName().Part)-1], namespaceSeparator)
 	} else if attr := a.GetAttrs()["package"]; attr != nil {
 		packageName = attr.GetS()
@@ -170,12 +176,27 @@ func GetPackageName(m *sysl.Module, a Namer) string {
 
 }
 
+// SimpleName returns the last part of an app name.
+func SimpleName(app *sysl.Application) string {
+	return app.Name.Part[len(app.Name.Part)-1]
+}
+
+// ModuleNamespace returns the namespace associated with the module (if the module is grouped by a
+// namespace).
+func ModuleNamespace(m *sysl.Module) string {
+	keys := SortedKeys(m.GetApps())
+	key := keys[len(keys)-1]
+	app := m.Apps[key]
+	return strings.Join(app.Name.Part[:len(app.Name.Part)-1], namespaceSeparator)
+}
+
+// ModulePackageName returns the package name associated with the module (that of one of its apps).
 func ModulePackageName(m *sysl.Module) string {
-	for _, key := range SortedKeys(m.GetApps()) {
-		app := m.Apps[key]
-		return GetPackageName(m, app)
-	}
-	return ""
+	keys := SortedKeys(m.GetApps())
+	// A package app will be the first.
+	key := keys[len(keys)-1]
+	app := m.Apps[key]
+	return GetPackageName(m, app)
 }
 
 // Map applies a function to every element in a string slice

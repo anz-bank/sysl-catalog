@@ -70,3 +70,47 @@ ree:
 		assert.Equal(t, exp, ServiceMetadata(m.GetApps()[app]))
 	}
 }
+
+func TestSimpleName_Simple(t *testing.T) {
+	t.Parallel()
+
+	m, err := parse.NewParser().ParseString(`
+Foo:
+	...`)
+	require.NoError(t, err)
+	assert.Equal(t, "Foo", SimpleName(m.Apps["Foo"]))
+}
+
+func TestSimpleName_Namespace(t *testing.T) {
+	t.Parallel()
+
+	m, err := parse.NewParser().ParseString(`
+Foo :: Bar:
+	...`)
+	require.NoError(t, err)
+	assert.Equal(t, "Bar", SimpleName(m.Apps["Foo :: Bar"]))
+}
+
+func TestModuleNamespace(t *testing.T) {
+	t.Parallel()
+
+	m, err := parse.NewParser().ParseString(`
+Foo :: Bar :: Baz:
+	...`)
+	require.NoError(t, err)
+	assert.Equal(t, "Foo :: Bar", ModuleNamespace(m))
+}
+
+func TestModulePackage_Alias(t *testing.T) {
+	t.Parallel()
+
+	m, err := parse.NewParser().ParseString(`
+Foo :: Bar :: Baz:
+	...
+
+Foo :: Bar:
+	@package_alias = "Qux"
+`)
+	require.NoError(t, err)
+	assert.Equal(t, "Qux", ModulePackageName(m))
+}

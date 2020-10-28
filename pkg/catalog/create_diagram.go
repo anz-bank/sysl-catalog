@@ -232,6 +232,13 @@ func (p *Generator) Packages(m *sysl.Module) []string {
 		p.CurrentDir = path.Join(p.TempDir, packageName)
 		fileName := markdownName(p.OutputFileName, packageName)
 		fullOutputName := path.Join(p.OutputDir, p.CurrentDir, fileName)
+		// Add a synthetic package app to make the packageName available (unless the name is used).
+		for _, app := range pkg.Apps {
+			if app.Attrs == nil {
+				app.Attrs = make(map[string]*sysl.Attribute, 1)
+			}
+			app.Attrs[macropackage_name] = &sysl.Attribute{Attribute: &sysl.Attribute_S{S: packageName}}
+		}
 		if err := p.CreateMarkdown(p.Templates[len(p.Templates)-1], fullOutputName, pkg); err != nil {
 			p.Log.Error("error in generating "+fullOutputName, err)
 		}

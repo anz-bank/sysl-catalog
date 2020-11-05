@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -84,10 +83,6 @@ func main() {
 		WithRetriever(retr).
 		AutomaticTemplates(fs, strings.Split(*templates, ",")...).
 		ServerSettings(*noCSS, !*disableLiveReload, true)
-
-	// Generate initial files so we don't get 404
-	handler.Run()
-	logrus.SetOutput(ioutil.Discard)
 
 	go watcher.WatchFile(func(i interface{}) {
 		logger.Info("Regenerating...")

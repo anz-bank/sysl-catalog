@@ -95,6 +95,9 @@ func main() {
 			}()
 			if handler.RootModule == nil {
 				m, err = parseSyslFile(".", *input, fs, logger)
+				if err != nil {
+					return nil, err
+				}
 			} else {
 				var changedModule *sysl.Module
 				wd, _ := os.Getwd()
@@ -102,13 +105,12 @@ func main() {
 				changedModule, err = parseSyslFile(".", relativeChangedFilePath, fs, logger)
 				if err == nil {
 					m = overwriteSyslModules(handler.RootModule, changedModule)
+				} else {
+					return nil, err
 				}
 			}
 			return
 		}()
-		if err != nil {
-			fmt.Println(err)
-		}
 		handler.Update(m, err)
 		livereload.ForceRefresh()
 		logger.Info(i)

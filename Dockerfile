@@ -1,6 +1,8 @@
 FROM golang:alpine AS builder
 
 WORKDIR /src
+COPY go.* /src/
+RUN go mod download
 ADD . .
 RUN go build -o sysl-catalog .
 

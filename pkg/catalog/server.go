@@ -18,25 +18,30 @@ import (
 // Update loads another Sysl module into a project and runs
 func (p *Generator) Update(m *sysl.Module, errs ...error) *Generator {
 	//p.Fs = afero.NewMemMapFs()
-	p.RootModule = m
-	p.GeneratedFiles = make(map[string][]byte)
-	p.Mapper = syslwrapper.MakeAppMapper(m)
-	p.Mapper.IndexTypes()
-	p.Mapper.ConvertTypes()
-	if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 && !p.CustomTemplate {
-		p.StartTemplateIndex = 1 // skip the MacroPackageProject
-	} else {
-		p.StartTemplateIndex = 0
-	}
+	p.errs = []error{}
 	for _, err := range errs {
-		if p.errs == nil {
-			p.errs = make([]error, 0, len(errs))
-		}
 		if err != nil {
 			p.errs = append(p.errs, err)
+			// Clear generated files since we only want to display an error
+			p.GeneratedFiles = nil
+			p.Fs = afero.NewMemMapFs()
 		}
 	}
-	p.Run()
+
+	if len(p.errs) == 0 {
+		p.RootModule = m
+		p.GeneratedFiles = make(map[string][]byte)
+		p.Mapper = syslwrapper.MakeAppMapper(m)
+		p.Mapper.IndexTypes()
+		p.Mapper.ConvertTypes()
+		if p.RootModule != nil && len(p.ModuleAsMacroPackage(p.RootModule)) <= 1 && !p.CustomTemplate {
+			p.StartTemplateIndex = 1 // skip the MacroPackageProject
+		} else {
+			p.StartTemplateIndex = 0
+		}
+		p.Run()
+	}
+
 	return p
 }
 

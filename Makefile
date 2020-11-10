@@ -21,7 +21,7 @@ demo-html:
 	sysl-catalog run --type=html -o demo/html demo/demo.sysl
 demo-markdown:
 	sysl-catalog run -o demo/markdown demo/demo.sysl
-demo-server:
+demo-server: docker
 	docker run \
 	-p 6900:6900 \
 	-e SYSL_TOKENS=$(SYSL_TOKENS) \
@@ -29,16 +29,11 @@ demo-server:
 	-e SYSL_MODULES=on \
 	-v $$(pwd)/demo/html:/out:rw \
 	-v $$(pwd)/demo:/usr/demo:ro \
-	sysl-catalog run \
+	anzbank/sysl-catalog:latest run \
 		--serve \
 		-v \
 		--type=html \
-		-o /out \
 		demo/demo.sysl
 .PHONY: docker
 docker:
-	docker build -t sysl-catalog .
-docker-run: docker
-	docker run -it -e SYSL_PLANTUML=localhost:8080 -e SYSL_MODULES=on -v $$(pwd)/demo/markdown:/out:rw -v $$(pwd)/demo:/usr/demo:ro anzbank/sysl-catalog run demo/demo.sysl
-docker-compose:
-	docker-compose run sysl-catalog
+	docker build -t anzbank/sysl-catalog:latest .

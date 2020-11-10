@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/ghodss/yaml"
@@ -55,6 +56,7 @@ func (p *Generator) CreateRedoc(app *sysl.Application, appName string) string {
 	if !IsOpenAPIFile(importPath) {
 		return ""
 	}
+	appName = strings.ReplaceAll(appName, " :: ", "_")
 	redocOutputPath, _ := CreateFileName(p.CurrentDir, appName+".redoc.html")
 	redocOutputPath = path.Join(p.OutputDir, redocOutputPath)
 	var c []byte

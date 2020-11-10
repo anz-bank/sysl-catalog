@@ -156,12 +156,12 @@ func JoinAppNameString(an *sysl.AppName) string {
 func GetAppPackageName(a Namer) (string, string) {
 	appName := GetAppNameString(a)
 	packageName := appName
-	if attr := a.GetAttrs()[macropackage_name]; attr != nil {
+	if attr := a.GetAttrs()["package"]; attr != nil {
+		packageName = attr.GetS()
+	} else if attr := a.GetAttrs()[macropackage_name]; attr != nil {
 		packageName = attr.GetS()
 	} else if len(a.GetName().Part) > 1 {
 		packageName = strings.Join(a.GetName().Part[:len(a.GetName().Part)-1], namespaceSeparator)
-	} else if attr := a.GetAttrs()["package"]; attr != nil {
-		packageName = attr.GetS()
 	}
 	return packageName, appName
 }

@@ -97,7 +97,7 @@ export SYSL_TOKENS=github.com:<YOUR_TOKEN_HERE>
 ```
 
 ```bash
-export SYSL_PLANTUML=http://www.plantuml.com/plantuml`
+export SYSL_PLANTUML=http://www.plantuml.com/plantuml
 ```
 
 On macOS, if your `launchctl limit maxfiles` setting is too low (e.g 256) you might see the error message "too many open files" when running make. 

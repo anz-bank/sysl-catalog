@@ -8,7 +8,7 @@ require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/anz-bank/pkg v0.0.25
-	github.com/anz-bank/protoc-gen-sysl v0.0.27
+	github.com/anz-bank/protoc-gen-sysl v0.0.28
 	github.com/anz-bank/sysl v0.299.0
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0

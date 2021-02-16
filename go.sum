@@ -144,6 +144,8 @@ github.com/anz-bank/sysl v0.207.0 h1:rU7bWFy2vsQNdR5lk/O8ZxEvvzgGu0zxHOfRVvnOJyk
 github.com/anz-bank/sysl v0.207.0/go.mod h1:7B7C93LbRBLlKg2DfCVug692IO3d1NepkNHwlJ5sRsE=
 github.com/anz-bank/sysl v0.299.0 h1:ZbyRDf19Db0K2l1x2UlGoa234ahxCPu8KGs/hJTyTi0=
 github.com/anz-bank/sysl v0.299.0/go.mod h1:HPTOXPa/mWNuDHvaCTsmRnYUk42EK9/TG8pFxftKe1g=
+github.com/anz-bank/sysl v0.325.0 h1:9ptgGy5Z6ISx++eMdkV9T11BnGE6DWUTwv/eGGBpngg=
+github.com/anz-bank/sysl v0.325.0/go.mod h1:HPTOXPa/mWNuDHvaCTsmRnYUk42EK9/TG8pFxftKe1g=
 github.com/apache/thrift v0.12.0 h1:pODnxUFNcjP9UTLZGTdeh+j16A8lJbRvD3rOtrk/7bs=
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6 h1:G1bPvciwNyF7IUmKXNt9Ak3m6u9DE1rF+RmtIkBpVdA=

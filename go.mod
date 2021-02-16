@@ -9,7 +9,7 @@ require (
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/anz-bank/pkg v0.0.25
 	github.com/anz-bank/protoc-gen-sysl v0.0.28
-	github.com/anz-bank/sysl v0.299.0
+	github.com/anz-bank/sysl v0.325.0
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0
 	github.com/gohugoio/hugo v0.74.1

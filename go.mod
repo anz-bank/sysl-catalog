@@ -9,7 +9,8 @@ require (
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/anz-bank/pkg v0.0.25
 	github.com/anz-bank/protoc-gen-sysl v0.0.28
-	github.com/anz-bank/sysl v0.325.0
+	github.com/anz-bank/sysl v0.352.0
+	github.com/arr-ai/arrai v0.233.0 // indirect
 	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0
 	github.com/gohugoio/hugo v0.74.1
@@ -25,8 +26,6 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/yuin/goldmark v1.2.1
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0 // indirect
-	golang.org/x/net v0.0.0-20201002202402-0a1ea396d57c // indirect
-	golang.org/x/sys v0.0.0-20201004230629-f6757f270073 // indirect
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )

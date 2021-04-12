@@ -38,8 +38,13 @@ func GetImportPathAndVersion(retr gop.Retriever, app *sysl.Application) (importP
 		importPath = specURL.GetS()
 		version = ver
 	} else {
-		importPath = app.SourceContext.GetFile()
-		version = app.SourceContext.GetVersion()
+		for _, ctx := range app.SourceContexts {
+			if IsOpenAPIFile(ctx.GetFile()) {
+				importPath = ctx.GetFile()
+				version = ctx.GetVersion()
+				break
+			}
+		}
 	}
 	return importPath, version, nil
 }

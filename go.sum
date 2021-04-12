@@ -142,8 +142,10 @@ github.com/anz-bank/sysl v0.207.0 h1:rU7bWFy2vsQNdR5lk/O8ZxEvvzgGu0zxHOfRVvnOJyk
 github.com/anz-bank/sysl v0.207.0/go.mod h1:7B7C93LbRBLlKg2DfCVug692IO3d1NepkNHwlJ5sRsE=
 github.com/anz-bank/sysl v0.299.0 h1:ZbyRDf19Db0K2l1x2UlGoa234ahxCPu8KGs/hJTyTi0=
 github.com/anz-bank/sysl v0.299.0/go.mod h1:HPTOXPa/mWNuDHvaCTsmRnYUk42EK9/TG8pFxftKe1g=
-github.com/anz-bank/sysl v0.325.0 h1:9ptgGy5Z6ISx++eMdkV9T11BnGE6DWUTwv/eGGBpngg=
-github.com/anz-bank/sysl v0.325.0/go.mod h1:HPTOXPa/mWNuDHvaCTsmRnYUk42EK9/TG8pFxftKe1g=
+github.com/anz-bank/sysl v0.348.0 h1:qQI45B5OmvAzLd2mMqAtgcSWj81CZYV5Y2AO0BvTZIo=
+github.com/anz-bank/sysl v0.348.0/go.mod h1:nmHUx4TBhcedN1H5ZKfB0xMa1LABP+kSn4z44Gc6juY=
+github.com/anz-bank/sysl v0.352.0 h1:gad5yuCk48n+IchjEEr+MXoN1BZffJpp0xKdJplYgls=
+github.com/anz-bank/sysl v0.352.0/go.mod h1:nmHUx4TBhcedN1H5ZKfB0xMa1LABP+kSn4z44Gc6juY=
 github.com/apache/thrift v0.12.0 h1:pODnxUFNcjP9UTLZGTdeh+j16A8lJbRvD3rOtrk/7bs=
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6 h1:G1bPvciwNyF7IUmKXNt9Ak3m6u9DE1rF+RmtIkBpVdA=
@@ -154,6 +156,10 @@ github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPd
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=
 github.com/arr-ai/arrai v0.213.0 h1:rf6I0Tbah8bKsuCwzidfxOunRLu4wm5jyVk15YOpwRI=
 github.com/arr-ai/arrai v0.213.0/go.mod h1:/jmRPKuBDJYaHPmOQAdFdhHZgosx8G9LxeGeDNmECz8=
+github.com/arr-ai/arrai v0.222.0 h1:Lf01hW2kF3qj9U9PmoJ9U3VOvyYok7JYlTVTvbT05II=
+github.com/arr-ai/arrai v0.222.0/go.mod h1:/jmRPKuBDJYaHPmOQAdFdhHZgosx8G9LxeGeDNmECz8=
+github.com/arr-ai/arrai v0.233.0 h1:2vtC3YEwewvyK2hUbX5J1q6PdChn5Y8IRhMwkfk0rBc=
+github.com/arr-ai/arrai v0.233.0/go.mod h1:/jmRPKuBDJYaHPmOQAdFdhHZgosx8G9LxeGeDNmECz8=
 github.com/arr-ai/frozen v0.11.1/go.mod h1:YEr4TubkrAoA3f9U1R4PcEVB5ocBUdiS3NKh03cbVts=
 github.com/arr-ai/frozen v0.13.0 h1:LUqRAVNbsH3SIHCxSSrVRvLOraCazaj3bazvJ9tdVbo=
 github.com/arr-ai/frozen v0.13.0/go.mod h1:YEr4TubkrAoA3f9U1R4PcEVB5ocBUdiS3NKh03cbVts=
@@ -906,8 +912,8 @@ golang.org/x/net v0.0.0-20200707034311-ab3426394381/go.mod h1:/O7V0waA8r7cgGh81R
 golang.org/x/net v0.0.0-20200822124328-c89045814202/go.mod h1:/O7V0waA8r7cgGh81Ro3o1hOxt32SMVPicZroKQ2sZA=
 golang.org/x/net v0.0.0-20200904194848-62affa334b73 h1:MXfv8rhZWmFeqX3GNZRsd6vOLoaCHjYEX3qkRo3YBUA=
 golang.org/x/net v0.0.0-20200904194848-62affa334b73/go.mod h1:/O7V0waA8r7cgGh81Ro3o1hOxt32SMVPicZroKQ2sZA=
-golang.org/x/net v0.0.0-20201002202402-0a1ea396d57c h1:dk0ukUIHmGHqASjP0iue2261isepFCC6XRCSd1nHgDw=
-golang.org/x/net v0.0.0-20201002202402-0a1ea396d57c/go.mod h1:iQL9McJNjoIa5mjH6nYTCTZXUN6RP+XW3eib7Ya3XcI=
+golang.org/x/net v0.0.0-20201021035429-f5854403a974 h1:IX6qOQeG5uLjB/hjjwjedwfjND0hgjPMMyO1RoIXQNI=
+golang.org/x/net v0.0.0-20201021035429-f5854403a974/go.mod h1:sp8m0HH+o8qH0wwXwYZr8TS3Oi6o0r6Gce1SSxlDquU=
 golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be/go.mod h1:N/0e6XlmueqKjAGxoOufVs8QHGRruUQn6yWY3a++T0U=
 golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
 golang.org/x/oauth2 v0.0.0-20190319182350-c85d3e98c914/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
@@ -979,8 +985,8 @@ golang.org/x/sys v0.0.0-20200909081042-eff7692f9009 h1:W0lCpv29Hv0UaM1LXb9QlBHLN
 golang.org/x/sys v0.0.0-20200909081042-eff7692f9009/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20200930185726-fdedc70b468f h1:+Nyd8tzPX9R7BWHguqsrbFdRx3WQ/1ib8I44HXV5yTA=
 golang.org/x/sys v0.0.0-20200930185726-fdedc70b468f/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/sys v0.0.0-20201004230629-f6757f270073 h1:h6POl/ao7bJKsyalYGo1qALE/khxX70Enx+E/Skq+XE=
-golang.org/x/sys v0.0.0-20201004230629-f6757f270073/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4 h1:myAQVi0cGEoqQVR5POX+8RR2mrocKqNN1hmeMqhX27k=
+golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

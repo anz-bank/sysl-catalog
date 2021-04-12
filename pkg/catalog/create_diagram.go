@@ -137,8 +137,15 @@ func (p *Generator) getProjectApp(m *sysl.Module) (*sysl.Application, map[string
 	includedProjects := Filter(
 		SortedKeys(m.Apps),
 		func(i string) bool {
-			return syslutil.HasPattern(m.GetApps()[i].GetAttrs(), "project") &&
-				path.Base(m.GetApps()[i].SourceContext.File) == path.Base(p.SourceFileName)
+			if !syslutil.HasPattern(m.GetApps()[i].GetAttrs(), "project") {
+				return false
+			}
+			for _, ctx := range m.GetApps()[i].SourceContexts {
+				if path.Base(ctx.File) == path.Base(p.SourceFileName) {
+					return true
+				}
+			}
+			return false
 		},
 	)
 	if len(includedProjects) > 0 {

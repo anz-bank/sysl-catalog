@@ -35,11 +35,6 @@ jobs:
       - name: Test
         run: go test -coverprofile=coverage.txt -covermode=atomic ./...
 
-      - name: Upload coverage to Codecov
-        run: bash <(curl -s https://codecov.io/bash) -f ./coverage.txt
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
   downstream:
     name: Test downstream repos
     runs-on: ubuntu-latest

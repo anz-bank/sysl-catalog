@@ -10,18 +10,13 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/joshcarp/gop/gop"
-
 	"github.com/Masterminds/sprig"
-
-	"github.com/iancoleman/strcase"
-
+	"github.com/anz-bank/gop/pkg/gop"
+	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/anz-bank/sysl/pkg/syslutil"
 	"github.com/anz-bank/sysl/pkg/syslwrapper"
-
+	"github.com/iancoleman/strcase"
 	"github.com/sirupsen/logrus"
-
-	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/spf13/afero"
 )
 

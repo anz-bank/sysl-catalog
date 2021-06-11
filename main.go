@@ -9,14 +9,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/anz-bank/sysl/pkg/env"
-	"github.com/anz-bank/sysl/pkg/parse"
-	"github.com/joshcarp/gop/gop/cli"
-
-	"github.com/anz-bank/sysl/pkg/sysl"
-
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
+
+	"github.com/anz-bank/gop/pkg/cli"
+	"github.com/anz-bank/sysl/pkg/env"
+	"github.com/anz-bank/sysl/pkg/parse"
+	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/gohugoio/hugo/livereload"
 	watch "github.com/radovskyb/watcher"
 	"github.com/sirupsen/logrus"
@@ -177,5 +176,5 @@ func Retriever(fs afero.Fs) (cli.Retriever, error) {
 		cache = env.SYSL_CACHE.Value()
 		proxy = env.SYSL_PROXY.Value()
 	}
-	return cli.Moduler(fs, "sysl_modules.yaml", cache, proxy, tokenmap, log.Printf), nil
+	return cli.Moduler(fs, "sysl_modules.yaml", cache, proxy, tokenmap, "", "", log.Printf), nil
 }

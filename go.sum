@@ -128,6 +128,8 @@ github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239 h1:kFOfPq6dUM1hTo
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
 github.com/antlr/antlr4 v0.0.0-20200712162734-eb1adaa8a7a6 h1:LHiO9PmM+glloVgvAWMK4pzxxbJYYaqV/k+ued9rxSY=
 github.com/antlr/antlr4 v0.0.0-20200712162734-eb1adaa8a7a6/go.mod h1:T7PbCXFs94rrTttyxjbyT5+/1V8T2TYDejxUfHJjw1Y=
+github.com/anz-bank/gop v0.19.0 h1:JZ651X/vvKO2evqraifyUqFsVzIbIagryW/V22M5vDc=
+github.com/anz-bank/gop v0.19.0/go.mod h1:PxHydMP7CTRG4j61J11v0rtWaod6AiIg6tUp1GktRbU=
 github.com/anz-bank/mermaid-go v0.1.1 h1:nTtJKas+gx0cyChwjZn61iLDpGCN/MSzAl4VTVXWB0A=
 github.com/anz-bank/mermaid-go v0.1.1/go.mod h1:vo8d6wJgGhqvyjBNBjbGvg7PtgYL/JS6JqXwfVD+bZk=
 github.com/anz-bank/pkg v0.0.19 h1:/8SHkzp5An89n/TkhPdUhy1Ki0IRaPdqEWgDYehpctw=
@@ -142,8 +144,6 @@ github.com/anz-bank/sysl v0.207.0 h1:rU7bWFy2vsQNdR5lk/O8ZxEvvzgGu0zxHOfRVvnOJyk
 github.com/anz-bank/sysl v0.207.0/go.mod h1:7B7C93LbRBLlKg2DfCVug692IO3d1NepkNHwlJ5sRsE=
 github.com/anz-bank/sysl v0.299.0 h1:ZbyRDf19Db0K2l1x2UlGoa234ahxCPu8KGs/hJTyTi0=
 github.com/anz-bank/sysl v0.299.0/go.mod h1:HPTOXPa/mWNuDHvaCTsmRnYUk42EK9/TG8pFxftKe1g=
-github.com/anz-bank/sysl v0.348.0 h1:qQI45B5OmvAzLd2mMqAtgcSWj81CZYV5Y2AO0BvTZIo=
-github.com/anz-bank/sysl v0.348.0/go.mod h1:nmHUx4TBhcedN1H5ZKfB0xMa1LABP+kSn4z44Gc6juY=
 github.com/anz-bank/sysl v0.352.0 h1:gad5yuCk48n+IchjEEr+MXoN1BZffJpp0xKdJplYgls=
 github.com/anz-bank/sysl v0.352.0/go.mod h1:nmHUx4TBhcedN1H5ZKfB0xMa1LABP+kSn4z44Gc6juY=
 github.com/apache/thrift v0.12.0 h1:pODnxUFNcjP9UTLZGTdeh+j16A8lJbRvD3rOtrk/7bs=
@@ -501,8 +501,6 @@ github.com/jonboulle/clockwork v0.1.0 h1:VKV+ZcuP6l3yW9doeqz6ziZGgcynBVQO+obU0+0
 github.com/jonboulle/clockwork v0.1.0/go.mod h1:Ii8DK3G1RaLaWxj9trq07+26W01tbo22gdxWY5EU2bo=
 github.com/joshcarp/gop v0.0.0-20200922043230-a225272c1746 h1:spKLSLegvrmy/T/OBawmIfc20NAHl/Okytk0W9N3iBE=
 github.com/joshcarp/gop v0.0.0-20200922043230-a225272c1746/go.mod h1:NffrC8QpSNI+2Opd/dYUJB06JmycO2yyY4nri7bc1kg=
-github.com/joshcarp/gop v0.4.0 h1:lgnXq+vY4AT6ST+V2xWjWpGvGzcyzZz3JYRjoIePMk8=
-github.com/joshcarp/gop v0.4.0/go.mod h1:ktfUHEyxdCoGFYg3N9jAieSan0kQrNUS0wzEWA593Ic=
 github.com/json-iterator/go v1.1.6/go.mod h1:+SdeFBvtyEkXs7REEP0seUULqWtbJapLOCVDaaPEHmU=
 github.com/json-iterator/go v1.1.7/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=

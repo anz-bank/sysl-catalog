@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"path"
@@ -12,8 +11,7 @@ import (
 	"github.com/anz-bank/sysl-catalog/pkg/catalog"
 	"github.com/anz-bank/sysl-catalog/pkg/watcher"
 
-	"github.com/anz-bank/gop/pkg/cli"
-	"github.com/anz-bank/sysl/pkg/env"
+	"github.com/anz-bank/sysl/pkg/mod"
 	"github.com/anz-bank/sysl/pkg/parse"
 	"github.com/anz-bank/sysl/pkg/sysl"
 	"github.com/gohugoio/hugo/livereload"
@@ -24,21 +22,21 @@ import (
 )
 
 var (
-	run               = kingpin.Command("run", "Run the generator")
-	input             = run.Arg("input", "Input sysl file to generate documentation for").Required().String()
-	plantUMLoption    = run.Flag("plantuml", "Plantuml service to use").String()
-	port              = run.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
-	outputType        = run.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
-	outputDir         = run.Flag("output", "OutputDir directory to generate to").Short('o').String()
-	verbose           = run.Flag("verbose", "Verbose logs").Short('v').Bool()
-	templates         = run.Flag("templates", "Custom templates to use, separated by a comma, or 'mermaid' or 'plantuml' for defaults").String()
-	outputFileName    = run.Flag("outputFileName", "Output file name for pages; {{.Title}}").Default("").String()
-	server            = run.Flag("serve", "Start a http server and preview documentation").Bool()
-	noCSS             = run.Flag("noCSS", "Disable adding css to served html").Bool()
-	disableLiveReload = run.Flag("disableLiveReload", "Disable live reload").Default("false").Bool()
-	mod               = kingpin.Command("mod", "sysl modules")
-	cmd               = mod.Arg("cmd", "get or update").String()
-	repo              = mod.Arg("repo", "repo to get").String()
+	runCmd            = kingpin.Command("run", "Run the generator")
+	input             = runCmd.Arg("input", "Input sysl file to generate documentation for").Required().String()
+	plantUMLoption    = runCmd.Flag("plantuml", "Plantuml service to use").String()
+	port              = runCmd.Flag("port", "Port to serve on").Short('p').Default(":6900").String()
+	outputType        = runCmd.Flag("type", "Type of output").HintOptions("html", "markdown").Default("markdown").String()
+	outputDir         = runCmd.Flag("output", "OutputDir directory to generate to").Short('o').String()
+	verbose           = runCmd.Flag("verbose", "Verbose logs").Short('v').Bool()
+	templates         = runCmd.Flag("templates", "Custom templates to use, separated by a comma, or 'mermaid' or 'plantuml' for defaults").String()
+	outputFileName    = runCmd.Flag("outputFileName", "Output file name for pages; {{.Title}}").Default("").String()
+	server            = runCmd.Flag("serve", "Start a http server and preview documentation").Bool()
+	noCSS             = runCmd.Flag("noCSS", "Disable adding css to served html").Bool()
+	disableLiveReload = runCmd.Flag("disableLiveReload", "Disable live reload").Default("false").Bool()
+	modCmd            = kingpin.Command("mod", "sysl modules")
+	cmd               = modCmd.Arg("cmd", "get or update").String()
+	repo              = modCmd.Arg("repo", "repo to get").String()
 )
 
 func main() {
@@ -47,8 +45,10 @@ func main() {
 	logger := setupLogger()
 	plantUMLService := plantUMLService()
 	fs := afero.NewOsFs()
-	var retr cli.Retriever
-	retr, _ = Retriever(afero.NewOsFs())
+	retr, err := mod.Retriever(afero.NewOsFs())
+	if err != nil {
+		logger.Fatal(err)
+	}
 	if *cmd != "" {
 		if err := retr.Command(*cmd, *repo); err != nil {
 			logrus.Error(err)
@@ -155,7 +155,7 @@ func setupLogger() *logrus.Logger {
 func parseSyslFile(root string, filename string, fs afero.Fs, logger *logrus.Logger) (*sysl.Module, error) {
 	logger.Info("Parsing...")
 	start := time.Now()
-	retr, err := Retriever(fs)
+	retr, err := mod.Retriever(fs)
 	if err != nil {
 		return nil, err
 	}
@@ -166,15 +166,4 @@ func parseSyslFile(root string, filename string, fs afero.Fs, logger *logrus.Log
 	elapsed := time.Since(start)
 	logger.Info("Done, time elapsed: ", elapsed)
 	return m, err
-}
-
-/* TODO: Move this into anz-bank/sysl/pkg/mod */
-func Retriever(fs afero.Fs) (cli.Retriever, error) {
-	tokenmap, _ := cli.NewTokenMap(env.SYSL_TOKENS.String(), "GIT_CREDENTIALS")
-	var cache, proxy string
-	if moduleFlag := env.SYSL_MODULES.Value(); moduleFlag != "" && moduleFlag != "false" && moduleFlag != "off" {
-		cache = env.SYSL_CACHE.Value()
-		proxy = env.SYSL_PROXY.Value()
-	}
-	return cli.Moduler(fs, "sysl_modules.yaml", cache, proxy, tokenmap, "", "", log.Printf), nil
 }

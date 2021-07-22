@@ -11,9 +11,8 @@ require (
 	github.com/anz-bank/pkg v0.0.25
 	github.com/anz-bank/protoc-gen-sysl v0.0.28
 	github.com/anz-bank/sysl v0.393.0
-	github.com/getkin/kin-openapi v0.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0
-	github.com/gohugoio/hugo v0.74.1
+	github.com/gohugoio/hugo v0.79.1
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/iancoleman/strcase v0.1.3
 	github.com/mitchellh/copystructure v1.0.0 // indirect
@@ -21,7 +20,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/radovskyb/watcher v1.0.7
 	github.com/sirupsen/logrus v1.8.1
-	github.com/spf13/afero v1.4.0
+	github.com/spf13/afero v1.4.1
 	github.com/stretchr/testify v1.6.1
 	github.com/yuin/goldmark v1.2.1
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0 // indirect
